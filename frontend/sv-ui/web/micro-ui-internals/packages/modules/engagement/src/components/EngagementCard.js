@@ -158,11 +158,11 @@ const EngagementCard = () => {
 
   if (isEmployee)
     result = (
-      <>
+      <Fragment>
         {engagementSubModulesProps.map((propsForModuleCard, index) => (
           <EmployeeModuleCard key={index} longModuleName={true} {...propsForModuleCard} />
         ))}
-      </>
+      </Fragment>
     );
 
   return result;

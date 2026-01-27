@@ -22,7 +22,7 @@ const SearchFields = ({ register, control, reset, tenantId, t, previousPage, for
 const isMobile = window.Digit.Utils.browser.isMobile();
 
     return (
-        <>
+        <Fragment>
             <SearchField className="pt-form-field">
                 <label>{t("AUDIT_FROM_DATE_LABEL")}</label>
                 <Controller
@@ -43,7 +43,7 @@ const isMobile = window.Digit.Utils.browser.isMobile();
                 <SubmitBar style={{marginTop: isMobile? "510px":"25px", marginLeft:isMobile? "0":"-30px"  ,maxWidth : isMobile? "100%":"240px",
 }} label={t("ES_COMMON_APPLY")} submit />
             </SearchField>
-        </>
+        </Fragment>
     );
 };
 export default SearchFields;

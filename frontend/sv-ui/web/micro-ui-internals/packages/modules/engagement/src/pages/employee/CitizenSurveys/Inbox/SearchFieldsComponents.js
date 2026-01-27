@@ -19,7 +19,7 @@ const SearchFormFieldsComponents = ({ registerRef, controlSearchForm, searchForm
      * ToDo how to display default value correctly ask @egov-saurabh
      */
     
-    return <>
+    return <Fragment>
         <SearchField>
             <label>{t("LABEL_FOR_ULB")}</label>
             
@@ -65,7 +65,7 @@ const SearchFormFieldsComponents = ({ registerRef, controlSearchForm, searchForm
                 {searchFormState?.errors?.["postedBy"]?.message}
             </CardLabelError>
         </SearchField>
-    </>
+    </Fragment>
 }
 
 export default SearchFormFieldsComponents

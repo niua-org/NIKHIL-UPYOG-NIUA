@@ -135,7 +135,7 @@ const DateRange = ({ values, onFilterChange, t, labelClass }) => {
   };
 
   return (
-    <>
+    <Fragment>
       <div className="filter-label">{t(`ES_DSS_DATE_RANGE`)}</div>
       <div className="employee-select-wrap" ref={wrapperRef}>
         <div className="select">
@@ -159,7 +159,7 @@ const DateRange = ({ values, onFilterChange, t, labelClass }) => {
           </div>
         )}
       </div>
-    </>
+    </Fragment>
   );
 };
 

@@ -188,7 +188,7 @@ const EmployeeApp = ({ path, url, userType, tenants }) => {
 
   return (
     // <div className="ground-container">
-    <>
+    <Fragment>
       <EventsBreadCrumb location={location} />
       <Switch>
        
@@ -221,7 +221,7 @@ const EmployeeApp = ({ path, url, userType, tenants }) => {
         {/* documents/update-response */}
         {/* <Redirect to={`${path}/docs`} /> */}
       </Switch>
-      </>
+      </Fragment>
     // </div>
   );
 };

@@ -343,8 +343,8 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
             />
             {/* Handles rendering of beneficiaryList based on renew data or the data from normal flow of code */}
             {specialCategoryData?.beneficiaryList[0]?.schemeName ?
-              specialCategoryData?.beneficiaryList.map((item) => (
-                <>
+              specialCategoryData?.beneficiaryList.map((item, i) => (
+                <Fragment key={i}>
                   <Row
                     label={t("SV_BENEFICIARY_SCHEMES")}
                     text={`${t(checkForNA(item?.schemeName))}`}
@@ -354,10 +354,10 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
                     label={t("SV_ENROLLMENT_APPLICATION_NUMBER")}
                     text={`${t(checkForNA(item?.enrollmentId))}`}
                   />
-                </>
+                </Fragment>
               ))
-              : renewalData?.benificiaryOfSocialSchemes?.map((item) => (
-                <>
+              : renewalData?.benificiaryOfSocialSchemes?.map((item, index) => (
+                <Fragment key={index}>
                   <Row
                     label={t("SV_BENEFICIARY_SCHEMES")}
                     text={`${t(checkForNA(item?.schemeName))}`}
@@ -367,7 +367,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
                     label={t("SV_ENROLLMENT_APPLICATION_NUMBER")}
                     text={`${t(checkForNA(item?.enrollmentId))}`}
                   />
-                </>
+                </Fragment>
               )
               )
             }

@@ -211,22 +211,22 @@ const FormComposer = (props) => {
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
-        <>
+        <Fragment>
           <CardSectionHeader style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }} id={section.headId}>
             {t(section.head)}
           </CardSectionHeader>
           <CardSectionHeader style={titleStyle} id={`${section.headId}_DES`}>
             {t(section.subHead)}
           </CardSectionHeader>
-        </>
+        </Fragment>
       );
     } else if (section.head) {
       return (
-        <>
+        <Fragment>
           <CardSectionHeader style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
             {t(section.head)}
           </CardSectionHeader>
-        </>
+        </Fragment>
       );
     } else {
       return <div></div>;

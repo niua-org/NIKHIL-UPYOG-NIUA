@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { AppModules } from "../../components/AppModules";
@@ -49,7 +49,7 @@ const EmployeeApp = ({
     <div className="employee">
       <Routes>
          <Route path="user/*" element={
-          <>
+          <Fragment>
             {/* Fragment needed because we have multiple elements at root level */}
             {isUserProfile && (
               <TopBarSideBar
@@ -135,11 +135,11 @@ const EmployeeApp = ({
                 {/* OLD: </Switch> */}
               </div>
             </div>
-          </>
+          </Fragment>
         } />
        
         <Route path="*" element={
-          <>
+          <Fragment>
            
             <TopBarSideBar
               t={t}
@@ -202,7 +202,7 @@ const EmployeeApp = ({
                 </div>
               </div>
             </div>
-          </>
+          </Fragment>
         } />
        
       </Routes>

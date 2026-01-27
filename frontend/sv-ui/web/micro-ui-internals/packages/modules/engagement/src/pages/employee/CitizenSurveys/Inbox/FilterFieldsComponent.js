@@ -9,23 +9,23 @@ const FilterFormFieldsComponent = ({statuses, isInboxLoading, registerRef, contr
      * ToDo how to display default value correctly ask @egov-saurabh
      */
   
-  return <>
+  return <Fragment>
     <FilterFormField>
       <Controller
           name="status"
           control={controlFilterForm}
           render={({ref, onChange, value}) => {
-            return <>
+            return <Fragment>
               <div className="filter-label">{t("CS_SURVEY_STATUS")}</div>
               <Dropdown inputRef={ref} option={statuses} optionKey="code" t={t} select={onChange}
                 selected={value}
                 />
-            </>
+            </Fragment>
           }
         }
         />
     </FilterFormField>
-  </>
+  </Fragment>
 }
 
 export default FilterFormFieldsComponent

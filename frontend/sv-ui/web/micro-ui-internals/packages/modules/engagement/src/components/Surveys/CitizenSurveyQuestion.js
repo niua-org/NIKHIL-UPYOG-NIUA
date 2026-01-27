@@ -10,7 +10,7 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
     switch (answerType) {
       case "SHORT_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <TextInput
               name={question.uuid}
               disabled={formDisabled}
@@ -27,11 +27,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
               <CardLabelError>{t(`CS_COMMON_REQUIRED`)}</CardLabelError>)}
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type === "maxLength" && (
               <CardLabelError>{t(`EXCEEDS_200_CHAR_LIMIT`)}</CardLabelError>)} 
-          </>
+          </Fragment>
         );
       case "LONG_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <TextArea
               name={question.uuid}
               disabled={formDisabled}
@@ -48,11 +48,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
               <CardLabelError>{t(`CS_COMMON_REQUIRED`)}</CardLabelError>)} 
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type === "maxLength" && (
               <CardLabelError>{t(`EXCEEDS_500_CHAR_LIMIT`)}</CardLabelError>)}
-          </>
+          </Fragment>
         );
       case "MULTIPLE_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <Controller
               control={control}
               name={question.uuid}
@@ -72,11 +72,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type === "required" && (
               <CardLabelError>{t(`EVENTS_TO_DATE_ERROR_REQUIRED`)}</CardLabelError>
             )}
-          </>
+          </Fragment>
         );
       case "CHECKBOX_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <Controller
               control={control}
               name={question.uuid}
@@ -111,11 +111,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type ==="required" && (
               <CardLabelError style={{marginTop:"20px"}}>{t(`CS_COMMON_REQUIRED`)}</CardLabelError>
             )}
-          </>
+          </Fragment>
         );
       // case "CHECKBOX_ANSWER_TYPE":
       //   return (
-      //     <>
+      //     <Fragment>
       //     {question.options.map((option,index) => (
       //     <div>
       //       <label for="checkbox">
@@ -137,11 +137,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
       //       {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type ==="required" && (
       //         <CardLabelError>{t(`CS_COMMON_REQUIRED`)}</CardLabelError>
       //       )}
-      //     </>
+      //     </Fragment>
       //   );
       case "DATE_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <Controller
               control={control}
               name={question.uuid}
@@ -156,11 +156,11 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type === "required" && (
               <CardLabelError>{t(`EVENTS_TO_DATE_ERROR_REQUIRED`)}</CardLabelError>
             )}
-          </>
+          </Fragment>
         );
       case "TIME_ANSWER_TYPE":
         return (
-          <>
+          <Fragment>
             <Controller
               control={control}
               name={question.uuid}
@@ -174,7 +174,7 @@ const CitizenSurveyQuestion = ({t, question, control, register, values, formStat
             {formErrors && formErrors?.[question.uuid] && formErrors?.[question.uuid]?.type === "required" && (
               <CardLabelError>{t(`EVENTS_TO_DATE_ERROR_REQUIRED`)}</CardLabelError>
             )}
-          </>
+          </Fragment>
         );
 
       default:
