@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -172,8 +174,9 @@ public class AdvBookingCreate {
         selectDropdownOption(driver, wait, js, 0);
         selectDropdownOption(driver, wait, js, 1);
         selectDropdownOption(driver, wait, js, 2);
+        Thread.sleep(1000);
 
-        // Date range (type="date" → yyyy-MM-dd)
+        // Date range (type="date" → yyyy-MM-dd) - Dynamic dates
         List<WebElement> dateInputs = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                 By.cssSelector("input.employee-card-input[type='date']")));
 
@@ -181,14 +184,27 @@ public class AdvBookingCreate {
             WebElement fromDate = dateInputs.get(0);
             WebElement toDate = dateInputs.get(1);
 
+            // Get current date and add days for future dates
+            LocalDate today = LocalDate.now();
+            LocalDate futureFromDate = today.plusDays(5);   // 5 days from today
+            LocalDate futureToDate = today.plusDays(30);    // 30 days from today
+
+            // Format dates as dd-MM-yyyy for Advertisement
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
             fromDate.clear();
-            fromDate.sendKeys("21-12-2025");
+            fromDate.sendKeys(futureFromDate.format(formatter));
 
             toDate.clear();
-            toDate.sendKeys("25-01-2026");
+            toDate.sendKeys(futureToDate.format(formatter));
+
+            System.out.println("Advertisement From Date: " + futureFromDate.format(formatter));
+            System.out.println("Advertisement To Date: " + futureToDate.format(formatter));
         } else {
             System.out.println("Date inputs not found or less than 2");
         }
+        Thread.sleep(1000);
+
 
         // Radio: Advertisement With Night Light? -> No
         selectRadioButtonByLabel(driver, "No");
