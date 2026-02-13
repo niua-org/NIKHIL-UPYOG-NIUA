@@ -17,7 +17,7 @@ import {
   FinanceChartIcon,
   CollectionIcon,
 } from "@upyog/digit-ui-react-components";
-import ReactTooltip from "react-tooltip";
+import { Tooltip } from "react-tooltip";
 import { useTranslation } from 'react-i18next';
 
 const resolveLinkPath = (childTo, parentTo) => `${parentTo}/${childTo}`;
@@ -56,6 +56,7 @@ const NavItemHeader = props => {
   const getModuleName = label?.replace(/[ -]/g, "_").toUpperCase();
   const appendTranslate = t(`ACTION_TEST_${getModuleName.toUpperCase()}`);
   const trimModuleName = t(appendTranslate?.length > 20 ? appendTranslate.substring(0, 20) + "..." : appendTranslate);
+  const tooltipId = `jk-side-${getModuleName}`;
 
   const onExpandChange = e => {
     e.preventDefault();
@@ -71,11 +72,9 @@ const NavItemHeader = props => {
       >
          <div className={`sidebar-link ${expanded ? "active": ""}`} style={{width:item?.nested ?"240px":"260px",overflow:"auto"}}>{!item?.nested && leftIcon}
          <div className='actions' style={{padding:"0px",marginRight:"auto"}}>
-         <div data-tip="React-tooltip" data-for={`jk-side-${getModuleName}`}>
+         <div data-tooltip-id={tooltipId} data-tooltip-content={t(`ACTION_TEST_${getModuleName}`)}>
         <span style={{color:expanded ? "#a82227":""}}>{trimModuleName}</span>
-        {trimModuleName?.includes("...") && <ReactTooltip textColor="white" backgroundColor="grey" place="right" type="info" effect="solid" id={`jk-side-${getModuleName}`}>
-                    {t(`ACTION_TEST_${getModuleName}`)}
-                  </ReactTooltip>}
+        {trimModuleName?.includes("...") && <Tooltip id={tooltipId} place="right" style={{backgroundColor:"grey",color:"white"}} />}
                 </div>
         </div>
         <div>{children && expanded ? <ArrowVectorDown/> : children ? <ArrowForward /> : null}</div>
@@ -93,6 +92,7 @@ const NavItemHeader = props => {
             const getModuleName = label?.replace(/[ -]/g, "_").toUpperCase();
             const appendTranslate = t(`ACTION_TEST_${getModuleName.toUpperCase()}`);
             const trimModuleName = t(appendTranslate?.length > 20 ? appendTranslate.substring(0, 20) + "..." : appendTranslate);
+            const tooltipId = `jk-side-${getModuleName}`;
 
             if (children) {
               return (
@@ -116,11 +116,9 @@ const NavItemHeader = props => {
                 className={({ isActive }) => isActive ? "custom-link actions" : "custom-link"}
                 style={{marginLeft:"40px", marginTop:"10px"}}
               >
-                <div data-tip="React-tooltip" data-for={`jk-side-${getModuleName}`}>
+                <div data-tooltip-id={tooltipId} data-tooltip-content={t(`ACTION_TEST_${getModuleName}`)}>
                 <span style={{fontSize:"14px"}}>{trimModuleName}</span>
-                {trimModuleName?.includes("...") && <ReactTooltip textColor="white" backgroundColor="grey" place="right" type="info" effect="solid" id={`jk-side-${getModuleName}`}>
-                    {t(`ACTION_TEST_${getModuleName}`)}
-                  </ReactTooltip>}
+                {trimModuleName?.includes("...") && <Tooltip id={tooltipId} place="right" style={{backgroundColor:"grey",color:"white"}} />}
                 </div>
               </NavLink>
             );

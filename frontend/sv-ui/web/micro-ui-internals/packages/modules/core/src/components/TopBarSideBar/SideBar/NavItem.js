@@ -15,7 +15,7 @@ import {
   FinanceChartIcon,
   CollectionIcon,
 } from "@upyog/digit-ui-react-components";
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import { useTranslation } from 'react-i18next';
 
 const NavItem = props => {
@@ -46,6 +46,7 @@ const NavItem = props => {
   const getModuleName = label?.replace(/[ -]/g, "_").toUpperCase();
   const appendTranslate = t(`ACTION_TEST_${getModuleName.toUpperCase()}`);
   const trimModuleName = t(appendTranslate?.length > 20 ? appendTranslate.substring(0, 20) + "..." : appendTranslate);
+  const tooltipId = `jk-side-${getModuleName}`;
 
   if (children) {
     return <NavItemHeader item={props.item} />;
@@ -59,12 +60,10 @@ const NavItem = props => {
     >
       <div className="sidebar-link">
       <div className='actions' style={{padding:"0px"}}>
-      {leftIcon /*className={style.navIcon}*/ }
-      <div data-tip="React-tooltip" data-for={`jk-side-${getModuleName}`}>
-      <span /*className={style.navLabel}*/ style={{fontSize:"14px"}}>{trimModuleName}</span>
-      {trimModuleName?.includes("...") && <ReactTooltip textColor="white" backgroundColor="grey" place="right" type="info" effect="solid" id={`jk-side-${getModuleName}`}>
-                    {t(`ACTION_TEST_${getModuleName}`)}
-                  </ReactTooltip>}
+      {leftIcon}
+      <div data-tooltip-id={tooltipId} data-tooltip-content={t(`ACTION_TEST_${getModuleName}`)}>
+      <span style={{fontSize:"14px"}}>{trimModuleName}</span>
+      {trimModuleName?.includes("...") && <Tooltip id={tooltipId} place="right" style={{backgroundColor:"grey",color:"white"}} />}
                 </div>
       </div>
       </div>
