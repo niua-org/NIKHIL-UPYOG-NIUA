@@ -38,7 +38,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers }) => {
   
   return (
     <Provider store={getStore(initData, moduleReducers(initData))}>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Body>
           <SVApp
             initData={initData}
