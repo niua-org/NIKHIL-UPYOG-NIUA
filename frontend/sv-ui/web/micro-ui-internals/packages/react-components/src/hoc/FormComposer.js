@@ -75,6 +75,8 @@ const FormComposer = (props) => {
       case "time":
         // if (populators.defaultValue) setTimeout(setValue(populators?.name, populators.defaultValue));
         return (
+          <Controller
+            render={({ field: { ref, ...field } }) => (
           <div className="field-container">
             {populators?.componentInFront ? (
               <span className={`component-in-front ${disable && "disabled"}`}>{populators.componentInFront}</span>
@@ -82,18 +84,31 @@ const FormComposer = (props) => {
             <TextInput
               className="field"
               {...populators}
-              inputRef={register(populators.validation)}
+              {...field}
+              inputRef={ref}
               isRequired={isMandatory}
               type={type}
               disable={disable}
               watch={watch}
             />
           </div>
+            )}
+            name={populators?.name}
+            control={control}
+            defaultValue={populators.defaultValue || ""}
+          />
         );
       case "textarea":
         // if (populators.defaultValue) setTimeout(setValue(populators?.name, populators.defaultValue));
         return (
-          <TextArea className="field" name={populators?.name || ""} {...populators} inputRef={register(populators.validation)} disable={disable} />
+          <Controller
+            render={({ field }) => (
+              <TextArea className="field" name={populators?.name || ""} {...populators} {...field} disable={disable} />
+            )}
+            name={populators?.name}
+            control={control}
+            defaultValue={populators.defaultValue || ""}
+          />
         );
       case "mobileNumber":
         return (
