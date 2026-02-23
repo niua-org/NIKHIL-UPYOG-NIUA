@@ -16,7 +16,7 @@ import {
 } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import $ from "jquery";
 import { makePayment } from "./payGov";
 
@@ -32,7 +32,7 @@ export const SelectPaymentType = (props) => {
 
   const paymentAmount = state?.paymentAmount;
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
  
   // const menu = ["AXIS"];
   let { consumerCode, businessService } = useParams();

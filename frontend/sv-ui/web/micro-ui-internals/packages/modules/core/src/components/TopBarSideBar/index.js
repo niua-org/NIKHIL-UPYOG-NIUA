@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { EditPencilIcon, LogoutIcon } from "@upyog/digit-ui-react-components";
 import TopBar from "./TopBar";
-import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import LogoutDialog from "../Dialog/LogoutDialog";
 const TopBarSideBar = ({
@@ -20,7 +19,7 @@ const TopBarSideBar = ({
 }) => {
   const [isSidebarOpen, toggleSidebar] = useState(false);
   const [isSideBarScroll, setSideBarScrollTop] = useState(false);
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const handleLogout = () => {
     toggleSidebar(false);

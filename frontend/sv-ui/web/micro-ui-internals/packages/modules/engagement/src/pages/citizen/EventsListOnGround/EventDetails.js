@@ -1,12 +1,12 @@
 import { Clock, Header, Loader, MapMarker, OnGroundEventCard } from "@upyog/digit-ui-react-components";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const EventDetails = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const { id: EventId } = useParams();
 
   const tenantId = Digit.ULBService.getCitizenCurrentTenant();

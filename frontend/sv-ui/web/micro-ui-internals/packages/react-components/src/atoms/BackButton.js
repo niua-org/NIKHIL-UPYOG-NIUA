@@ -1,12 +1,12 @@
 import React from "react";
 import { ArrowLeft, ArrowLeftWhite } from "./svgindex";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 // Create withRouter HOC directly in this file to avoid circular dependency
 const withRouter = (Component) => {
   return (props) => {
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
     const location = useLocation();
     const params = useParams();
     

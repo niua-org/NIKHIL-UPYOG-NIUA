@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * Custom hook to handle back button navigation
@@ -15,7 +14,7 @@ export const useCustomBackNavigation = ({
   enableConfirmation = false,
   confirmationMessage = 'Are you sure you want to leave this page?'
 }) => {
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
 
   useEffect(() => {
     // Add a new entry to browser's history stack

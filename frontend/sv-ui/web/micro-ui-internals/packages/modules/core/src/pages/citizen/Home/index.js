@@ -16,11 +16,10 @@ import {
   CHBIcon
 } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import ChatBot from "./ChatBot";
 const Home = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true);
   const { data: { stateInfo, uiHomePage } = {}, isLoading } = Digit.Hooks.useStore.getInitData();
   let isMobile = window.Digit.Utils.browser.isMobile();

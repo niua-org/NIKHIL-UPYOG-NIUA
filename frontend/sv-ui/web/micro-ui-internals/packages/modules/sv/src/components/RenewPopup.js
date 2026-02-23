@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from "react";
 import { Modal, Card,SubmitBar, CheckBox} from "@upyog/digit-ui-react-components";
-import { useNavigate } from "react-router-dom";
 import { demandPayloadData } from "../utils";
 
 const Close = () => (
@@ -31,7 +30,7 @@ const CloseBtn = (props) => {
 
 const RenewPopup = ({ t, closeModal, onSubmit, application }) => {
     const mutation = Digit.Hooks.sv.useCreateDemand();
-    const navigate = useNavigate();
+    const navigate = Digit.Hooks.useCustomNavigate();
 
     const Heading = (props) => {
         return <h1 className="heading-m">{props.label}</h1>;

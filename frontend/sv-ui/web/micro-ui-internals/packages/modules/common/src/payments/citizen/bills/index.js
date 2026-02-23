@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Routes from "./routes";
 
 
@@ -7,7 +7,7 @@ export const MyBills = ({ stateCode }) => {
   const { businessService } = useParams();
   const { tenantId: _tenantId, isDisoconnectFlow } = Digit.Hooks.useQueryParams();
 
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
 
   const location = useLocation();
   const url = location.pathname;

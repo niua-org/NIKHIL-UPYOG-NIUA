@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AppModules } from "../../components/AppModules";
 import ErrorBoundary from "../../components/ErrorBoundaries";
 import TopBarSideBar from "../../components/TopBarSideBar";
@@ -31,7 +31,7 @@ const EmployeeApp = ({
   initData,
 }) => {
   
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   
   const { t } = useTranslation();
   

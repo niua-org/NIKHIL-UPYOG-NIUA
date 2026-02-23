@@ -1,7 +1,6 @@
 import { CloseSvg, FormComposer, Header, Toast } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import CreateNewSurvey from "../../../components/Surveys/SurveyForms";
 
 export const answerTypeEnum = {
@@ -49,7 +48,7 @@ export const mapQuestions = (questions =[],initialData) =>{
 
 const NewSurveys = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showToast, setShowToast] = useState(null);
 
   const closeToast = () => {

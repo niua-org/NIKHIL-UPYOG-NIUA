@@ -3,7 +3,6 @@ import { Card, DetailsCard, Loader, PopUp, SearchAction, FilterAction } from "@u
 import Filter from "./Filter";
 import Search from "./Search";
 import { areEqual } from "../../utils";
-import { navigate } from "react-router-dom";
 
 
 const ApplicationCard = ({
@@ -19,7 +18,7 @@ const ApplicationCard = ({
   const [popup, setPopup] = useState(false);
   const [params, setParams] = useState(searchParams);
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   useEffect(() => {
     if (type) setPopup(true);
   }, [type]);

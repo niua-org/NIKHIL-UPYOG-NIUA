@@ -1,7 +1,7 @@
 import { BackButton, WhatsappIcon, Card, CitizenHomeCard, CitizenInfoLabel, PrivateRoute } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Routes, useNavigate, Link, useLocation } from "react-router-dom";
+import { Route, Routes, Link, useLocation } from "react-router-dom";
 import ErrorBoundary from "../../components/ErrorBoundaries";
 import { AppHome, processLinkData } from "../../components/Home";    
 import TopBarSideBar from "../../components/TopBarSideBar";
@@ -70,7 +70,7 @@ const Home = ({
   const { t } = useTranslation();
   
   sourceUrl = "https://s3.ap-south-1.amazonaws.com/egov-qa-assets";
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const location = useLocation();
 
   const hideSidebar = sidebarHiddenFor.some((e) => window.location.href.includes(e));

@@ -1,13 +1,13 @@
 import { Toast, Card, KeyNote, SubmitBar } from "@upyog/digit-ui-react-components";
 import React,{ useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RenewPopup from "../../../components/RenewPopup";
 import { RENEWAL_CONSTANTS } from "../../../utils";
 
 const StreetVendingApplication = ({ application, buttonLabel,previousDraftId,onDiscard }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showToast, setShowToast] = useState(null);
   const [renewButton, setRnewButton] = useState(false);
   //TODO: Need to remove all session storage from here and get the data from Search API call

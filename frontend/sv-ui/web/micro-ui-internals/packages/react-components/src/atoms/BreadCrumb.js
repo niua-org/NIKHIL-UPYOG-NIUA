@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import LinkButton from "../atoms/LinkButton";
 
 const Breadcrumb = (props) => {
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   function isLast(index) {
     return index === props.crumbs.length - 1;
   }

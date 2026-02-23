@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { Card, CardHeader } from "..";
 
 const ULBHomeCard = (props) => {
@@ -8,7 +7,7 @@ const ULBHomeCard = (props) => {
   const state = Digit.ULBService.getStateId();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
 
   return (
     <React.Fragment>

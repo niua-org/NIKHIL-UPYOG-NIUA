@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Navigate, Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import EmployeeApp from "./pages/employee";
 import CitizenApp from "./pages/citizen";
 
 export const SVApp = ({ stateCode, modules, appTenants, logoUrl, initData }) => {
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const { pathname } = useLocation();
 
   const innerWidth = window.innerWidth;

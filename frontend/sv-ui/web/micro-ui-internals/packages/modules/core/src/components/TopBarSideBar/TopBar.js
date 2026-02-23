@@ -1,6 +1,6 @@
 import { Dropdown, Hamburger, TopBar as TopBarComponent } from "@upyog/digit-ui-react-components";
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ChangeCity from "../ChangeCity";
 import ChangeLanguage from "../ChangeLanguage";
 
@@ -45,7 +45,7 @@ const TopBar = ({
 
   const CitizenHomePageTenantId = Digit.ULBService.getCitizenCurrentTenant(true);
 
-  let navigate = useNavigate();
+  let navigate = Digit.Hooks.useCustomNavigate();
   const { pathname } = useLocation();
 
   const conditionsToDisableNotificationCountTrigger = () => {

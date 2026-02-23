@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { FormComposer, Header } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { documentsFormConfig } from "../../../config/doc-create";
-import { useNavigate } from "react-router-dom";
 
 const Documents = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [canSubmit, setSubmitValve] = useState(false);
 
   const onFormValueChange = (setValue, formData, formState) => {

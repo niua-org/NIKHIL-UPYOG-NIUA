@@ -1,9 +1,9 @@
 import { TextInput, Dropdown, RemoveableTag, LinkButton,LinkLabel, SearchField,SubmitBar } from '@upyog/digit-ui-react-components'
 import React,{useMemo} from 'react'
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SurveyDetailsView = ({surveyTitle,surveyDesc,t,surveyId}) => {
-    const navigate = useNavigate();
+    const navigate = Digit.Hooks.useCustomNavigate();
     const ulbs = Digit.SessionStorage.get("ENGAGEMENT_TENANTS");
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const userInfo = Digit.UserService.getUser().info;

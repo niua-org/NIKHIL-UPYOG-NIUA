@@ -48,6 +48,7 @@ import useStaticData from "./useStaticData";
 import useBillAmendmentInbox from "./billAmendment/useInbox";
 import { usePrivacyContext } from "./usePrivacyContext";
 import createTokenAPI from "./digiLockerApi/createTokenAPI";
+import useCustomNavigate from "./useCustomNavigate";
 
 import { useCustomBackNavigation } from "./UseCustomBackNavigationProps";
 import useSelectedMDMS from "./useSelectedMDMS";
@@ -126,6 +127,7 @@ const Hooks = {
   useAudit,
   createTokenAPI,
   useCustomBackNavigation,
+  useCustomNavigate,
   useRouteSubscription,
   sv,
   events

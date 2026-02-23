@@ -1,7 +1,7 @@
 import { Header, Modal, Loader, Toast } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import EditSurveyForm from "../../../components/Surveys/EditSurveyForms";
 import { mapQuestions } from "./NewSurvey";
@@ -59,7 +59,7 @@ const SurveyDetails = ({ location, match }) => {
   let isMobile = window.Digit.Utils.browser.isMobile();
   const { id } = useParams();
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showModal, setShowModal] = useState(false);
   const [isFormDisabled, setIsFormDisabled] = useState(true);
   const [isFormPartiallyEnabled, setFormPartiallyEnabled] = useState(false);

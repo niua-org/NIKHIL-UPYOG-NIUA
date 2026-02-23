@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RatingAndFeedBack } from "../config/RatingAndFeedback";
@@ -8,7 +8,7 @@ import { Card, CardHeader, CardLabel, CheckBox, TextArea, SubmitBar, Rating, Clo
 
 const CitizenFeedback = ({popup = false, onClose, setShowToast, data}) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
 
   const user = Digit.UserService.getUser();
   let {redirectedFrom, propertyId, acknowldgementNumber, creationReason, tenantId, locality} = Digit.Hooks.useQueryParams();

@@ -1,11 +1,11 @@
 import { BackButton, CardHeader, CardLabelError, Loader, PageBasedInput, SearchOnRadioButtons } from "@upyog/digit-ui-react-components";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const LocationSelection = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const location = useLocation();
   const { data: cities, isLoading } = Digit.Hooks.useTenants();
 

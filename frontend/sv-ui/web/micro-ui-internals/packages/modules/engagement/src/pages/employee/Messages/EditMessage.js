@@ -2,13 +2,13 @@ import { FormComposer, Header, Loader } from "@upyog/digit-ui-react-components";
 import { format } from 'date-fns';
 import React, { Fragment, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { handleTodaysDate, isNestedArray, reduceDocsArray } from "../../../utils";
 import { config } from "../../../config/NewMessageConfig";
 
 const EditMessage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const { id: MessageId } = useParams();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const { isLoading, data } = Digit.Hooks.events.useInbox(tenantId, {},

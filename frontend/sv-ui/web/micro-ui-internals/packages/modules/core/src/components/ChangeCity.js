@@ -1,7 +1,7 @@
 import { Dropdown } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect } from "react";
 import { CustomButton, Menu } from "@upyog/digit-ui-react-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const stringReplaceAll = (str = "", searcher = "", replaceWith = "") => {
   if (searcher == "") return str;
@@ -15,7 +15,7 @@ const ChangeCity = (prop) => {
   const [dropDownData, setDropDownData] = useState(null);
   const [selectCityData, setSelectCityData] = useState([]);
   const [selectedCity, setSelectedCity] = useState([]); //selectedCities?.[0]?.value
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const isDropdown = prop.dropdown || false;
   let selectedCities = [];
 

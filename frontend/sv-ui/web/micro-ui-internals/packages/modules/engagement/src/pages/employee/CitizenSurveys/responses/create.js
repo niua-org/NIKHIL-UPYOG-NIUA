@@ -2,7 +2,7 @@ import { Banner, Card, Loader, CardText, ActionBar, SubmitBar,Menu } from "@upyo
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect,useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const getMessage = (mutation) => {
   if (mutation.isSuccess) return mutation.data?.ServiceDefinition?.[0]?.id;
   return "";
@@ -26,7 +26,7 @@ const Acknowledgement = (props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const mutation = Digit.Hooks.survey.useServeyCreateDef();
   const { state } = props.location;
-  const navigate = useNavigate();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [isActionClicked,setIsActionClicked] = useState(false) 
   useEffect(() => {
     const onSuccess = () => {

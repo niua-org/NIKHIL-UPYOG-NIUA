@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Route, Routes, useNavigate, useLocation, Navigate } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { Config } from "../../../config/config";
 /**
  * Main Parent Component which is handling all the sub / Child components 
@@ -17,7 +17,7 @@ const SVCreate = ({ parentRoute }) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const history = useNavigate();
+  const history = Digit.Hooks.useCustomNavigate();
   const stateId = Digit.ULBService.getStateId();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("SV_CREATES", {});
