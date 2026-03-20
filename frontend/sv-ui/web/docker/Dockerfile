@@ -4,16 +4,10 @@
 FROM node:22.0.0-alpine AS build
 RUN apk update && apk upgrade
 RUN apk add --no-cache git>2.30.0
-RUN yarn add @nudmcdgnpm/digit-ui-libraries
-RUN yarn add @upyog/digit-ui-module-core
-RUN yarn add @upyog/digit-ui-module-common
-RUN yarn add @upyog/digit-ui-module-engagement
-RUN yarn add @nudmcdgnpm/upyog-ui-module-sv
 
 ARG WORK_DIR
 WORKDIR /app
-ENV NODE_OPTIONS "--max-old-space-size=2560 --openssl-legacy-provider"
-ENV GENERATE_SOURCEMAP "true"
+ENV NODE_OPTIONS "--max-old-space-size=2560"
 
 COPY ${WORK_DIR} .
 RUN ls -lah
