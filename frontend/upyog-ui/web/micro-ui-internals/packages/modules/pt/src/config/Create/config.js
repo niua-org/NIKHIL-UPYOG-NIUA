@@ -252,7 +252,7 @@ export const newConfig =[
                   "cardText": "PT_FLAT_DETAILS_DESC",
                   "submitBarLabel": "PT_COMMON_NEXT"
               },
-              "key": "pincode",
+              "key": "units",
               "withoutLabel": true,
               "nextStep": "map",
               "hideInEmployee": true
@@ -380,7 +380,7 @@ export const newConfig =[
                   "cardText": "PT_FLAT_DETAILS_DESC",
                   "submitBarLabel": "PT_COMMON_NEXT"
               },
-              "nextStep": "pincode",
+              "nextStep": "map",
               "key": "units",
               "withoutLabel": true,
               "hideInEmployee": true
@@ -429,7 +429,7 @@ export const newConfig =[
               "key": "units",
               "withoutLabel": true,
               "nextStep": {
-                  "PT_COMMON_NO": "pincode",
+                  "PT_COMMON_NO": "map",
                   "PT_COMMON_YES": "un-occupied-area"
               },
               "hideInEmployee": true
@@ -447,7 +447,7 @@ export const newConfig =[
               },
               "key": "units",
               "withoutLabel": true,
-              "nextStep": "pincode",
+              "nextStep": "map",
               "hideInEmployee": true
           }
       ]
