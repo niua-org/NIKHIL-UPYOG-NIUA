@@ -2,21 +2,13 @@
   "name": "@nudmcdgnpm/cnd-css",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "dist/index.css",
   "description": "CSS for CND UI & SV UI",
   "engines": {
     "node": ">=22"
   },
-  "exports": {
-    ".": {
-      "default": "./dist/index.css"
-    }
-  },
-
   "cssConfig": {
     "prefix": ""
   },
-
   "scripts": {
     "start": "gulp build",
     "build:prod": "gulp build",
@@ -28,6 +20,9 @@
     "last 2 versions"
   ],
   "style": "./dist/index.css",
+  "exports": {
+  ".": "./dist/index.css"
+},
   "dependencies": {
     "sass": "^1.62.1",
     "normalize.css": "8.0.1",
