@@ -141,7 +141,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         validation={{
           isRequired: true,
           pattern: "^[a-zA-Z0-9 ,\\-]+$",
-          type: "text",
           title: t("HOUSE_NO_ERROR_MESSAGE"),
         }}
       />
@@ -162,7 +161,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         ValidationRequired={true}
         validation={{
           pattern: "^[a-zA-Z0-9 ,\\-]+$",
-          type: "text",
           title: t("STREET_NAME_ERROR_MESSAGE"),
         }}
       />
@@ -184,7 +182,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         {...(validation = {
           isRequired: false,
           pattern: "^[a-zA-Z,-/ ]*$",
-          type: "textarea",
           title: t("ADDRESS_ERROR_MESSAGE"),
         })}
       />
@@ -206,7 +203,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         {...(validation = {
           isRequired: false,
           pattern: "^[a-zA-Z,-/ ]*$",
-          type: "textarea",
           title: t("ADDRESS_ERROR_MESSAGE"),
         })}
       />
@@ -228,7 +224,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         validation={{
           isRequired: false,
           pattern: "^[a-zA-Z0-9 ]+$",
-          type: "textarea",
           title: t("LANDMARK_ERROR_MESSAGE"),
         }}
       />
@@ -292,7 +287,6 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         validation={{
             required: true,
             pattern: "^[0-9]{6}$",
-            type: "number",
             title: t("SV_ADDRESS_PINCODE_INVALID"),
           }}
           maxLength={6}

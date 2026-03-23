@@ -58,10 +58,20 @@ export default defineConfig(({ mode }) => {
   );
 
   return {
-    plugins: [react({ include: /\.(jsx|js)$/ }), smartResolvePlugin()],
+    plugins: [
+      react(),
+      smartResolvePlugin(), // keep for legacy packages
+    ],
+
     base: "/sv-ui/",
+
     server: {
       port: 3000,
+
+      fs: {
+        allow: [".."],
+      },
+
       proxy: proxyConfig,
       watch: {
         ignored: ["!**/micro-ui-internals/packages/**"],
@@ -74,13 +84,14 @@ export default defineConfig(({ mode }) => {
         transformMixedEsModules: true,
       },
     },
-    define: {
-      "process.env": {},
-    },
     envPrefix: "VITE_",
     optimizeDeps: {
       force: true,
       include: [
+        "@upyog/digit-ui-module-common",
+        "@upyog/digit-ui-module-core",
+        "@nudmcdgnpm/digit-ui-libraries",
+        "@nudmcdgnpm/upyog-ui-module-sv",
         "pdfmake",
         "pdfmake/build/pdfmake",
         "pdfmake/build/vfs_fonts",
@@ -88,7 +99,9 @@ export default defineConfig(({ mode }) => {
         "jspdf-autotable",
       ],
       esbuildOptions: {
-        loader: { ".js": "jsx" },
+        loader: {
+          ".js": "jsx",
+        },
       },
     },
   };

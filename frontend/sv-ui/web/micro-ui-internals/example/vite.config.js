@@ -4,8 +4,7 @@ import fs from "fs";
 import path from "path";
 
 const CJS_ONLY_PACKAGES = [
-  "@nudmcdgnpm/upyog-ui-react-components-lts",
-  "@upyog/digit-ui-module-bills",
+  "@nudmcdgnpm/upyog-ui-react-components-lts"
 ];
 
 function smartResolvePlugin() {
@@ -16,14 +15,17 @@ function smartResolvePlugin() {
         const pkgDir = path.join(process.cwd(), "node_modules", id);
         const pkgPath = path.join(pkgDir, "package.json");
         if (!fs.existsSync(pkgPath)) return null;
+
         const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+
         if (CJS_ONLY_PACKAGES.includes(id)) {
           return path.join(pkgDir, pkg.main);
         }
-        if (pkg.module) {
-          const modernFile = path.join(pkgDir, pkg.module);
-          if (fs.existsSync(modernFile)) return modernFile;
+
+        if (pkg.module && fs.existsSync(path.join(pkgDir, pkg.module))) {
+          return path.join(pkgDir, pkg.module);
         }
+
         if (pkg.main) {
           return path.join(pkgDir, pkg.main);
         }
@@ -67,10 +69,13 @@ export default defineConfig(({ mode }) => {
   );
 
   return {
-    plugins: [react({ include: /\.(jsx|js)$/ }), smartResolvePlugin()],
+    plugins: [react(), smartResolvePlugin()],
     base: "/sv-ui/",
     server: {
       port: 3000,
+      fs: {
+        allow: [".."]
+      },
       proxy: proxyConfig,
       watch: {
         ignored: ["!**/packages/**"],
@@ -83,13 +88,15 @@ export default defineConfig(({ mode }) => {
         transformMixedEsModules: true,
       },
     },
-    define: {
-      "process.env": {},
-    },
     envPrefix: "VITE_",
     optimizeDeps: {
       force: true,
       include: [
+        "@upyog/digit-ui-module-common",
+        "@upyog/digit-ui-module-core",
+        "@nudmcdgnpm/digit-ui-libraries",
+        "@nudmcdgnpm/upyog-ui-module-sv",
+        "@nudmcdgnpm/upyog-ui-react-components-lts",
         "pdfmake",
         "pdfmake/build/pdfmake",
         "pdfmake/build/vfs_fonts",

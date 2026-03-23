@@ -5,19 +5,21 @@
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/Module.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "build": "microbundle-crl --compress --no-sourcemap --format modern, cjs",
-    "prepublish": "yarn build"
+    "start": "vite build --watch",
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
   },
   "dependencies": {
     "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
-    "microbundle-crl": "^0.13.11",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
     "react-i18next": "^14.0.0",
     "@tanstack/react-query": "^5.0.0",
     "react-redux": "7.2.8",
@@ -27,13 +29,5 @@
     "redux-thunk": "2.4.1",
     "react-google-recaptcha": "^3.1.0"
   },
-  "author": "Shivank Shukla",
-  "keywords": [
-    "upyog",
-    "nudm",
-    "dpg",
-    "sv-ui",
-    "core",
-    "niua"
-  ]
+  "keywords": ["upyog", "nudm", "dpg", "sv-ui", "core", "niua"]
 }

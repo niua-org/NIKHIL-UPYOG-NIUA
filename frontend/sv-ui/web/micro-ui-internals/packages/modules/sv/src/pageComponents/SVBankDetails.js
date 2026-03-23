@@ -306,8 +306,6 @@ const SVBankDetails = ({ t, config, onSelect, userType, formData, editdata,previ
         comments: "",
         businessService: "street-vending",
         moduleName: "sv-services",
-        businessService: "street-vending",
-        moduleName: "sv-services",
         varificationDocuments: [
           {
             additionalDetails: {},

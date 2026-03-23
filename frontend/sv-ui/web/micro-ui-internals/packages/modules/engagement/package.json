@@ -9,9 +9,12 @@
         "dist"
     ],
     "scripts": {
-        "start": "microbundle-crl watch --no-compress --format modern,cjs",
-        "build": "microbundle-crl --compress --no-sourcemap --format modern,cjs",
-        "prepublish": "yarn build"
+        "start": "vite build --watch",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.3.4",
+        "vite": "^5.4.11"
     },
     "peerDependencies": {
         "react": "19.0.0",
@@ -19,7 +22,6 @@
     },
     "dependencies": {
         "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
-        "microbundle-crl": "^0.13.11",
         "react": "19.0.0",
         "react-dom": "19.0.0",
        "react-hook-form": "^7.51.0",

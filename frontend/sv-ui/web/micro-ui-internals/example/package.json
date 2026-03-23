@@ -1,30 +1,23 @@
 {
   "name": "@upyog/digit-ui-example",
   "version": "1.3.0",
-  "main": "index.js",
-  "license": "MIT",
   "private": true,
-  "homepage": "sv-ui/",
+  "license": "MIT",
   "scripts": {
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "@upyog/digit-ui-module-bills": "1.8.0",
+  "dependencies": {
     "@upyog/digit-ui-module-common": "1.8.12",
-    "@upyog/digit-ui-module-engagement": "1.8.0",
     "@nudmcdgnpm/upyog-ui-module-sv": "1.2.10",
-    "@vitejs/plugin-react": "^4.3.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-i18next": "^14.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router-dom": "6.28.0",
-    "vite": "^6.0.0"
+    "react-i18next": "^14.0.0"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all"
-  ]
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
+  }
 }

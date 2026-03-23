@@ -351,8 +351,6 @@ const SVSpecialCategory = ({ t, config, onSelect, userType, formData, editdata, 
         comments: "",
         businessService: "street-vending",
         moduleName: "sv-services",
-        businessService: "street-vending",
-        moduleName: "sv-services",
         varificationDocuments: [
           {
             additionalDetails: {},

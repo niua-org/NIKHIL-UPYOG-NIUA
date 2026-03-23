@@ -9,41 +9,19 @@
     "node": ">=22"
   },
   "scripts": {
-    "example": "cd example && npm run start",
-    "build": "microbundle-crl --compress --no-sourcemap --format modern, cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public -o dist-storybook",
-    "deploy-storybook": "npm run build-storybook && surge --project dist-storybook --domain react-components-$npm_package_version.surge.sh"
+    "build": "vite build",
+    "start": "vite build --watch"
   },
   "peerDependencies": {
-    "react": "19.0.0",
-    "react-router-dom": "6.28.0"
+    "react": ">=19",
+    "react-dom": ">=19",
+    "react-router-dom": ">=6"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.4.20",
-    "@storybook/addon-essentials": "6.4.20",
-    "@storybook/addon-links": "6.4.20",
-    "@storybook/node-logger": "6.4.20",
-    "@storybook/preset-create-react-app": "3.2.0",
-    "@storybook/react": "6.4.20",
-    "babel-eslint": "10.1.0",
-    "cross-env": "7.0.3",
-    "gh-pages": "2.2.0",
-    "husky": "7.0.4",
-    "lint-staged": "12.3.7",
-    "microbundle-crl": "0.13.11",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-router-dom": "6.28.0",
-    "react-scripts": "^4.0.1"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "@googlemaps/js-api-loader": "1.13.10",
     "date-fns": "^2.30.0",
@@ -51,10 +29,5 @@
     "react-hook-form": "^7.51.0",
     "react-i18next": "^14.0.0",
     "react-table": "7.7.0"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all"
-  ]
+  }
 }
