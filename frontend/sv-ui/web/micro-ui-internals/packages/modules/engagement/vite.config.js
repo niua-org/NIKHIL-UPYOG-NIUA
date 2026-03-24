@@ -18,7 +18,7 @@ export default defineConfig({
       fileName: (format) => format === "es" ? "index.modern.js" : "index.js",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react-router-dom"],
+      external: ["react", "react-dom", "react-router-dom", "react-redux", "redux", "@tanstack/react-query", "react-i18next", "i18next"],
       output: {
         globals: {
           react: "React",

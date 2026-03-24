@@ -25,7 +25,9 @@ export default defineConfig({
         "react",
         "react-dom",
         "react-router-dom",
-        "@tanstack/react-query"
+        "@tanstack/react-query",
+        "react-i18next",
+        "i18next"
       ],
     },
 
