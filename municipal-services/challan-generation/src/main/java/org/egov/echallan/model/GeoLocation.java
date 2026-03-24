@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * GeoLocation
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-08-10T16:46:24.044+05:30[Asia/Calcutta]")public class GeoLocation {
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-08-10T16:46:24.044+05:30[Asia/Calcutta]")public class GeoLocation {
 
   @JsonProperty("latitude")
 

@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * This is acting ID token of the authenticated user on the server. Any value provided by the clients will be ignored and actual user based on authtoken will be used on the server.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-08-10T16:46:24.044+05:30[Asia/Calcutta]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-08-10T16:46:24.044+05:30[Asia/Calcutta]")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -262,31 +262,7 @@ public class UserInfo extends User {
   public int hashCode() {
     return java.util.Objects.hash(tenantId, uuid, userName, password, idToken, mobileNumber, email, primaryrole, additionalroles);
   }
-  
-  public UserInfo(org.egov.common.contract.request.User user){
-      this.setTenantId(user.getTenantId());
-      this.setUserName(user.getUserName());
-      this.setId(user.getId());
-      this.setName(user.getName());
-      this.setType(user.getType());
-      this.setMobileNumber(user.getMobileNumber());
-      this.setEmailId(user.getEmailId());
-      this.setRoles(addRoles(user.getRoles()));
-      this.setUuid(user.getUuid());
-}
 
-  
-  private List<Role> addRoles(List<org.egov.common.contract.request.Role> Roles){
-      LinkedList<Role> addroles = new LinkedList<>();
-      Roles.forEach(role -> {
-              Role addrole = new Role();
-              addrole.setId(role.getId());
-              addrole.setName(role.getName());
-              addrole.setCode(role.getCode());
-              addroles.add(addrole);
-      });
-      return addroles;
-}
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
