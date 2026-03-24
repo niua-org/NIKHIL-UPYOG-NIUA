@@ -14,6 +14,7 @@
     "@nudmcdgnpm/digit-ui-libraries": "1.2.1",
     "@upyog/digit-ui-module-common": "1.8.12",
     "@upyog/digit-ui-module-core": "1.8.2",
+    "@upyog/digit-ui-module-engagement": "1.8.0",
     "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
     "@nudmcdgnpm/upyog-ui-module-sv": "1.2.10",
     "react": "^19.0.0",

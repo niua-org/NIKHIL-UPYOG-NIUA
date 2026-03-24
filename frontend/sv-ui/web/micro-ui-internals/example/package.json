@@ -11,6 +11,7 @@
   "dependencies": {
     "@upyog/digit-ui-module-common": "1.8.12",
     "@nudmcdgnpm/upyog-ui-module-sv": "1.2.10",
+    "@upyog/digit-ui-module-engagement": "1.8.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "6.28.0",

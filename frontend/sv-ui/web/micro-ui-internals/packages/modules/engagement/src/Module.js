@@ -284,7 +284,9 @@ const EmployeeApp = ({ path, url, userType, tenants }) => {
 
 const EngagementModule = ({ stateCode, userType, tenants }) => {
   const moduleCode = "Engagement";
-  const { path, url } = useRouteMatch();
+ const location = useLocation();
+  const path = location.pathname;
+  const url = location.pathname;
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
 

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "yarn start:dev",
-    "start:dev": "run-s build:css build:libraries build:components build:common build:core build:sv && yarn dev:example",
+    "start:dev": "run-s build:css build:libraries build:components build:common build:core build:sv build:engagement && yarn dev:example",
 
     "dev:css": "cd packages/css && yarn start",
     "dev:libraries": "cd packages/libraries && yarn start",
@@ -21,14 +21,16 @@
     "dev:common": "cd packages/modules/common && yarn start",
     "dev:core": "cd packages/modules/core && yarn start",
     "dev:sv": "cd packages/modules/sv && yarn start",
+    "dev:engagement": "cd packages/modules/engagement && yarn start",
     "dev:example": "cd example && yarn start",
 
-    "build": "run-s build:css build:libraries build:components build:common build:core build:sv",
+    "build": "run-s build:css build:libraries build:components build:common build:core build:sv build:engagement",
     "build:css": "cd packages/css && yarn build:prod",
     "build:components": "cd packages/react-components && yarn build",
     "build:libraries": "cd packages/libraries && yarn build",
     "build:common": "cd packages/modules/common && yarn build",
     "build:core": "cd packages/modules/core && yarn build",
+    "build:engagement": "cd packages/modules/engagement && yarn build",
     "build:sv": "cd packages/modules/sv && yarn build",
 
     "deploy:jenkins": "./scripts/jenkins.sh"

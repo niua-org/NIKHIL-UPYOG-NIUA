@@ -6,6 +6,7 @@ import { PaymentModule } from "@upyog/digit-ui-module-common";
 import { StreetVendingUI } from "@upyog/digit-ui-module-core";
 import "@nudmcdgnpm/cnd-css";
 import { SVComponents, SVLinks, SVModule } from "@nudmcdgnpm/upyog-ui-module-sv";
+import { initEngagementComponents } from "@upyog/digit-ui-module-engagement";
 
 import { SVConstants } from "./SVConstants";
 
@@ -14,6 +15,7 @@ var Digit = window.Digit || {};
 const enabledModules = [
   "Payment",
   "QuickPayLinks",
+  "Engagement",
   "SV"
 ];
 
@@ -52,7 +54,7 @@ const initSVUI = () => {
   ...SVComponents,
   });
 
-
+  initEngagementComponents();
   const moduleReducers = (initData) => ({
     // pgr: PGRReducers(initData),
   });

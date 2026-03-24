@@ -97,6 +97,7 @@ export default defineConfig(({ mode }) => {
         "@nudmcdgnpm/digit-ui-libraries",
         "@nudmcdgnpm/upyog-ui-module-sv",
         "@nudmcdgnpm/upyog-ui-react-components-lts",
+        "@upyog/digit-ui-module-engagement",
         "pdfmake",
         "pdfmake/build/pdfmake",
         "pdfmake/build/vfs_fonts",
