@@ -30,7 +30,12 @@ const NotificationsAndWhatsNew = ({ variant, parentRoute }) => {
       }
     }, [isSuccess]);
 
-  useEffect(() => (preVisitUnseenNotificationCount && tenantId ? mutate({ tenantId }) : null), [tenantId, preVisitUnseenNotificationCount]);
+useEffect(() => {
+  if (preVisitUnseenNotificationCount && tenantId) {
+    mutate({ tenantId });
+  }
+}, [tenantId, preVisitUnseenNotificationCount]);
+
 
   const { data: EventsData, isLoading: EventsDataLoading } = Digit.Hooks.useEvents({ tenantId, variant });
 
@@ -72,15 +77,22 @@ const NotificationsAndWhatsNew = ({ variant, parentRoute }) => {
     <div className="CitizenEngagementNotificationWrapper">
       <VariantWiseRender />
       {EventsData?.length ? (
-        EventsData.map((DataParamsInEvent) =>
-          DataParamsInEvent?.eventType === "EVENTSONGROUND" ? (
-            <OnGroundEventCard onClick={onEventCardClick} {...DataParamsInEvent} />
-          ) : DataParamsInEvent?.eventType === "BROADCAST" ? (
-            <BroadcastWhatsNewCard {...DataParamsInEvent} />
-          ) : (
-            <WhatsNewCard {...DataParamsInEvent} />
-          )
-        )
+        EventsData.map((DataParamsInEvent, index) => {
+          const key = DataParamsInEvent.uuid || DataParamsInEvent.id || index;
+          if (DataParamsInEvent?.eventType === "EVENTSONGROUND") {
+            return (
+              <OnGroundEventCard 
+                key={key} 
+                onClick={onEventCardClick} 
+                {...DataParamsInEvent} 
+              />
+            );
+          } else if (DataParamsInEvent?.eventType === "BROADCAST") {
+            return <BroadcastWhatsNewCard key={key} {...DataParamsInEvent} />;
+          } else {
+            return <WhatsNewCard key={key} {...DataParamsInEvent} />;
+          }
+        })
       ) : (
         <Card>
           <CardCaption>{t("COMMON_INBOX_NO_DATA")}</CardCaption>
