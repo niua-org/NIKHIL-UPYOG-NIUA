@@ -74,7 +74,7 @@ public class ChallanRepository {
     /**
      * Pushes the request on save topic
      *
-     * @param ChallanRequest The echallan create request
+     * @param challanRequest The echallan create request
      */
     public void save(ChallanRequest challanRequest) {
     	
@@ -84,7 +84,7 @@ public class ChallanRepository {
     /**
      * Pushes the request on update topic
      *
-     * @param ChallanRequest The echallan create request
+     * @param challanRequest The echallan create request
      */
     public void update(ChallanRequest challanRequest) {
     	

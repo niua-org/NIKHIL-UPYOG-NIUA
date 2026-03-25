@@ -8,10 +8,11 @@ import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.egov.common.contract.request.User;
 import org.egov.echallancalculation.model.AuditDetails;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import org.egov.echallancalculation.web.models.user.User;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

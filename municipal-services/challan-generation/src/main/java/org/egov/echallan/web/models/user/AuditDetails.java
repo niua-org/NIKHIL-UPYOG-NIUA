@@ -1,8 +1,7 @@
 package org.egov.echallan.web.models.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,9 @@ import java.util.Objects;
 /**
  * Collection of audit related fields used by most models
  */
-@ApiModel(description = "Collection of audit related fields used by most models")
+@Schema(description = "Collection of audit related fields used by most models")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -41,7 +40,7 @@ public class AuditDetails {
    * username (preferred) or userid of the user that created the object
    * @return createdBy
   **/
-  @ApiModelProperty(value = "username (preferred) or userid of the user that created the object")
+  @Schema(description = "username (preferred) or userid of the user that created the object")
   
     public String getCreatedBy() {
     return createdBy;
@@ -60,7 +59,7 @@ public class AuditDetails {
    * username (preferred) or userid of the user that last modified the object
    * @return lastModifiedBy
   **/
-  @ApiModelProperty(value = "username (preferred) or userid of the user that last modified the object")
+  @Schema(description = "username (preferred) or userid of the user that last modified the object")
   
     public String getLastModifiedBy() {
     return lastModifiedBy;
@@ -79,7 +78,7 @@ public class AuditDetails {
    * epoch of the time object is created
    * @return createdTime
   **/
-  @ApiModelProperty(value = "epoch of the time object is created")
+  @Schema(description = "epoch of the time object is created")
   
     public Long getCreatedTime() {
     return createdTime;
@@ -98,7 +97,7 @@ public class AuditDetails {
    * epoch of the time object is last modified
    * @return lastModifiedTime
   **/
-  @ApiModelProperty(value = "epoch of the time object is last modified")
+  @Schema(description = "epoch of the time object is last modified")
   
     public Long getLastModifiedTime() {
     return lastModifiedTime;

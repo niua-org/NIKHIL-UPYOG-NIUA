@@ -9,8 +9,8 @@ import java.util.List;
 import lombok.*;
 import org.egov.common.contract.request.Role;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * User
@@ -181,8 +181,8 @@ public class User   {
 
                 return Objects.hash(uuid, name, mobileNumber);
         }
-        public org.egov.common.contract.request.User toCommonUser(){
-            org.egov.common.contract.request.User commonUser = new org.egov.common.contract.request.User();
+        public User toCommonUser(){
+            User commonUser = new User();
             commonUser.setId(this.getId());
             commonUser.setUserName(this.getUserName());
             commonUser.setName(this.getName());
