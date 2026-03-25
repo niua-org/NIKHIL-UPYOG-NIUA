@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * GeoLocation
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -38,7 +38,7 @@ public class GeoLocation   {
    * latitude of the address
    * @return latitude
   **/
-  @ApiModelProperty(value = "latitude of the address")
+  @Schema(description = "latitude of the address")
   
     public Double getLatitude() {
     return latitude;
@@ -57,7 +57,7 @@ public class GeoLocation   {
    * longitude of the address
    * @return longitude
   **/
-  @ApiModelProperty(value = "longitude of the address")
+  @Schema(description= "longitude of the address")
   
     public Double getLongitude() {
     return longitude;
@@ -76,7 +76,7 @@ public class GeoLocation   {
    * Json object to capture any extra information which is not accommodated by model
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "Json object to capture any extra information which is not accommodated by model")
+  @Schema(description= "Json object to capture any extra information which is not accommodated by model")
   
     public Object getAdditionalDetails() {
     return additionalDetails;

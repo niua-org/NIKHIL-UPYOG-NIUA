@@ -2,14 +2,14 @@ package org.egov.ndc.web.model.bpa;
 
 import java.util.Objects;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -18,28 +18,28 @@ import lombok.NoArgsConstructor;
  * Institution
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Institution   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("type")
   private String type = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("designation")
   private String designation = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("nameOfAuthorizedPerson")
   private String nameOfAuthorizedPerson = null;
 
@@ -55,7 +55,7 @@ public class Institution   {
    * Unique Identifier of the Institution(UUID).
    * @return id
   **/
-  @ApiModelProperty(value = "Unique Identifier of the Institution(UUID).")
+  @Schema(description = "Unique Identifier of the Institution(UUID).")
   
   @Size(max=64)   public String getId() {
     return id;
@@ -74,7 +74,7 @@ public class Institution   {
    * tenant id of the Property
    * @return tenantId
   **/
-  @ApiModelProperty(value = "tenant id of the Property")
+  @Schema(description = "tenant id of the Property")
   
   @Size(max=256)   public String getTenantId() {
     return tenantId;
@@ -93,7 +93,7 @@ public class Institution   {
    * Institution type.
    * @return type
   **/
-  @ApiModelProperty(value = "Institution type.")
+  @Schema(description = "Institution type.")
   
   @Size(max=64)   public String getType() {
     return type;
@@ -112,7 +112,7 @@ public class Institution   {
    * Designation of the person creating/updatingentity on behalf of the institution
    * @return designation
   **/
-  @ApiModelProperty(value = "Designation of the person creating/updatingentity on behalf of the institution")
+  @Schema(description = "Designation of the person creating/updatingentity on behalf of the institution")
   
   @Size(max=64)   public String getDesignation() {
     return designation;
@@ -131,7 +131,7 @@ public class Institution   {
    * Name of the person who is taking action on behalf of institution
    * @return nameOfAuthorizedPerson
   **/
-  @ApiModelProperty(value = "Name of the person who is taking action on behalf of institution")
+  @Schema(description = "Name of the person who is taking action on behalf of institution")
   
   @Size(max=256)   public String getNameOfAuthorizedPerson() {
     return nameOfAuthorizedPerson;
@@ -150,7 +150,7 @@ public class Institution   {
    * Json object to capture any extra information which is not accommodated by model
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "Json object to capture any extra information which is not accommodated by model")
+  @Schema(description = "Json object to capture any extra information which is not accommodated by model")
   
     public Object getAdditionalDetails() {
     return additionalDetails;

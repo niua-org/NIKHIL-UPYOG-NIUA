@@ -2,22 +2,21 @@ package org.egov.ndc.web.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.egov.common.contract.request.RequestInfo;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * A object to bind the metadata contract and main applications contract
  */
-@ApiModel(description = "A object to bind the metadata contract and main applications contract")
+@Schema(description = "A object to bind the metadata contract and main applications contract")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 public class NdcRequest {
   @JsonProperty("RequestInfo")
   private RequestInfo requestInfo = null;
@@ -34,7 +33,7 @@ public class NdcRequest {
    * Get requestInfo
    * @return requestInfo
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public RequestInfo getRequestInfo() {
@@ -54,7 +53,7 @@ public class NdcRequest {
    * Get ndc
    * @return ndc
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
   
     @Valid
     public Ndc getNdc() {

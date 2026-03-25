@@ -2,33 +2,32 @@ package org.egov.ndc.web.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.SafeHtml;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * This object holds list of documents attached during the transaciton for a property
  */
-@ApiModel(description = "This object holds list of documents attached during the transaciton for a property")
+@Schema(description = "This object holds list of documents attached during the transaciton for a property")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 public class Document   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("documentType")
   private String documentType = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("fileStoreId")
   private String fileStoreId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("documentUid")
   private String documentUid = null;
 
@@ -44,7 +43,7 @@ public class Document   {
    * system id of the Document.
    * @return id
   **/
-  @ApiModelProperty(value = "system id of the Document.")
+  @Schema(description = "system id of the Document.")
   
   @Size(max=64)   public String getId() {
     return id;
@@ -63,7 +62,7 @@ public class Document   {
    * unique document type code, should be validated with document type master
    * @return documentType
   **/
-  @ApiModelProperty(value = "unique document type code, should be validated with document type master")
+  @Schema(description = "unique document type code, should be validated with document type master")
   
     public String getDocumentType() {
     return documentType;
@@ -82,7 +81,7 @@ public class Document   {
    * File store reference key.
    * @return fileStore
   **/
-  @ApiModelProperty(value = "File store reference key.")
+  @Schema(description = "File store reference key.")
   
     public String getFileStoreId() {
     return fileStoreId;
@@ -101,7 +100,7 @@ public class Document   {
    * The unique id(Pancard Number,Adhar etc.) of the given Document.
    * @return documentUid
   **/
-  @ApiModelProperty(value = "The unique id(Pancard Number,Adhar etc.) of the given Document.")
+  @Schema(description = "The unique id(Pancard Number,Adhar etc.) of the given Document.")
   
   @Size(max=64)   public String getDocumentUid() {
     return documentUid;
@@ -120,7 +119,7 @@ public class Document   {
    * Json object to capture any extra information which is not accommodated by model
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "Json object to capture any extra information which is not accommodated by model")
+  @Schema(description = "Json object to capture any extra information which is not accommodated by model")
   
     public Object getAdditionalDetails() {
     return additionalDetails;

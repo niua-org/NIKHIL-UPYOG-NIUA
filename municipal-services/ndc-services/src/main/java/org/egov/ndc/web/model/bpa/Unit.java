@@ -2,16 +2,16 @@ package org.egov.ndc.web.model.bpa;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 
 import org.egov.ndc.web.model.AuditDetails;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -20,32 +20,32 @@ import lombok.NoArgsConstructor;
  * Unit
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:54:07.373Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:54:07.373Z[GMT]")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Unit   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("floorNo")
   private String floorNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("unitType")
   private String unitType = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("usageCategory")
   private String usageCategory = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("occupancyType")
   private String occupancyType = null;
 
@@ -67,7 +67,7 @@ public class Unit   {
    * Unique Identifier of the Unit(UUID).
    * @return id
   **/
-  @ApiModelProperty(value = "Unique Identifier of the Unit(UUID).")
+  @Schema(description = "Unique Identifier of the Unit(UUID).")
   
     public String getId() {
     return id;
@@ -86,7 +86,7 @@ public class Unit   {
    * tenant id of the Property
    * @return tenantId
   **/
-  @ApiModelProperty(value = "tenant id of the Property")
+  @Schema(description = "tenant id of the Property")
   
   @Size(min=2,max=256)   public String getTenantId() {
     return tenantId;
@@ -105,7 +105,7 @@ public class Unit   {
    * floor number of the Unit
    * @return floorNo
   **/
-  @ApiModelProperty(value = "floor number of the Unit")
+  @Schema(description = "floor number of the Unit")
   
   @Size(min=1,max=64)   public String getFloorNo() {
     return floorNo;
@@ -124,7 +124,7 @@ public class Unit   {
    * Unit type is master data.
    * @return unitType
   **/
-  @ApiModelProperty(example = "Building, Room, Kitchen etc.", value = "Unit type is master data.")
+  @Schema(example = "Building, Room, Kitchen etc.", description = "Unit type is master data.")
   
     public String getUnitType() {
     return unitType;
@@ -143,7 +143,7 @@ public class Unit   {
    * This is about the usage of the property like Residential, Non-residential, Mixed(Property witch is gettiong used for Residential, Non-residential purpose)
    * @return usageCategory
   **/
-  @ApiModelProperty(value = "This is about the usage of the property like Residential, Non-residential, Mixed(Property witch is gettiong used for Residential, Non-residential purpose)")
+  @Schema(description = "This is about the usage of the property like Residential, Non-residential, Mixed(Property witch is gettiong used for Residential, Non-residential purpose)")
   
   @Size(min=0,max=64)   public String getUsageCategory() {
     return usageCategory;
@@ -162,7 +162,7 @@ public class Unit   {
    * Get occupancyType
    * @return occupancyType
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public String getOccupancyType() {
@@ -182,7 +182,7 @@ public class Unit   {
    * Date on which unit is occupied.
    * @return occupancyDate
   **/
-  @ApiModelProperty(value = "Date on which unit is occupied.")
+  @Schema(description = "Date on which unit is occupied.")
   
     public Long getOccupancyDate() {
     return occupancyDate;
@@ -202,7 +202,7 @@ public class Unit   {
    * Json object to capture any extra information which is not accommodated by model
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "Json object to capture any extra information which is not accommodated by model")
+  @Schema(description = "Json object to capture any extra information which is not accommodated by model")
   
     public Object getAdditionalDetails() {
     return additionalDetails;
@@ -221,7 +221,7 @@ public class Unit   {
    * Get geoLocation
    * @return geoLocation
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public AuditDetails getAuditDetails() {

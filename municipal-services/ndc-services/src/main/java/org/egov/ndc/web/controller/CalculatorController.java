@@ -1,7 +1,7 @@
 package org.egov.ndc.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.egov.common.contract.response.ResponseInfo;
 import org.egov.ndc.config.ResponseInfoFactory;
 import org.egov.ndc.service.CalculationService;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -44,7 +44,7 @@ public class CalculatorController {
     }
 
     @RequestMapping(value = "/v1/_calculate", method = RequestMethod.POST)
-    public ResponseEntity<CalculationRes> v1CalculatePost(@ApiParam(value = "required parameters have to be populated", required = true) @Valid @RequestBody CalculationReq calculationReq) {
+    public ResponseEntity<CalculationRes> v1CalculatePost(@Schema(description = "required parameters have to be populated", required = true) @Valid @RequestBody CalculationReq calculationReq) {
         List<Calculation> calculations = calculationService.calculate(calculationReq);
         ResponseInfo responseInfo = responseInfoFactory.createResponseInfoFromRequestInfo(calculationReq.getRequestInfo(),true);
         CalculationRes calculationRes = CalculationRes.builder().responseInfo(responseInfo).calculation(calculations).build();

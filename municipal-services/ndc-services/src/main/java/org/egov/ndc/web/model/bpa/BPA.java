@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import org.egov.ndc.web.model.AuditDetails;
 import org.egov.ndc.web.model.Workflow;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -24,46 +24,46 @@ import lombok.NoArgsConstructor;
 /**
  * BPA applications object to capture the details of land, land owners, and address of the land.
  */
-@ApiModel(description = "BPA applications object to capture the details of land, land owners, and address of the land.")
+@Schema(description = "BPA applications object to capture the details of land, land owners, and address of the land.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BPA   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("applicationNo")
   private String applicationNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("approvalNo")
   private String approvalNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("accountId")
   private String accountId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("edcrNumber")
   private String edcrNumber = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("riskType")
   private String riskType = null;
   
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("businessService")
   private String businessService = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("landId")
   private String landId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -73,7 +73,7 @@ public class BPA   {
   @JsonProperty("applicationDate")
   private Long applicationDate = null;
   
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("status")
   private String status = null;
 
@@ -102,7 +102,7 @@ public class BPA   {
    * Unique Identifier(UUID) of the bpa applications for internal reference.
    * @return id
   **/
-  @ApiModelProperty(readOnly = true, value = "Unique Identifier(UUID) of the bpa applications for internal reference.")
+  @Schema(readOnly = true, description= "Unique Identifier(UUID) of the bpa applications for internal reference.")
   
   @Size(min=1,max=64)   public String getId() {
     return id;
@@ -121,7 +121,7 @@ public class BPA   {
    * Generate formatted Unique Identifier of the building permit applications. Keep the format in mdms
    * @return applicationNo
   **/
-  @ApiModelProperty(readOnly = true, value = "Generate formatted Unique Identifier of the building permit applications. Keep the format in mdms")
+  @Schema(readOnly = true,description = "Generate formatted Unique Identifier of the building permit applications. Keep the format in mdms")
   
   @Size(min=1,max=64)   public String getApplicationNo() {
     return applicationNo;
@@ -140,7 +140,7 @@ public class BPA   {
    * Generate Approval number based on wf status. When to generate approvalNo will be depends on wf state so make it configurable at  applications level
    * @return approvalNo
   **/
-  @ApiModelProperty(readOnly = true, value = "Generate Approval number based on wf status. When to generate approvalNo will be depends on wf state so make it configurable at  applications level")
+  @Schema(readOnly = true,description = "Generate Approval number based on wf status. When to generate approvalNo will be depends on wf state so make it configurable at  applications level")
   
   @Size(min=1,max=64)   public String getApprovalNo() {
     return approvalNo;
@@ -159,7 +159,7 @@ public class BPA   {
    * Initiator User UUID
    * @return accountId
   **/
-  @ApiModelProperty(value = "Initiator User UUID")
+  @Schema(description = "Initiator User UUID")
   
   @Size(min=1,max=64)   public String getAccountId() {
     return accountId;
@@ -178,7 +178,7 @@ public class BPA   {
    * Unique Identifier scrutinized edcr number
    * @return edcrNumber
   **/
-  @ApiModelProperty(value = "Unique Identifier scrutinized edcr number")
+  @Schema(description = "Unique Identifier scrutinized edcr number")
   
   @Size(min=1,max=64)   public String getEdcrNumber() {
     return edcrNumber;
@@ -197,7 +197,7 @@ public class BPA   {
    * Risk type will be drived based on mdms configuration
    * @return riskType
   **/
-  @ApiModelProperty(readOnly = true, value = "Risk type will be drived based on mdms configuration")
+  @Schema(readOnly = true, description= "Risk type will be drived based on mdms configuration")
   
   @Size(min=1,max=64)   public String getRiskType() {
     return riskType;
@@ -218,7 +218,7 @@ public class BPA   {
    * Risk type will be drived based on mdms configuration
    * @return riskType
   **/
-  @ApiModelProperty(readOnly = true, value = "Risk type will be drived based on mdms configuration")
+  @Schema(readOnly = true, description = "Risk type will be drived based on mdms configuration")
   
    public Long getApprovalDate() {
     return approvalDate;
@@ -238,7 +238,7 @@ public class BPA   {
 	   * Risk type will be drived based on mdms configuration
 	   * @return riskType
 	  **/
-	  @ApiModelProperty(readOnly = true, value = "Risk type will be drived based on mdms configuration")
+	  @Schema(readOnly = true, description = "Risk type will be drived based on mdms configuration")
 	  
 	   public Long getApplicationDate() {
 	    return applicationDate;
@@ -258,7 +258,7 @@ public class BPA   {
 	   * Risk type will be drived based on mdms configuration
 	   * @return riskType
 	  **/
-	  @ApiModelProperty(readOnly = true, value = "Risk type will be drived based on mdms configuration")
+	  @Schema(readOnly = true, description = "Risk type will be drived based on mdms configuration")
 	  
 	  @Size(min=1,max=64)   public String getBusinessService() {
 	    return businessService;
@@ -278,7 +278,7 @@ public class BPA   {
    * Unique Identifier(UUID) of the land for internal reference.
    * @return landId
   **/
-  @ApiModelProperty(value = "Unique Identifier(UUID) of the land for internal reference.")
+  @Schema(description = "Unique Identifier(UUID) of the land for internal reference.")
   
   @Size(min=1,max=64)   public String getLandId() {
     return landId;
@@ -297,7 +297,7 @@ public class BPA   {
    * Unique ULB identifier.
    * @return tenantId
   **/
-  @ApiModelProperty(required = true, value = "Unique ULB identifier.")
+  @Schema(required = true, description = "Unique ULB identifier.")
       @NotNull
 
   @Size(min=2,max=256)   public String getTenantId() {
@@ -317,7 +317,7 @@ public class BPA   {
    * status of the applications.
    * @return status
   **/
-  @ApiModelProperty(value = "status of the applications.")
+  @Schema(description = "status of the applications.")
   
     public String getStatus() {
     return status;
@@ -344,7 +344,7 @@ public class BPA   {
    * The documents attached by owner for exemption.
    * @return documents
   **/
-  @ApiModelProperty(value = "The documents attached by owner for exemption.")
+  @Schema(description = "The documents attached by owner for exemption.")
       @Valid
     public List<Document> getDocuments() {
     return documents;
@@ -363,7 +363,7 @@ public class BPA   {
    * Get landInfo
    * @return landInfo
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public LandInfo getLandInfo() {
@@ -383,7 +383,7 @@ public class BPA   {
    * Get workflow
    * @return workflow
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Workflow getWorkflow() {
@@ -403,7 +403,7 @@ public class BPA   {
    * Get auditDetails
    * @return auditDetails
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public AuditDetails getAuditDetails() {
@@ -423,7 +423,7 @@ public class BPA   {
    * The json to capturing the custom fields
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "The json to capturing the custom fields")
+  @Schema(description = "The json to capturing the custom fields")
   
     public Object getAdditionalDetails() {
     return additionalDetails;

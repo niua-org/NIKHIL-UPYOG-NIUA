@@ -2,8 +2,8 @@ package org.egov.ndc.web.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,34 +13,34 @@ import java.util.List;
 
 import org.egov.ndc.web.model.enums.ApplicationType;
 import org.egov.ndc.web.model.enums.Status;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * NDC applications object to capture the details of ndc related information, landid and related documents.
  */
-@ApiModel(description = "NDC applications object to capture the details of ndc related information, landid and related documents.")
+@Schema(description = "NDC applications object to capture the details of ndc related information, landid and related documents.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Ndc {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("applicationNo")
   private String applicationNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("ndcNo")
   private String ndcNo = null;
 
@@ -48,23 +48,23 @@ public class Ndc {
   @JsonProperty("applicationType")
   private ApplicationType applicationType = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("ndcType")
   private String ndcType = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("accountId")
   private String accountId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("source")
   private String source = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("sourceRefId")
   private String sourceRefId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("landId")
   private String landId = null;
 
@@ -72,7 +72,7 @@ public class Ndc {
   @JsonProperty("status")
   private Status status = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("applicationStatus")
   private String applicationStatus = null;
 
@@ -98,7 +98,7 @@ public class Ndc {
    * Unique Identifier(UUID) of the bpa applications for internal reference.
    * @return id
   **/
-  @ApiModelProperty(readOnly = true, value = "Unique Identifier(UUID) of the bpa applications for internal reference.")
+  @Schema(readOnly = true, description = "Unique Identifier(UUID) of the bpa applications for internal reference.")
   
   @Size(min=1,max=64)   public String getId() {
     return id;
@@ -117,7 +117,7 @@ public class Ndc {
    * Unique ULB identifier.
    * @return tenantId
   **/
-  @ApiModelProperty(value = "Unique ULB identifier.")
+  @Schema(description= "Unique ULB identifier.")
   
   @Size(min=2,max=256)   public String getTenantId() {
     return tenantId;
@@ -136,7 +136,7 @@ public class Ndc {
    * Generate formatted Unique Identifier of the Ndc. Keep the format in mdms
    * @return applicationNo
   **/
-  @ApiModelProperty(readOnly = true, value = "Generate formatted Unique Identifier of the Ndc. Keep the format in mdms")
+  @Schema(readOnly = true, description = "Generate formatted Unique Identifier of the Ndc. Keep the format in mdms")
   
   @Size(min=1,max=64)   public String getApplicationNo() {
     return applicationNo;
@@ -155,7 +155,7 @@ public class Ndc {
    * Generate Ndc number based on wf status. When to generate Ndcno will be depends on wf state so make it configurable at applications level
    * @return ndcNo
   **/
-  @ApiModelProperty(readOnly = true, value = "Generate Ndc number based on wf status. When to generate Ndcno will be depends on wf state so make it configurable at applications level")
+  @Schema(readOnly = true, description = "Generate Ndc number based on wf status. When to generate Ndcno will be depends on wf state so make it configurable at applications level")
   
   @Size(min=1,max=64)   public String getNdcNo() {
     return ndcNo;
@@ -174,7 +174,7 @@ public class Ndc {
    * ndc applications type.
    * @return applicationType
   **/
-  @ApiModelProperty(value = "ndc applications type.")
+  @Schema(description= "ndc applications type.")
   
     public ApplicationType getApplicationType() {
     return applicationType;
@@ -193,7 +193,7 @@ public class Ndc {
    * Mdms master data to configure types of ndc(ex:fire ndc, airport authority etc) 
    * @return ndcType
   **/
-  @ApiModelProperty(value = "Mdms master data to configure types of ndc(ex:fire ndc, airport authority etc) ")
+  @Schema(description = "Mdms master data to configure types of ndc(ex:fire ndc, airport authority etc) ")
   
   @Size(min=1,max=64)   public String getNdcType() {
     return ndcType;
@@ -212,7 +212,7 @@ public class Ndc {
    * Initiator User UUID
    * @return accountId
   **/
-  @ApiModelProperty(value = "Initiator User UUID")
+  @Schema(description = "Initiator User UUID")
   
   @Size(min=1,max=64)   public String getAccountId() {
     return accountId;
@@ -231,7 +231,7 @@ public class Ndc {
    * Who is creating the record in the system(ex:BPA,Property etc)
    * @return source
   **/
-  @ApiModelProperty(value = "Who is creating the record in the system(ex:BPA,Property etc)")
+  @Schema(description= "Who is creating the record in the system(ex:BPA,Property etc)")
   
   @Size(min=1,max=64)   public String getSource() {
     return source;
@@ -250,7 +250,7 @@ public class Ndc {
    * Unique Identifier of integrator(Source system) to link the ndc applications.
    * @return sourceRefId
   **/
-  @ApiModelProperty(value = "Unique Identifier of integrator(Source system) to link the ndc applications.")
+  @Schema(description = "Unique Identifier of integrator(Source system) to link the ndc applications.")
   
   @Size(min=1,max=64)   public String getSourceRefId() {
     return sourceRefId;
@@ -269,7 +269,7 @@ public class Ndc {
    * Unique Identifier(UUID) of the land for internal reference.
    * @return landId
   **/
-  @ApiModelProperty(value = "Unique Identifier(UUID) of the land for internal reference.")
+  @Schema(description = "Unique Identifier(UUID) of the land for internal reference.")
   
   @Size(min=1,max=64)   public String getLandId() {
     return landId;
@@ -288,7 +288,7 @@ public class Ndc {
    * state of the record.
    * @return status
   **/
-  @ApiModelProperty(value = "state of the record.")
+  @Schema(description = "state of the record.")
   
     public Status getStatus() {
     return status;
@@ -307,7 +307,7 @@ public class Ndc {
    * Application status should get populate from wf engine
    * @return applicationStatus
   **/
-  @ApiModelProperty(readOnly = true, value = "Application status should get populate from wf engine")
+  @Schema(readOnly = true, description= "Application status should get populate from wf engine")
   
   @Size(min=1,max=64)   public String getApplicationStatus() {
     return applicationStatus;
@@ -334,7 +334,7 @@ public class Ndc {
    * The documents attached by owner for exemption.
    * @return documents
   **/
-  @ApiModelProperty(value = "The documents attached by owner for exemption.")
+  @Schema(description = "The documents attached by owner for exemption.")
       @Valid
     public List<Document> getDocuments() {
     return documents;
@@ -353,7 +353,7 @@ public class Ndc {
    * Get workflow
    * @return workflow
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Workflow getWorkflow() {
@@ -373,7 +373,7 @@ public class Ndc {
    * Get auditDetails
    * @return auditDetails
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
   
     @Valid
     public AuditDetails getAuditDetails() {
@@ -393,7 +393,7 @@ public class Ndc {
    * The json to capturing the custom fields
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "The json to capturing the custom fields")
+  @Schema(description = "The json to capturing the custom fields")
   
     public Object getAdditionalDetails() {
     return additionalDetails;

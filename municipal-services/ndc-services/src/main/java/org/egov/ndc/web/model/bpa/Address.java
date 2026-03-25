@@ -2,18 +2,18 @@ package org.egov.ndc.web.model.bpa;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import org.egov.ndc.web.model.AuditDetails;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -21,66 +21,66 @@ import lombok.NoArgsConstructor;
 /**
  * Representation of a address. Indiavidual APIs may choose to extend from this using allOf if more details needed to be added in their case. 
  */
-@ApiModel(description = "Representation of a address. Indiavidual APIs may choose to extend from this using allOf if more details needed to be added in their case. ")
+@Schema(description = "Representation of a address. Indiavidual APIs may choose to extend from this using allOf if more details needed to be added in their case. ")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:54:07.373Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:54:07.373Z[GMT]")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("doorNo")
   private String doorNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("plotNo")
   private String plotNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("landmark")
   private String landmark = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("city")
   private String city = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("district")
   private String district = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("region")
   private String region = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("state")
   private String state = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("country")
   private String country = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("pincode")
   private String pincode = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("additionDetails")
   private String additionDetails = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("buildingName")
   private String buildingName = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("street")
   private String street = null;
 
@@ -102,7 +102,7 @@ public class Address   {
    * Unique Identifier of the tenant to which user primarily belongs
    * @return tenantId
   **/
-  @ApiModelProperty(value = "Unique Identifier of the tenant to which user primarily belongs")
+  @Schema(description = "Unique Identifier of the tenant to which user primarily belongs")
 
     public String getTenantId() {
     return tenantId;
@@ -121,7 +121,7 @@ public class Address   {
    * House number or door number.
    * @return doorNo
   **/
-  @ApiModelProperty(value = "House number or door number.")
+  @Schema(description = "House number or door number.")
   
     public String getDoorNo() {
     return doorNo;
@@ -140,7 +140,7 @@ public class Address   {
    * Plot number of the house.
    * @return plotNo
   **/
-  @ApiModelProperty(value = "Plot number of the house.")
+  @Schema(description= "Plot number of the house.")
   
     public String getPlotNo() {
     return plotNo;
@@ -159,7 +159,7 @@ public class Address   {
    * System generated id for the address
    * @return id
   **/
-  @ApiModelProperty(readOnly = true, value = "System generated id for the address")
+  @Schema(readOnly = true,description= "System generated id for the address")
   
     public String getId() {
     return id;
@@ -178,7 +178,7 @@ public class Address   {
    * additional landmark to help locate the address
    * @return landmark
   **/
-  @ApiModelProperty(value = "additional landmark to help locate the address")
+  @Schema(description= "additional landmark to help locate the address")
   
     public String getLandmark() {
     return landmark;
@@ -197,7 +197,7 @@ public class Address   {
    * City of the address. Can be represented by the tenantid itself
    * @return city
   **/
-  @ApiModelProperty(value = "City of the address. Can be represented by the tenantid itself")
+  @Schema(description = "City of the address. Can be represented by the tenantid itself")
   
     public String getCity() {
     return city;
@@ -216,7 +216,7 @@ public class Address   {
    * The district in which the property is located
    * @return district
   **/
-  @ApiModelProperty(value = "The district in which the property is located")
+  @Schema(description = "The district in which the property is located")
   
     public String getDistrict() {
     return district;
@@ -235,7 +235,7 @@ public class Address   {
    * The Region in which the property is located
    * @return region
   **/
-  @ApiModelProperty(value = "The Region in which the property is located")
+  @Schema(description = "The Region in which the property is located")
   
     public String getRegion() {
     return region;
@@ -254,7 +254,7 @@ public class Address   {
    * The State in which the property is located
    * @return state
   **/
-  @ApiModelProperty(value = "The State in which the property is located")
+  @Schema(description = "The State in which the property is located")
   
     public String getState() {
     return state;
@@ -273,7 +273,7 @@ public class Address   {
    * The country in which the property is located
    * @return country
   **/
-  @ApiModelProperty(value = "The country in which the property is located")
+  @Schema(description= "The country in which the property is located")
   
     public String getCountry() {
     return country;
@@ -292,7 +292,7 @@ public class Address   {
    * PIN code of the address. Indian pincodes will usually be all numbers.
    * @return pincode
   **/
-  @ApiModelProperty(value = "PIN code of the address. Indian pincodes will usually be all numbers.")
+  @Schema(description = "PIN code of the address. Indian pincodes will usually be all numbers.")
   
     public String getPincode() {
     return pincode;
@@ -311,7 +311,7 @@ public class Address   {
    * more address detail as may be needed
    * @return additionDetails
   **/
-  @ApiModelProperty(value = "more address detail as may be needed")
+  @Schema(description= "more address detail as may be needed")
   
     public String getAdditionDetails() {
     return additionDetails;
@@ -330,7 +330,7 @@ public class Address   {
    * Name of the building
    * @return buildingName
   **/
-  @ApiModelProperty(value = "Name of the building")
+  @Schema(description= "Name of the building")
   
   @Size(min=2,max=64)   public String getBuildingName() {
     return buildingName;
@@ -349,7 +349,7 @@ public class Address   {
    * Street Name
    * @return street
   **/
-  @ApiModelProperty(value = "Street Name")
+  @Schema(description= "Street Name")
   
   @Size(min=2,max=64)   public String getStreet() {
     return street;
@@ -368,7 +368,7 @@ public class Address   {
    * Get locality
    * @return locality
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(required = true, description = "")
       @NotNull
 
     @Valid
@@ -389,7 +389,7 @@ public class Address   {
    * Get geoLocation
    * @return geoLocation
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public GeoLocation getGeoLocation() {
@@ -410,7 +410,7 @@ public class Address   {
    * Get geoLocation
    * @return geoLocation
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
   
     @Valid
     public AuditDetails getAuditDetails() {

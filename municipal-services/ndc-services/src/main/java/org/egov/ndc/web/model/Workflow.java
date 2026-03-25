@@ -2,24 +2,24 @@ package org.egov.ndc.web.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 /**
  * BPA applications object to capture the details of land, land owners, and address of the land.
  */
-@ApiModel(description = "BPA applications object to capture the details of land, land owners, and address of the land.")
+@Schema(description = "BPA applications object to capture the details of land, land owners, and address of the land.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 public class Workflow   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("action")
   private String action = null;
 
@@ -27,7 +27,7 @@ public class Workflow   {
   @Valid
   private List<String> assignes = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("comment")
   private String comment = null;
 
@@ -44,7 +44,7 @@ public class Workflow   {
    * Action on the applications in certain
    * @return action
   **/
-  @ApiModelProperty(value = "Action on the applications in certain")
+  @Schema(description = "Action on the applications in certain")
   
   @Size(min=1,max=64)   public String getAction() {
     return action;
@@ -71,7 +71,7 @@ public class Workflow   {
    * Get assignes
    * @return assignes
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     public List<String> getAssignes() {
     return assignes;
@@ -90,7 +90,7 @@ public class Workflow   {
    * Comment by actor.
    * @return comment
   **/
-  @ApiModelProperty(value = "Comment by actor.")
+  @Schema(description= "Comment by actor.")
   
   @Size(min=1,max=64)   public String getComment() {
     return comment;
@@ -117,7 +117,7 @@ public class Workflow   {
    * Attach the workflow varification documents.
    * @return documents
   **/
-  @ApiModelProperty(value = "Attach the workflow varification documents.")
+  @Schema(description = "Attach the workflow varification documents.")
       @Valid
     public List<Document> getDocuments() {
     return documents;

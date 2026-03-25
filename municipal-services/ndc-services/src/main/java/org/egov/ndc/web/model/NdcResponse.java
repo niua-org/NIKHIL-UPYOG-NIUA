@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.egov.common.contract.response.ResponseInfo;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 /**
  * Contains the ResponseMetadate and the main applications contract
  */
-@ApiModel(description = "Contains the ResponseMetadate and the main applications contract")
+@Schema(description = "Contains the ResponseMetadate and the main applications contract")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:43:01.798Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:43:01.798Z[GMT]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -46,7 +46,7 @@ public class NdcResponse {
    * Get responseInfo
    * @return responseInfo
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResponseInfo getResponseInfo() {
@@ -74,7 +74,7 @@ public class NdcResponse {
    * Get ndc
    * @return ndc
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
       @Valid
     public List<Ndc> getNdc() {
     return ndc;

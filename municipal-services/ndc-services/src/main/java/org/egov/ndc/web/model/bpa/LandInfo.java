@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import org.egov.ndc.web.model.AuditDetails;
 import org.egov.ndc.web.model.OwnerInfo;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.ndc.validation.SanitizeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -24,24 +24,24 @@ import lombok.NoArgsConstructor;
  * LandInfo
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class LandInfo   {
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("landUId")
   private String landUId = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("landUniqueRegNo")
   private String landUniqueRegNo = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -51,7 +51,7 @@ public class LandInfo   {
   @JsonProperty("address")
   private Address address = null;
 
-  @SafeHtml
+  @SanitizeHtml
   @JsonProperty("ownershipCategory")
   private String ownershipCategory = null;
 
@@ -91,7 +91,7 @@ public class LandInfo   {
    * Unique Identifier(UUID) of the land for internal reference.
    * @return id
   **/
-  @ApiModelProperty(readOnly = true, value = "Unique Identifier(UUID) of the land for internal reference.")
+  @Schema(readOnly = true, description= "Unique Identifier(UUID) of the land for internal reference.")
   
   @Size(min=1,max=64)   public String getId() {
     return id;
@@ -110,7 +110,7 @@ public class LandInfo   {
    * Unique formatted Identifier of the Land.
    * @return landUId
   **/
-  @ApiModelProperty(readOnly = true, value = "Unique formatted Identifier of the Land.")
+  @Schema(readOnly = true, description= "Unique formatted Identifier of the Land.")
   
   @Size(min=1,max=64)   public String getLandUId() {
     return landUId;
@@ -129,7 +129,7 @@ public class LandInfo   {
    * Unique Identifier of the Land in municipal departmrnt (eg. registration no, survey no etc).
    * @return landUniqueRegNo
   **/
-  @ApiModelProperty(value = "Unique Identifier of the Land in municipal departmrnt (eg. registration no, survey no etc).")
+  @Schema(description= "Unique Identifier of the Land in municipal departmrnt (eg. registration no, survey no etc).")
   
   @Size(min=1,max=64)   public String getLandUniqueRegNo() {
     return landUniqueRegNo;
@@ -148,7 +148,7 @@ public class LandInfo   {
    * tenant id of the Property
    * @return tenantId
   **/
-  @ApiModelProperty(required = true, value = "tenant id of the Property")
+  @Schema(required = true, description= "tenant id of the Property")
       @NotNull
 
   @Size(min=2,max=256)   public String getTenantId() {
@@ -168,7 +168,7 @@ public class LandInfo   {
    * Get status
    * @return status
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Status getStatus() {
@@ -188,7 +188,7 @@ public class LandInfo   {
    * Get address
    * @return address
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(required = true, description = "")
       @NotNull
 
     @Valid
@@ -209,7 +209,7 @@ public class LandInfo   {
    * The type of ownership of the property.
    * @return ownershipCategory
   **/
-  @ApiModelProperty(value = "The type of ownership of the property.")
+  @Schema(description = "The type of ownership of the property.")
   
   @Size(max=64)   public String getOwnershipCategory() {
     return ownershipCategory;
@@ -233,7 +233,7 @@ public class LandInfo   {
    * Property owners, these will be citizen users in system.
    * @return owners
   **/
-  @ApiModelProperty(required = true, value = "Property owners, these will be citizen users in system.")
+  @Schema(required = true, description= "Property owners, these will be citizen users in system.")
       @NotNull
     @Valid
     public List<OwnerInfo> getOwners() {
@@ -253,7 +253,7 @@ public class LandInfo   {
    * Get institution
    * @return institution
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Institution getInstitution() {
@@ -273,7 +273,7 @@ public class LandInfo   {
    * Get source
    * @return source
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
   
     @Valid
     public Source getSource() {
@@ -293,7 +293,7 @@ public class LandInfo   {
    * Get channel
    * @return channel
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Channel getChannel() {
@@ -321,7 +321,7 @@ public class LandInfo   {
    * Attach the documents.
    * @return documents
   **/
-  @ApiModelProperty(value = "Attach the documents.")
+  @Schema(description = "Attach the documents.")
       @Valid
     public List<Document> getDocuments() {
     return documents;
@@ -348,7 +348,7 @@ public class LandInfo   {
    * Unit details of the plot.
    * @return unit
   **/
-  @ApiModelProperty(value = "Unit details of the plot.")
+  @Schema(description = "Unit details of the plot.")
       @Valid
     public List<Unit> getUnit() {
     return unit;
@@ -367,7 +367,7 @@ public class LandInfo   {
    * The json to capturing the custom fields
    * @return additionalDetails
   **/
-  @ApiModelProperty(value = "The json to capturing the custom fields")
+  @Schema(description = "The json to capturing the custom fields")
   
     public Object getAdditionalDetails() {
     return additionalDetails;
@@ -386,7 +386,7 @@ public class LandInfo   {
    * Get auditDetails
    * @return auditDetails
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public AuditDetails getAuditDetails() {

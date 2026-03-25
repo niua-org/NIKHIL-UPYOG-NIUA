@@ -3,15 +3,15 @@ package org.egov.ndc.web.model.bpa;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.egov.common.contract.response.ResponseInfo;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,9 +21,9 @@ import lombok.Setter;
 /**
  * Contains the ResponseHeader and the created/updated property
  */
-@ApiModel(description = "Contains the ResponseHeader and the created/updated property")
+@Schema(description = "Contains the ResponseHeader and the created/updated property")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-06-23T05:52:32.717Z[GMT]")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -48,7 +48,7 @@ public class BPAResponse   {
    * Get responseInfo
    * @return responseInfo
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResponseInfo getResponseInfo() {
@@ -68,7 +68,7 @@ public class BPAResponse   {
    * Get BPA
    * @return BPA
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description= "")
   
 //    @Valid
 //    public List<BPA> getBPA() {
