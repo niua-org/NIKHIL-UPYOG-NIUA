@@ -1,33 +1,9 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
-import fs from "fs";
-import path from "path";
-
-function smartResolvePlugin() {
-  return {
-    name: "smart-resolve",
-    resolveId(id) {
-      try {
-        const pkgDir = path.join(process.cwd(), "node_modules", id);
-        const pkgPath = path.join(pkgDir, "package.json");
-        if (!fs.existsSync(pkgPath)) return null;
-        const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
-        if (pkg.module && fs.existsSync(path.join(pkgDir, pkg.module))) {
-          return path.join(pkgDir, pkg.module);
-        }
-        if (pkg.main) {
-          return path.join(pkgDir, pkg.main);
-        }
-      } catch {
-        return null;
-      }
-    },
-  };
-}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const proxyTarget = env.VITE_PROXY_URL || "https://niuatt.niua.in";
+  const proxyTarget = env.VITE_PROXY_API || "https://niuatt.niua.in";
 
   const proxyRoutes = [
     "/access/v1/actions/mdms",
@@ -59,24 +35,26 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
-      react(),
-      smartResolvePlugin(), // keep for legacy packages
+      react({ include: /\.(jsx|js)$/ }),
     ],
 
     base: "/sv-ui/",
 
-    server: {
-      port: 3000,
-
-      fs: {
-        allow: [".."],
-      },
-
-      proxy: proxyConfig,
-      watch: {
-        ignored: ["!**/micro-ui-internals/packages/**"],
+    esbuild: {
+      loader: "jsx",
+      include: /.*\.(js|jsx)$/,
+      exclude: [],
+      logOverride: {
+        "duplicate-case": "silent",
       },
     },
+
+    server: {
+      port: 3000,
+      fs: { allow: [".."] },
+      proxy: proxyConfig,
+    },
+
     build: {
       sourcemap: true,
       outDir: "build",
@@ -84,15 +62,11 @@ export default defineConfig(({ mode }) => {
         transformMixedEsModules: true,
       },
     },
+
     envPrefix: "VITE_",
+
     optimizeDeps: {
-      force: true,
       include: [
-        "@upyog/digit-ui-module-common",
-        "@upyog/digit-ui-module-core",
-        "@nudmcdgnpm/digit-ui-libraries",
-        "@nudmcdgnpm/upyog-ui-module-sv",
-        "@upyog/digit-ui-module-engagement",
         "pdfmake",
         "pdfmake/build/pdfmake",
         "pdfmake/build/vfs_fonts",

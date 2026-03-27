@@ -31,6 +31,10 @@ export default defineConfig({
         "i18next",
         "@tanstack/react-query",
       ],
+      output: {
+        manualChunks: undefined,
+        inlineDynamicImports: true,
+      },
     },
 
     sourcemap: false,
