@@ -176,7 +176,7 @@ const NOCAccess = () => {
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
 
   const NOC_ROLES = [
-    "FIRE_NOC_APPROVER"
+    "FIRE_NOC_APPROVER","NDC_ADMIN"
   ]
 
   const NOC_ACCESS = userRoles?.filter((role) => NOC_ROLES?.includes(role));

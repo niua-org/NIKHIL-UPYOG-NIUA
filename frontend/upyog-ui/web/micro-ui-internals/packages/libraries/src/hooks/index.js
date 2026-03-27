@@ -361,6 +361,10 @@ import useTenantsEST from "./estate/useTenants";
 import useESTAllotAsset from "./estate/useESTAllotAsset";
 import useESTAssetsAllotment from "./estate/useESTAssetsAllotment";
 import useESTBillSearch from "./estate/useESTBillSearch";
+import { useNDCSearchApplication, useNDCSearchApplicationEmployee } from "./ndc/useNDCSearchApplication";
+import useNDCDocumentSearch from "./ndc/useNDCDocumentSearch";
+import useNDCInbox from "./ndc/useInbox";
+
 const pgr = {
   useComplaintDetails,
   useComplaintsList,
@@ -726,6 +730,12 @@ const estate = {
   useESTBillSearch,
   useTenants: useTenantsEST
 };
+const ndc = {
+  useInbox: useNDCInbox,
+  useSearchApplication: useNDCSearchApplication,
+  useSearchEmployeeApplication: useNDCSearchApplicationEmployee,
+  useNDCDocumentSearch,
+};
 
 const Hooks = {
   useSessionStorage,
@@ -809,7 +819,8 @@ const Hooks = {
   useRouteSubscription,
   useCustomBackNavigation,
   pgrAi,
-  useInbox
+  useInbox,
+  ndc
 };
 
 export default Hooks;
