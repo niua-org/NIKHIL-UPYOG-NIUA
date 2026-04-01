@@ -16,7 +16,7 @@ import getWorkspaceAliases from "../workspace-aliases.js";
  */
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  const proxyTarget = env.VITE_PROXY_API || "https://niuatt.niua.in";
+  const proxyTarget = env.VITE_PROXY_API;
 
   const proxyRoutes = [
     "/access/v1/actions/mdms",
