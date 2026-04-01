@@ -10,6 +10,16 @@ import { initEngagementComponents } from "@upyog/digit-ui-module-engagement";
 
 import { SVConstants } from "./SVConstants";
 
+/**
+ * This file initializes and renders the Street Vending UI application.
+ * 
+ * - Loads required libraries and components for the application.
+ * - Sets up the `ComponentRegistryService` with modules and components.
+ * - Initializes user tokens and session storage based on the user type (citizen or employee).
+ * - Configures the application with the state code and enabled modules.
+ * - renders the `StreetVendingUI` component into the root DOM element.
+ */
+
 var Digit = window.Digit || {};
 
 const enabledModules = [

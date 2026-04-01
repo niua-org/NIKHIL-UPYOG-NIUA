@@ -20,6 +20,10 @@ initLibraries();
 
 // window.Digit.Customizations = { PGR: {} ,TL:TLCustomisations};
 
+/**
+ * Checks if user data is already stored in session storage.
+ * If not, retrieves user details from local storage and saves them in session storage.
+ */
 const user = window.Digit.SessionStorage.get("User");
 
 if (!user || !user.access_token || !user.info) {
@@ -47,6 +51,10 @@ if (!user || !user.access_token || !user.info) {
   const employeeInfo = getFromStorage("Employee.user-info")
   const employeeTenantId = getFromStorage("Employee.tenant-id")
 
+  /**
+   * Determines if the user is a citizen or an employee based on the token.
+   * Saves the user type in session storage.
+   */
   const userType = token === citizenToken ? "citizen" : "employee";
   window.Digit.SessionStorage.set("user_type", userType);
   window.Digit.SessionStorage.set("userType", userType);

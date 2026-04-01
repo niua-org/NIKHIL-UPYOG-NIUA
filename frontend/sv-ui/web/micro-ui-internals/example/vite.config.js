@@ -3,6 +3,17 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import getWorkspaceAliases from "../workspace-aliases.js";
 
+/**
+ * Vite configuration file for the Street Vending UI application.
+ * 
+ * - Loads environment variables based on the current mode.
+ * - Configures a proxy for API routes to handle backend requests during development.
+ * - Sets up React plugin for JSX/JS support.
+ * - Resolves workspace aliases for local package development.
+ * - Defines server settings, including port and file system access.
+ * - Configures build options, such as output directory and source maps.
+ * - Optimizes dependencies for faster builds and development.
+ */
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const proxyTarget = env.VITE_PROXY_API || "https://niuatt.niua.in";

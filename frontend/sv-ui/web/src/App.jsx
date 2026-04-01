@@ -5,6 +5,15 @@ import { initLibraries } from "@nudmcdgnpm/digit-ui-libraries";
 import { SVComponents, SVLinks, SVModule } from "@nudmcdgnpm/upyog-ui-module-sv";
 import { initEngagementComponents } from "@upyog/digit-ui-module-engagement";
 
+/**
+ * The `App` component initializes and renders the Street Vending UI application.
+ * 
+ * - Initializes required libraries and engagement components.
+ * - Sets up the `ComponentRegistryService` with modules and components.
+ * - Defines the enabled modules for the application.
+ * - Retrieves the state code from global configurations or defaults to "pg".
+ * - Renders the `StreetVendingUI` component with the state code, enabled modules, and reducers.
+ */
 
 initLibraries();
 
