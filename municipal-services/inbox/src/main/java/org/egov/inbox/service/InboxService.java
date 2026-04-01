@@ -9,6 +9,7 @@ import static org.egov.inbox.util.BpaConstants.OFFSET_PARAM;
 import static org.egov.inbox.util.BpaConstants.STATUS_ID;
 import static org.egov.inbox.util.BpaConstants.STATUS_PARAM;
 import static org.egov.inbox.util.BpaConstants.ASSIGNEE_PARAM;
+import static org.egov.inbox.util.ChallanConstants.CHALLAN_GENERATION;
 import static org.egov.inbox.util.DSSConstants.*;
 import static org.egov.inbox.util.FSMConstants.APPLICATIONSTATUS;
 import static org.egov.inbox.util.FSMConstants.CITIZEN_FEEDBACK_PENDING_STATE;
@@ -161,6 +162,9 @@ public class InboxService {
 
 	@Autowired
 	private NDCInboxFilterService ndcInboxFilterService;
+
+	@Autowired
+	private ChallanInboxFilterService challanInboxFilterService;
 
 	@Autowired
 	ElasticSearchRepository elasticSearchRepository;
@@ -475,6 +479,21 @@ public class InboxService {
 					businessKeys.addAll(applicationNumbers);
 					moduleSearchCriteria.remove(STATUS_PARAM);
 //                    moduleSearchCriteria.remove(MOBILE_NUMBER_PARAM);
+					moduleSearchCriteria.remove(LOCALITY_PARAM);
+					moduleSearchCriteria.remove(OFFSET_PARAM);
+				} else {
+					isSearchResultEmpty = true;
+				}
+			}
+
+			if (!ObjectUtils.isEmpty(processCriteria.getModuleName()) && processCriteria.getModuleName().equals(CHALLAN_GENERATION)) {
+				totalCount = challanInboxFilterService.fetchApplicationCountFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				List<String> applicationNumbers = challanInboxFilterService.fetchApplicationNumbersFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				if (!CollectionUtils.isEmpty(applicationNumbers)) {
+					String applNosParam = srvMap.get("applNosParam");
+					moduleSearchCriteria.put(applNosParam, applicationNumbers);
+					businessKeys.addAll(applicationNumbers);
+					moduleSearchCriteria.remove(srvMap.get("applsStatusParam"));
 					moduleSearchCriteria.remove(LOCALITY_PARAM);
 					moduleSearchCriteria.remove(OFFSET_PARAM);
 				} else {
