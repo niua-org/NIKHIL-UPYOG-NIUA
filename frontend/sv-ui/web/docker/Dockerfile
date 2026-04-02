@@ -13,7 +13,7 @@ COPY ${WORK_DIR} .
 RUN ls -lah
 
 RUN cd web/ \
-    && node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(1024*1024))' \
+    && node -e 'const v8=require("v8"); console.log("Heap (MB):", v8.getHeapStatistics().heap_size_limit/(1024*1024))' \
     &&  ./install-deps.sh \
     && yarn install \
     && yarn build 
