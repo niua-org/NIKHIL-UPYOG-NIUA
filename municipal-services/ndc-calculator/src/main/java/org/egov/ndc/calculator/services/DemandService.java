@@ -25,7 +25,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.egov.ndc.calculator.utils.NDCConstants.EMPTY_DEMAND_ERROR_CODE;
 import static org.egov.ndc.calculator.utils.NDCConstants.EMPTY_DEMAND_ERROR_MESSAGE;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class DemandService {
 
@@ -49,7 +51,8 @@ public class DemandService {
                     .tenantId(calculation.getTenantId())
                     .taxAmount(BigDecimal.valueOf(calculation.getTotalAmount()))
                     .taxHeadMasterCode(ndcConfiguration.getTaxHeadMasterCode()).build();
-
+            log.info("Calculation for which demand is to be created is: {}", calculation);
+            log.info("CalculationReq for which demand is to be created is: {}", calculationReq);
             AtomicReference<User> owner = new AtomicReference<>(calculationReq.getCalculationCriteria().get(0).getNdcApplicationRequest().getApplications().get(0).getOwners().get(0).toCommonUser());
 
             Application application = calculationReq.getCalculationCriteria().get(0).getNdcApplicationRequest().getApplications().get(0);

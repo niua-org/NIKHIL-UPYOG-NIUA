@@ -9,6 +9,7 @@ import static org.egov.inbox.util.BpaConstants.OFFSET_PARAM;
 import static org.egov.inbox.util.BpaConstants.STATUS_ID;
 import static org.egov.inbox.util.BpaConstants.STATUS_PARAM;
 import static org.egov.inbox.util.BpaConstants.ASSIGNEE_PARAM;
+import static org.egov.inbox.util.ChallanConstants.CHALLAN_GENERATION;
 import static org.egov.inbox.util.DSSConstants.*;
 import static org.egov.inbox.util.FSMConstants.APPLICATIONSTATUS;
 import static org.egov.inbox.util.FSMConstants.CITIZEN_FEEDBACK_PENDING_STATE;
@@ -42,6 +43,7 @@ import static org.egov.inbox.util.CommunityHallConstants.CHB;
 import static org.egov.inbox.util.CommunityHallConstants.CHB_BOOKING_NO_PARAM;
 import static org.egov.inbox.util.CNDServiceConstants.CND;
 import static org.egov.inbox.util.CNDServiceConstants.APPLICATION_NO_PARAM;
+import static org.egov.inbox.util.NdcConstants.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -157,6 +159,12 @@ public class InboxService {
 
 	@Autowired
 	private PGRAiInboxFilterService pgrAiInboxFilterService;
+
+	@Autowired
+	private NDCInboxFilterService ndcInboxFilterService;
+
+	@Autowired
+	private ChallanInboxFilterService challanInboxFilterService;
 
 	@Autowired
 	ElasticSearchRepository elasticSearchRepository;
@@ -462,6 +470,37 @@ public class InboxService {
 					isSearchResultEmpty = true;
 				}
 			}
+
+			if (!ObjectUtils.isEmpty(processCriteria.getModuleName()) && processCriteria.getModuleName().equals(NDC_MODULE)) {
+				totalCount = ndcInboxFilterService.fetchApplicationCountFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				List<String> applicationNumbers = ndcInboxFilterService.fetchApplicationNumbersFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				if (!CollectionUtils.isEmpty(applicationNumbers)) {
+					moduleSearchCriteria.put(NDC_APPLICATION_NO_PARAM, applicationNumbers);
+					businessKeys.addAll(applicationNumbers);
+					moduleSearchCriteria.remove(STATUS_PARAM);
+//                    moduleSearchCriteria.remove(MOBILE_NUMBER_PARAM);
+					moduleSearchCriteria.remove(LOCALITY_PARAM);
+					moduleSearchCriteria.remove(OFFSET_PARAM);
+				} else {
+					isSearchResultEmpty = true;
+				}
+			}
+
+			if (!ObjectUtils.isEmpty(processCriteria.getModuleName()) && processCriteria.getModuleName().equals(CHALLAN_GENERATION)) {
+				totalCount = challanInboxFilterService.fetchApplicationCountFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				List<String> applicationNumbers = challanInboxFilterService.fetchApplicationNumbersFromSearcher(criteria, StatusIdNameMap, requestInfo);
+				if (!CollectionUtils.isEmpty(applicationNumbers)) {
+					String applNosParam = srvMap.get("applNosParam");
+					moduleSearchCriteria.put(applNosParam, applicationNumbers);
+					businessKeys.addAll(applicationNumbers);
+					moduleSearchCriteria.remove(srvMap.get("applsStatusParam"));
+					moduleSearchCriteria.remove(LOCALITY_PARAM);
+					moduleSearchCriteria.remove(OFFSET_PARAM);
+				} else {
+					isSearchResultEmpty = true;
+				}
+			}
+
 
 			/*
 			   This block checks if the module name in processCriteria matches
