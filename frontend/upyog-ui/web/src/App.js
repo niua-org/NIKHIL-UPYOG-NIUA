@@ -28,6 +28,12 @@ import {
   TLLinks,
   initTLComponents,
 } from "@upyog/digit-ui-module-tl";
+import {
+  ChallanGenerationModule,
+  ChallanGenerationLinks,
+  initChallanGenerationComponents,
+  ChallanReducers,
+} from "@upyog/digit-ui-module-challangeneration";
 import { initReceiptsComponents, ReceiptsModule } from "@upyog/digit-ui-module-receipts";
 import { initOBPSComponents } from "@upyog/digit-ui-module-obps";
 import { initNOCComponents } from "@upyog/digit-ui-module-noc";
@@ -95,6 +101,7 @@ const enabledModules = [
   "CHB",
   "WT",
   "VENDOR",
+  "ChallanGeneration",
   "MT",
   "PGRAI",
   "TP",
@@ -111,6 +118,8 @@ window.Digit.ComponentRegistryService.setupRegistry({
   ...PTComponents,
   MCollectLinks,
   MCollectModule,
+  ChallanGenerationModule,
+  ChallanGenerationLinks,
   HRMSModule,
   TLModule,
   TLLinks,
@@ -157,6 +166,7 @@ initPGRComponents();
 initFSMComponents();
 initDSSComponents();
 initMCollectComponents();
+initChallanGenerationComponents();
 initHRMSComponents();
 initTLComponents();
 initReceiptsComponents();
@@ -171,6 +181,7 @@ initBillsComponents();
 
 const moduleReducers = (initData) => ({
   pgr: PGRReducers(initData),
+  challan: ChallanReducers(initData),
 });
 
 function App() {
