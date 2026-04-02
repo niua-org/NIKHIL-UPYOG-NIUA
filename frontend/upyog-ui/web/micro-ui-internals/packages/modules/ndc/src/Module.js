@@ -32,14 +32,14 @@ import NDCResponseCitizen from "./pages/citizen/NDCResponseCitizen";
 import getRootReducer from "./redux/reducers";
 
 export const NDCReducers = getRootReducer;
-
+// NDCModule is the entry point for the NDC module. It checks the user type and renders the appropriate app (EmployeeApp or CitizenApp) based on that. It also fetches necessary data from the store and handles loading state.
 const NDCModule = ({ stateCode, userType, tenants }) => {
-  const moduleCode = "common-noc";
+  const moduleCode = "NDC";
   const { path, url } = useRouteMatch();
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
 
-  Digit.SessionStorage.set("NOC_TENANTS", tenants);
+  Digit.SessionStorage.set("NDC_TENANTS", tenants);
 
   if (isLoading) {
     return <Loader />;

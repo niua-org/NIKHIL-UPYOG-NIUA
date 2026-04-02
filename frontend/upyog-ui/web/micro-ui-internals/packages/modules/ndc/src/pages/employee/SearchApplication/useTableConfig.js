@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+// This hook is responsible for configuring the columns of the search application table in the Employee portal. It uses the useMemo hook to memoize the column configuration, which helps in optimizing performance by preventing unnecessary re-renders. The column configuration includes details such as the header name, accessor function, and cell rendering logic for each column in the table. The getRedirectionLink function is used to determine the appropriate redirection link based on the business service of the application.
 const useSearchApplicationTableConfig = () => {
     const {t} = useTranslation()
     const getRedirectionLink = (bService) => {
@@ -19,7 +20,7 @@ const useSearchApplicationTableConfig = () => {
             return (
               <div>
                 <span className="link">
-                  <Link to={`/digit-ui/employee/noc/search/application-overview/${row.original["applicationNo"] || row.original["applicationNumber"]}`}>
+                  <Link to={`/upyog-ui/employee/noc/search/application-overview/${row.original["applicationNo"] || row.original["applicationNumber"]}`}>
                     {row.original["applicationNo"] || row.original["applicationNumber"]}
                   </Link>
                 </span>

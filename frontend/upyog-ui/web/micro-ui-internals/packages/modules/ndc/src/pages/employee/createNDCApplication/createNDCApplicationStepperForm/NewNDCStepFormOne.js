@@ -19,7 +19,7 @@ export const NewNDCStepFormOne = ({ config, onGoNext, onBackClick, t }) => {
 
   const checkFormData = useSelector((state) => state.ndc.NDCForm.formData || {});
 
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = window.localStorage.getItem("Employee.tenant-id");
 
   function goNext(data) {
     const missingFields = validateStepData(currentStepData);

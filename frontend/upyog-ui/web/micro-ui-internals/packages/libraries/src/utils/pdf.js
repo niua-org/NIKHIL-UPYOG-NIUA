@@ -1,5 +1,6 @@
 import { Fonts } from "./fonts";
 const pdfMake = require("pdfmake/build/pdfmake.js");
+import QRCode from "qrcode";
 // const pdfFonts = require("pdfmake/build/vfs_fonts.js");
 // pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -367,6 +368,296 @@ const jsPdfGeneratorForTable = async ({ breakPageLimit = null, tenantId, logo, n
 };
 
 
+const generateQRCodeDataUrl = async (value) => {
+  const dataUrl = await QRCode.toDataURL(value);
+  return dataUrl;
+};
+// This function is specifically created for generating NDC certificate and has some specific fields related to NDC certificate, so the parameters are different than the general jsPdfGenerator function.
+function createHeaderDetailsBPAREG(details, name, phoneNumber, email, logo, tenantId, heading, applicationNumber, qrCodeDataUrl,ulbType) {
+  const ulb = tenantId.split(".")[1].replace(/^./, (c) => c.toUpperCase());
+  let headerData = [];
+  headerData.push({
+    style: "tableExample",
+    layout: "noBorders",
+    margin: [0, 0, 0, 0],
+    table: {
+      widths: ["25%", "50%", "25%"], // left, center, right
+      body: [
+        [
+          // Left: Logo
+          {
+            image: logo || getBase64Image(tenantId) 
+            || defaultLogo,
+            
+            width: 78,
+            margin: [10, 10],
+            alignment: "left",
+          },
+
+          // Center: Heading + Name stacked
+          {
+            stack: [
+              {
+                text: heading,
+                bold: true,
+                fontSize: 19,
+                alignment: "center",
+                decoration: "underline",
+                margin: [0, 15, 0, 4],
+              },
+              {
+                text: ulbType && ulb ? `${ulbType} ${ulb}` : `Municipal Corporation ${ulb}`,
+                fontSize: 11,
+                alignment: "center",
+              },
+              {
+                text: name ? name :"No Dues Certificate",
+                fontSize: 11,
+                alignment: "center",
+              },
+            ],
+            alignment: "center",
+          },
+
+          // Right: QR code (if available)
+          qrCodeDataUrl
+            ? {
+                image: qrCodeDataUrl,
+                width: 78,
+                margin: [10, 10],
+                alignment: "right",
+              }
+            : {},
+        ],
+      ],
+    },
+  });
+
+  //   headerData.push({
+  //     style : 'tableExample',
+  //     layout: "noBorders",
+  //     margin: [420, -135, 0, 20],
+  //     table:{
+  //       widths: ['40%', '*', '20%'],
+  //       body:[
+  //         [
+  //           {
+  //             image: logo|| getBase64Image(tenantId) || defaultLogo,
+  //             width: 65,
+  //             margin: [10, 10],
+  //             // fit:[50,50]
+  //           },
+
+  //       ]
+  //       ]
+  //     }
+  // })
+  // headerData.push({
+  //   style : 'tableExample',
+  //   layout: "noBorders",
+  //   margin:[0,-20,7,0],
+
+  //   table:{
+  //     widths:['100%'],
+  //     body:[
+  //       [
+  //         {
+
+  //           text: `Application Number: ${applicationNumber}`,
+  //           alignment:"right",
+  //           fontSize: 9,
+  //           //bold: true
+  //         },
+  //       ]
+  //     ]
+  //   }
+  // })
+
+  return headerData;
+}
+// This function is specifically created for generating NDC certificate and has some specific fields related to NDC certificate, so the parameters are different than the general jsPdfGenerator function.
+function createNDCContent(details, applicationNumber, logo, tenantId, phoneNumber, breakPageLimit = null) {
+  const detailsBlocks = [];
+  details.forEach((detail, index) => {
+    if (detail?.title) {
+      detailsBlocks.push({
+        columns: [
+          {
+            width: "*",
+            stack: [
+              {
+                style: "tableExample",
+                margin: [10, 20, 0, 2],
+                layout: "noBorders",
+                table: {
+                  widths: ["100%"],
+                  body: [
+                    [
+                      {
+                        text: detail.title,
+                        border: [true, true, true, false],
+                        color: "#000000ff",
+                        fontSize: 14,
+                        bold: true,
+                      },
+                    ],
+                  ],
+                },
+              },
+            ],
+          },
+        ],
+      });
+    }
+
+    if (detail?.value) {
+      detailsBlocks.push({
+        style: "tableExample",
+        layout: "noBorders",
+        margin: [10, -5, 10, 0],
+        table: {
+          widths: ["100%"],
+          body: [
+            [
+              {
+                text: detail.value,
+                fontSize: 11,
+                alignment: "justify",
+              },
+            ],
+          ],
+        },
+      });
+    }
+  });
+
+  return detailsBlocks;
+}
+// This function is specifically created for generating NDC certificate and has some specific fields related to NDC certificate, so the parameters are different than the general jsPdfGenerator function.
+const jsPdfGeneratorNDC = async ({
+  breakPageLimit = null,
+  tenantId,
+  logo,
+  name,
+  email,
+  phoneNumber,
+  heading,
+  details,
+  applicationNumber,
+  approvalDate,
+  approver,
+  designation,
+  approverStatement,
+  ulbType,
+  t = (text) => text,
+  imageURL,
+}) => {
+  const emailLeftMargin =
+    email?.length <= 15
+      ? 190
+      : email?.length <= 20
+      ? 150
+      : email?.length <= 25
+      ? 130
+      : email?.length <= 30
+      ? 90
+      : email?.length <= 35
+      ? 50
+      : email?.length <= 40
+      ? 10
+      : email?.length <= 45
+      ? 0
+      : email?.length <= 50
+      ? -20
+      : email?.length <= 55
+      ? -70
+      : email?.length <= 60
+      ? -100
+      : -60;
+  const baseUrl = window.location.origin;
+  let qrCodeDataUrl = "";
+  qrCodeDataUrl = await generateQRCodeDataUrl(`${baseUrl}/upyog-ui/citizen/ndc/search/application-overview/${applicationNumber}`);
+  const ulb = tenantId.split(".")[1].replace(/^./, (c) => c.toUpperCase());
+  const dd = {
+    background: [
+      {
+        image: AcknowledgmentPage,
+        width: 595,
+        height: 842,
+      },
+    ],
+    margin: [20, 20, 20, 20],
+    header: {},
+    content: [
+      ...createHeaderDetailsBPAREG(details, name, phoneNumber, email, logo, tenantId, heading, applicationNumber, qrCodeDataUrl,ulbType),
+      {
+        stack: [
+          { 
+            text: `Date Of Issuance : ${approvalDate}`, 
+            font: "Hind", 
+            fontSize: 11, 
+            margin: [0, 2, 0, 0], 
+            bold: true 
+          }
+        ],
+        alignment: "right",
+        margin: [0, 0, 20, 0],
+      },
+      ...createNDCContent(details, applicationNumber, phoneNumber, logo, tenantId, breakPageLimit),
+      {
+        stack: [
+          { text: `${approverStatement}  `, font: "Hind", fontSize: 11, margin: [0, 0, 0, 0], bold: true },
+          { text: approver, font: "Hind", fontSize: 11, margin: [0, 0, 0, 0] },
+          { text: designation, font: "Hind", fontSize: 11, margin: [0, 0, 0, 0] }
+        ],
+        alignment: "right",
+        margin: [9, 5, 20, 5],
+      },
+      {
+        stack: [
+          { text: "Issuing Authority", font: "Hind", fontSize: 11, bold: true, margin: [0, -10, 0, 0] },
+          {
+            stack: [
+              { text: ulbType, font: "Hind", fontSize: 11, margin: [0, 0, 0, 0],bold: true },
+              { text: ulb, font: "Hind", fontSize: 11, margin: [0, 0, 0, 0], bold: true }
+
+            ]
+          }
+        ],
+        alignment: "right",
+        margin: [0, 0, 20, 0]
+      },
+      {
+      stack: [
+        { text: "Note:-", font: "Hind", fontSize: 8 },
+        { text: "1. The authenticity of this document can be verified by scanning the QR code mentioned on the document.", font: "Hind", fontSize: 8 },
+        { text: "2. For further information please visit 'https://mseva.lgpunjab.gov.in/' ", font: "Hind", fontSize: 8 },
+        { text: "3. The responsibility of verification of this document before accepting the same for any legal purposes would rest with the Institution / Organization / Company or any other Entity where this document is produced.", font: "Hind", fontSize: 8 },
+        { text: "4. This is computer generated certificate and does not require hand written signature.", font: "Hind", fontSize: 8 },
+        { text: "5. In case of any discrepancy please inform the issuing authority of the certificate.", font: "Hind", fontSize: 8 }
+      ],
+      alignment: "left",
+      margin: [10, 2]
+    },
+
+    ],
+
+    defaultStyle: {
+      font: "Hind",
+      margin: [20, 10, 20, 10],
+    },
+  };
+
+  pdfMake.vfs = Fonts;
+  let locale = Digit.SessionStorage.get("locale") || "en_IN";
+  let Hind = pdfFonts[locale] || pdfFonts["Hind"];
+  pdfMake.fonts = { Hind: { ...Hind } };
+
+  const generatedPDF = pdfMake.createPdf(dd);
+  downloadPDFFileUsingBase64(generatedPDF, "ndc_certificate.pdf");
+};
+
+
 /**
  * Util function that can be used
  * to download WS connection acknowledgement pdfs
@@ -621,7 +912,8 @@ const generateBillAmendPDF = async ({ tenantId, bodyDetails, headerDetails, logo
   downloadPDFFileUsingBase64(generatedPDF, "acknowledgement.pdf");
 }
 
-export default { generate: jsPdfGenerator, generateTable: jsPdfGeneratorForTable, generatev1: jsPdfGeneratorv1, generateModifyPdf: jsPdfGeneratorForModifyPDF, generateBillAmendPDF };
+export default { generate: jsPdfGenerator, generateTable: jsPdfGeneratorForTable, generatev1: jsPdfGeneratorv1, generateModifyPdf: jsPdfGeneratorForModifyPDF, generateBillAmendPDF,  generateNDC: jsPdfGeneratorNDC,
+};
 
 const createBodyContentBillAmend = (table,t) => {
   let bodyData = []

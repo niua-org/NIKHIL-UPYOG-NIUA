@@ -3,6 +3,8 @@ import { CardLabel, LabelFieldPair, Dropdown, UploadFile, Toast } from "@upyog/d
 import { useSelector } from "react-redux";
 import { Loader } from "../components/Loader";
 
+// This component allows users to select and upload documents required for an NDC application. It fetches the list of required documents from MDMS and displays them as a list of upload fields. The component also handles file uploads and validation.
+
 const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError: setFormError, clearErrors: clearFormErrors, formState }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const checkFormData = useSelector((state) => state.ndc.NDCForm.formData || {});
@@ -16,8 +18,8 @@ const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError:
       // Map API response into the structure your UploadFile expects
       const apiDocs = checkFormData?.responseData?.[0]?.Documents?.map((doc) => ({
         documentType: doc?.documentType,
-        fileStoreId: doc?.documentAttachment, // 👈 key mapping
-        documentUid: doc?.documentAttachment, // 👈 key mapping
+        fileStoreId: doc?.documentAttachment, 
+        documentUid: doc?.documentAttachment,
       }));
 
       setDocuments(apiDocs);
@@ -26,7 +28,10 @@ const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError:
 
   const { action = "create" } = Digit.Hooks.useQueryParams();
 
-  const { isLoading, data } = Digit.Hooks.pt.usePropertyMDMS(stateId, "NDC", ["Documents"]);
+  // const { isLoading, data } = Digit.Hooks..usePropertyMDMS(stateId, "NDC", ["Documents"]);
+ // useNDCDoc for fetching the documents from mdms as per the state and tenant id
+  const {isLoading ,data } = Digit.Hooks.ndc.useNDCDoc(stateId, "NDC", "Documents");
+
 
   const ndcDocuments = data?.NDC?.Documents;
 
@@ -45,11 +50,7 @@ const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError:
   return (
     <div>
       {ndcDocuments?.map((document, index) => {
-        // if (document.code === "OWNER.SPECIALCATEGORYPROOF") {
-        //   if (formData?.owners?.every((user) => user.ownerType.code === "NONE" || !user.ownerType?.code)) {
-        //     return null;
-        //   }
-        // }
+       
         return (
           <SelectDocument
             key={index}
@@ -127,7 +128,7 @@ function SelectDocument({ t, document: doc, setDocuments, setError, documents, s
         } else {
           try {
             setUploadedFile(null);
-            const response = await Digit.UploadServices.Filestorage("PT", file, Digit.ULBService.getStateId());
+            const response = await Digit.UploadServices.Filestorage("NDC", file, Digit.ULBService.getStateId());
             setLoader(false);
             if (response?.data?.files?.length > 0) {
               setUploadedFile(response?.data?.files[0]?.fileStoreId);

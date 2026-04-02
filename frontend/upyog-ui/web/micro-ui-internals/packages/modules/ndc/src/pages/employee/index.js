@@ -6,44 +6,46 @@ import { Switch, useLocation, Route } from "react-router-dom";
 import CreateNDCApplicationStep from "./createNDCApplication";
 import Response from "./Response";
 
+// NDCBreadCrumbs is a component that renders the breadcrumb navigation for the NDC module. It takes the current location as a prop and determines which breadcrumbs to show based on the pathname. The breadcrumbs are defined in an array, where each breadcrumb has a path, content, and a show property that determines whether it should be displayed or not. The BreadCrumb component from "@upyog/digit-ui-react-components" is used to render the breadcrumbs on the UI.
 const NDCBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
     {
-      path: "/digit-ui/employee",
+      path: "/upyog-ui/employee",
       content: t("ES_COMMON_HOME"),
       show: true,
     },
     {
-      path: "/digit-ui/employee/ndc/inbox",
+      path: "/upyog-ui/employee/ndc/inbox",
       content: t("ES_COMMON_INBOX"),
       show: location.pathname.includes("ndc/inbox") ? true : false,
     },
     {
-      path: "/digit-ui/employee/ndc/create",
+      path: "/upyog-ui/employee/ndc/create",
       content: "NDC Application Create Page",
       show: location.pathname.includes("ndc/create") ? true : false,
     },
     {
-      path: "/digit-ui/employee/noc/inbox/application-overview/:id",
+      path: "/upyog-ui/employee/noc/inbox/application-overview/:id",
       content: t("NOC_APP_OVER_VIEW_HEADER"),
       show: location.pathname.includes("noc/inbox/application-overview") ? true : false,
     },
     {
-      path: "/digit-ui/employee/noc/search",
+      path: "/upyog-ui/employee/noc/search",
       content: t("ES_COMMON_APPLICATION_SEARCH"),
-      show: location.pathname.includes("/digit-ui/employee/noc/search") ? true : false,
+      show: location.pathname.includes("/upyog-ui/employee/noc/search") ? true : false,
     },
     {
-      path: "/digit-ui/employee/noc/search/application-overview/:id",
+      path: "/upyog-ui/employee/noc/search/application-overview/:id",
       content: t("NOC_APP_OVER_VIEW_HEADER"),
-      show: location.pathname.includes("/digit-ui/employee/noc/search/application-overview") ? true : false,
+      show: location.pathname.includes("/upyog-ui/employee/noc/search/application-overview") ? true : false,
     },
   ];
   return <BreadCrumb crumbs={crumbs} />;
 };
 
 const EmployeeApp = ({ path }) => {
+  console.log("path in employee app", path);
   const location = useLocation();
   const { t } = useTranslation();
   const ApplicationOverview = Digit?.ComponentRegistryService?.getComponent("NDCApplicationOverview");
@@ -59,10 +61,10 @@ const EmployeeApp = ({ path }) => {
         {!isResponse ? <NDCBreadCrumbs location={location} /> : null}
         <Switch>
           <PrivateRoute path={`${path}/inbox/application-overview/:id`} component={ApplicationOverview} />
-          <PrivateRoute path={`${path}/search/application-overview/:id`} component={ApplicationOverview} />
+          {/* <PrivateRoute path={`${path}/search/application-overview/:id`} component={ApplicationOverview} /> */}
           <Route path={`${path}/inbox`} component={(props) => <Inbox {...props} parentRoute={path} />} />
           <PrivateRoute path={`${path}/create`} component={(props) => <NewNDCStepForm {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/response/:id`} component={Response} />
+          {/* <PrivateRoute path={`${path}/response/:id`} component={Response} /> */}
         </Switch>
       </div>
     </Fragment>

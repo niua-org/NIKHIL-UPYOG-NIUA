@@ -45,7 +45,7 @@ export const convertEpochToDate = (dateEpoch) => {
   });
   console.log("datatatataty",data)
 
-  const { label } = Digit.Hooks.useApplicationsForBusinessServiceSearch({ businessService: business_service }, { enabled: false });
+  const { label } = Digit.Hooks.useApplicationsForBusinessServiceSearch({ businessService: business_service }, { enabled: false }) || {};
 
   // const { data: demand } = Digit.Hooks.useDemandSearch(
   //   { consumerCode, businessService: business_service },
@@ -374,6 +374,7 @@ export const convertEpochToDate = (dateEpoch) => {
       return "FY " + from + "-" + to;
     } else return "N/A";
   };
+  
 
   let bannerText;
   if (workflw) {
@@ -439,6 +440,33 @@ export const convertEpochToDate = (dateEpoch) => {
     }
     const fileStore = await Digit.PaymentService.printReciept(tenantId, { fileStoreIds: fileStoreId });
     window.open(fileStore[fileStoreId], "_blank");
+  };
+  const printNDCReceipt = async () => {
+    if (printing) return;
+    setPrinting(true);
+    try {
+      console.log("consumerCode for ndc", consumerCode);
+      console.log("tenantId for ndc", tenantId);
+      const applicationDetails = await Digit.NDCService.NDCsearch({
+        tenantId,
+        filters: { applicationNo: consumerCode },
+      });
+      let application = applicationDetails?.Applications?.[0];
+      let fileStoreId = applicationDetails?.Applications?.[0]?.paymentReceiptFilestoreId;
+      if (!fileStoreId) {
+        const payments = await Digit.PaymentService.getReciept(tenantId, business_service, { receiptNumbers: receiptNumber });
+        let response = await Digit.PaymentService.generatePdf(
+          tenantId,
+          { Payments: [{ ...(payments?.Payments?.[0] || {}), ...application }] },
+          "ndc-receipt"
+        );
+        fileStoreId = response?.filestoreIds[0];
+      }
+      const fileStore = await Digit.PaymentService.printReciept(tenantId, { fileStoreIds: fileStoreId });
+      window.open(fileStore[fileStoreId], "_blank");
+    } finally {
+      setPrinting(false);
+    }
   };
 
   const printWTReceipt = async () => {
@@ -1043,6 +1071,22 @@ export const convertEpochToDate = (dateEpoch) => {
             <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z" />
           </svg>
           {t("SV_ID_CARD")}
+        </div>
+      ) : null}
+      {business_service == "NDC" ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "15px",
+            flexWrap: "wrap",
+            gap: "20px",
+          }}
+        >
+          <SubmitBar onSubmit={printNDCReceipt} label={t("CS_DOWNLOAD_RECEIPT")} />
+          <Link to={`/upyog-ui/citizen`}>
+            <SubmitBar label={t("CORE_COMMON_GO_TO_HOME")} />
+          </Link>
         </div>
       ) : null}
       {!(business_service?.includes("TL")) || !(business_service?.includes("PT")) && <SubmitBar onSubmit={printReciept} label={t("COMMON_DOWNLOAD_RECEIPT")} />}

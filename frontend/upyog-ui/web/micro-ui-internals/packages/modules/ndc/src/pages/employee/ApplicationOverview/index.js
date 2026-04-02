@@ -34,7 +34,7 @@ const ApplicationOverview = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const toastRef = useRef(null);
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = window.localStorage.getItem("Employee.tenant-id");
   const state = tenantId?.split(".")[0];
   const [showToast, setShowToast] = useState(null);
   const [error, setError] = useState(null);
@@ -62,12 +62,10 @@ const ApplicationOverview = () => {
       const updated = { ...prev, [consumerCode]: value === "yes" };
 
       if (updated[consumerCode]) {
-        console.log("✅ Marked dues pending for", consumerCode);
-        // TODO: Call API to mark as pending
       } else {
         setAmounts((prevAmounts) => ({
           ...prevAmounts,
-          [consumerCode]: 0, // ✅ Reset dues to zero when "No" is selected
+          [consumerCode]: 0,
         }));
         setValue(`amount[${index}]`, 0);
         // TODO: Call API to undo marking
@@ -101,21 +99,21 @@ const ApplicationOverview = () => {
           {
             action: "APPROVE",
             roles: ["NDC_ADMIN"],
-            tenantId: "pb",
+            tenantId: "pg",
             assigneeRoles: [],
             isTerminateState: false,
           },
           {
             action: "ASSIGN",
             roles: ["NDC_ADMIN"],
-            tenantId: "pb",
+            tenantId: "pg",
             assigneeRoles: ["NDC_ADMIN"],
             isTerminateState: false,
           },
           {
             action: "REJECT",
             roles: ["NDC_ADMIN"],
-            tenantId: "pb",
+            tenantId: "pg",
             assigneeRoles: [],
             isTerminateState: true,
           },
@@ -130,21 +128,12 @@ const ApplicationOverview = () => {
       setLoader(true);
       WorkflowService = await Digit.WorkflowService.init(tenantId, "ndc-services");
       setLoader(false);
-      console.log("WorkflowService====", WorkflowService?.BusinessServices?.[0]?.states);
       setWorkflowService(WorkflowService?.BusinessServices?.[0]?.states);
       // setComplaintStatus(applicationStatus);
     })();
   }, [tenantId]);
 
   const empData = EmployeeData(tenantId, approver);
-
-  console.log("approver for ndc", approver);
-
-  console.log("officerData", empData);
-
-  // const WorkflowService = Digit.WorkflowService.init(tenantId, "ndc-services");
-
-  // console.log("WorkflowService====", WorkflowService);
 
   const { data: reciept_data, isLoading: recieptDataLoading } = Digit.Hooks.useRecieptSearch(
     {
@@ -297,44 +286,27 @@ const ApplicationOverview = () => {
 
       Property.propertyOwnerNames = propertyOwnerNames;
 
-      console.log("propertyOwnerNames", propertyOwnerNames);
       const tenantInfo = tenants?.find((tenant) => tenant?.code === Property?.Applications?.[0]?.tenantId);
-      console.log("tenantInfo", tenantInfo);
       const ulbType = tenantInfo?.city?.ulbType;
       let acknowledgementData;
 
       if (empData) {
         acknowledgementData = await getAcknowledgementData(Property, formattedAddress, tenantInfo, t, approver, ulbType, empData, approverStatement);
       }
-      console.log("acknowledgementData", acknowledgementData);
       setTimeout(() => {
         Digit.Utils.pdf.generateNDC(acknowledgementData);
         setLoader(false);
       }, 0);
     } catch (error) {
-      console.error("Error generating acknowledgement:", error);
       setLoader(false);
     }
   };
   function onActionSelect(action) {
-    console.log("action====||?", action?.state?.actions);
     const ndcDetails = applicationDetails?.Applications?.[0]?.NdcDetails || [];
     const hasDuePending = ndcDetails?.some((item) => item.isDuePending === true);
-
-    console.log("hasDuePending", hasDuePending);
-
     const filterNexState = action?.state?.actions?.filter((item) => item.action == action?.action);
-
-    console.log("filterNexState====||?", filterNexState[0]?.nextState);
-
     const filterRoles = getWorkflowService?.filter((item) => item?.uuid == filterNexState[0]?.nextState);
-
-    console.log("filterRoles====||?", filterRoles);
-    console.log("action test", action?.action);
-
     const checkactionApp = action?.action == "APPROVE";
-
-    console.log("filterRoles && checkactionApp", filterRoles && checkactionApp, checkactionApp, filterRoles);
 
     if (hasDuePending && checkactionApp) {
       console.log("alwasy coming appprve");
@@ -354,9 +326,9 @@ const ApplicationOverview = () => {
     if (action?.action == "APPLY") {
       submitAction(payload);
     } else if (action?.action == "PAY") {
-      history.push(`/digit-ui/employee/payment/collect/NDC/${appNo}/${tenantId}?tenantId=${tenantId}`);
+      history.push(`/upyog-ui/employee/payment/collect/NDC/${appNo}/${tenantId}?tenantId=${tenantId}`);
     } else if (action?.action == "EDIT") {
-      history.push(`/digit-ui/employee/ndc/create/${appNo}`);
+      history.push(`/upyog-ui/employee/ndc/create/${appNo}`);
     } else {
       setShowModal(true);
       setSelectedAction(action);
@@ -372,14 +344,14 @@ const ApplicationOverview = () => {
     const updatedApplicant = {
       ...payloadData,
       NdcDetails: payloadData.NdcDetails.map((detail) => {
-        const isPending = markedPending[detail.consumerCode]; // ✅ define inside map
+        const isPending = markedPending[detail.consumerCode]; //  define inside map
 
         return {
           ...detail,
           isDuePending: isPending || detail.isDuePending || false,
           dueAmount:
             isPending === false
-              ? 0 // ✅ Force 0 when "No"
+              ? 0 // Force 0 when "No"
               : amounts?.[detail.consumerCode] !== undefined
               ? Number(amounts[detail.consumerCode]) // from input box
               : detail?.dueAmount || 0, // fallback to API value
@@ -429,7 +401,7 @@ const ApplicationOverview = () => {
     try {
       const response = await Digit.NDCService.NDCUpdate({ tenantId, details: finalPayload });
 
-      // ✅ Show success first
+      // Show success first
       // setShowToast({ key: "success", message: "Successfully updated the status" });
       setLable("Successfully updated the status");
       setError(false);
@@ -437,9 +409,9 @@ const ApplicationOverview = () => {
 
       workflowDetails.revalidate();
 
-      // ✅ Delay navigation so toast shows
+      //  Delay navigation so toast shows
       setTimeout(() => {
-        history.push("/digit-ui/employee/ndc/inbox");
+        history.push("/upyog-ui/employee/ndc/inbox");
         window.location.reload();
       }, 2000);
 
@@ -486,8 +458,6 @@ const ApplicationOverview = () => {
       privacy: Digit.Utils.getPrivacyObject(),
     }
   );
-
-  console.log("applicationDetails", applicationDetails?.Applications?.[0]?.NdcDetails);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -737,7 +707,7 @@ const ApplicationOverview = () => {
             label={t("COMMON_EDIT")}
             onSubmit={() => {
               const id = applicationDetails?.Applications?.[0]?.applicationNo;
-              history.push(`/digit-ui/employee/ndc/create/${id}`);
+              history.push(`/upyog-ui/employee/ndc/create/${id}`);
             }}
           />
         </ActionBar>

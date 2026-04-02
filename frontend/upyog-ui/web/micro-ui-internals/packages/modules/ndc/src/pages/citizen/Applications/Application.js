@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+// This component is responsible for displaying the list of applications submitted by the user in the Citizen portal. It fetches the applications using a custom hook and displays them in a paginated format. Each application card shows key details and provides links to view more details or make payments if applicable.
 const MyApplications = ({ view }) => {
   const { t } = useTranslation();
   const userInfo = Digit.UserService.getUser()?.info || {};
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  // const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
+
   const itemsPerPage = 5;
 
   const { isLoading, data } = Digit.Hooks.ndc.useSearchApplication({}, tenantId);
@@ -23,7 +26,6 @@ const MyApplications = ({ view }) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentApplications = applicationsList.slice(indexOfFirstItem, indexOfLastItem);
 
-  console.log("currentApplications", currentApplications);
 
   return (
     <React.Fragment>
@@ -93,7 +95,7 @@ const MyApplications = ({ view }) => {
       <p className="ndc-application-list">
         {t("PTR_TEXT_NOT_ABLE_TO_FIND_THE_APPLICATION")}{" "}
         <span className="link" style={{ display: "block" }}>
-          <Link to="/digit-ui/citizen/ndc/new-application">{t("NDC_COMMON_CLICK_HERE_TO_REGISTER_NEW_APPLICATION")}</Link>
+          <Link to="/upyog-ui/citizen/ndc/new-application">{t("NDC_COMMON_CLICK_HERE_TO_REGISTER_NEW_APPLICATION")}</Link>
         </span>
       </p>
     </React.Fragment>

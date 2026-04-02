@@ -176,12 +176,24 @@ const NOCAccess = () => {
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
 
   const NOC_ROLES = [
-    "FIRE_NOC_APPROVER","NDC_ADMIN"
+    "FIRE_NOC_APPROVER"
   ]
 
   const NOC_ACCESS = userRoles?.filter((role) => NOC_ROLES?.includes(role));
 
   return NOC_ACCESS?.length > 0;
+};
+const NDCAccess = () => {
+  const userInfo = Digit.UserService.getUser();
+  const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
+
+  const NDC_ROLES = [
+    "NDC_ADMIN","NDCADMIN","NDCCEMP","FIRE_NOC_APPROVER"
+]
+
+  const NDC_ACCESS = userRoles?.filter((role) => NDC_ROLES?.includes(role));
+
+  return NDC_ACCESS?.length > 0;
 };
 
 const BPAREGAccess = () => {
@@ -410,6 +422,7 @@ export default {
   ptAccess,
   ptrAccess,
   NOCAccess,
+  NDCAccess,
   mCollectAccess,
   receiptsAccess,
   didEmployeeHasRole,

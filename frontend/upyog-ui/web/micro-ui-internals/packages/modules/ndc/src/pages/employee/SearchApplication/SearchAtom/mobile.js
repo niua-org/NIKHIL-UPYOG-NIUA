@@ -13,6 +13,7 @@ import {
 } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
+// This component renders the mobile view for searching NDC applications. It includes a search button that opens a popup with search fields, and displays either a message or a list of applications based on the search results.
 const SearchApplicationMobileView = ({ SearchFormFieldsComponent, propsMobileInboxCards, isLoading, data, getRedirectionLink, onSubmit }) => {
     const { t } = useTranslation();
     const { handleSubmit, setValue, getValues } = useFormContext();
@@ -112,7 +113,7 @@ const SearchApplicationMobileView = ({ SearchFormFieldsComponent, propsMobileInb
             {...{
                 data: propsMobileInboxCards,
                 isTwoDynamicPrefix: false,
-                linkPrefix: `/digit-ui/employee/noc/search/application-overview/`,
+                linkPrefix: `/upyog-ui/employee/noc/search/application-overview/`,
                 serviceRequestIdKey: t("NOC_APP_NO_LABEL"),
             }}
             />

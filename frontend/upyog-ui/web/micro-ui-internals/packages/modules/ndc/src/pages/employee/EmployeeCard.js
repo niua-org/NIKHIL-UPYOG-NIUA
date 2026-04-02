@@ -4,17 +4,18 @@ import { EmployeeModuleCard } from "@upyog/digit-ui-react-components";
 import { useLocation } from "react-router-dom";
 import { businessServiceList } from "../../utils";
 
+// This component renders a card on the employee dashboard that displays key metrics and links related to NDC (Non-Domestic Connection) applications. It uses hooks to fetch inbox data and displays total count, nearing SLA count, and links to inbox and search pages.
 const NOCEmployeeHomeCard = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const tenantId = Digit.ULBService.getCurrentTenantId();
 
-  if (!Digit.Utils.NOCAccess()) return null;
+  if (!Digit.Utils.NDCAccess()) return null;
 
   const searchFormDefaultValues = {};
 
   const filterFormDefaultValues = {
-    moduleName: "noc-services",
+    moduleName: "NDC",
     applicationStatus: "",
     locality: [],
     assignee: "ASSIGNED_TO_ALL",
@@ -48,7 +49,7 @@ const NOCEmployeeHomeCard = () => {
   );
 
   useEffect(() => {
-    if (location.pathname === "/digit-ui/employee") {
+    if (location.pathname === "/upyog-ui/employee") {
       Digit.SessionStorage.del("NDC.INBOX");
     }
   }, [location.pathname]);
@@ -56,31 +57,31 @@ const NOCEmployeeHomeCard = () => {
   const propsForModuleCard = useMemo(
     () => ({
       Icon: <ComplaintIcon />,
-      moduleName: t("ACTION_TEST_NOC"),
+      moduleName: t("ACTION_TEST_NDC"),
       kpis: [
         {
           count: !isInboxLoading ? totalCount : "",
           label: t("TOTAL_FSM"),
-          link: `/digit-ui/employee/obps/inbox`,
+          link: `/upyog-ui/employee/obps/inbox`,
         },
-        { count: !isInboxLoading ? nearingSlaCount : "-", label: t("TOTAL_NEARING_SLA"), link: `/digit-ui/employee/obps/inbox` },
+        { count: !isInboxLoading ? nearingSlaCount : "-", label: t("TOTAL_NEARING_SLA"), link: `/upyog-ui/employee/obps/inbox` },
       ],
       links: [
         {
           count: totalCount,
           label: t("ES_COMMON_INBOX"),
-          link: `/digit-ui/employee/noc/inbox`,
+          link: `/upyog-ui/employee/ndc/inbox`,
         },
-        {
-          label: t("ES_COMMON_APPLICATION_SEARCH"),
-          link: `/digit-ui/employee/noc/search`,
-        },
+        // {
+        //   label: t("ES_COMMON_APPLICATION_SEARCH"),
+        //   link: `/upyog-ui/employee/noc/search`,
+        // },
       ],
     }),
     [isInboxLoading, totalCount]
   );
 
-  return Digit.Utils.NOCAccess() ? <EmployeeModuleCard {...propsForModuleCard} /> : null;
+  return Digit.Utils.NDCAccess() ? <EmployeeModuleCard {...propsForModuleCard} /> : null;
 };
 
 export default NOCEmployeeHomeCard;

@@ -12,22 +12,20 @@ const NDCResponseCitizen = (props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
 
   const pathname = history?.location?.pathname || "";
-  const ndcCode = pathname.split("/").pop(); // ✅ Extracts the last segment
-
+  const ndcCode = pathname.split("/").pop(); 
   const onSubmit = () => {
-    history.push(`/digit-ui/citizen`);
+    history.push(`/upyog-ui/citizen`);
   };
 
   const onGoToNDC = () => {
-    history.push(`/digit-ui/citizen/ndc-home`);
+    history.push(`/upyog-ui/citizen/ndc-home`);
   };
 
   const handlePayment = () => {
-    history.push(`/digit-ui/citizen/payment/collect/NDC/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
+    history.push(`/upyog-ui/citizen/payment/collect/NDC/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
     // pathname: `/digit-ui/citizen/payment/collect/${application?.businessService}/${application?.applicationNumber}`,
   };
 
-  //  /digit-ui/employee/payment/collect/TL/PB-TL-2025-07-07-227598/pb.testing
 
   return (
     <div>

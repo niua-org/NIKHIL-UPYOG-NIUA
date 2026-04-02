@@ -8,7 +8,7 @@ import { resetNDCForm } from "../../../../redux/actions/NDCFormActions";
 const NDCNewFormSummaryStepThreeEmployee = ({ config, onGoNext, onBackClick, t }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = window.localStorage.getItem("CITIZEN.CITY");
   const checkFormData = useSelector((state) => state.ndc.NDCForm.formData || {});
 
   const formData = useSelector((state) => state.ndc.NDCForm.formData || {});
@@ -24,7 +24,7 @@ const NDCNewFormSummaryStepThreeEmployee = ({ config, onGoNext, onBackClick, t }
 
       // Check if the API call was successful
       if (res?.isSuccess) {
-        history.push("/digit-ui/employee/ndc/response/" + res?.response?.Applications?.[0]?.applicationNo);
+        history.push("/upyog-ui/employee/ndc/response/" + res?.response?.Applications?.[0]?.applicationNo);
       } else {
         console.error("Submission failed, not moving to next step.", res?.response);
       }

@@ -16,6 +16,7 @@ import { setNDCStep } from "../redux/actions/NDCFormActions";
 import { useTranslation } from "react-i18next";
 import NDCDocument from "../components/NDCDocument";
 
+// This component is the summary page for the NDC application. It displays all the details entered by the user in the previous steps and allows them to review before submission. It also provides an option to go back and edit the details if needed. The user can also take actions based on the workflow state of the application.
 const NDCSummary = ({ formData, goNext, onGoBack }) => {
   const { pathname: url } = useLocation();
   const { t } = useTranslation();
@@ -28,7 +29,6 @@ const NDCSummary = ({ formData, goNext, onGoBack }) => {
   let docs = formData?.DocummentDetails?.documents?.documents;
   const isCitizen = !user?.info?.type || user?.info?.type === "CITIZEN";
 
-  console.log("formData", formData);
 
   const appId = formData?.apiData?.Applications?.[0]?.applicationNo || formData?.responseData?.[0]?.applicationNo;
 
@@ -38,7 +38,7 @@ const NDCSummary = ({ formData, goNext, onGoBack }) => {
 
   console.log("filterType", filterType);
 
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
 
 
   const [getData, setData] = useState();

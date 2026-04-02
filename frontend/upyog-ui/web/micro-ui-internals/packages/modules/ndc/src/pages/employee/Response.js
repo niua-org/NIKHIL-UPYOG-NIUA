@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { stringReplaceAll } from "../../utils";
 
+// This component is the response page for the NDC application. It displays the status of the application and provides options to go back to home, go to NDC home, or make payment if the application is approved. The content of the banner and the available actions are based on the application status.
 const Response = (props) => {
   const { state } = props.location;
   const { t } = useTranslation();
@@ -12,22 +13,21 @@ const Response = (props) => {
   const tenantId = window.localStorage.getItem("Employee.tenant-id");
 
   const pathname = history?.location?.pathname || "";
-  const ndcCode = pathname.split("/").pop(); // ✅ Extracts the last segment
+  const ndcCode = pathname.split("/").pop();
 
   const onSubmit = () => {
-    history.push(`/digit-ui/employee`);
+    history.push(`/upyog-ui/employee`);
   };
 
   const onGoToNDC = () => {
-    history.push(`/digit-ui/employee/ndc/inbox`);
+    history.push(`/upyog-ui/employee/ndc/inbox`);
   };
 
   const handlePayment = () => {
-    history.push(`/digit-ui/employee/payment/collect/NDC/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
-    // pathname: `/digit-ui/citizen/payment/collect/${application?.businessService}/${application?.applicationNumber}`,
+    history.push(`/upyog-ui/employee/payment/collect/NDC/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
+    // pathname: `/upyog-ui/citizen/payment/collect/${application?.businessService}/${application?.applicationNumber}`,
   };
 
-  //  /digit-ui/employee/payment/collect/TL/PB-TL-2025-07-07-227598/pb.testing
 
   return (
     <div>

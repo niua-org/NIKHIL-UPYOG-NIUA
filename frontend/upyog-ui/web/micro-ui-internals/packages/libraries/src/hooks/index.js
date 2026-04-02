@@ -299,6 +299,7 @@ import useMaintenanceAPI from "./asset/useMaintenanceAPI";
 import createTokenAPI from "./digiLockerApi/createTokenAPI";
 
 import useSVDoc from "./sv/useSVDoc";
+import useNDCDoc from "./ndc/useNDCDoc";
 import useSvCreateApi from "./sv/useSvCreateApi";
 import useTenantsSV from "./sv/useTenants";
 import useADSSlotSearch from "./ads/useADSSlotSearch";
@@ -735,6 +736,7 @@ const ndc = {
   useSearchApplication: useNDCSearchApplication,
   useSearchEmployeeApplication: useNDCSearchApplicationEmployee,
   useNDCDocumentSearch,
+  useNDCDoc
 };
 
 const Hooks = {

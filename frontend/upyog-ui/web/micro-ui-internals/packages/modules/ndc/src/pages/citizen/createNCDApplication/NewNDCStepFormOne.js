@@ -25,7 +25,8 @@ export const NewNDCStepFormOne = ({ config, onGoNext, onBackClick, t }) => {
 
   const checkFormDatass = useSelector((state) => state.ndc.NDCForm || {});
 
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  // const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
 
   function goNext(data) {
     const missingFields = validateStepData(currentStepData);
@@ -39,11 +40,9 @@ export const NewNDCStepFormOne = ({ config, onGoNext, onBackClick, t }) => {
       return;
     }
 
-    console.log("checkFormData", checkFormData);
 
     const isRealId = id && id.startsWith("NDC-");
 
-    console.log("isRealId", isRealId);
 
     if (checkFormData?.apiData?.Applications?.[0]?.applicationNo || checkFormData?.responseData?.[0]?.applicationNo || isRealId) {
       // onGoNext();
@@ -72,7 +71,6 @@ export const NewNDCStepFormOne = ({ config, onGoNext, onBackClick, t }) => {
       return newOwner;
     });
 
-    console.log("checkData==", data);
 
     // Prepare NdcDetails
     const ndcDetails = [];

@@ -5,11 +5,14 @@ import { FormComposer } from "@upyog/digit-ui-react-components";
 import NDCSummary from "../../../pageComponents/NDCSummary";
 import { resetNDCForm } from "../../../redux/actions/NDCFormActions";
 
+// This component is the final step in the NDC application process for citizens. It displays a summary of all the information entered by the user in the previous steps and allows them to review before submission. The user can also go back to edit the details if needed. Upon clicking the "Next" button, it triggers the submission of the application and redirects to a response page based on the API response.
 const NDCNewFormSummaryStepThreeCitizen = ({ config, onGoNext, onBackClick, t }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  // const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
   const user = Digit.UserService.getUser();
+  console.log("tenantId", tenantId);
 
   const formData = useSelector((state) => state.ndc.NDCForm.formData || {});
   // Function to handle the "Next" button click
@@ -23,7 +26,7 @@ const NDCNewFormSummaryStepThreeCitizen = ({ config, onGoNext, onBackClick, t })
       const res = await onSubmit(formData, actionStatus); // wait for the API response
       // Check if the API call was successful
       if (res?.isSuccess) {
-        history.push("/digit-ui/citizen/ndc/response/" + res?.response?.Applications?.[0]?.applicationNo);
+        history.push("/upyog-ui/citizen/ndc/response/" + res?.response?.Applications?.[0]?.applicationNo);
       } else {
         console.error("Submission failed, not moving to next step.", res?.response);
       }
@@ -55,7 +58,6 @@ const NDCNewFormSummaryStepThreeCitizen = ({ config, onGoNext, onBackClick, t })
     // Pick the source of truth for the application
     const baseApplication = formData?.responseData?.[0] || formData?.apiData?.Applications?.[0] || {};
 
-    console.log("baseApplication", baseApplication);
 
     // Clone and modify workflow action
     const updatedApplication = {
@@ -82,7 +84,6 @@ const NDCNewFormSummaryStepThreeCitizen = ({ config, onGoNext, onBackClick, t })
       Applications: [updatedApplication],
     };
 
-    console.log("updatedApplication", updatedApplication);
 
     return payload;
   }

@@ -12,7 +12,8 @@ const NewNDCStepFormTwo = ({ config, onGoNext, onBackClick, t }) => {
   const stateId = Digit.ULBService.getStateId();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  // const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
   const { isLoading, data } = Digit.Hooks.pt.usePropertyMDMS(stateId, "NDC", ["Documents"]);
   const checkFormData = useSelector((state) => state.ndc.NDCForm.formData || {});
   const id = window.location.pathname.split("/").pop();

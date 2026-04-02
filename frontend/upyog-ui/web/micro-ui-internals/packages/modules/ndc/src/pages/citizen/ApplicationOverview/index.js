@@ -31,11 +31,13 @@ import NewApplicationTimeline from "../../../../../templates/ApplicationDetails/
 import { EmployeeData } from "../../../utils";
 import { Loader } from "../../../components/Loader";
 
+// This component is the overview page for the NDC application. It displays the details of the application along with the workflow status and timeline. It also provides options to download the application details and receipt if available. The user can also edit the application if it is in the initiated or citizen action required state.
 const CitizenApplicationOverview = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const history = useHistory();
-  const tenantId = Digit.ULBService.getCurrentTenantId();
+  // const tenantId = Digit.ULBService.getCurrentTenantId();
+  const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
   const state = tenantId?.split(".")[0];
   const [appDetails, setAppDetails] = useState({});
   const [showToast, setShowToast] = useState(null);
@@ -71,10 +73,6 @@ const CitizenApplicationOverview = () => {
   }, [workflowDetails]);
 
   const empData = EmployeeData(tenantId, approver);
-
-  console.log("approver for ndc", approver);
-
-  console.log("officerData", empData);
 
   const { data: storeData } = Digit.Hooks.useStore.getInitData();
   const { tenants } = storeData || {};
