@@ -7,14 +7,13 @@ RUN apk add --no-cache git>2.30.0
 
 ARG WORK_DIR
 WORKDIR /app
-ENV NODE_OPTIONS "--max-old-space-size=2560"
+ENV NODE_OPTIONS "--max-old-space-size=4096"
 
 COPY ${WORK_DIR} .
 RUN ls -lah
 
-#RUN node web/envs.js
 RUN cd web/ \
-    && node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(2560*2560))' \
+    && node -e 'const v8=require("v8"); console.log("Heap (MB):", v8.getHeapStatistics().heap_size_limit/(1024*1024))' \
     &&  ./install-deps.sh \
     && yarn install \
     && yarn build 
