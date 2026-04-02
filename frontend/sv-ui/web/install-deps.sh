@@ -1,22 +1,9 @@
-#!/bin/sh
-
-BRANCH="$(git branch --show-current)"
-
 INTERNALS="micro-ui-internals"
 
-echo "Building internal packages..."
-
-cd $INTERNALS
-
-echo "Installing internals dependencies..."
-yarn install --frozen-lockfile
-
-echo "Building internals..."
-yarn build
-
-echo "Cleaning internals node_modules to save space..."
-find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
-
+cd $INTERNALS && echo "installing packages" && yarn install && echo "starting build" && yarn build && echo "building finished" && find . -name "node_modules" -type d -prune -print -exec rm -rf '{}' \; 
 cd ..
 
-echo "Internals build complete"
+rm -rf node_modules
+rm -f yarn.lock
+
+# yarn install
