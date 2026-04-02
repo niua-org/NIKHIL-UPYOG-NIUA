@@ -56,58 +56,10 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
-      sourcemap: false,
+      sourcemap: true,
       outDir: "build",
       commonjsOptions: {
         transformMixedEsModules: true,
-      },
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes("node_modules/react-dom") || id.includes("node_modules/react/") || id.includes("node_modules/scheduler")) {
-              return "vendor-react";
-            }
-            if (id.includes("node_modules/react-router-dom") || id.includes("node_modules/@remix-run") || id.includes("node_modules/react-router/")) {
-              return "vendor-router";
-            }
-            if (id.includes("node_modules/pdfmake") || id.includes("node_modules/jspdf")) {
-              return "vendor-pdf";
-            }
-            if (id.includes("node_modules/xlsx")) {
-              return "vendor-xlsx";
-            }
-            if (id.includes("node_modules/@tanstack")) {
-              return "vendor-query";
-            }
-            if (id.includes("node_modules/i18next") || id.includes("node_modules/react-i18next")) {
-              return "vendor-i18n";
-            }
-            if (id.includes("node_modules/redux") || id.includes("node_modules/react-redux")) {
-              return "vendor-redux";
-            }
-            if (id.includes("node_modules/")) {
-              return "vendor-misc";
-            }
-            if (id.includes("digit-ui-libraries") || id.includes("packages/libraries")) {
-              return "internal-libraries";
-            }
-            if (id.includes("upyog-ui-react-components") || id.includes("packages/react-components")) {
-              return "internal-components";
-            }
-            if (id.includes("digit-ui-module-common") || id.includes("packages/modules/common")) {
-              return "internal-common";
-            }
-            if (id.includes("digit-ui-module-core") || id.includes("packages/modules/core")) {
-              return "internal-core";
-            }
-            if (id.includes("upyog-ui-module-sv") || id.includes("packages/modules/sv")) {
-              return "internal-sv";
-            }
-            if (id.includes("digit-ui-module-engagement") || id.includes("packages/modules/engagement")) {
-              return "internal-engagement";
-            }
-          },
-        },
       },
     },
 
