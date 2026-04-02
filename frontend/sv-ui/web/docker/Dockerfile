@@ -14,7 +14,6 @@ RUN ls -lah
 
 RUN cd web/ \
     && node -e 'const v8=require("v8"); console.log("Heap (MB):", v8.getHeapStatistics().heap_size_limit/(1024*1024))' \
-    && (while true; do echo "==== MEMORY ===="; cat /proc/meminfo | head -n 5; sleep 5; done) & \
     &&  ./install-deps.sh \
     && yarn install \
     && yarn build 
