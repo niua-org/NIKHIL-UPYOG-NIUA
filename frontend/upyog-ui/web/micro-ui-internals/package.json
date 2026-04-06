@@ -11,7 +11,8 @@
     "packages/modules/core",
     "packages/modules/challanGeneration",
     "packages/modules/dss",
-    "packages/modules/engagement"
+    "packages/modules/engagement",
+    "packages/css"
     ],
   
   "license": "MIT",
@@ -24,7 +25,7 @@
     "sprint": "SKIP_PREFLIGHT_CHECK=true run-s start:script",
     "start:dev": "run-p dev:**",
     "start:script": "./scripts/create.sh",
-    "devD:css": "cd packages/css && yarn start",
+    "dev:css": "cd packages/css && yarn start",
     "publish:css": "cd packages/css && yarn publish --access public",
     "dev:libraries": "cd packages/libraries && yarn start",
     "dev:components": "cd packages/react-components && yarn start",
