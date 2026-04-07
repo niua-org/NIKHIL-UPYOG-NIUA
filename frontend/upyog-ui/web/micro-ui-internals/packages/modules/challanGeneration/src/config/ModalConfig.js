@@ -1,6 +1,12 @@
 import React from "react";
 import { UploadFile } from "@upyog/digit-ui-react-components";
 
+/**
+ * ModalConfig:
+ * - Generates config for fee waiver modal
+ * - Includes amount input and file upload
+ */
+
 export const ModalConfig = ({ t, action, setAmount, getChallanData, selectFile, setUploadedFile, uploadedFile }) => {
   console.log("getChallanData", getChallanData);
   const finalAmount = Math.max(getChallanData?.amount?.[0]?.amount || 0, getChallanData?.challanAmount || 0);

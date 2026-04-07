@@ -8,6 +8,13 @@ import _ from "lodash";
 import { useLocation } from "react-router-dom";
 import { getUniqueItemsFromArray, commonTransform, stringReplaceAll,getPattern, convertEpochToDate } from "../utils";
 
+/**
+ * AddressDetails component:
+ * - Handles user address input form
+ * - Supports pincode-based locality selection
+ * - Uses react-hook-form for validation and state
+ */
+
 const createConsumerDetails = (getCities) => ({
   doorNo: "",
   building: "",

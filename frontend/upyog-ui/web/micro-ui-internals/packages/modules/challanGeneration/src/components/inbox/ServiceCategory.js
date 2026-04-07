@@ -3,6 +3,13 @@ import { Loader, MultiSelectDropdown, RemoveableTag } from "@upyog/digit-ui-reac
 import { useTranslation } from "react-i18next";
 import ServiceCategoryCount from "./ServiceCategoryCount";
 
+/**
+ * ServiceCategory component:
+ * - Multi-select dropdown for offence/service categories
+ * - Fetches data from MDMS
+ * - Supports selection and removal of categories
+ */
+
 const ServiceCategory = ({
   onAssignmentChange,
   searchParams,

@@ -2,6 +2,13 @@ import { EmployeeModuleCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+/**
+ * ChallanGenerationCard component:
+ * - Displays module card for challan generation
+ * - Shows total challan count
+ * - Provides navigation links for search and creation
+ */
+
 const ChallanGenerationCard = () => {
   if (!Digit.Utils.mCollectAccess()) {
     return null;

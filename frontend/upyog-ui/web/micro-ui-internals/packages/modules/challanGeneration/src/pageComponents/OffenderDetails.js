@@ -3,6 +3,12 @@ import { TextInput, CardLabel, Dropdown, MobileNumber, TextArea, ActionBar, Subm
 import { Controller, useForm } from "react-hook-form";
 import { Loader } from "../components/Loader";
 
+/**
+ * OffenderDetails component:
+ * - Captures offender details (name, mobile, address)
+ * - Uses react-hook-form for validation and submission
+ */
+
 const OffenderDetails = ({ t, goNext, currentStepData, onGoBack }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();

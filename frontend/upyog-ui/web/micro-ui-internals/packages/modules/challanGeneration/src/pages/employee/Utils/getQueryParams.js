@@ -7,3 +7,9 @@ export const getQueryStringParams = (query) => {
       }, {})
     : {};
 };
+
+
+/**
+ * getQueryStringParams:
+ * - Parses query string into key-value object
+ */

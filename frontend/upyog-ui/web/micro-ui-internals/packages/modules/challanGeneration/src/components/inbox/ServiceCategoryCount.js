@@ -2,6 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { CheckBox } from "@upyog/digit-ui-react-components";
 
+/**
+ * ServiceCategoryCount component:
+ * - Renders a checkbox for a service/status item
+ * - Handles selection and checked state logic
+ */
+
 const ServiceCategoryCount = ({ status, searchParams, onAssignmentChange, businessServices,clearCheck,setclearCheck }) => {
   const { t } = useTranslation();
   return (

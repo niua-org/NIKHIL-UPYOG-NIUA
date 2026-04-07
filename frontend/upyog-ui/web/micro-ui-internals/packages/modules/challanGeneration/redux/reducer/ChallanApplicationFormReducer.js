@@ -1,6 +1,13 @@
 // reducers/employeeFormReducer.js
 import { UPDATE_Challan_Application_FORMType, SET_Challan_Application_STEPType, RESET_Challan__APPLICATION_FORMType } from "../action/types";
 
+/**
+ * Reducer for managing Challan application state:
+ * - Handles form data updates
+ * - Controls step navigation
+ * - Resets application state
+ */
+
 const initialState = {
   step: 1,
   isValid: false,

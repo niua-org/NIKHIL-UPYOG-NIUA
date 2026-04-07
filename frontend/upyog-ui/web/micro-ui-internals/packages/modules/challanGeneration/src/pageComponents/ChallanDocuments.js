@@ -3,6 +3,12 @@ import { CardLabel, Dropdown, UploadFile, Toast, FormStep, LabelFieldPair, Actio
 import { Loader } from "../components/Loader";
 import EXIF from "exif-js";
 
+/**
+ * ChallanDocuments component:
+ * - Handles document upload for challan
+ * - Supports validation, file upload, and EXIF extraction
+ */
+
 const ChallanDocuments = ({
   t,
   config,

@@ -18,6 +18,12 @@ import { stringReplaceAll, convertEpochToDate } from "./utils";
 import ActionModal from "./components/Modal";
 import { downloadAndPrintChallan, downloadAndPrintReciept } from "./utils";
 
+/**
+ * EmployeeChallan component:
+ * - Displays challan details, bill breakdown, and actions
+ * - Supports download, payment, update, and cancel operations
+ */
+
 const EmployeeChallan = (props) => {
   const { t } = useTranslation();
   const { challanno } = useParams();

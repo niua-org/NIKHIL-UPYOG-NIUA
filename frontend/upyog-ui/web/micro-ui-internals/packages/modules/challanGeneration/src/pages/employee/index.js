@@ -6,6 +6,12 @@ import { PrivateRoute } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import ChallanApplicationDetails from "./ChallanApplicationDetails";
 
+/**
+ * EmployeeApp component:
+ * - Main routing container for challan module (employee side)
+ * - Handles navigation, routes, and workflow pages
+ */
+
 const EmployeeApp = ({ path, url, userType }) => {
   const { t } = useTranslation();
   const location = useLocation();

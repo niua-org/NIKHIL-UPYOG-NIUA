@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * Configuration for cancel challan action:
+ * - Defines modal labels
+ * - Provides form structure for rejection comment
+ */
+
 export const configMCollectRejectApplication = ({ t, action }) => {
   return {
     label: {

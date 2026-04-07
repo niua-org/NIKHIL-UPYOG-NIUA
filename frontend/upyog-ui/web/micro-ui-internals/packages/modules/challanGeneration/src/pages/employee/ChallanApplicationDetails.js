@@ -23,6 +23,12 @@ import CHBDocument from "../../components/ChallanDocument";
 import NDCDocumentTimline from "../../components/NDCDocument";
 import NewApplicationTimeline from "../../../../templates/ApplicationDetails/components/NewApplicationTimeline";
 
+/**
+ * ChallanApplicationDetails component:
+ * - Displays challan details, documents, and workflow actions
+ * - Handles payment, settlement, and timeline view
+ */
+
 const getTimelineCaptions = (checkpoint, index, arr, t) => {
   const { wfComment: comment, thumbnailsToShow, wfDocuments } = checkpoint;
   const caption = {

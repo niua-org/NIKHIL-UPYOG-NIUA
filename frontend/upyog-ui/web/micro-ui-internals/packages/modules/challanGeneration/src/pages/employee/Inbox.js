@@ -7,6 +7,12 @@ import DesktopInbox from "../../components/DesktopInbox";
 import MobileInbox from "../../components/MobileInbox";
 import { businessServiceList } from "../../utils";
 
+/**
+ * Inbox component:
+ * - Displays challan list with search, filter, sort, and pagination
+ * - Supports responsive views (mobile & desktop)
+ */
+
 const Inbox = ({
   parentRoute,
   businessService = "PT",

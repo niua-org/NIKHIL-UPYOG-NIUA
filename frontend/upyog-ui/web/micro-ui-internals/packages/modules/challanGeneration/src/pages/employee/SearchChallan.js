@@ -5,6 +5,12 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
+/**
+ * SearchChallan component:
+ * - Provides UI to search challans
+ * - Displays results in a table with filters
+ */
+
 const SearchChallan = (props) => {
   console.log("props", props);
 

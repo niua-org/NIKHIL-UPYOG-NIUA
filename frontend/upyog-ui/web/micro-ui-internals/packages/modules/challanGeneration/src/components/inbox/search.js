@@ -3,6 +3,13 @@ import { useForm, Controller } from "react-hook-form";
 import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker, MobileNumber } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
+/**
+ * SearchApplication component:
+ * - Dynamic search form using react-hook-form
+ * - Supports multiple input types (text, date, mobile)
+ * - Handles search, clear, and mobile/desktop layouts
+ */
+
 const fieldComponents = {
   date: DatePicker,
   mobileNumber: MobileNumber,

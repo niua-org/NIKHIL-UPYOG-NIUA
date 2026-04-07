@@ -8,6 +8,12 @@ import { useLocation } from "react-router-dom";
 import _ from "lodash";
 import { getUniqueItemsFromArray, commonTransform, stringReplaceAll,getPattern, convertEpochToDate } from "../utils";
 
+/**
+ * ServiceDetails component:
+ * - Captures service/category-related details
+ * - Handles dynamic tax fields and date selection
+ */
+
 const createConsumerDetails = (getCities) => ({
    city: getCities()[0] ? getCities()[0] : "",
   category: "",

@@ -3,6 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+/**
+ * InboxLinks component:
+ * - Displays navigation links inside a card
+ * - Supports internal routing and external hyperlinks
+ * - Uses translation for text labels
+ */
+
 const InboxLinks = ({ parentRoute, businessService }) => {
   const { t } = useTranslation();
   const [links, setLinks] = useState([]);

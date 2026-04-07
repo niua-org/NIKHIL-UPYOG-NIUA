@@ -1,6 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Loader component:
+ * - Displays a spinner loader
+ * - Supports full-page and module-level loading states
+ */
+
 export const Loader = ({ page = false }) => {
   const baseStyle = {
     display: "flex",

@@ -5,6 +5,13 @@ import { useHistory } from "react-router-dom";
 import { ChallanData, getLocationName } from "../utils";
 import { Loader } from "./Loader";
 
+/**
+ * ChallanResponseCitizen component:
+ * - Displays challan acknowledgement screen
+ * - Fetches challan details
+ * - Supports print, pay later, and payment actions
+ */
+
 const ChallanResponseCitizen = (props) => {
   const { state } = props.location;
   const { t } = useTranslation();

@@ -1,6 +1,12 @@
 import React from "react";
 import { Table } from "@upyog/digit-ui-react-components";
 
+/**
+ * Reusable table component wrapper:
+ * - Renders data using Digit UI Table
+ * - Supports pagination, sorting, and custom cell props
+ */
+
 const ApplicationTable = ({
   t,
   currentPage,

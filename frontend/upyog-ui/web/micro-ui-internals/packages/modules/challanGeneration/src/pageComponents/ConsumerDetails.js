@@ -8,6 +8,12 @@ import _ from "lodash";
 import { useLocation } from "react-router-dom";
 import { getUniqueItemsFromArray, commonTransform, stringReplaceAll,getPattern, convertEpochToDate } from "../utils";
 
+/**
+ * ConsumerDetails component:
+ * - Handles consumer information form
+ * - Supports validation and state sync using react-hook-form
+ */
+
 const createConsumerDetails = () => ({
   ConsumerName: "",
   mobileNumber: "",

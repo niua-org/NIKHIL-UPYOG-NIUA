@@ -3,6 +3,12 @@ import { useTranslation } from "react-i18next";
 import { TelePhone } from "@upyog/digit-ui-react-components";
 import Reason from "./Reason";
 
+/**
+ * TLCaption component:
+ * - Displays basic user/application details
+ * - Shows date, name, phone, source, and comments
+ */
+
 const TLCaption = ({ data }) => {
   const { t } = useTranslation();
   return (

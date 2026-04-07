@@ -4,6 +4,12 @@ import { Controller, useForm } from "react-hook-form";
 import { Loader } from "../components/Loader";
 import { parse, format } from "date-fns";
 
+/**
+ * OffenceDetails component:
+ * - Captures offence-related details
+ * - Uses dropdowns and inputs with react-hook-form
+ */
+
 const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
   const [loader, setLoader] = useState(false);
 

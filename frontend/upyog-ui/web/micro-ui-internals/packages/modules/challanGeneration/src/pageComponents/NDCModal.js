@@ -4,6 +4,12 @@ import { Loader } from "../components/Loader";
 
 import { ModalConfig } from "../config/ModalConfig";
 
+/**
+ * NDCModal component:
+ * - Displays modal for workflow actions
+ * - Handles amount input and document upload
+ */
+
 const Heading = (props) => {
   return <h1 className="heading-m">{props.label}</h1>;
 };

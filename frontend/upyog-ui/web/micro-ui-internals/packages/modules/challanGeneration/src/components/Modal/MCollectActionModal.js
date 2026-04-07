@@ -3,6 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import { configMCollectRejectApplication } from "./MCollectRejectApplication";
 
+/**
+ * ActionModal component:
+ * - Displays modal for challan actions (e.g., cancel)
+ * - Uses FormComposer for dynamic form rendering
+ * - Handles submission and updates application data
+ */
+
 const Heading = (props) => {
   return <h1 className="heading-m">{props.label}</h1>;
 };

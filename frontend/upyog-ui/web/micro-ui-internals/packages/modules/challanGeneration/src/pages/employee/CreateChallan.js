@@ -8,6 +8,11 @@ import { stringReplaceAll } from "../../utils/index";
 import { useParams, useHistory, useRouteMatch } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+/**
+ * CreateChallen component:
+ * - Handles challan creation and modification using dynamic form
+ */
+
 const CreateChallen = ({ ChallanData }) => {
   const childRef = useRef();
   const history = useHistory();

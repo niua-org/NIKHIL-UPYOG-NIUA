@@ -4,10 +4,16 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { getActionButton } from "../utils";
-import ApplicationTable from "./inbox/ApplicationTable";
 import InboxLinks from "./inbox/InboxLink";
 import SearchApplication from "./inbox/search";
 import InboxFilter from "./inbox/NewInboxFilter";
+import ApplicationTable from "./inbox/ApplicationTable";
+
+/**
+ * DesktopInbox component:
+ * - Displays challan inbox with table, filters, and search
+ * - Supports pagination, sorting, and navigation
+ */
 
 const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...props }) => {
   const { data } = props;

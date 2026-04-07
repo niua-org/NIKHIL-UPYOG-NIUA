@@ -16,6 +16,13 @@ import ServiceCategory from "./ServiceCategory";
 import _ from "lodash";
 import { stringReplaceAll } from "../../utils";
 
+/**
+ * Filter component:
+ * - Provides UI for filtering table/search data
+ * - Supports status & service category filters
+ * - Handles apply, clear, and refresh actions
+ */
+
 const Filter = ({ searchParams, onFilterChange, onRefresh, defaultSearchParams, statutes, ...props }) => {
   const { t } = useTranslation();
   console.log("no here");

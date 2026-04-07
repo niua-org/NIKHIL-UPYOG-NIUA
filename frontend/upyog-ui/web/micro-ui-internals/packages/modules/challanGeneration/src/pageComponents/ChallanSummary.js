@@ -18,6 +18,12 @@ import ApplicationTable from "../components/inbox/ApplicationTable";
 import { useTranslation } from "react-i18next";
 import ChallanDocument from "../components/ChallanDocument";
 
+/**
+ * ChallanSummary component:
+ * - Displays summary of challan/application details
+ * - Shows applicant info, event details, documents, and actions
+ */
+
 function ChallanSummary({ formData, goNext, onGoBack }) {
   const { pathname: url } = useLocation();
   const { t } = useTranslation();

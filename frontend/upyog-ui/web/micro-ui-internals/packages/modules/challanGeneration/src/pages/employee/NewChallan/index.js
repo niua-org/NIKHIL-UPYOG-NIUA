@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FormComposer, Toast, Header, Loader } from "@upyog/digit-ui-react-components";
-import { newConfig as newConfigMcollect } from "../../../config/config";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { stringReplaceAll } from "../../../utils";
 //import { convertDateToEpoch } from "../../../utils";
+
+/**
+ * NewChallan component:
+ * - Handles challan creation and update
+ * - Uses dynamic FormComposer configuration
+ */
 
 const getformDataforEdit = (ChallanData, fetchBillData) => {
   let defaultval = {

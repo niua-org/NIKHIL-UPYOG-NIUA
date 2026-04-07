@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+/**
+ * Utility functions:
+ * - Handles PDF download/print, receipt generation, workflow data, and helpers
+ */
+
 export const printReciept = async (businessService, receiptNumber) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const state = Digit.ULBService.getStateId();

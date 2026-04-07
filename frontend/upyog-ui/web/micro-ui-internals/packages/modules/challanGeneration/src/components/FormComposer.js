@@ -17,6 +17,13 @@ import {
 
 import { useTranslation } from "react-i18next";
 
+/**
+ * FormComposer component:
+ * - Dynamic form renderer using react-hook-form
+ * - Generates form fields based on config
+ * - Handles validation and submission
+ */
+
 export const FormComposer = forwardRef((props, ref) => {
 
   //TODO: @naveen @vamshi please migrate to HOC/FormComposer

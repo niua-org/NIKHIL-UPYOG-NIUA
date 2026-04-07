@@ -1,5 +1,11 @@
 import get from "lodash/get";
 import set from "lodash/set";
+
+/**
+ * setServiceCategory:
+ * - Transforms business service data into nested category structure
+ */
+
 export const setServiceCategory = (businessServiceData, dispatch, state, setCategory = true) => {
   String.prototype.replaceAt = function (index, replacement) {
     return this.substr(0, index) + replacement + this.substr(index + replacement.length);

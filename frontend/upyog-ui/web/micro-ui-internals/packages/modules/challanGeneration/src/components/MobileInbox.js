@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ApplicationCard } from "./inbox/ApplicationCard";
 import { format } from "date-fns";
-import ApplicationLinks from "./inbox/ApplicationLinks";
 import { getActionButton, printReciept } from "../utils";
 import { Link } from "react-router-dom";
+
+/**
+ * MobileInbox component:
+ * - Displays challan inbox in mobile-friendly card view
+ * - Supports search, filter, and sorting
+ */
 
 const MobileInbox = ({
   data,

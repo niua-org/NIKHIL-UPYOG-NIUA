@@ -3,6 +3,13 @@ import { Loader } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import StatusCount from "./StatusCount";
 
+/**
+ * Status component:
+ * - Renders list of status checkboxes
+ * - Uses StatusCount for each status item
+ * - Supports filter selection and reset
+ */
+
 const Status = ({ onAssignmentChange, searchParams, businessServices, clearCheck, setclearCheck, statutes, _searchParams }) => {
   const { t } = useTranslation();
   // const tenantId = Digit.ULBService.getCurrentTenantId();

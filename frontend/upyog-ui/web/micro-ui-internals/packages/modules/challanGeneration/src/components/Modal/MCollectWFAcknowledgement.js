@@ -5,6 +5,13 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import * as func from "./Utils/getQueryParams";
 
+/**
+ * MCollectWFAcknowledgement component:
+ * - Displays success message after bill generation
+ * - Shows bill number from query params
+ * - Provides navigation to home and payment action
+ */
+
 const MCollectWFAcknowledgement = () => {
   const location = useLocation();
   const [params, setParams] = useState({});
