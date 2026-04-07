@@ -297,7 +297,7 @@ const tlAccess = () => {
 const mCollectAccess = () => {
   const userInfo = Digit.UserService.getUser();
   const userRoles = userInfo?.info?.roles?.map((roleData) => roleData?.code);
-  const mCollectRoles = ["UC_EMP",];
+  const mCollectRoles = ["UC_EMP"];
 
   const MCOLLECT_ACCESS = userRoles?.filter((role) => mCollectRoles?.includes(role));
 

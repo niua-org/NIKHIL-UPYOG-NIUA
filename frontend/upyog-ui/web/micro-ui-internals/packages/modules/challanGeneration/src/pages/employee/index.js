@@ -48,7 +48,6 @@ const EmployeeApp = ({ path, url, userType }) => {
 
   const EmployeeChallan = Digit?.ComponentRegistryService?.getComponent("MCollectEmployeeChallan");
   const MCollectAcknowledgement = Digit?.ComponentRegistryService?.getComponent("MCollectAcknowledgement");
-  const EditChallan = Digit?.ComponentRegistryService?.getComponent("MCollectEditChallan");
   const SearchReceiptPage = Digit?.ComponentRegistryService?.getComponent("SearchReceipt");
   const SearchChallanPage = Digit?.ComponentRegistryService?.getComponent("SearchChallan");
   const ChallanSearch = Digit?.ComponentRegistryService?.getComponent("ChallanStepperForm");
@@ -85,7 +84,6 @@ const EmployeeApp = ({ path, url, userType }) => {
           />
           <PrivateRoute path={`${path}/acknowledgement`} component={() => <MCollectAcknowledgement />} />
           <PrivateRoute path={`${path}/challansearch/:challanno`} component={() => <EmployeeChallan />} />
-          <PrivateRoute path={`${path}/modify-challan/:challanNo`} component={() => <EditChallan />} />{" "}
           <PrivateRoute path={`${path}/search-receipt`} component={() => <SearchReceiptPage />} />{" "}
           <PrivateRoute path={`${path}/search-challan`} component={() => <SearchChallanPage parentRoute={path} />} />{" "}
           <PrivateRoute path={`${path}/generate-challan`} component={() => <ChallanSearch />} />
