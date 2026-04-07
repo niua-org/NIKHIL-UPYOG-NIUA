@@ -107,6 +107,7 @@
 @import "./pages/citizen/citizenDocument.scss";
 @import "./pages/employee/surveys.scss";
 @import "./components/dashboardButton.scss";
+@import "./common/newApplicationTimeline.scss";
 
 .display-none {
   display: none;
@@ -767,3 +768,7 @@ min-height: calc(100vh - 8em);
   }
 }
 
+/* Hide stepper navigation */
+.stepper-navigation-bar {
+  display: none !important;
+}

@@ -874,6 +874,267 @@ const jsPdfGeneratorForModifyPDF = async({tenantId,bodyDetails,headerDetails,log
   const generatedPDF = pdfMake.createPdf(dd);
   downloadPDFFileUsingBase64(generatedPDF, "acknowledgement.pdf");
 }
+/**
+ * Generate Timeline PDF using pdfMake
+ * @param {Object} data - The timeline data prepared by getTimelineAcknowledgementData
+ */
+/**
+ * Generate Timeline PDF using pdfMake - eOffice Government Style
+ * @param {Object} data - The timeline data prepared by getTimelineAcknowledgementData
+ */
+const generateTimelinePDF = async (data) => {
+  console.log(data,"data i get ")
+  const { t, tenantId, tenantName, heading, businessId, businessService, currentStatus, generatedDate, generatedDateTime, timelineRows, totalSteps,moduleName } = data;
+
+  
+  let moduleNamenew = moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+  // Build content for each timeline entry in eOffice style
+  
+  const buildTimelineEntries = () => {
+    const entries = [];
+    
+    timelineRows.forEach((row, index) => {
+      // Main content box with light green background (#ccffcc)
+      entries.push({
+        margin: [0, 0, 0, 2 ],
+        table: {
+          widths: ['*'],
+          margin:[0,0,0,0],
+          body: [
+            [{
+              stack: [
+                // Header: Action & Status with background pill effect
+                {
+                  table: {
+                    widths: ['auto', '*', 'auto'],
+                    body: [[
+                      { text: [{ text: 'Action: ', bold: true, color: '#555' }, { text: row.action || 'N/A', color: '#000', bold: true }], fontSize: 10, border: [false, false, false, false] },
+                      { text: '', border: [false, false, false, false] },
+                      {
+                      stack: [
+                         { text: 'Date & Time:', fontSize: 8, color: '#777', bold: true },
+                         { text: `${row.date} | ${row.time}`, fontSize: 9, color: '#333', bold: true, margin: [0, 2, 0, 0] }
+                      ],
+                      alignment: 'right'
+                      }, // Spacer add here date and time below
+                    ]]
+                  },
+                  layout: 'noBorders',
+                  margin: [0, 0, 0, 2]
+                },
+                
+                // Divider line
+                { canvas: [{ type: 'line', x1: 0, y1: 0, x2: 485, y2: 0, lineWidth: 0.5, lineColor: '#99cc99' }] },
+                
+                // Comment/Remarks section
+                {
+                  columns: [
+                    // Left column: Note / Comment
+                    {
+                      stack: [
+                        {
+                          text: row.comment && row.comment !== '-'
+                            ? [
+                                { text: 'Note: ', bold: true },
+                                { text: row.comment.split('').join('\u200B') }
+                              ]
+                            : { text: 'No Comments', color: '#777' },
+                          fontSize: 11,
+                          color: row.comment && row.comment !== '-' ? '#222' : '#777',
+                          margin: [0, 5, 0, 0],
+                          lineHeight: 1.5,
+                          width: '*'
+                        },
+
+                        ...(row.hasDocuments ? [
+                          {
+                            columns: [
+                              {
+                                text: 'Attachments:',
+                                fontSize: 9,
+                                bold: true,
+                                color: '#555',
+                                margin: [0, 2, 0, 2],
+                                width: 'auto'
+                              },
+                              {
+                                stack: row.documents.map(doc => {
+                                  return {
+                                    columns: [
+                                      { 
+                                        text: doc.name,
+                                        fontSize: 10,
+                                        color: '#555',
+                                        margin: [5, 5, 0, 0],
+                                        decoration: 'underline',
+                                        listType: "none",
+                                        link: doc.link,
+                                        linkTarget: '_blank' 
+                                      }
+                                    ]
+                                  };
+                                }),
+                                margin: [10, 0, 0, 2],
+                                width: '*'
+                              }
+                            ]
+                          }
+                        ] : [])
+                      ]
+                    },
+
+                    // Right column: Signatory details
+                    {
+                      stack: [
+                        { text: row.assignerName?.toUpperCase() || 'N/A', fontSize: 10, bold: true, alignment: 'right', color: '#000' },
+                        { text: row.designation || row.assignerType || 'N/A', fontSize: 9, color: '#444', alignment: 'right' },
+                        { text: row.mobileNumber !== 'N/A' ? `+91 ${row.mobileNumber}` : '', fontSize: 9, color: '#666', alignment: 'right', margin: [0, 2, 0, 0] }
+                      ],
+                      width: '*',
+                      alignment: 'right',
+                      margin: [0, 5, 0, 0]
+                    }
+                  ],
+                  margin: [0, 5, 0, 0]
+                }
+
+              ],
+              fillColor: '#b8ebb8', 
+              margin: [15, 6, 15, 0],
+              border: [true, true, true, true],
+              borderColor: ['#99cc99', '#99cc99', '#99cc99', '#99cc99']
+            }],
+          ],
+        },
+        layout: {
+      fillColor: function (rowIndex) {
+        // skip header row (rowIndex === 0), shade only data rows
+        return rowIndex > 0 && rowIndex % 2 === 1 ? '#f5f5f5' : null;
+      }
+    },
+
+      });
+    });
+
+    return entries;
+  };
+
+  const dd = {
+    pageMargins: [40, 80, 40, 60],
+    background: function (currentPage, pageSize) {
+    return {
+      canvas: [
+        {
+          type: 'rect',
+          x: 0,
+          y: 0,
+          w: pageSize.width,
+          h: pageSize.height,
+          color: '#ccffcc' // solid background (no alpha in hex)
+        }
+      ]
+    };
+  },
+    pageOrientation: 'portrait',
+    header: {
+      stack: [
+        {
+          columns: [
+            {
+              text: `${t(moduleNamenew)} Application Timeline`  || 'Government Department',
+              fontSize: 14,
+              bold: true,
+              color: '#2947A3',
+              width: '*',
+            },
+            {
+              text: generatedDateTime,
+              fontSize: 9,
+              color: '#666666',
+              alignment: 'right',
+              width: 'auto',
+            },
+          ],
+          margin: [40, 10, 40, 0],
+        },
+        {
+          canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: '#2947A3' }],
+          margin: [40, 0, 40, 0],
+        },
+      ],
+    },
+    footer: (currentPage, pageCount) => ({
+      columns: [
+        { text: `File No: ${businessId}`, alignment: 'left', fontSize: 9, color: '#666666' },
+        { text: `Page ${currentPage} of ${pageCount}`, alignment: 'right', fontSize: 9, color: '#666666' },
+      ],
+      margin: [40, 0, 40, 0],
+    }),
+    defaultStyle: {
+      font: 'Hind',
+    },
+    styles: {
+      noteHeader: {
+        fontSize: 12,
+        bold: true,
+        color: '#333333',
+      },
+      fileInfo: {
+        fontSize: 10,
+        color: '#333333',
+      },
+    },
+    content: [
+      // File Reference Header
+      {
+        table: {
+          widths: ['10%', '30%','15%','15%','15%','17%'],
+          body: [
+            [
+              { text: 'File No:', bold: true, fontSize: 11, border: [false, false, false, false] },
+              { text: businessId, fontSize: 11, color: '#2947A3', bold: true, border: [false, false, false, false] },
+              { text: 'Current Status:', bold: true, fontSize: 10, border: [false, false, false, false] },
+              { text: currentStatus, fontSize: 10, color: '#228B22', bold: true, border: [false, false, false, false] },
+              { text: 'Total Actions:', bold: true, fontSize: 10, border: [false, false, false, false] },
+              { text: String(totalSteps), fontSize: 10, border: [false, false, false, false] }
+
+            ]
+          ],
+        },
+            layout: {
+              fillColor: function (rowIndex) {
+            // skip header row (rowIndex === 0), shade only data rows
+            return rowIndex > 0 && rowIndex % 2 === 1 ? '#c4f2c4' : '#b8ebb8';
+          }
+        },
+
+        margin: [0, -40, 0, 0],
+      },
+      // Divider
+      {
+        canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.5, lineColor: '#cccccc' }],
+        margin: [0, 0, 0, 5],
+      },
+      // Section Title
+      {
+        text: t ? `${t('ES_NEW_APPLICATION_APPLICATION_TIMELINE')} History` : 'File Movement History',
+        fontSize: 14,
+        bold: true,
+        color: '#2947A3',
+        margin: [0, 0, 0, 2],
+      },
+      // Timeline Entries
+      ...buildTimelineEntries(),
+    ],
+  };
+
+  pdfMake.vfs = Fonts;
+  let locale = Digit.SessionStorage.get('locale') || 'en_IN';
+  let Hind = pdfFonts[locale] || pdfFonts['Hind'];
+  pdfMake.fonts = { Hind: { ...Hind } };
+  const generatedPDF = pdfMake.createPdf(dd);
+  downloadPDFFileUsingBase64(generatedPDF, `file_movement_${businessId}.pdf`);
+};
 
 /**
  * Util function that can be used
@@ -887,6 +1148,7 @@ const jsPdfGeneratorForModifyPDF = async({tenantId,bodyDetails,headerDetails,log
  *
  * @returns Downloads a pdf  
  */
+
 
 
 const generateBillAmendPDF = async ({ tenantId, bodyDetails, headerDetails, logo,t }) => {
@@ -912,7 +1174,7 @@ const generateBillAmendPDF = async ({ tenantId, bodyDetails, headerDetails, logo
   downloadPDFFileUsingBase64(generatedPDF, "acknowledgement.pdf");
 }
 
-export default { generate: jsPdfGenerator, generateTable: jsPdfGeneratorForTable, generatev1: jsPdfGeneratorv1, generateModifyPdf: jsPdfGeneratorForModifyPDF, generateBillAmendPDF,  generateNDC: jsPdfGeneratorNDC,
+export default { generate: jsPdfGenerator, generateTable: jsPdfGeneratorForTable, generatev1: jsPdfGeneratorv1, generateModifyPdf: jsPdfGeneratorForModifyPDF, generateBillAmendPDF,  generateNDC: jsPdfGeneratorNDC, generateTimelinePDF
 };
 
 const createBodyContentBillAmend = (table,t) => {

@@ -7,18 +7,18 @@ const NDCBreadCrumbs = ({ location }) => {
   const { t } = useTranslation();
   const crumbs = [
     {
-      path: "/digit-ui/citizen",
+      path: "/upyog-ui/citizen",
       content: t("ES_COMMON_HOME"),
       show: true,
     },
     {
-      path: "/digit-ui/citizen/ndc-home",
+      path: "/upyog-ui/citizen/ndc-home",
       content: `${t("NDC")} Home`,
       show: location.pathname.includes("ndc/") ? true : false,
     },
 
     {
-      path: "/digit-ui/citizen/ptr-home",
+      path: "/upyog-ui/citizen/ptr-home",
       content: t("PET_NDCSERVICE"),
       show: location.pathname.includes("ptr/petservice/test") ? true : false,
     },

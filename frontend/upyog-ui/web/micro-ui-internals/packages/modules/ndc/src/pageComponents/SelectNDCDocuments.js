@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { CardLabel, LabelFieldPair, Dropdown, UploadFile, Toast } from "@upyog/digit-ui-react-components";
 import { useSelector } from "react-redux";
 import { Loader } from "../components/Loader";
+import Timeline from "../components/NDCTimeline";
 
 // This component allows users to select and upload documents required for an NDC application. It fetches the list of required documents from MDMS and displays them as a list of upload fields. The component also handles file uploads and validation.
 
 const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError: setFormError, clearErrors: clearFormErrors, formState }) => {
+  {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const checkFormData = useSelector((state) => state.ndc.NDCForm.formData || {});
   const stateId = Digit.ULBService.getStateId();
@@ -49,6 +51,7 @@ const SelectNDCDocuments = ({ t, config, onSelect, userType, formData, setError:
 
   return (
     <div>
+      {window.location.href.includes("/citizen") ? <Timeline currentStep={2} /> : null}
       {ndcDocuments?.map((document, index) => {
        
         return (

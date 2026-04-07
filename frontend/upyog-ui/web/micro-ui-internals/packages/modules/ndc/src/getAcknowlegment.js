@@ -62,6 +62,7 @@ const getReadableCity = (tenantId = "") => {
 
 const capitalize = (text) => text?.charAt(0).toUpperCase() + text?.slice(1);
 
+// This function prepares the data for the NDC acknowledgment certificate, including dynamic values and translated text fragments.
 const getAcknowledgementData = async (application, formattedAddress, tenantInfo, t, approver,ulbType, empData, approverStatement) => {
   const appData = application?.Applications?.[0] || {};
   const owner = appData?.owners?.[0] || {};

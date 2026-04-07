@@ -31,7 +31,11 @@ import NewApplicationTimeline from "../../../../../templates/ApplicationDetails/
 import { EmployeeData } from "../../../utils";
 import { Loader } from "../../../components/Loader";
 
-// This component is the overview page for the NDC application. It displays the details of the application along with the workflow status and timeline. It also provides options to download the application details and receipt if available. The user can also edit the application if it is in the initiated or citizen action required state.
+// This component is the overview page for the NDC application. 
+// It displays the details of the application along with the workflow status and timeline. 
+// It also provides options to download the application details and receipt if available. 
+// The user can also edit the application if it is in the initiated or citizen action required state.
+// The component also handles the download of the receipt and certificate.
 const CitizenApplicationOverview = () => {
   const { id } = useParams();
   const { t } = useTranslation();
@@ -300,7 +304,7 @@ const CitizenApplicationOverview = () => {
               label={t("COMMON_EDIT")}
               onSubmit={() => {
                 const id = applicationDetails?.Applications?.[0]?.applicationNo;
-                history.push(`/digit-ui/citizen/ndc/new-application/${id}`);
+                history.push(`/upyog-ui/citizen/ndc/new-application/${id}`);
               }}
             />
           </ActionBar>

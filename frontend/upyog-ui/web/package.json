@@ -14,7 +14,9 @@
     "micro-ui-internals/packages/modules/obps",
     "micro-ui-internals/packages/modules/fsm",
     "micro-ui-internals/packages/modules/wt",
-    "micro-ui-internals/packages/modules/ndc"
+    "micro-ui-internals/packages/modules/ndc",
+    "micro-ui-internals/packages/modules/fsm",
+    "micro-ui-internals/packages/css"
   ],
   "engines": {
     "node": ">=14"

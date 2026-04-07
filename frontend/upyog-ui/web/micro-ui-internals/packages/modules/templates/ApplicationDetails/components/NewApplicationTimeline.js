@@ -42,7 +42,7 @@ const TimelineDocument = React.memo(({ value, Code, index }) => {
   );
 });
 
-export default function NewApplicationTimeline({ workflowDetails, t, tenantId = Digit.ULBService.getCurrentTenantId(), timeObj, empUserName = null, handleSetEmpDesignation= ()=>{} }) {
+export default function NewApplicationTimeline({ workflowDetails, t, tenantId = Digit.ULBService.getCurrentTenantId(), timeObj, empUserName = null, handleSetEmpDesignation = () => { } }) {
   const { isLoading, data: docData } = Digit.Hooks.ads.useADSDocumentSearch(
     { value: workflowDetails?.data?.timeline?.flatMap((item) => item?.wfDocuments) || [] },
     { value: workflowDetails?.data?.timeline?.flatMap((item) => item?.wfDocuments) || [] },
@@ -135,7 +135,7 @@ export default function NewApplicationTimeline({ workflowDetails, t, tenantId = 
     deptMap[emp?.code] = translationKey;
   });
 
-  if(employeeData && empUserName){
+  if (employeeData && empUserName) {
     handleSetEmpDesignation(t(deptMap[empUserName]));
   }
 
@@ -158,9 +158,8 @@ export default function NewApplicationTimeline({ workflowDetails, t, tenantId = 
           <div className="custom-title-bar-row">
             <h2 className="custom-timeline-title">{t("Application History")}</h2>
             <span onClick={handleDownloadPDF} className="download-button">
-              {t("CS_COMMON_DOWNLOAD")}
+              <PDFSvg width={50} height={40} style={{ marginRight: "8px" }} />
             </span>
-            <div className="custom-blue-bar"></div>
           </div>
         </div>
 

@@ -16,6 +16,11 @@ import { useTranslation } from "react-i18next";
 import _ from "lodash";
 import { useLocation } from "react-router-dom";
 import isUndefined from "lodash/isUndefined";
+import Timeline from "../components/NDCTimeline";
+
+// This component is responsible for rendering the dropdown to select the reason for NDC application. 
+// It fetches the list of reasons from MDMS and displays it in the dropdown. 
+// If the user selects "OTHERS" as the reason, it renders a text input field to enter the reason. It also handles the validation for the dropdown and text input field.
 
 function SelectNDCReason({ config, onSelect, userType, formData, setError, formState, clearErrors }) {
   const [ndcReason, setNDCReason] = useState(formData?.NDCReason || {});
@@ -72,6 +77,7 @@ function SelectNDCReason({ config, onSelect, userType, formData, setError, formS
 
   return (
     <div>
+    {window.location.href.includes("/citizen") ? <Timeline currentStep={1} /> : null}
       <LabelFieldPair>
         <CardLabel className="card-label-smaller ndc_card_labels">{`${t("NDC_NEW_NDC_APPLICATION_NDC_REASON")} * `}</CardLabel>
         <Controller

@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setNDCStep } from "../redux/actions/NDCFormActions";
 import { useTranslation } from "react-i18next";
 import NDCDocument from "../components/NDCDocument";
+import Timeline from "../components/NDCTimeline";
 
 // This component is the summary page for the NDC application. It displays all the details entered by the user in the previous steps and allows them to review before submission. It also provides an option to go back and edit the details if needed. The user can also take actions based on the workflow state of the application.
 const NDCSummary = ({ formData, goNext, onGoBack }) => {
@@ -113,6 +114,8 @@ const NDCSummary = ({ formData, goNext, onGoBack }) => {
   );
 
   return (
+    <div>
+      {window.location.href.includes("/citizen") ? <Timeline currentStep={3} /> : null}
     <div className="bpa-summary-page">
       <h2 className="bpa-summary-heading">{t("Application Summary")}</h2>
 
@@ -175,6 +178,7 @@ const NDCSummary = ({ formData, goNext, onGoBack }) => {
         ) : null}
         <SubmitBar ref={menuRef} label={t("WF_TAKE_ACTION")} onSubmit={() => setDisplayMenu(!displayMenu)} />
       </ActionBar>
+    </div>
     </div>
   );
 };

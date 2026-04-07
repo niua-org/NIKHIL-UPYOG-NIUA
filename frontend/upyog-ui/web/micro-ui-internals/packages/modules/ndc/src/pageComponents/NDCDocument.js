@@ -9,6 +9,7 @@ const PDFSvg = ({ width = 20, height = 20, style }) => (
   </svg>
 );
 
+// Component to display a list of documents related to NDC application. It fetches document data using a custom hook and renders links to view the documents.
 function NDCDocument({ value = {} }) {
   const { t } = useTranslation();
   const isMobile = window.Digit.Utils.browser.isMobile();

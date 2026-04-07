@@ -15,6 +15,7 @@ const getAddress = (address, t) => {
   }`;
 };
 
+// property search and fetch details component used in NDC application form summary step
 export const PropertySearchNSummary = ({ config, onSelect, formData }) => {
   const { t } = useTranslation();
   const myElementRef = useRef(null);

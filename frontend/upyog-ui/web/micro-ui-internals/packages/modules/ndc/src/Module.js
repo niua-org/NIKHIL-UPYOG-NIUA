@@ -28,6 +28,7 @@ import { NewNDCStepFormTwo as NewNDCStepFormTwoEmployee } from "./pages/employee
 import { NDCNewFormSummaryStepThreeEmployee } from "./pages/employee/createNDCApplication/createNDCApplicationStepperForm/NDCNewFormSummaryStepThreeEmployee";
 import MyApplications from "./pages/citizen/Applications/Application";
 import NDCResponseCitizen from "./pages/citizen/NDCResponseCitizen";
+import Timeline from "./components/NDCTimeline";
 
 import getRootReducer from "./redux/reducers";
 
@@ -79,6 +80,7 @@ const componentsToRegister = {
   MyApplications,
   NDCResponseCitizen,
   CitizenApplicationOverview,
+  Timeline
 };
 
 export const initNDCComponents = () => {
