@@ -18,7 +18,8 @@ const useSVApplicationDetail = (t, tenantId, applicationNumber, isDraftApplicati
       applicationDetails
     }
   };
-
+// Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+// Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
   return useQuery(
     {
       queryKey: ["APPLICATION_SEARCH", "SV_SEARCH", applicationNumber,isDraftApplication, userType, args],

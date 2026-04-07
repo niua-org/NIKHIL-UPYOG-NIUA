@@ -6,7 +6,7 @@ import Routes from "./routes";
 export const MyBills = ({ stateCode }) => {
   const { businessService } = useParams();
   const { tenantId: _tenantId, isDisoconnectFlow } = Digit.Hooks.useQueryParams();
-
+ // useCustomNavigate is custom hook which is used to navigate to different routes in the application.
   const navigate = Digit.Hooks.useCustomNavigate();
 
   const location = useLocation();

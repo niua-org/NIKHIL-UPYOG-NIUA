@@ -7,6 +7,7 @@ import { SVService } from "../../services/elements/SV";
  that calls the SVService.create method with the provided data and tenantId.
 */
 
+// Updated: TanStack Query v5 requires useMutation to accept an object with mutationFn key instead of a direct function
 export const useSvCreateApi = (tenantId, type = true) => {
   if (type) {
     return useMutation({

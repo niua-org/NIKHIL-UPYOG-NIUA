@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+// Updated: Import changed from "react-query" to "@tanstack/react-query" for TanStack Query v5 compatibility.
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
+// Updated: BrowserRouter imported as Router with future prop support for React Router v6.
 import { BrowserRouter as Router } from "react-router-dom";
 import { getI18n } from "react-i18next";
 import { Body, Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
@@ -14,11 +16,15 @@ import ErrorBoundary from "./components/ErrorBoundaries";
 import EmployeeDashboard from "./components/EmployeeDashboard";
 import { union } from "lodash";
 
-// FIXED: Create QueryClient once, outside components
+// Updated: QueryClient created outside component to avoid re-creation on every render.
+// Updated: cacheTime renamed to gcTime in TanStack Query v5.
+// Updated: retryDelay set to Infinity to disable automatic retries on failure.
+
 const createQueryClient = () => new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 15 * 60 * 1000,
+      // Updated: cacheTime renamed to gcTime in TanStack Query v5.
       gcTime: 50 * 60 * 1000,
       retryDelay: (attemptIndex) => Infinity,
       retry: false,
@@ -38,6 +44,7 @@ const DigitUIWrapper = ({ stateCode, enabledModules, moduleReducers }) => {
   
   return (
     <Provider store={getStore(initData, moduleReducers(initData))}>
+      {/* Updated: future prop added for React Router v7 forward compatibility and to suppress console warnings. */}
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Body>
           <SVApp
@@ -57,7 +64,7 @@ export const StreetVendingUI = ({ stateCode, registry, enabledModules, moduleRed
   const userType = Digit.UserService.getType();
   const [privacy, setPrivacy] = useState(Digit.Utils.getPrivacyObject() || {});
 
-  // FIXED: Create QueryClient only once
+  // Updated: QueryClient created using useState with initializer function to ensure single instance across renders.
   const [queryClient] = useState(() => createQueryClient());
 
   const ComponentProvider = Digit.Contexts.ComponentProvider;
@@ -66,7 +73,7 @@ export const StreetVendingUI = ({ stateCode, registry, enabledModules, moduleRed
   return (
     <div>
       <ErrorBoundary>
-        {/* FIXED: ONE QueryClientProvider wraps everything */}
+        {/* Updated: Single QueryClientProvider wraps entire app to avoid multiple QueryClient instances. */}
         <QueryClientProvider client={queryClient}>
           <ComponentProvider.Provider value={registry}>
             <PrivacyProvider.Provider
@@ -92,7 +99,7 @@ export const StreetVendingUI = ({ stateCode, registry, enabledModules, moduleRed
                 },
               }}
             >
-              {/* FIXED: DigitUIWrapper is INSIDE QueryClientProvider */}
+              {/* Updated: DigitUIWrapper placed inside QueryClientProvider so all hooks have access to QueryClient. */}
               <DigitUIWrapper 
                 stateCode={stateCode} 
                 enabledModules={enabledModules} 

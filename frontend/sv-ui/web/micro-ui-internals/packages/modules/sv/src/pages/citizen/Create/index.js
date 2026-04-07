@@ -134,6 +134,7 @@ const SVCreate = ({ parentRoute }) => {
 
   const onSuccess = () => {
     clearParams();
+    // Updated: TanStack Query v5 requires invalidateQueries to accept an object with queryKey instead of a direct string.
     queryClient.invalidateQueries({ queryKey: ["SV_CREATES"] });
     sessionStorage.removeItem("CategoryDocument");
     sessionStorage.removeItem("vendingApplicationID");
@@ -167,11 +168,11 @@ const SVCreate = ({ parentRoute }) => {
         const user = Digit.UserService.getUser().info.type;
         return (
          <Route
-            path={routeObj.route}
+            path={routeObj.route}   //  clean consistent indentation
             key={index}
             element={
               <Component
-                config={{ texts, inputs, key }}
+                config={{ texts, inputs, key }}  //  clean consistent indentation
                 onSelect={handleSelect}
                 onSkip={handleSkip}
                 t={t}

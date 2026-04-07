@@ -20,8 +20,8 @@ to **Node 22 / React 19 / React-Router-Dom v6 / Axios 1.x / TanStack Query v5 / 
 | react-i18next | 11.x | 14.x |
 | i18next | 19.x | 23.x |
 | Babel Preset React | babel-preset-react 6.x | @babel/preset-react 7.x |
-| date-fns | v2 | v3 |
 | react-tooltip | v4 | v5 |
+| date-fns | 2.30.0 | 3.6.0 |
 
 ---
 

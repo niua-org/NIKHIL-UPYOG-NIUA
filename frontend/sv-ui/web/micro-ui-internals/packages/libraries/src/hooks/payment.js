@@ -8,7 +8,8 @@ export const useFetchCitizenBillsForBuissnessService = ({ businessService, ...fi
   const params = { mobileNumber, businessService, ...filters };
   if (!params["mobileNumber"]) delete params["mobileNumber"];
 
-
+// Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+// Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
   const { isLoading, error, isError, data, status } = useQuery({
     queryKey: ["citizenBillsForBuisnessService", businessService, { ...params }],
     queryFn: () => Digit.PaymentService.fetchBill(tenant, { ...params }),
@@ -23,6 +24,7 @@ export const useFetchCitizenBillsForBuissnessService = ({ businessService, ...fi
     isError,
     data,
     status,
+    // Updated: invalidateQueries now requires an object with queryKey instead of positional arguments.
     revalidate: () => queryClient.invalidateQueries({ queryKey: ["citizenBillsForBuisnessService", businessService] }),
   };
 };
@@ -97,6 +99,8 @@ export const usePaymentUpdate = ({ egId }, businessService, config) => {
 export const useDemandSearch = ({ consumerCode, businessService, tenantId }, config = {}) => {
   if (!tenantId) tenantId = Digit.ULBService.getCurrentTenantId();
   const queryFn = () => Digit.PaymentService.demandSearch(tenantId, consumerCode, businessService);
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+  // Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
   const queryData = useQuery({
     queryKey: ["demand_search", { consumerCode, businessService, tenantId }],
     queryFn,
@@ -118,6 +122,7 @@ export const useAssetQrCode = ({ tenantId, ...params }, config = {}) => {
 };
 
 export const useRecieptSearch = ({ tenantId, businessService, ...params }, config = {}) => {
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
   return useQuery(
     {
       queryKey: ["reciept_search", { tenantId, businessService, params },config],
@@ -128,6 +133,7 @@ export const useRecieptSearch = ({ tenantId, businessService, ...params }, confi
   );
 };
 export const useRecieptSearchNew = ({ tenantId, ...params }, config = {}) => {
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
   return useQuery(
     {
       queryKey: ["obps_Reciept_Search", { tenantId, params },config],
@@ -139,6 +145,7 @@ export const useRecieptSearchNew = ({ tenantId, ...params }, config = {}) => {
 };
 
 export const useBulkPdfDetails = ({ filters }) => {
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
   return useQuery({
     queryKey: ["BULK_PDF_DETAILS", filters],
     queryFn: async () => await PaymentService.getBulkPdfRecordsDetails(filters)

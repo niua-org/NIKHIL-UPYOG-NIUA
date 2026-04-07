@@ -13,7 +13,8 @@ const useSvSearchApplication = ({ tenantId, filters, auth,searchedFrom="" }, con
     // if(data.SVDetail.length > 0)
     return data;
   };
-
+// Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+// Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
   const { isLoading, error, data, isSuccess } = useQuery({
     queryKey: ["streetVendingSearchList", tenantId, filters, auth, config],
     queryFn: () => Digit.SVService.search(args),

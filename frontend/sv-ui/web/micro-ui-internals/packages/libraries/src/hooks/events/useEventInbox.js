@@ -10,6 +10,8 @@ const combineResponse = (data, users) => {
 
 
 const useInbox = (tenantId, data, filter = {}, config = {}) => {
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+  // Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
   return useQuery({
     queryKey: ["EVENT_INBOX", tenantId, data, filter],
     queryFn: async () => {

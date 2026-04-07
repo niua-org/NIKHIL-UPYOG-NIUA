@@ -32,6 +32,9 @@ export const useApplicationsForBusinessServiceSearch = ({ tenantId, businessServ
   
   /* key from application ie being used as consumer code in bill */
   const { searchFn, key, label } = referenceObject(tenantId, filters)[_key];
+  // Updated: TanStack Query v5 requires useQuery to accept a single object instead of positional arguments.
+  // Updated: queryKey and queryFn are now explicit keys inside the object — positional args removed.
+
   const applications = useQuery({
     queryKey: ["applicationsForBillDetails", { tenantId, businessService, filters, searchFn }],
     queryFn: searchFn,

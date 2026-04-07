@@ -166,6 +166,7 @@ const getEventsData = async (variant, tenantId) => {
     return allEventsData
 }
 
+// Updated: useEvents hook now accepts tenantId and variant to fetch and filter events accordingly, and also accepts a config object for additional query options.
 const useEvents = ({tenantId, variant, config={}}) => useQuery({
     queryKey: ["EVENTS_SEARCH", tenantId, variant],
     queryFn: () => getEventsData(variant, tenantId),
@@ -175,6 +176,7 @@ const useEvents = ({tenantId, variant, config={}}) => useQuery({
 const useClearNotifications = () => useMutation({
     mutationFn: ({tenantId}) => Digit.EventsServices.ClearNotification({tenantId})
 })
+// Updated: useNotificationCount hook now accepts tenantId and a config object for additional query options, and uses the new TanStack Query v5 syntax.
 const useNotificationCount = ({tenantId, config={}}) => useQuery({
     queryKey: ["NOTIFICATION_COUNT", tenantId],
     queryFn: () => Digit.EventsServices.NotificationCount({tenantId}),

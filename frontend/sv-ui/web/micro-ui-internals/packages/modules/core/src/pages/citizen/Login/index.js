@@ -1,11 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AppContainer, BackButton, Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+// Updated: Imported Route, Routes, useLocation from react-router-dom v6.
+// Updated: <Switch> replaced with <Routes>, component/render props replaced with element prop.
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import { loginSteps } from "./config";
 import SelectMobileNumber from "./SelectMobileNumber";
 import SelectOtp from "./SelectOtp";
 import SelectName from "./SelectName";
+// Updated: date-fns v3 — named imports remain same, no breaking change for subYears and format.
+
 import { subYears, format } from "date-fns";
 const TYPE_REGISTER = { type: "register" };
 const TYPE_LOGIN = { type: "login" };
@@ -33,7 +38,9 @@ const getFromLocation = (state, searchParams) => {
 const Login = ({ stateCode, isUserRegistered = true }) => {
   const { t } = useTranslation();
   const location = useLocation();
-  
+  // Updated: useCustomNavigate replaces useHistory from react-router-dom v5.
+  // useHistory() removed in v6 — navigate() used instead of history.push().
+
   const navigate = Digit.Hooks.useCustomNavigate();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -71,6 +78,8 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
     Digit.UserService.setUser(user);
     setCitizenDetail(user?.info, user?.access_token, stateCode);
     const redirectPath = location.state?.from || DEFAULT_REDIRECT_URL;
+  // Updated: history.push() replaced with navigate() — react-router-dom v6.
+  // Updated: replace option passed as second argument object instead of separate call.
 
     if (!Digit.ULBService.getCitizenCurrentTenant(true)) {
       navigate("/sv-ui/citizen/select-location", {
@@ -78,6 +87,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
         state: { redirectBackTo: redirectPath }
       });
     } else {
+      // Updated: history.push() replaced with navigate() — react-router-dom v6.
       navigate(redirectPath, { replace: true });
     }
   }, [user]);
@@ -118,6 +128,9 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
       const [res, err] = await sendOtp({ otp: { ...data, ...TYPE_LOGIN } });
       if (!err) {
         setCanSubmitNo(true);
+        // Updated: history.push() replaced with navigate() — react-router-dom v6.
+        // Updated: state passed as second argument object — same as v5 but cleaner syntax.
+
         navigate("otp", { 
           replace: true, 
           state: { from: getFromLocation(location.state, searchParams), role: location.state?.role } 
@@ -126,6 +139,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
       } else {
         setCanSubmitNo(true);
         if (!(location.state && location.state.role === ("FSM_DSO" || "WT_VENDOR"))) {
+          // Updated: history.push() replaced with navigate() — react-router-dom v6.
           navigate("/sv-ui/citizen/register/name", { 
             state: { from: getFromLocation(location.state, searchParams), data: data } 
           });
@@ -143,6 +157,8 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
       const [res, err] = await sendOtp({ otp: { ...data, ...TYPE_REGISTER } });
       if (!err) {
         setCanSubmitNo(true);
+        // Updated: history.push() replaced with navigate() — react-router-dom v6.
+
         navigate("otp", { 
           replace: true, 
           state: { from: getFromLocation(location.state, searchParams) } 
@@ -155,6 +171,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
   };
   function selectCommencementDate(value) {
     const appDate= new Date();
+    // Updated: date-fns v3 — subYears and format named imports work same as v2.
     const proposedDate= format(subYears(appDate, 18), 'yyyy-MM-dd').toString();
 
     if( convertDateToEpoch(proposedDate)  <= convertDateToEpoch(value)){
@@ -184,6 +201,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
       const [res, err] = await sendOtp({ otp: { ...data, ...TYPE_REGISTER } });
       if (res) {
         setCanSubmitName(false);
+        // Updated: history.push() replaced with navigate() — react-router-dom v6.
         navigate("otp", { 
           replace: true, 
           state: { from: getFromLocation(location.state, searchParams) } 
@@ -273,6 +291,10 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
     <div className="citizen-form-wrapper">
       <AppContainer>
         <BackButton />
+        {/* Updated: <Switch> replaced with <Routes> — react-router-dom v6. */}
+        {/* Updated: component/render props replaced with element prop in all Route components. */}
+        {/* Updated: AppContainer moved outside <Routes> — custom components cannot be direct children of <Routes> in v6. */}
+
         <Routes>
             <Route 
               path="/" 
@@ -288,6 +310,7 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
                 />
               } 
             />
+          {/* Updated: component={SelectOtp} replaced with element={<SelectOtp />} — react-router-dom v6. */}
 
             <Route 
               path="otp" 
