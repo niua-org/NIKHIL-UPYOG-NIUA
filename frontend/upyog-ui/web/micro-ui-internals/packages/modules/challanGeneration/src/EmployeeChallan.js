@@ -132,9 +132,6 @@ const EmployeeChallan = (props) => {
 
   const workflowActions = ["CANCEL_CHALLAN", "UPDATE_CHALLAN", "BUTTON_PAY"];
 
-  // function onDownloadActionSelect(action) {
-  //   action == "CHALLAN" ? downloadAndPrintChallan(challanno) : downloadAndPrintReciept(challanDetails?.businessService, challanno);
-  // }
 
   return (
     <React.Fragment>
@@ -204,15 +201,10 @@ const EmployeeChallan = (props) => {
         <ActionModal
           t={t}
           action={selectedAction}
-          // tenantId={tenantId}
-          // state={state}
-          // id={applicationNumber}
           applicationData={challanDetails}
           billData={challanBillDetails}
           closeModal={closeModal}
           submitAction={submitAction}
-          // actionData={workflowDetails?.data?.timeline}
-          // businessService={businessService}
         />
       ) : null}
       {showToast && <Toast error={showToast.key} label={t(showToast.label)} onClose={() => setShowToast(null)} />}

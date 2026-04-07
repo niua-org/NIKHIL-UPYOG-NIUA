@@ -24,11 +24,7 @@ const ChallanGenerationCard = () => {
       {
         count: isLoading ? "-" : data?.ChallanCount?.totalChallan,
         label: t("TOTAL_CHALLANS")
-      },
-      // {
-      //     label: t(""),
-      //     link: `/upyog-ui/employee/receipts/inbox`
-      // }  
+      }, 
     ],
     links: [
       {

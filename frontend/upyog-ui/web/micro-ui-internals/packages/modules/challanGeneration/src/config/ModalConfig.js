@@ -49,7 +49,6 @@ export const ModalConfig = ({ t, action, setAmount, getChallanData, selectFile, 
               <div>
                 <UploadFile
                   id={"workflow-doc"}
-                  // accept=".jpg"
                   onUpload={selectFile}
                   onDelete={() => {
                     setUploadedFile(null);

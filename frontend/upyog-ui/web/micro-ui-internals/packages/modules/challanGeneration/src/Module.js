@@ -5,17 +5,14 @@ import { useRouteMatch } from "react-router-dom";
 import InboxFilter from "./components/inbox/NewInboxFilter";
 import ChallanGenerationCard from "./components/ChallanGenerationCard";
 import EmployeeChallan from "./EmployeeChallan";
-import AddressDetails from "./pageComponents/AddressDetails";
 import ConsumerDetails from "./pageComponents/ConsumerDetails";
 import ServiceDetails from "./pageComponents/ServiceDetails";
 import EmployeeApp from "./pages/employee";
-import NewChallan from "./pages/employee/NewChallan";
 import SearchReceipt from "./pages/employee/SearchReceipt";
 import SearchChallan from "./pages/employee/SearchChallan";
 import ChallanStepperForm from "./pageComponents/ChallanStepper/ChallanStepperForm";
 import OffenderDetails from "./pageComponents/OffenderDetails";
 import OffenceDetails from "./pageComponents/OffenceDetails";
-import ChallanSummary from "./pageComponents/ChallanSummary";
 import ChallanDocuments from "./pageComponents/ChallanDocuments";
 import getRootReducer from "../redux/reducer";
 import ChallanResponseCitizen from "./components/ChallanResponseCitizen";
@@ -69,19 +66,16 @@ export const ChallanReducers = getRootReducer;
 const componentsToRegister = {
   ConsumerDetails,
   ServiceDetails,
-  AddressDetails,
   ChallanGenerationCard,
   ChallanGenerationModule,
   ChallanGenerationLinks,
   MCollectEmployeeChallan: EmployeeChallan,
-  MCollectNewChallan: NewChallan,
   SearchReceipt,
   SearchChallan,
   MCOLLECT_INBOX_FILTER: (props) => <InboxFilter {...props} />,
   ChallanStepperForm,
   OffenderDetails,
   OffenceDetails,
-  ChallanSummary,
   ChallanDocuments,
   ChallanResponseCitizen
 };

@@ -115,8 +115,6 @@ const NDCModal = ({ t, action, closeModal, submitAction, showErrorToast, errorOn
       formId="modal-action"
     >
       <FormComposer config={config.form} noBoxShadow inline childrenAtTheBottom onSubmit={submit} formId="modal-action" />
-      {/* )} */}
-      {/* {showToast && <Toast isDleteBtn={true} error={true} label={errors} onClose={closeToast} />} */}
       {showErrorToast && <Toast error={true} label={errorOne} isDleteBtn={true} onClose={closeToastOne} />}
 
       {loader && <Loader />}

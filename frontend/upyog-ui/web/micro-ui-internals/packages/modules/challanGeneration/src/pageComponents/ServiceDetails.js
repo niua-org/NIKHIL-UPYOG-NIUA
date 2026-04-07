@@ -20,7 +20,6 @@ const createConsumerDetails = (getCities) => ({
   categoryType: "",
   fromDate: "",
   toDate: "",
-  //key: Date.now(),
 });
 
 const ServiceDetails = ({ config, onSelect, userType, formData, setError, formState, clearErrors }) => {
@@ -180,13 +179,6 @@ const OwnerForm1 = (_props) => {
     setValue("city",selectedCity);
   },[selectedCity]);
 
-  // useEffect(() => {
-  //   if(!isEdit)
-  //   TaxHeadMasterFields && TaxHeadMasterFields.length>0 && TaxHeadMasterFields?.map((ob) => {
-  //     consumerdetail[ob.code] = "";
-  //   })
-  // },[TaxHeadMasterFields])
-
   useEffect(() => {
     if(isEdit && TaxHeadMasterFields && !(formValue[`${formValue?.categoryType?.code?.split(".")[0]}`]))
     {
@@ -270,13 +262,10 @@ console.log("consumerDetail",consumerdetail)
                   id="city"
                   freeze={true}
                   disable={true}
-                  //errorStyle={(localFormState.touched.financialYear && errors?.financialYear?.message) ? true : false}
-                  // disable={financialYearOptions?.length === 1}
                   option={getCities()}
                   select={props.onChange}
                   optionKey="i18nKey"
                   onBlur={props.onBlur}
-                  //disable={isRenewal}
                   t={t}
                 />
               )}
@@ -295,8 +284,6 @@ console.log("consumerDetail",consumerdetail)
                   className="form-field"
                   selected={props.value}
                   optionCardStyles={{maxHeight:"960%"}}
-                  //errorStyle={(localFormState.touched.financialYear && errors?.financialYear?.message) ? true : false}
-                  // disable={financialYearOptions?.length === 1}
                   id="businessService"
                   option={sortDropdownNames(categoires, "code", t)}
                   //option={categoires}
@@ -321,8 +308,6 @@ console.log("consumerDetail",consumerdetail)
                   isMandatory
                   className="form-field"
                   selected={props.value}
-                  //errorStyle={(localFormState.touched.financialYear && errors?.financialYear?.message) ? true : false}
-                  // disable={financialYearOptions?.length === 1}
                   id="businessService"
                   option={sortDropdownNames(categoiresType, "code", t)}
                   //option={categoires}
@@ -347,10 +332,8 @@ console.log("consumerDetail",consumerdetail)
                 render={(props) => (
                   <DatePicker
                     date={props.value}
-                    // date={CommencementDate} 
                     name="fromDate"
                     onChange={props.onChange}
-                    //disabled={isRenewal}
                   />
                 )}
               />
@@ -368,10 +351,8 @@ console.log("consumerDetail",consumerdetail)
                 render={(props) => (
                   <DatePicker
                     date={props.value}
-                    // date={CommencementDate} 
                     name="toDate"
                     onChange={props.onChange}
-                    //disabled={isRenewal}
                   />
                 )}
               />
@@ -394,10 +375,8 @@ console.log("consumerDetail",consumerdetail)
                   <div className="employee-card-input employee-card-input--front">₹</div>
                   <TextInput
                     value={props.value}
-                    //className="employee-card-input employee-card-input--front"
                     componentInFront={<div className="employee-card-input employee-card-input--front">₹</div>}
                     autoFocus={focusIndex.index === consumerdetail?.key && focusIndex.type === "name"}
-                    //errorStyle={(localFormState.touched.tradeName && errors?.tradeName?.message) ? true : false}
                     onChange={(e) => {
                       props.onChange(e.target.value);
                       setFocusIndex({ index: consumerdetail.key, type: tax?.code });
@@ -406,7 +385,6 @@ console.log("consumerDetail",consumerdetail)
                       setFocusIndex({ index: -1 });
                       props.onBlur(e);
                     }}
-                    //disable={isRenewal}
                   />
                   </div>
                 )}
@@ -422,7 +400,6 @@ console.log("consumerDetail",consumerdetail)
                 control={control}
                 name={"Comment"}
                 defaultValue={consumerdetail?.Comment}
-                // rules={{  validate: { pattern: (val) => (/^[a-zA-Z ]*$/.test(val) ? true : t("CS_ADDCOMPLAINT_NAME_ERROR")) } }}
                 render={(props) => (
                   <TextArea
                     value={props.value}
@@ -430,7 +407,6 @@ console.log("consumerDetail",consumerdetail)
                     errorStyle={(localFormState.touched.Comment && errors?.Comment?.message) ? true : false}
                     onChange={(e) => {
                       props.onChange(e.target.value);
-                      //setFocusIndex({ index: consumerdetail.key, type: "ConsumerName" });
                     }}
                     onBlur={(e) => {
                       setFocusIndex({ index: -1 });

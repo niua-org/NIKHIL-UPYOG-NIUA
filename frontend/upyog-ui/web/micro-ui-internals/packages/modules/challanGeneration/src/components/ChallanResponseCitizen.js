@@ -25,7 +25,6 @@ const ChallanResponseCitizen = (props) => {
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(null);
 
-  // const tenantId = window.localStorage.getItem("CITIZEN.CITY");
   const tenantId = window.location.href.includes("citizen")
     ? window.localStorage.getItem("CITIZEN.CITY")
     : window.localStorage.getItem("Employee.tenant-id");
@@ -84,7 +83,6 @@ const ChallanResponseCitizen = (props) => {
       setLoader(false);
 
       // ✅ Show success first
-      // setShowToast({ key: "success", message: "Successfully updated the status" });
       setLable("Challan set to pay later.");
       setError(false);
       setShowToast(true);
@@ -95,21 +93,11 @@ const ChallanResponseCitizen = (props) => {
         window.location.reload();
       }, 2000);
 
-      // history.push(`/upyog-ui/employee/challangeneration/inbox`);
     } catch (error) {
       setLoader(false);
     }
   };
 
-  // const onGoToCHB = () => {
-  //   if (isCitizen) history.push(`/upyog-ui/citizen/chb-home`);
-  //   else history.push(`/upyog-ui/employee/challangeneration/inbox`);
-  // };
-
-  // const handleMakePayment = async () => {
-  //   if (isCitizen) history.push(`/upyog-ui/citizen/payment/collect/chb-services/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
-  //   else history.push(`/upyog-ui/employee/payment/collect/chb-services/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
-  // };
   const printChallanNotice = async () => {
     if (chbPermissionLoading) return;
     setChbPermissionLoading(true);
@@ -136,19 +124,13 @@ const ChallanResponseCitizen = (props) => {
   };
 
   const handlePayment = () => {
-    // return;
     history.push(`/upyog-ui/employee/payment/collect/Challan_Generation/${ndcCode}/${tenantId}?tenantId=${tenantId}`);
-    // pathname: `/upyog-ui/citizen/payment/collect/${application?.businessService}/${application?.applicationNumber}`,
   };
-
-  //  /upyog-ui/employee/payment/collect/TL/PB-TL-2025-07-07-227598/pb.testing
 
   return (
     <div>
       <Card>
         <Banner
-          // message={t(`NDC_${stringReplaceAll(nocData?.nocType, ".", "_")}_${stringReplaceAll(nocData?.applicationStatus, ".", "_")}_HEADER`)}
-          // message={"Community Hall Booking Application Submitted Successfully"}
           message={t("CHALLAN_APPLICATION_CREATED")}
           applicationNumber={ndcCode}
           info={nocData?.applicationStatus == "REJECTED" ? "" : t(`CHALLAN_NUMBER`)}
@@ -156,11 +138,7 @@ const ChallanResponseCitizen = (props) => {
           style={{ padding: "10px" }}
           headerStyles={{ fontSize: "32px", wordBreak: "break-word" }}
         />
-        {/* {nocData?.applicationStatus !== "REJECTED" ? (
-          <CardText>
-            {t(`NDC_${stringReplaceAll(nocData?.nocType, ".", "_")}_${stringReplaceAll(nocData?.applicationStatus, ".", "_")}_SUB_HEADER`)}
-          </CardText>
-        ) : null} */}
+        
         <div className="primary-label-btn d-grid" onClick={chbPermissionLoading ? undefined : printChallanNotice}>
           {chbPermissionLoading ? (
             <Loader />

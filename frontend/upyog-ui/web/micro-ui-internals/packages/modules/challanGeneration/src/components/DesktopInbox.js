@@ -23,7 +23,6 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
 
   // challans, workFlowData
 
-  // const columns = React.useMemo(() => (props.isSearch ? tableConfig.searchColumns(props) : tableConfig.inboxColumns(props) || []), []);
   const GetCell = (value) => <span className="cell-text">{value}</span>;
 
   const GetSlaCell = (value) => {
@@ -59,7 +58,6 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
           <div>
             <span className="link">
               <Link to={`${props.parentRoute}/application/${row.original?.challanNo}/${tenantId}`}>{row.original?.["challanNo"]}</Link>
-              {/* <Link to={`${props.parentRoute}/challansearch/` + row.original?.["challanNo"]}>{row.original?.["challanNo"]}</Link> */}
             </span>
           </div>
         );
@@ -88,9 +86,6 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
         const finalAmount = total - waiver;
 
         return GetCell(finalAmount);
-        // const finalAmount = row.original?.totalAmount - row.original?.feeWaiver;
-        // const finAm = finalAmount ? finalAmount : row.original?.totalAmount;
-        // return GetCell(finAm);
       },
       mobileCell: (original) => GetMobCell(original?.["totalAmount"]),
     },
@@ -105,44 +100,7 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
     {
       Header: t("WF_INBOX_HEADER_CREATED_DATE"),
       Cell: ({ row }) => (row.original?.date ? GetCell(format(new Date(row.original?.date), "dd/MM/yyyy")) : ""),
-      // Cell: ({ row }) => {
-      //   return GetCell(t(`${row.original?.date}`));
-      //   Cell: ({ row }) => (row.original?.date ? GetCell(format(new Date(row.original?.date), "dd/MM/yyyy")) : ""),
-      // },
     },
-
-    // {
-    //   Header: t("WS_COMMON_TABLE_COL_ACTION"),
-    //   Cell: ({ row }) => {
-    //     const amount = row.original?.totalAmount;
-    //     let action = "ACTIVE";
-    //     if (amount > 0) action = "COLLECT";
-    //     if (action == "COLLECT") {
-    //       return (
-    //         <div>
-    //           <span className="link">
-    //             <Link
-    //               to={{
-    //                 pathname: `/upyog-ui/employee/payment/collect/${row.original?.["businessService"]}/${row.original?.["challanNo"]}/tenantId=${row.original?.["tenantId"]}?workflow=mcollect`,
-    //               }}
-    //             >
-    //               {t(`UC_${action}`)}
-    //             </Link>
-    //           </span>
-    //         </div>
-    //       );
-    //     } else if (row.original?.applicationStatus == "PAID") {
-    //       return (
-    //         <div>
-    //           <span className="link">{getActionButton(row.original?.["businessService"], row.original?.["challanNo"])}</span>
-    //         </div>
-    //       );
-    //     } else {
-    //       return GetCell(t(`${"CS_NA"}`));
-    //     }
-    //   },
-    //   mobileCell: (original) => GetMobCell(original?.workflowData?.state?.["state"]),
-    // },
   ];
 
   let result;
@@ -194,13 +152,6 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
         <div className="filters-container">
           <InboxLinks parentRoute={props.parentRoute} businessService={props.businessService} />
           <div>
-            {/* <FilterComponent
-              defaultSearchParams={props.defaultSearchParams}
-              onFilterChange={props.onFilterChange}
-              searchParams={props.searchParams}
-              type="desktop"
-            /> */}
-            {/* import InboxFilter from "./components/inbox/NewInboxFilter"; */}
             <InboxFilter
               defaultSearchParams={props.defaultSearchParams}
               onFilterChange={props.onFilterChange}
@@ -208,14 +159,6 @@ const DesktopInbox = ({ tableConfig, filterComponent, columns, statutes, ...prop
               type="desktop"
               statutes={statutes}
             />
-            {/* <Filter
-              businessService={props.businessService}
-              searchParams={props.searchParams}
-              applications={props.data}
-              onFilterChange={props.onFilterChange}
-              translatePrefix={props.translatePrefix}
-              type="desktop"
-            /> */}
           </div>
         </div>
       )}

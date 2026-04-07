@@ -12,10 +12,6 @@ import StatusCount from "./StatusCount";
 
 const Status = ({ onAssignmentChange, searchParams, businessServices, clearCheck, setclearCheck, statutes, _searchParams }) => {
   const { t } = useTranslation();
-  // const tenantId = Digit.ULBService.getCurrentTenantId();
-  // const stateId = Digit.ULBService.getStateId();
-  // const { data, isLoading } = Digit.Hooks.mcollect.useMCollectMDMS(stateId, "mCollect", "applicationStatus");
-  // const applicationStatus = data?.mCollect?.applicationStatus || [];
   const translateState = (state) => {
     return `${state.applicationstatus || "ACTIVE"}`;
   };

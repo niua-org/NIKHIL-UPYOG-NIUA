@@ -79,7 +79,6 @@ const Filter = ({ searchParams, onFilterChange, onRefresh, defaultSearchParams, 
                     fill="#505A5F"
                   />
                 </svg>
-                {/* {t("ES_COMMON_CLEAR_ALL")} */}
               </span>
             )}
             {props.type === "mobile" && (
@@ -133,8 +132,6 @@ const Filter = ({ searchParams, onFilterChange, onRefresh, defaultSearchParams, 
                   let _new = { ..._searchParams, businessService: [...filterParam] };
                   setSearchParams({ ..._new });
                   setselectedCategories([...selectedCategory]);
-                  // if (e.target.checked) localParamChange({ businessService: [..._searchParams?.businessService, businessService?.code] });
-                  // else localParamChange({ businessService: _searchParams?.businessService.filter((e) => e !== businessService?.code) });
                 }}
               />
             </div>

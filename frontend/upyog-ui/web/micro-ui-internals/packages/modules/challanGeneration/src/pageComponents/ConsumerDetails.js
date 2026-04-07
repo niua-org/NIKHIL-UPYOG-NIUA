@@ -18,7 +18,6 @@ const createConsumerDetails = () => ({
   ConsumerName: "",
   mobileNumber: "",
   emailId:"",
-  // key: Date.now(),
 });
 
 const ConsumerDetails = ({ config, onSelect, userType, formData, setError, formState, clearErrors }) => {
@@ -166,7 +165,6 @@ const OwnerForm1 = (_props) => {
                     errorStyle={(localFormState.touched.ConsumerName && errors?.ConsumerName?.message) ? true : false}
                     onChange={(e) => {
                       props.onChange(e.target.value);
-                      //setFocusIndex({ index: consumerdetail.key, type: "ConsumerName" });
                     }}
                     onBlur={(e) => {
                       setFocusIndex({ index: -1 });
@@ -199,7 +197,6 @@ const OwnerForm1 = (_props) => {
                     onBlur={props.onBlur}
                     errorStyle={(localFormState.touched.mobileNumber && errors?.mobileNumber?.message) ? true : false}
                     disable={isEdit}
-                    //style={ isMulitpleOwners ? { background: "#FAFAFA" }: ""}
                   />
                 )}
               />
@@ -207,28 +204,6 @@ const OwnerForm1 = (_props) => {
             </div>
           </LabelFieldPair>  
           <CardLabelError style={errorStyle}>{localFormState.touched.mobileNumber ? errors?.mobileNumber?.message : ""}</CardLabelError>
-          {/* <LabelFieldPair>  
-          <CardLabel style={{paddingTop:"10px"}} className="card-label-smaller">{`${t("UC_EMAIL_ID")}`}</CardLabel>
-          <div className="field">
-          <Controller
-          control={control}
-          name="emailId"
-          defaultValue={consumerdetail?.emailId}
-          rules={{  validate: { pattern: (val) => (/[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(val) ? true : t("CS_ADDCOMPLAINT_EMAIL_ERROR")) } }}
-          render={(props) => (
-            <TextInput
-              t={t}
-              isMandatory={false}
-              value={props.value}
-              onChange={(e) => {
-                props.onChange(e.target.value)
-              }}
-              disable={isEdit}
-            />
-            )}
-            />
-            </div>
-            </LabelFieldPair>   */} 
       </div>
       </div>
     </React.Fragment>

@@ -34,7 +34,6 @@ const getTimelineCaptions = (checkpoint, index, arr, t) => {
   const caption = {
     date: checkpoint?.auditDetails?.lastModified,
     name: checkpoint?.assigner?.name,
-    // mobileNumber: checkpoint?.assigner?.mobileNumber,
     source: checkpoint?.assigner?.source,
   };
 
@@ -46,16 +45,6 @@ const getTimelineCaptions = (checkpoint, index, arr, t) => {
           <p style={{ overflowX: "scroll" }}>{comment}</p>
         </div>
       )}
-
-      {/* {thumbnailsToShow?.thumbs?.length > 0 && (
-        <DisplayPhotos
-          srcs={thumbnailsToShow.thumbs}
-          onClick={(src, idx) => {
-            let fullImage = thumbnailsToShow.fullImage?.[idx] || src;
-            Digit.Utils.zoomImage(fullImage);
-          }}
-        />
-      )} */}
 
       {wfDocuments?.length > 0 && (
         <div>
@@ -70,7 +59,6 @@ const getTimelineCaptions = (checkpoint, index, arr, t) => {
       <div style={{ marginTop: "8px" }}>
         {caption.date && <p>{caption.date}</p>}
         {caption.name && <p>{caption.name}</p>}
-        {/* {caption.mobileNumber && <p>{caption.mobileNumber}</p>} */}
         {caption.source && <p>{t("ES_COMMON_FILED_VIA_" + caption?.source?.toUpperCase())}</p>}
       </div>
     </div>
@@ -133,7 +121,6 @@ const ChallanApplicationDetails = () => {
   useEffect(() => {
     if (acknowledgementIds) {
       const filters = {};
-      // filters.mobileNumber = userInfo?.info?.mobileNumber;
       filters.challanNo = acknowledgementIds;
       fetchChallans(filters);
     }
@@ -275,7 +262,6 @@ const ChallanApplicationDetails = () => {
       setLoader(false);
 
       // ✅ Show success first
-      // setShowToast({ key: "success", message: "Successfully updated the status" });
       setLable("Challan set to pay later.");
       setError(false);
       setShowToast(true);
@@ -285,8 +271,6 @@ const ChallanApplicationDetails = () => {
         history.push("/upyog-ui/employee/challangeneration/inbox");
         window.location.reload();
       }, 2000);
-
-      // history.push(`/upyog-ui/employee/challangeneration/inbox`);
     } catch (error) {
       setLoader(false);
     }
@@ -294,7 +278,6 @@ const ChallanApplicationDetails = () => {
 
   const submitAction = async (modalData) => {
     console.log("modalData", modalData);
-    // return;
     if (!modalData?.amount) {
       setErrorOne(`Please Enter Amount`);
       setShowErrorToastt(true);
@@ -326,7 +309,6 @@ const ChallanApplicationDetails = () => {
           setLoader(false);
           setShowModal(false);
           // ✅ Show success first
-          // setShowToast({ key: "success", message: "Successfully updated the status" });
           setLable("Challan is Settled");
           setError(false);
           setShowToast(true);
@@ -336,8 +318,6 @@ const ChallanApplicationDetails = () => {
             history.push("/upyog-ui/employee/challangeneration/inbox");
             window.location.reload();
           }, 2000);
-
-          // history.push(`/upyog-ui/employee/challangeneration/inbox`);
         } catch (error) {
           setLoader(false);
         }
@@ -365,7 +345,6 @@ const ChallanApplicationDetails = () => {
             <Row className="border-none" label={t("CORE_COMMON_NAME")} text={getChallanData?.citizen?.name || t("CS_NA")} />
             <Row className="border-none" label={t("CHALLAN_OWNER_MOBILE_NUMBER")} text={getChallanData?.citizen?.mobileNumber || t("CS_NA")} />
             <Row className="border-none" label={t("NDC_ADDRESS")} text={getChallanData?.address?.addressLine1 || t("CS_NA")} />
-            {/* <Row className="border-none" label={t("CORE_EMAIL_ID")} text={getChallanData?.citizen?.emailId || t("CS_NA")} /> */}
           </StatusTable>
 
           <CardSubHeader className="challan-custom-subheader-font">{t("CHALLAN_DETAILS")}</CardSubHeader>

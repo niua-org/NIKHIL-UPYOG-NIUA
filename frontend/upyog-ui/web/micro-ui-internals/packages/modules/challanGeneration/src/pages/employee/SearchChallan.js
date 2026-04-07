@@ -82,7 +82,6 @@ const SearchChallan = (props) => {
       console.log("✅ recieptSearch response", response?.challans);
       setTableData(response?.challans);
       setIsLoading(false);
-      // let collectionres = await Digit.PaymentService.recieptSearch(BPA?.tenantId, appBusinessService[i], { consumerCodes: BPA?.applicationNo, isEmployee: true });
     } catch (error) {
       setIsLoading(false);
       console.log("error", error);
@@ -106,9 +105,6 @@ const SearchChallan = (props) => {
             <span className="link">
               <Link to={`${props.parentRoute}/challansearch/` + challanNumber}>{challanNumber}</Link>
             </span>
-            // <span className="cell-text" style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }} onClick={() => downloadPDF(row)}>
-            //   {challanNumber}
-            // </span>
           );
         },
       },
@@ -136,7 +132,6 @@ const SearchChallan = (props) => {
               {formattedStatus}
             </span>
           );
-          // return GetCell(row?.applicationStatus);
         },
       },
     ],
@@ -236,12 +231,8 @@ const SearchChallan = (props) => {
                   },
                 };
               }}
-              // onPageSizeChange={onPageSizeChange}
               currentPage={getValues("offset") / getValues("limit")}
-              // onNextPage={nextPage}
-              // onPrevPage={previousPage}
               pageSizeLimit={getValues("limit")}
-              // onSort={onSort}
               disableSort={false}
               sortParams={[{ id: getValues("sortBy"), desc: getValues("sortOrder") === "DESC" ? true : false }]}
             />

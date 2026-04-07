@@ -13,33 +13,7 @@ import { Link } from "react-router-dom";
 const InboxLinks = ({ parentRoute, businessService }) => {
   const { t } = useTranslation();
   const [links, setLinks] = useState([]);
-  const allLinks = [
-    {
-      // text: t("UC_GENERATE_NEW_CHALLAN"),
-      // link: "/upyog-ui/employee/challangeneration/generate-challan",
-      // roles: [],
-    },
-    // {
-    //   text: "Search Receipt",
-    //   link: "/upyog-ui/employee/mcollect/search-receipt",
-    //   roles: [],
-    // },
-    // {
-    //   text: "Search Challan",
-    //   link: "/upyog-ui/employee/mcollect/search-challan",
-    //   roles: [],
-    // },
-    // {
-    //   text: "Search and Pay",
-    //   link: "/upyog-ui/employee/mcollect/search-bill",
-    //   roles: [],
-    // },
-    // {
-    //   text: "Group Bill",
-    //   link: "/upyog-ui/employee/mcollect/group-bill",
-    //   roles: [],
-    // },
-  ];
+  const allLinks = [];
 
   useEffect(() => {
     let linksToShow = allLinks;

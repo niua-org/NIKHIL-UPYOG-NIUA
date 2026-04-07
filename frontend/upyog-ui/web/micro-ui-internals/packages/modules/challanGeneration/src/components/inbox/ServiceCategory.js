@@ -49,19 +49,6 @@ const ServiceCategory = ({
       newMenu.push({ ...ob, i18nKey: ob.name });
     });
 
-  // const onRemove = (category) => {
-  //   console.log("newbussinessService", newbussinessService);
-  //   console.log("category", category);
-  //   let newbussinessService = searchParams?.businessService.filter((ob) => ob !== category.code);
-  //   let newCategories = [];
-
-  //   newbussinessService?.map((bs) => {
-  //     newCategories.push({ code: bs, i18nKey: `BILLINGSERVICE_BUSINESSSERVICE_${stringReplaceAll(bs, ".", "_").toUpperCase()}` });
-  //   });
-  //   setSearchParams({ ...searchParams, businessService: [...newbussinessService] });
-  //   setselectedCategories([...newCategories]);
-  // };
-
   const onRemove = (category) => {
     console.log("category", category);
     console.log("searchParams", searchParams);
@@ -82,7 +69,6 @@ const ServiceCategory = ({
     else meuSecond.push(option);
   });
 
-  // translateState(option)
   return (
     <div className="status-container">
       <div className="filter-label" style={{ fontWeight: "normal" }}>
@@ -94,7 +80,6 @@ const ServiceCategory = ({
         defaultUnit="Selected"
         selected={selectedCategory}
         options={newMenu}
-        // onSelect={onAssignmentChange}
         onSelect={(selectedItems) => {
           const filterParam = selectedItems?.map((item) => item?.[1]?.i18nKey);
           console.log("selectedItems", selectedItems);
@@ -103,9 +88,6 @@ const ServiceCategory = ({
             code: item?.[1]?.id,
             i18nKey: item?.[1]?.i18nKey,
           }));
-
-          console.log("selectedCategory", selectedCategory);
-          // console.log("selectedItems", selectedItems);
 
           // Update parent states
           setSearchParams({ ...searchParams, businessService: filterParam });
@@ -122,36 +104,6 @@ const ServiceCategory = ({
           </div>
         ))}
       </div>
-
-      {/* {menuFirst?.map((option, index) => {
-        return (
-          <ServiceCategoryCount
-            clearCheck={clearCheck}
-            setclearCheck={setclearCheck}
-            key={index}
-            onAssignmentChange={onAssignmentChange}
-            status={{ name: translateState(option), code: option.code }}
-            searchParams={searchParams}
-          />
-        );
-      })}
-      {moreStatus &&
-        meuSecond?.map((option, index) => {
-          return (
-            <ServiceCategoryCount
-              clearCheck={clearCheck}
-              setclearCheck={setclearCheck}
-              key={index}
-              onAssignmentChange={onAssignmentChange}
-              status={{ name: translateState(option), code: option.code }}
-              searchParams={searchParams}
-            />
-          );
-        })}
-      <div className="filter-button" onClick={() => showMoreStatus(!moreStatus)}>
-        {" "}
-        {moreStatus ? t("UC_LESS_LABEL") : t("UC_MORE_LABEL")}{" "}
-      </div>  */}
     </div>
   );
 };

@@ -31,65 +31,11 @@ const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
   } = useForm({
     defaultValues: {
       shouldUnregister: false,
-      // halls: [{ startDate: "", endDate: "", startTime: "", endTime: "" }], // predefine index 0
     },
   });
 
   const onSubmit = (data) => {
     goNext(data);
-    // console.log("data==||", data);
-    // const userInfo = Digit.UserService.getUser()?.info || {};
-    // const now = Date.now();
-
-    // // Map booking slots from hall details
-    // const bookingSlotDetails = data?.slots?.map((slot) => {
-    //   // find hall info for this slot
-    //   const hallInfo = CHBHallCode?.CHB?.HallCode?.find((h) => h.HallCode === slot.hallCode);
-    //   // parse from dd-MM-yyyy → format to yyyy-MM-dd
-    //   const formattedDate = slot?.bookingDate ? format(parse(slot.bookingDate, "dd-MM-yyyy", new Date()), "yyyy-MM-dd") : null;
-
-    //   return {
-    //     bookingDate: formattedDate,
-    //     bookingEndDate: formattedDate,
-    //     bookingFromTime: slot?.fromTime || "13:47",
-    //     bookingToTime: slot?.toTime || "14:54",
-    //     hallCode: slot?.hallCode,
-    //     status: "INITIATE",
-    //     capacity: hallInfo?.capacity || null,
-    //   };
-    // });
-
-    // const payload = {
-    //   hallsBookingApplication: {
-    //     tenantId,
-    //     bookingStatus: "INITIATED",
-    //     applicationDate: now,
-    //     communityHallCode: getHallDetails?.[0]?.communityHallId || "",
-    //     communityHallName: data?.siteId?.name,
-    //     purpose: {
-    //       purpose: data?.purpose?.code,
-    //     },
-    //     specialCategory: { category: data?.specialCategory?.code },
-    //     purposeDescription: data?.purposeDescription,
-    //     bookingSlotDetails,
-    //     owners: [
-    //       {
-    //         name: userInfo?.name,
-    //         mobileNumber: userInfo?.mobileNumber,
-    //         emailId: userInfo?.emailId,
-    //         type: userInfo?.type,
-    //       },
-    //     ],
-    //     workflow: {
-    //       action: "INITIATE",
-    //       businessService: "CommunityHallBooking",
-    //       moduleName: "CommunityHallModule",
-    //     },
-    //   },
-    // };
-    // console.log("payload", payload);
-    // // return;
-    // goNext(payload);
   };
 
   return (
@@ -105,7 +51,6 @@ const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
               control={control}
               name={"offenceType"}
               defaultValue={null}
-              // rules={{ required: t("CHALLAN_TYPE_OFFENCE_REQUIRED") }}
               render={(props) => (
                 <Dropdown
                   className="form-field"
@@ -129,7 +74,6 @@ const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
               control={control}
               name={"offenceCategory"}
               defaultValue={null}
-              // rules={{ required: t("CHALLAN_OFFENCE_CATEGORY_REQUIRED") }}
               render={(props) => (
                 <Dropdown
                   className="form-field"
@@ -153,7 +97,6 @@ const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
               control={control}
               name={"offenceSubCategory"}
               defaultValue={null}
-              // rules={{ required: t("CHALLAN_OFFENCE_SUB_CATEGORY_REQUIRED") }}
               render={(props) => (
                 <Dropdown
                   className="form-field"
@@ -176,9 +119,6 @@ const OffenceDetails = ({ onGoBack, goNext, currentStepData, t }) => {
             <Controller
               control={control}
               name="challanAmount"
-              // rules={{
-              //   required: t("CHALLAN_AMOUNT_REQUIRED"),
-              // }}
               render={(props) => (
                 <TextInput
                   value={props.value}

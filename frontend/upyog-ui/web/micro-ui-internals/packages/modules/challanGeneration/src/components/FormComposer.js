@@ -36,14 +36,6 @@ export const FormComposer = forwardRef((props, ref) => {
     props.onSubmit(data);
   }
 
-  /*  {
-    setValue("ADVT_HOARDINGS_CGST", `10`);
-  }
-
-  useEffect(() => {
-    setValue("ADVT_HOARDINGS_CGST", `10`);
-  }, ["ADVT_HOARDINGS_CGST"]);
- */
   useEffect(() => {
     //setFormData && setValue("ADVT_HOARDINGS_CGST", `${setFormData["ADVT_HOARDINGS_CGST"]}`);
     if (setFormData) {
@@ -61,14 +53,6 @@ export const FormComposer = forwardRef((props, ref) => {
     setValue("pincode", `${setFormData["pincode"] === null ? "" : setFormData["pincode"]}`);
     setValue("comments", `${setFormData["comments"]}`);
   }
-  /* useImperativeHandle(ref, () => ({
-    setValues() {
-      if (setFormData) {
-        setValue("name", `${setFormData["name"]}`);
-        setValue("mobileNumber", `${setFormData["mobileNumber"]}`);
-      }
-    },
-  }));  */
 
   const fieldSelector = (type, populators) => {
     switch (type) {
@@ -97,9 +81,6 @@ export const FormComposer = forwardRef((props, ref) => {
             {section.body.map((field, index) => {
               return (
                 <React.Fragment key={index}>
-                  {/* {errors[field.populators.name] && (field.populators?.validate ? errors[field.populators.validate] : true) && (
-                    <CardLabelError>{field.populators.error}</CardLabelError>
-                  )} */}
                   {field.label ? (
                     <LabelFieldPair>
                       <CardLabel>

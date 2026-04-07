@@ -41,11 +41,6 @@ const Inbox = ({
     ? { limit: 100, offset: 0, sortOrder: sortParams?.[0]?.desc ? "ASC" : "DESC" }
     : { limit: pageSize, offset: pageOffset, sortOrder: sortParams?.[0]?.desc ? "ASC" : "DESC" };
 
-  // const { isLoading: hookLoading, data, ...rest } = Digit.Hooks.mcollect.useMCollectSearch({
-  //   tenantId,
-  //   filters: { ...searchParams, ...paginationParams },
-  //   isMcollectAppChanged,
-  // });
 
   const InboxObjectInSessionStorage = Digit.SessionStorage.get("Challan.INBOX");
 
@@ -84,9 +79,6 @@ const Inbox = ({
     challanStatus: item?.challanStatus,
     date: item?.date,
     feeWaiver: item?.feeWaiver,
-    // dueDate: businessIdToOwnerMappings[item.challanNo]?.dueDate || "NA",
-    // tenantId: item?.tenantId,
-    // receiptNumber: item?.receiptNumber,
   }));
 
   useEffect(() => {
@@ -123,10 +115,8 @@ const Inbox = ({
       title: t("ES_SEARCH_APPLICATION_MOBILE_INVALID"),
       componentInFront: "+91",
     },
-    // { label: t("UC_RECEPIT_NO_LABEL"), name: "receiptNumber" },
   ];
 
-  // if (rest?.data?.length !== null) {
   if (isMobile) {
     return (
       <MobileInbox
@@ -141,7 +131,6 @@ const Inbox = ({
         parentRoute={parentRoute}
         searchParams={searchParams}
         sortParams={sortParams}
-        // tableConfig={rest?.tableConfig}
         filterComponent={filterComponent}
       />
     );
@@ -157,7 +146,6 @@ const Inbox = ({
         <DesktopInbox
           businessService={businessService}
           data={formedData}
-          // tableConfig={rest?.tableConfig}
           isLoading={hookLoading}
           defaultSearchParams={initialStates.searchParams}
           isSearch={!isInbox}

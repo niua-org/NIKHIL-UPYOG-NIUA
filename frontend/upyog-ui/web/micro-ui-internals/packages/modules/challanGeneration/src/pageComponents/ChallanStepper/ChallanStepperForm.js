@@ -141,7 +141,6 @@ const getActs = (offenceType, offenceActData) =>
       // amount: data?.amount,
       amount: [
         {
-          // "taxHeadCode": "CH.CHALLAN_FINE",
           amount: data?.amount,
         },
       ],
@@ -165,9 +164,6 @@ const getActs = (offenceType, offenceActData) =>
       setLoader(false);
       const id = response?.challans?.[0]?.challanNo;
       history.push("/upyog-ui/employee/challangeneration/response/" + `${id}`);
-      // return;
-      // if (isCitizen) history.push("/upyog-ui/citizen/challangeneration/response/" + "123123");
-      // else history.push("/upyog-ui/employee/challangeneration/response/" + "123123");
     } catch (error) {
       setLoader(false);
     }
@@ -419,7 +415,6 @@ const getActs = (offenceType, offenceActData) =>
           </ActionBar>
         </form>
       </div>
-      {/* <Stepper stepsList={updatedCreateEmployeeconfig} onSubmit={handleSubmit} step={step} setStep={setStep} /> */}
       {showToast && (
         <Toast
           error={showToast.key}

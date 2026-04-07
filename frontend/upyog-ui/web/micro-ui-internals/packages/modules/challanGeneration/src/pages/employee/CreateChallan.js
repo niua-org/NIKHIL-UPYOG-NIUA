@@ -132,7 +132,6 @@ const CreateChallen = ({ ChallanData }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  // const tenantId = window.Digit.SessionStorage.get("Employee.tenantId");
   const [pincode, setPincode] = useState("");
   const [selectedCity, setSelectedCity] = useState(getCities()[0] ? getCities()[0] : null);
   const selectCity = async (city) => {
@@ -256,7 +255,6 @@ const CreateChallen = ({ ChallanData }) => {
   }, [tenantId]);
 
   useEffect(() => {
-    // if((ChallanData?.length > 0 && isEdit) || isEdit) {
       const configDetails = setconfig();
       const isMandatoryArray = [];
       let flag = true;
@@ -306,7 +304,6 @@ const CreateChallen = ({ ChallanData }) => {
 
   const handleData = (event) => {
     sessionStorage.setItem("isHookRecall", false);
-    // if((ChallanData?.length > 0 && isEdit) || isEdit) {
       const { value, name } = event.target;
       setTotalFormData({ ...totalFormData, [event.target.name]: event.target.value });
       if (!value || getPattern(name).test(value)) {
@@ -335,7 +332,6 @@ const CreateChallen = ({ ChallanData }) => {
           name: data.name,
           mobileNumber: data.mobileNumber,
         },
-        //businessService: selectedCategoryType ? temp + "." + humanized(selectedCategoryType.code, temp) : "",
         businessService:selectedCategoryType?(temp + "." + stringReplaceAll(selectedCategoryType?.businessService.split(".")[1]," ","_")) : "",
         consumerType: temp,
         description: data.comments,
@@ -595,18 +591,6 @@ const CreateChallen = ({ ChallanData }) => {
             dependency: fromDate ? true : false,
             populators: <DatePicker date={toDate ? toDate : ""} min={fromDate} onChange={ChangesetToDate} /* defaultValue="2021-05-30" */ />,
           },
-          // {
-          //   label: t("UC_COMMENT_LABEL"),
-         
-          //   isMandatory: false,
-          //   type: "textarea",
-          //   populators: {
-          //     name: "comments",
-          //     validation: {
-          //       required: false,
-          //     },
-          //   },
-          // },
         ],
       },
     ];

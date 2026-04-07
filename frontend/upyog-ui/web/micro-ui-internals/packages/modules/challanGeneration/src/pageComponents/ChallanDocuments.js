@@ -24,7 +24,6 @@ const ChallanDocuments = ({
   setError,
 }) => {
   const [documents, setDocuments] = useState(formData?.documents?.documents || []);
-  // const [error, setError] = useState(null);
   const [enableSubmit, setEnableSubmit] = useState(true);
   const [checkRequiredFields, setCheckRequiredFields] = useState(false);
   const tenantId = window.location.href.includes("employee") ? Digit.ULBService.getCurrentTenantId() : localStorage.getItem("CITIZEN.CITY");
@@ -103,13 +102,6 @@ function PTRSelectDocument({ t, document: doc, setDocuments, setError, documents
   const filteredDocument = documents?.filter((item) => item?.documentType?.includes(doc?.code))[0];
 
   const tenantId = Digit.ULBService.getCurrentTenantId();
-  // const [selectedDocument, setSelectedDocument] = useState(
-  //   filteredDocument
-  //     ? { ...filteredDocument, active: doc?.active === true, code: filteredDocument?.documentType }
-  //     : doc?.dropdownData?.length === 1
-  //     ? doc?.dropdownData[0]
-  //     : {}
-  // );
   const [selectedDocument, setSelectedDocument] = useState(() => {
     if (filteredDocument) {
       const match = doc?.dropdownData?.find((e) => e.code === filteredDocument.documentType);
@@ -256,7 +248,6 @@ function PTRSelectDocument({ t, document: doc, setDocuments, setError, documents
         setLoading(true);
         if (file.size >= 5242880) {
           setError(t("CS_MAXIMUM_UPLOAD_SIZE_EXCEEDED"));
-          // if (!formState.errors[config.key]) setFormError(config.key, { type: doc?.code });
         } else {
           try {
             setUploadedFile(null);

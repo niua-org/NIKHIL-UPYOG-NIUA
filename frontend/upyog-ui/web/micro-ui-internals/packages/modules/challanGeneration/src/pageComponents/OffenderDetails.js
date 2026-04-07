@@ -31,110 +31,16 @@ const OffenderDetails = ({ t, goNext, currentStepData, onGoBack }) => {
 
   const onSubmit = async (data) => {
     goNext(data);
-    // setLoader(true);
-    // console.log("data", data);
-    // console.log("user", user);
-    // console.log("currentStepData", currentStepData);
-    // if (currentStepData?.venueDetails?.[0]?.bookingNo) {
-    //   goNext(currentStepData?.venueDetails);
-    // } else {
-    //   const baseApplication = currentStepData?.ownerDetails?.hallsBookingApplication || {};
-
-    //   // Construct owners array using "data"
-    //   const applicantDetail = {
-    //     tenantId: tenantId,
-    //     applicantName: data?.name,
-    //     applicantMobileNo: data?.mobileNumber,
-    //     applicantEmailId: data?.emailId,
-    //     // address: data?.address,
-    //     type: user?.info?.type,
-    //   };
-
-    //   const owners = [
-    //     {
-    //       name: data?.name,
-    //       mobileNumber: data?.mobileNumber,
-    //       emailId: data?.emailId,
-    //       type: "CITIZEN",
-    //     },
-    //   ];
-
-    //   const address = {
-    //     addressLine1: data?.address,
-    //     // cityCode: "SPF",
-    //     // doorNo: "12B",
-    //   };
-
-    //   const payload = {
-    //     hallsBookingApplication: {
-    //       ...baseApplication,
-    //       applicantDetail,
-    //       address,
-    //       owners,
-    //     },
-    //   };
-
-    //   console.log("final payload", payload);
-    //   // return;
-    //   // goNext(payload);
-    //   // return;\
-    //   try {
-    //     const response = await Digit.CHBServices.create(payload);
-    //     console.log("response", response);
-    //     setLoader(false);
-    //     goNext(response?.hallsBookingApplication);
-    //   } catch (error) {
-    //     setLoader(false);
-    //   }
-    // }
   };
 
   useEffect(() => {
     console.log("currentStepData", currentStepData);
-    // if (formattedData) {
-    //   setValue("address", formattedData?.address?.addressLine1);
-    // }
-    // if (formattedData) {
-    //   Object.entries(formattedData).forEach(([key, value]) => {
-    //     setValue(key, value);
-    //   });
-    // }
   }, [currentStepData, setValue]);
 
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div style={{ width: "50%" }}>
-          {/* <div  >
-            <CardLabel>
-              {`${t("NOC_APPLICANT_EMAIL_LABEL")}`} <span className="requiredField">*</span>
-            </CardLabel>
-            <Controller
-              control={control}
-              name="emailId"
-              rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^(?!\.)(?!.*\.\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/,
-                  message: "Invalid email format",
-                },
-              }}
-              render={(props) => (
-                <TextInput
-                  
-                  value={props.value}
-                  onChange={(e) => {
-                    props.onChange(e.target.value);
-                  }}
-                  onBlur={(e) => {
-                    props.onBlur(e);
-                  }}
-                  t={t}
-                />
-              )}
-            />
-            {errors?.emailId && <p className="requiredField">{errors.emailId.message}</p>}
-          </div> */}
 
           <div className="challan-bottom-style"  >
             <CardLabel>
