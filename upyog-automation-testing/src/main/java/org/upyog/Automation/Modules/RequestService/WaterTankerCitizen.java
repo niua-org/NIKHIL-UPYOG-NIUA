@@ -11,10 +11,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.upyog.Automation.config.WebDriverFactory;
 
 @Component
 public class WaterTankerCitizen {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
     public void WaterTankerCreate() {
@@ -28,8 +32,8 @@ public class WaterTankerCitizen {
     public void WaterTankerCreate(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Water Tanker Create Application by Citizen");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 
@@ -410,7 +414,7 @@ public class WaterTankerCitizen {
             js.executeScript("arguments[0].scrollIntoView({block:'center'});", dateInput);
             Thread.sleep(500);
             dateInput.clear();
-            dateInput.sendKeys("05-02-2026");
+            dateInput.sendKeys("10-04-2026");
             System.out.println("Set delivery date");
         } catch (Exception e) {
             System.out.println("Date input failed: " + e.getMessage());

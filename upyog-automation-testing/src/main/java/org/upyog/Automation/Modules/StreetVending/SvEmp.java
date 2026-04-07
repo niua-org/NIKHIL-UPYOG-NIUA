@@ -13,13 +13,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.upyog.Automation.config.WebDriverFactory;
 
 
 @Component
 public class SvEmp {
 
     private static final Logger logger = LoggerFactory.getLogger(SvEmp.class);
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
     public void InboxEmpSv() {
@@ -34,8 +38,8 @@ public class SvEmp {
         logger.info("SV Employee Inbox Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 

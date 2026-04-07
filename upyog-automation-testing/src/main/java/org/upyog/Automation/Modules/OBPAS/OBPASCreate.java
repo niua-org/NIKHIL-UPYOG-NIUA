@@ -8,13 +8,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 @Component
 
 public class OBPASCreate {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
 
     public void OBPASReg() {
@@ -28,8 +33,8 @@ public class OBPASCreate {
     public void OBPASReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("OBPAS Registration by Citizen");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 

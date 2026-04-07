@@ -1,5 +1,7 @@
 package org.upyog.Automation.Modules.TradeLicense;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,10 +11,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.upyog.Automation.config.WebDriverFactory;
 
-//@Component
+@Component
 public class TradeLicenseEmp {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
     public void TradeLicenseEmpReg() {
@@ -25,8 +31,8 @@ public class TradeLicenseEmp {
     public void tlInboxEmp(String baseUrl, String username, String password, String applicationNumber) {
         System.out.println("Trade License Employee Workflow");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 

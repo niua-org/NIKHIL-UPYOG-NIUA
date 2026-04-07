@@ -1,5 +1,7 @@
 package org.upyog.Automation.Modules.PublicGrievanceRedressal;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,11 +11,16 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.upyog.Automation.config.WebDriverFactory;
 import java.io.File;
 
 
+@Component
 public class PgrCreate {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     public void PgrReg() {
         PgrReg(ConfigReader.get("citizen.base.url"),
@@ -26,8 +33,8 @@ public class PgrCreate {
     public void PgrReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Public Grievance Redressal by Citizen");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 

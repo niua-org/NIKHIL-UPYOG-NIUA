@@ -235,7 +235,7 @@ public class TradeLicenseCreate {
         selectDropdownOption(driver, wait, 1);
         
         // Select city
-        selectCityFromDropdown(driver, wait, js, 2, "City A");
+        selectCityFromDropdown(driver, wait, js, 2, "Delhi");
         
         // Select locality
         selectDropdownOption(driver, wait, 3);
@@ -326,6 +326,8 @@ public class TradeLicenseCreate {
         System.out.println("Uploading Documents");
         
         String filePath = ConfigReader.get("tl.document.identity.proof");
+
+        String filePathforimage = ConfigReader.get("tl.document.image");
         
         // Upload first two documents with next clicks
         uploadDocumentAndClickNext(driver, wait, filePath);
@@ -335,7 +337,7 @@ public class TradeLicenseCreate {
         WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("tl-doc")));
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", fileInput);
         Thread.sleep(200);
-        fileInput.sendKeys(getAbsolutePath(filePath));
+        fileInput.sendKeys(getAbsolutePath(filePathforimage));
         System.out.println("Third document uploaded");
         
         clickButtonByHeader(driver, wait, "Next");
@@ -500,23 +502,39 @@ public class TradeLicenseCreate {
      * Selects dropdown option by index
      */
     private void selectDropdownOption(WebDriver driver, WebDriverWait wait, int dropdownIndex) throws InterruptedException {
-        WebElement dropdownSvg = wait.until(ExpectedConditions.elementToBeClickable(
+        List<WebElement> dropdownSvgs = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                 By.cssSelector("div.select svg.cp")));
         
-        if (dropdownIndex > 0) {
-            List<WebElement> dropdownSvgs = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                    By.cssSelector("div.select svg.cp")));
-            dropdownSvg = dropdownSvgs.get(dropdownIndex);
+        WebElement dropdownSvg = dropdownSvgs.get(dropdownIndex);
+        
+        // Scroll into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdownSvg);
+        Thread.sleep(300);
+        
+        // Try regular click first, fallback to JS if intercepted
+        try {
+            dropdownSvg.click();
+        } catch (Exception e) {
+            // Use dispatchEvent instead of .click()
+            ((JavascriptExecutor) driver).executeScript(
+                "var evt = new MouseEvent('click', {bubbles: true, cancelable: true, view: window}); arguments[0].dispatchEvent(evt);", 
+                dropdownSvg);
         }
         
-        dropdownSvg.click();
+        Thread.sleep(500);
         
         WebElement optionsContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.cssSelector("div.options-card")));
         List<WebElement> options = optionsContainer.findElements(By.cssSelector("div.profile-dropdown--item"));
         
         if (!options.isEmpty()) {
-            options.get(0).click();
+            try {
+                options.get(0).click();
+            } catch (Exception e) {
+                ((JavascriptExecutor) driver).executeScript(
+                    "var evt = new MouseEvent('click', {bubbles: true, cancelable: true, view: window}); arguments[0].dispatchEvent(evt);", 
+                    options.get(0));
+            }
         }
     }
 
@@ -616,11 +634,39 @@ public class TradeLicenseCreate {
      * Clicks submit button
      */
     private void clickSubmitButton(WebDriver driver, WebDriverWait wait, JavascriptExecutor js) throws InterruptedException {
-        WebElement submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.cssSelector("button.submit-bar[type='submit']")));
+        Thread.sleep(1000);
+        
+        // Try multiple selectors for submit button
+        WebElement submitButton = null;
+        
+        try {
+            submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("button.submit-bar[type='submit']")));
+        } catch (Exception e1) {
+            try {
+                submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//button[contains(@class,'submit-bar') and @type='submit']")));
+            } catch (Exception e2) {
+                try {
+                    submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//button[contains(@class,'submit-bar')]")));
+                } catch (Exception e3) {
+                    submitButton = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//button[@type='submit']")));
+                }
+            }
+        }
+        
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", submitButton);
         Thread.sleep(200);
-        submitButton.click();
+        
+        try {
+            submitButton.click();
+        } catch (Exception e) {
+            js.executeScript(
+                "var evt = new MouseEvent('click', {bubbles: true, cancelable: true, view: window}); arguments[0].dispatchEvent(evt);", 
+                submitButton);
+        }
     }
 
     /**

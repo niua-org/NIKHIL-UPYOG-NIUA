@@ -20,7 +20,10 @@ public class TestController {
     @Autowired
     private EmployeeTestService employeeTestService;
 
-    @Value("${novnc.url:http://localhost:7900}")
+    @Value("${selenium.grid.enabled:false}")
+    private boolean gridEnabled;
+
+    @Value("${novnc.url:}")
     private String novncUrl;
 
     @PostMapping("/citizen")
@@ -32,10 +35,16 @@ public class TestController {
                 request.getOtp(),
                 request.getCityName()
         );
-        
+
         Map<String, String> response = new HashMap<>();
-        response.put("message", result);
-        response.put("viewerUrl", novncUrl);
+
+        if (gridEnabled && novncUrl != null && !novncUrl.isEmpty()) {
+            response.put("message", result);
+            response.put("viewerUrl", novncUrl);
+        } else {
+            response.put("message", result + " - Check your local Chrome browser window for live automation");
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -48,10 +57,16 @@ public class TestController {
                 request.getPassword(),
                 request.getApplicationNumber()
         );
-        
+
         Map<String, String> response = new HashMap<>();
-        response.put("message", result);
-        response.put("viewerUrl", novncUrl);
+
+        if (gridEnabled && novncUrl != null && !novncUrl.isEmpty()) {
+            response.put("message", result);
+            response.put("viewerUrl", novncUrl);
+        } else {
+            response.put("message", result + " - Check your local Chrome browser window for live automation");
+        }
+
         return ResponseEntity.ok(response);
     }
 

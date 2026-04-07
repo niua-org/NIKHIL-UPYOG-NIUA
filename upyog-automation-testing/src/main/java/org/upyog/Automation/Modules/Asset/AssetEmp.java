@@ -1,17 +1,24 @@
 package org.upyog.Automation.Modules.Asset;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.upyog.Automation.Utils.ConfigReader;
-import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.time.Duration;
 import java.util.List;
 
-//@Component
+@Component
 public class AssetEmp {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
     public void AssetEmpReg() {
         assetInboxEmp(ConfigReader.get("employee.base.url"),
@@ -22,8 +29,8 @@ public class AssetEmp {
     public void assetInboxEmp(String baseUrl, String username, String password, String applicationNumber) {
         System.out.println("Trade License Employee Workflow");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
-        WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
+        WebDriver driver = webDriverFactory.createDriver();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
 
