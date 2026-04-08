@@ -1,23 +1,18 @@
-
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Navigate, Route, Routes, useLocation, useMatch, useResolvedPath } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Config } from "../../../config/config";
 
 // parent component index page for employee which will set ui forms through config
 const SVEmpCreate = ({ parentRoute }) => {
 
   const queryClient = useQueryClient();
-  const { pathname: basePath } = useResolvedPath(".");
-  const matchResult = useMatch("/*");
-  const path = matchResult?.pathnameBase ?? "";
-  
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = Digit.Hooks.useCustomNavigate();
+  const basePath = pathname.split("/").slice(0, pathname.split("/").indexOf("apply") + 1).join("/");
   
-  const stateId = Digit.ULBService.getStateId();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("SV_EMP_CREATES", {});
   
@@ -159,7 +154,6 @@ const SVEmpCreate = ({ parentRoute }) => {
         path="acknowledgement" 
         element={<SVAcknowledgement data={params} onSuccess={onSuccess} />} 
       />
-      {/* Redirect → Navigate, with basePath  */}
       <Route 
         path="*" 
         element={<Navigate to={`${basePath}/${config.indexRoute}`} replace />} 
