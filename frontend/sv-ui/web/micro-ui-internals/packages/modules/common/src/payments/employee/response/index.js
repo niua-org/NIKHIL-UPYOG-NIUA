@@ -52,34 +52,34 @@ export const SuccessfulPayment = (props) => {
       data["common-masters"]?.uiCommonPay?.filter(({ code }) => businessService?.includes(code))[0]?.receiptKey || "consolidatedreceipt",
   });
 
-  const printReciept = async () => {
-    const tenantId = Digit.ULBService.getCurrentTenantId();
-    const state = Digit.ULBService.getStateId();
-    const payments = await Digit.PaymentService.getReciept(tenantId, businessService, { receiptNumbers: receiptNumber });
-    let response = { filestoreIds: [payments.Payments[0]?.fileStoreId] };
+const printReciept = async () => {
+  const tenantId = Digit.ULBService.getCurrentTenantId();
+  const state = Digit.ULBService.getStateId();
+  const payments = await Digit.PaymentService.getReciept(tenantId, businessService, { receiptNumbers: receiptNumber });
+  let response = { filestoreIds: [payments.Payments[0]?.fileStoreId] };
 
-    if (!payments.Payments[0]?.fileStoreId) {
-       response = await Digit.PaymentService.generatePdf(state, { Payments: payments.Payments }, generatePdfKey);
-    }
+  if (!payments.Payments[0]?.fileStoreId) {
+      response = await Digit.PaymentService.generatePdf(state, { Payments: payments.Payments }, generatePdfKey);
+  }
+  const fileStore = await Digit.PaymentService.printReciept(state, { fileStoreIds: response.filestoreIds[0] });
+  window.open(fileStore[response.filestoreIds[0]], "_blank");
+};
+
+
+const svCertificate = async () => {
+  const state = tenantId;
+  const applicationDetails = await Digit.SVService.search({tenantId, filters: { applicationNumber: consumerCode,isDraftApplication:false } });
+  const generatePdfKeyForTL = "svcertificate";
+
+  if (applicationDetails) {
+    let response = await Digit.PaymentService.generatePdf(state, { SVDetail: [applicationDetails?.SVDetail?.[0]] }, generatePdfKeyForTL);
     const fileStore = await Digit.PaymentService.printReciept(state, { fileStoreIds: response.filestoreIds[0] });
     window.open(fileStore[response.filestoreIds[0]], "_blank");
-  };
+  }
+};
 
-  const svCertificate = async () => {
-    //const tenantId = Digit.ULBService.getCurrentTenantId();
-    const state = tenantId;
-    const applicationDetails = await Digit.SVService.search({tenantId, filters: { applicationNumber: consumerCode,isDraftApplication:false } });
-    const generatePdfKeyForTL = "svcertificate";
 
-    if (applicationDetails) {
-      let response = await Digit.PaymentService.generatePdf(state, { SVDetail: [applicationDetails?.SVDetail?.[0]] }, generatePdfKeyForTL);
-      const fileStore = await Digit.PaymentService.printReciept(state, { fileStoreIds: response.filestoreIds[0] });
-      window.open(fileStore[response.filestoreIds[0]], "_blank");
-    }
-  };
-
-  const svIdCard= async () => {
-    //const tenantId = Digit.ULBService.getCurrentTenantId();
+const svIdCard= async () => {
     const state = tenantId;
     const applicationDetails = await Digit.SVService.search({tenantId, filters: { applicationNumber: consumerCode,isDraftApplication:false } });
     const generatePdfKeyForTL = "svidentitycard";

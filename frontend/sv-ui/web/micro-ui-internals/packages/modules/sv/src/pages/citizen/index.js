@@ -18,7 +18,7 @@ const App = () => {
           <Route path="apply/*" element={ <PrivateRoute> <SVCreate /> </PrivateRoute>}/>
           <Route path="renew-application" element={ <PrivateRoute> <SVCreate /> </PrivateRoute>}/>
           <Route path="edit" element={ <PrivateRoute> <SVCreate /> </PrivateRoute> } />
-          <Route path="my-applications"  element={ <PrivateRoute> <MyApplication /> </PrivateRoute> } />
+          <Route path="my-applications/*"  element={ <PrivateRoute> <MyApplication /> </PrivateRoute> } />
           <Route path="application/:applicationNo/:tenantId" element={ <PrivateRoute> <SvApplicationDetails /> </PrivateRoute>} />
         </Routes>
       </AppContainer>

@@ -1,18 +1,22 @@
 
-import React ,{Fragment}from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useMatch, useResolvedPath } from "react-router-dom";
 import { Config } from "../../../config/config";
 
 // parent component index page for employee which will set ui forms through config
 const SVEmpCreate = ({ parentRoute }) => {
 
   const queryClient = useQueryClient();
+  const { pathname: basePath } = useResolvedPath(".");
+  const matchResult = useMatch("/*");
+  const path = matchResult?.pathnameBase ?? "";
   
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = Digit.Hooks.useCustomNavigate();
+  
   const stateId = Digit.ULBService.getStateId();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("SV_EMP_CREATES", {});
@@ -54,18 +58,14 @@ const SVEmpCreate = ({ parentRoute }) => {
       nextStep = key;
     }
     if (nextStep === null) {
-      // OLD:return redirectWithHistory(`${match.path}/check`);
-      return redirectWithHistory("check");
-
+      return redirectWithHistory(`${basePath}/check`);   // match.path → basePath
     }
     if (!isNaN(nextStep.split("/").pop())) {
-      // OLD:nextPage = `${match.path}/${nextStep}`;
-      nextPage = nextStep;
-    }
-     else {
-      // OLD: nextPage = isMultiple && nextStep !== "map" ? `${match.path}/${nextStep}/${index}` : `${match.path}/${nextStep}`;
-      nextPage = isMultiple && nextStep !== "map" ? `${nextStep}/${index}` : nextStep;
+      nextPage = `${basePath}/${nextStep}`;   // match.path → basePath
 
+    } else {
+      // match.path → basePath
+      nextPage = isMultiple && nextStep !== "map" ? `${basePath}/${nextStep}/${index}` : `${basePath}/${nextStep}`;
     }
 
     redirectWithHistory(nextPage);
@@ -80,7 +80,7 @@ const SVEmpCreate = ({ parentRoute }) => {
 
   const svcreate = async () => {
     // OLD:history.replace(`${match.path}/acknowledgement`);
-    navigate("acknowledgement", { replace: true });
+    navigate(`${basePath}/acknowledgement`, { replace: true });
 
   };
 
@@ -133,9 +133,9 @@ const SVEmpCreate = ({ parentRoute }) => {
         const user = Digit.UserService.getUser().info.type;
         return (
            <Route 
-            path={routeObj.route} 
+            path={routeObj.route}   // relative path
             key={index}
-            element={
+            element={               //children → element prop
               <Component 
                 config={{ texts, inputs, key }} 
                 onSelect={handleSelect} 
@@ -159,10 +159,10 @@ const SVEmpCreate = ({ parentRoute }) => {
         path="acknowledgement" 
         element={<SVAcknowledgement data={params} onSuccess={onSuccess} />} 
       />
-      
+      {/* Redirect → Navigate, with basePath  */}
       <Route 
         path="*" 
-        element={<Navigate to={config.indexRoute} replace />} 
+        element={<Navigate to={`${basePath}/${config.indexRoute}`} replace />} 
       />
     </Routes>
   );
