@@ -389,14 +389,6 @@ const CitizenApplicationOverview = () => {
         })}
       </Card>
 
-      {/* <Card>
-        <CardSubHeader>{t("NDC_APPLICATION_NDC_DETAILS_OVERVIEW")}</CardSubHeader>
-        <div style={{ marginBottom: "30px", background: "#FAFAFA", padding: "16px", borderRadius: "4px" }}>
-          <StatusTable>
-            <Row label={t("CANCEL_COMMENT_LABEL ")} text={applicationDetails?.Applications?.[0]?.workflow?.comment} />
-          </StatusTable>
-        </div>
-      </Card> */}
 
       <Card className="ndc_card_main">
         <CardSubHeader className="ndc_label">{t("NDC_APPLICATION_DOCUMENTS_OVERVIEW")}</CardSubHeader>

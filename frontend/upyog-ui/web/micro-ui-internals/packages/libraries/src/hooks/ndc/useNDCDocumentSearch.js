@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "react-query";
 
-//useNDCDocumentSearch is a custom hook that fetches documents related to NDC applications.
+//useNDCDocumentSearch is a custom hook that fetches documents related to NDC applications. 
+// Retrieves PDF files associated with NDC workflow documents using their UUIDs.
 const useNDCDocumentSearch = (data1 = {}, config = {}) => {
   const client = useQueryClient();
   const tenantId = Digit.ULBService.getCurrentTenantId();

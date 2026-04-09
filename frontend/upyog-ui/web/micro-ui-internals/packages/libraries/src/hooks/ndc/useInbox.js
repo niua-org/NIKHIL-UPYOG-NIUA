@@ -5,13 +5,11 @@ import useInbox from "../useInbox";
 const useNDCInbox = ({ tenantId, filters, config = {} }) => {
   const { filterForm, searchForm, tableForm, getFilter } = filters;
   let { assignee } = filterForm;
-  const { applicationNo } = searchForm;
-  const { mobileNumber } = searchForm;
+  const { applicationNo, mobileNumber } = searchForm;
   const { limit, offset } = tableForm;
   const user = Digit.UserService.getUser();
   const status = filters?.filterForm?.applicationStatus;
 
-  const selectedStatuses = getFilter?.applicationStatus?.map((s) => s?.code) || [];
 
   const _filters = {
     tenantId,
