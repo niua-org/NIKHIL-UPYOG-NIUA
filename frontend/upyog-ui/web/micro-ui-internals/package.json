@@ -13,9 +13,7 @@
     "packages/modules/dss",
     "packages/modules/engagement",
     "packages/css",
-    "packages/modules/ndc",
-    "packages/modules/fsm"
-
+    "packages/modules/ndc"
     ],
   
   "license": "MIT",
