@@ -107,6 +107,7 @@
 @import "./pages/citizen/citizenDocument.scss";
 @import "./pages/employee/surveys.scss";
 @import "./components/dashboardButton.scss";
+@import "./common/newApplicationTimeline.scss";
 
 .display-none {
   display: none;
@@ -804,4 +805,9 @@ input[type="number"] {
   .citizen .inboxButton {
     font-size: 1rem;
   }
+}
+
+/* Hide stepper navigation */
+.stepper-navigation-bar {
+  display: none !important;
 }

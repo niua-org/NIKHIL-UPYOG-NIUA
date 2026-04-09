@@ -53,6 +53,7 @@ import { VENDORComponents, VENDORLinks, VENDORModule } from "@upyog/upyog-ui-mod
 import { PGRAIComponents, PGRAILinks, PGRAIModule } from "@upyog/upyog-ui-module-pgrai";
 import { GISComponents, GISLinks, GISModule } from "@nudmcdgnpm/upyog-ui-module-gis";
 import { ESTComponents, ESTLinks, ESTModule } from "@nudmcdgnpm/upyog-ui-module-est";
+import { initNDCComponents, NDCReducers } from "@nudmcdgnpm/upyog-ui-module-ndc";
 // import * as comps from "@upyog/digit-ui-react-components";
 
 // import { subFormRegistry } from "@upyog/digit-ui-libraries";
@@ -99,6 +100,7 @@ const enabledModules = [
   "EST",
   "ASSETV2",
   "GIS",
+  "NDC",
   "ChallanGeneration",
 ];
 
@@ -199,11 +201,13 @@ const initDigitUI = () => {
   initWSComponents();
   initCommonPTComponents();
   initBillsComponents();
+  initNDCComponents();
 
   // initCustomisationComponents();
 
   const moduleReducers = (initData) => ({
     pgr: PGRReducers(initData),
+    ndc: NDCReducers(initData),
     challan: ChallanReducers(initData),
   });
 

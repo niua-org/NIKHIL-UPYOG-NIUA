@@ -362,6 +362,12 @@ eSign:{
     additionaldetailsCreate: "/vendor-management/api/v1/_create",
     vendorcommonSearch: "/vendor-management/api/v1/vendorPlusAdditional/_search"
   },
+  ndc: {
+    create: "/ndc-services/ndc/_create",
+    search: "/ndc-services/ndc/_search",
+    update: "/ndc-services/ndc/_update",
+    billingCalculate: "/ndc-calculator/v1/_calculate",
+  }
 };
 
 export default Urls;

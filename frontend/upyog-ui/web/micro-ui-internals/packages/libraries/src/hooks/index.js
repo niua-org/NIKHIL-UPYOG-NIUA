@@ -300,6 +300,7 @@ import useMaintenanceAPI from "./asset/useMaintenanceAPI";
 import createTokenAPI from "./digiLockerApi/createTokenAPI";
 
 import useSVDoc from "./sv/useSVDoc";
+import useNDCDoc from "./ndc/useNDCDoc";
 import useSvCreateApi from "./sv/useSvCreateApi";
 import useTenantsSV from "./sv/useTenants";
 import useADSSlotSearch from "./ads/useADSSlotSearch";
@@ -372,6 +373,10 @@ import useTenantsEST from "./estate/useTenants";
 import useESTAllotAsset from "./estate/useESTAllotAsset";
 import useESTAssetsAllotment from "./estate/useESTAssetsAllotment";
 import useESTBillSearch from "./estate/useESTBillSearch";
+import { useNDCSearchApplication, useNDCSearchApplicationEmployee } from "./ndc/useNDCSearchApplication";
+import useNDCDocumentSearch from "./ndc/useNDCDocumentSearch";
+import useNDCInbox from "./ndc/useInbox";
+
 const pgr = {
   useComplaintDetails,
   useComplaintsList,
@@ -751,6 +756,13 @@ const estate = {
   useESTBillSearch,
   useTenants: useTenantsEST
 };
+const ndc = {
+  useInbox: useNDCInbox,
+  useSearchApplication: useNDCSearchApplication,
+  useSearchEmployeeApplication: useNDCSearchApplicationEmployee,
+  useNDCDocumentSearch,
+  useNDCDoc
+};
 
 const Hooks = {
   useSessionStorage,
@@ -835,7 +847,8 @@ const Hooks = {
   useCustomBackNavigation,
   challangeneration,
   pgrAi,
-  useInbox
+  useInbox,
+  ndc
 };
 
 export default Hooks;

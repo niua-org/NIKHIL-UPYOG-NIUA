@@ -2,24 +2,17 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Loader } from "@upyog/digit-ui-react-components";
 import getTimelineAcknowledgementData from "../getTimelineAcknowledgementData";
-
-// PDF Icon Component
-// Reusable SVG component for showing PDF icon in document links
-
 const PDFSvg = React.memo(({ width = 20, height = 20, style }) => (
   <svg style={style} xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 20 20" fill="gray">
     <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z" />
   </svg>
 ));
 
-// Utility function to get correct downloadable PDF link
-// Filters out resized versions (small/medium/large)
 
+// new timeline made
 const pdfDownloadLink = (documents, fileStoreId) => {
   const downloadLink = documents?.[fileStoreId] || "";
   const formats = downloadLink?.split(",")?.filter(Boolean) || [];
-  
-  // Prefer original file (not resized versions)
   return formats?.find((link) => !link?.includes("large") && !link?.includes("medium") && !link?.includes("small")) || formats?.[0] || "";
 };
 
@@ -49,7 +42,7 @@ const TimelineDocument = React.memo(({ value, Code, index }) => {
   );
 });
 
-export default function NewApplicationTimeline({ workflowDetails, t, tenantId = Digit.ULBService.getCurrentTenantId(), timeObj, empUserName = null, handleSetEmpDesignation= ()=>{} }) {
+export default function NewApplicationTimeline({ workflowDetails, t, tenantId = Digit.ULBService.getCurrentTenantId(), timeObj, empUserName = null, handleSetEmpDesignation = () => { } }) {
   const { isLoading, data: docData } = Digit.Hooks.ads.useADSDocumentSearch(
     { value: workflowDetails?.data?.timeline?.flatMap((item) => item?.wfDocuments) || [] },
     { value: workflowDetails?.data?.timeline?.flatMap((item) => item?.wfDocuments) || [] },
@@ -142,7 +135,7 @@ export default function NewApplicationTimeline({ workflowDetails, t, tenantId = 
     deptMap[emp?.code] = translationKey;
   });
 
-  if(employeeData && empUserName){
+  if (employeeData && empUserName) {
     handleSetEmpDesignation(t(deptMap[empUserName]));
   }
 
@@ -165,9 +158,8 @@ export default function NewApplicationTimeline({ workflowDetails, t, tenantId = 
           <div className="custom-title-bar-row">
             <h2 className="custom-timeline-title">{t("Application History")}</h2>
             <span onClick={handleDownloadPDF} className="download-button">
-              {t("CS_COMMON_DOWNLOAD")}
+              <PDFSvg width={50} height={40} style={{ marginRight: "8px" }} />
             </span>
-            <div className="custom-blue-bar"></div>
           </div>
         </div>
 
