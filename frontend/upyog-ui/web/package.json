@@ -8,12 +8,9 @@
     "micro-ui-internals/packages/react-components",
     "micro-ui-internals/packages/modules/common",
     "micro-ui-internals/packages/modules/core",
+    "micro-ui-internals/packages/modules/challanGeneration",
     "micro-ui-internals/packages/modules/dss",
-    "micro-ui-internals/packages/modules/engagement",
-    "micro-ui-internals/packages/modules/pt",
-    "micro-ui-internals/packages/modules/obps",
-    "micro-ui-internals/packages/modules/fsm",
-    "micro-ui-internals/packages/modules/wt"
+    "micro-ui-internals/packages/modules/engagement"
   ],
   "engines": {
     "node": ">=14"
@@ -32,6 +29,7 @@
     "@upyog/digit-ui-module-mcollect": "3.10.0",
     "@upyog/digit-ui-module-noc": "3.10.0",
     "@upyog/digit-ui-module-obps": "3.10.3",
+    "@upyog/digit-ui-module-challangeneration": "1.0.0",
     "@upyog/digit-ui-module-pgr": "3.10.0",
     "@upyog/digit-ui-module-pt": "3.10.1",
     "@upyog/digit-ui-module-receipts": "3.0.1",

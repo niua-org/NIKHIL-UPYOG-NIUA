@@ -54,6 +54,7 @@ module.exports = function (app) {
     "/egov-document-uploader",
     "/egov-pdf",
     "/egov-survey-services",
+    "/challan-generation",
     "/ws-services",
     "/sw-services",
     "/ws-calculator",
