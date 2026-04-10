@@ -107,11 +107,14 @@ const FormStep = ({
       }
   });
 
+  const { key: configKey, ...configProps } = config;
+
   return (
     <form onSubmit={handleSubmit(goNext)}>
       <InputCard
+        key={configKey}
         {...{ isDisable: isDisable, isMultipleAllow: isMultipleAllow , isMandatory:isMandatory}}
-        {...config}
+        {...configProps}
         cardStyle={cardStyle}
         submit
         {...{ onSkip: onSkip, onAdd: onAdd }}

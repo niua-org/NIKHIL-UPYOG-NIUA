@@ -98,42 +98,41 @@ const Table = ({
       <table className={className} {...getTableProps()} style={styles} ref={tableRef}>
          
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup) => {
+            const { key: hgKey, ...hgProps } = headerGroup.getHeaderGroupProps();
+            return (
+            <tr key={hgKey} {...hgProps}>
              {showAutoSerialNo&& <th style={{  verticalAlign: "top"}}>
               {showAutoSerialNo&& typeof showAutoSerialNo =="string"?t(showAutoSerialNo):t("TB_SNO")}
               </th>}
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{ verticalAlign: "top" }}>
+              {headerGroup.headers.map((column) => {
+                const { key: colKey, ...colProps } = column.getHeaderProps(column.getSortByToggleProps());
+                return (
+                <th key={colKey} {...colProps} style={{ verticalAlign: "top" }}>
                   {column.render("Header")}
                   <span>{column.isSorted ? column.isSortedDesc ? <SortDown /> : <SortUp /> : ""}</span>
                 </th>
-              ))}
+                );
+              })}
             </tr>
-          ))}
+            );
+          })}
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
-            // rows.slice(0, 10).map((row, i) => {
             prepareRow(row);
+            const { key: rowKey, ...rowProps } = row.getRowProps();
             return (
-              <tr {...row.getRowProps()}>
+              <tr key={rowKey} {...rowProps}>
               {showAutoSerialNo&&  <td >
               {i+1}
               </td>}
                 {row.cells.map((cell) => {
+                  const { key: cellKey, ...cellProps } = cell.getCellProps([
+                    getCellProps(cell),
+                  ]);
                   return (
-                    <td
-                      // style={{ padding: "20px 18px", fontSize: "16px", borderTop: "1px solid grey", textAlign: "left", verticalAlign: "middle" }}
-                      {...cell.getCellProps([
-                        // {
-                        //   className: cell.column.className,
-                        //   style: cell.column.style,
-                        // },
-                        // getColumnProps(cell.column),
-                        getCellProps(cell),
-                      ])}
-                    >
+                    <td key={cellKey} {...cellProps}>
                       {cell.attachment_link ? (
                         <a style={{ color: "#1D70B8" }} href={cell.attachment_link}>
                           {cell.render("Cell")}

@@ -181,7 +181,7 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         ValidationRequired={false}
         {...(validation = {
           isRequired: false,
-          pattern: "^[a-zA-Z,-/ ]*$",
+          pattern: "^[-a-zA-Z ,]*$",
           title: t("ADDRESS_ERROR_MESSAGE"),
         })}
       />
@@ -202,7 +202,7 @@ const AddressDetails = ({t, config, onSelect, formData, isEdit}) => {
         ValidationRequired={false}
         {...(validation = {
           isRequired: false,
-          pattern: "^[a-zA-Z,-/ ]*$",
+          pattern: "^[-a-zA-Z ,]*$",
           title: t("ADDRESS_ERROR_MESSAGE"),
         })}
       />
