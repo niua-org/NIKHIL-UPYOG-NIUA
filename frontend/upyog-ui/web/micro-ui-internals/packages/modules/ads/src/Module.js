@@ -56,16 +56,15 @@ export const ADSModule = ({ stateCode, userType, tenants }) => {
   Digit.SessionStorage.set("ADS_TENANTS", tenants);
 
   // Fetch localization data if the user is an employee
-  useEffect(
-    () =>
-      userType === "employee" &&
+  useEffect(() => {
+    if (userType === "employee") {
       Digit.LocalizationService.getLocale({
         modules: [`rainmaker-${Digit.ULBService.getCurrentTenantId()}`],
         locale: Digit.StoreData.getCurrentLanguage(),
         tenantId: Digit.ULBService.getCurrentTenantId(),
-      }),
-    []
-  );
+      });
+    }
+  }, []);
 
   // Render different apps based on user type
   if (userType === "employee") {
