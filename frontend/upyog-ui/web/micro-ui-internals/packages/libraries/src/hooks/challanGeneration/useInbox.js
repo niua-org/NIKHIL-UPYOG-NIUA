@@ -25,6 +25,7 @@ const useChallanInbox = ({ tenantId, filters, config = {} }) => {
     ...(businessService && businessService.length > 0 ? { offenceTypeName: businessService.join(",") } : {}),
     // mobileNumber: mobileNumber || "",
     ...(mobileNumber ? { mobileNumber } : {}),
+    ...(status?.length > 0 ? { challanStatus:status } : {}),
   };
 
   const _filters = {
@@ -34,7 +35,6 @@ const useChallanInbox = ({ tenantId, filters, config = {} }) => {
       assignee: "",
       moduleName: "Challan_Generation",
       businessService: ["Challan_Generation"],
-      ...(status?.length > 0 ? { status } : {}),
     },
 
     moduleSearchCriteria,
