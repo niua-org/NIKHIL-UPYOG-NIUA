@@ -4,7 +4,7 @@ In Parent Component,  we are passing the data as a props coming through params (
 import { Card, CardHeader, CardSubHeader, CheckBox, LinkButton, Row, StatusTable, SubmitBar, EditIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
 import React, { useState, useMemo, Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { checkForNA, getOrderDocuments } from "../../../utils";
 import ApplicationTable from "../../../components/inbox/ApplicationTable";
 import { SVDocumnetPreview } from "../../../utils";
@@ -15,11 +15,16 @@ import _ from "lodash";
 
 
 //function for edit button with edit icon and functioanality of redirecting to differnt URL's
-const ActionButton = ({ jumpTo }) => {
+const ActionButton = ({ step }) => {
   const { t } = useTranslation();
   const navigate = Digit.Hooks.useCustomNavigate();
+  const { pathname } = useLocation();
   function routeTo() {
-    navigate(jumpTo);
+    const parts = pathname.split("/");
+    const applyIndex = parts.indexOf("apply");
+    const basePath = applyIndex !== -1 ? parts.slice(0, applyIndex + 1).join("/") : "/sv-ui/citizen/sv/apply";
+    sessionStorage.setItem("isEditFromSummary", "true");
+    navigate(`${basePath}/${step}`);
   }
   return <LinkButton
     label={<EditIcon style={{ marginTop: "-30px", float: "right", position: "relative", bottom: "32px" }} />}
@@ -143,7 +148,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
             <Row
               label={t("SV_VENDOR_NAME")}
               text={`${t(checkForNA((isRenew && isMakePayment) ? renewalData?.vendorDetails?.[0]?.name : owner?.vendorDetails?.vendorName))}`}
-              actionButton={(isRenew) ? null : <ActionButton jumpTo={`/sv-ui/citizen/sv/apply/applicant-details`} />}
+              actionButton={(isRenew) ? null : <ActionButton step="applicant-details" />}
             />
             <Row
               label={t("SV_REGISTERED_MOB_NUMBER")}
@@ -225,7 +230,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
             <Row
               label={t("SV_VENDING_TYPE")}
               text={`${t(checkForNA((isRenew && isMakePayment) ? renewalData?.vendingActivity : businessDetails?.vendingType?.code))}`}
-              actionButton={(isRenew) ? null : <ActionButton jumpTo={`/sv-ui/citizen/sv/apply/business-details`} />}
+              actionButton={(isRenew) ? null : <ActionButton step="business-details" />}
             />
             <Row
               label={t("SV_VENDING_LOCALITY")}
@@ -283,7 +288,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
                   <Row
                     label={t("SV_ACCOUNT_NUMBER")}
                     text={`${t(checkForNA(bankdetails?.accountNumber))}`}
-                    actionButton={(isRenew) ? null : <ActionButton jumpTo={`/sv-ui/citizen/sv/apply/bank-details`} />}
+                    actionButton={(isRenew) ? null : <ActionButton step="bank-details" />}
                   />
                   <Row
                     label={t("SV_IFSC_CODE")}
@@ -309,7 +314,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
             <Row
               label={t("SV_ADDRESS_LINE1")}
               text={`${t(checkForNA((isRenew && isMakePayment) ? renewalData?.addressDetails?.[0]?.addressLine1 : address?.addressline1))}`}
-              actionButton={(isRenew) ? null : <ActionButton jumpTo={`/sv-ui/citizen/sv/apply/address-details`} />}
+              actionButton={(isRenew) ? null : <ActionButton step="address-details" />}
             />
             <Row
               label={t("SV_ADDRESS_LINE2")}
@@ -340,7 +345,7 @@ const SVCheckPage = ({ onSubmit, editdata, value = {}, renewalData }) => {
             <Row
               label={t("SV_CATEGORY")}
               text={`${t(checkForNA((isRenew && isMakePayment) ? renewalData?.disabilityStatus : specialCategoryData?.ownerCategory?.value))}`}
-              actionButton={(isRenew) ? null : <ActionButton jumpTo={`/sv-ui/citizen/sv/apply/special-category`} />}
+              actionButton={(isRenew) ? null : <ActionButton step="special-category" />}
             />
             {/* Handles rendering of beneficiaryList based on renew data or the data from normal flow of code */}
             {specialCategoryData?.beneficiaryList[0]?.schemeName ?
