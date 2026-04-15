@@ -13,6 +13,8 @@ import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.config.WebDriverFactory;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -593,7 +595,7 @@ public class chbCreate {
             js.executeScript("arguments[0].scrollIntoView({block:'center'});", payBtn);
             Thread.sleep(500);
 
-            // 🔥 REAL USER CLICK (IMPORTANT)
+            // REAL USER CLICK (IMPORTANT)
             new Actions(driver)
                     .moveToElement(payBtn)
                     .pause(Duration.ofMillis(300))
@@ -602,7 +604,7 @@ public class chbCreate {
 
             System.out.println("UPYOG Pay clicked properly");
 
-            // 🔥 WAIT for gateway to initialize
+            // WAIT for gateway to initialize
             Thread.sleep(4000);
 
             System.out.println("After Pay click URL: " + driver.getCurrentUrl());

@@ -216,7 +216,7 @@ public class CnDRequest {
     // =====================================================================
 
     private void selectPickupAndProceed(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-        throws InterruptedException{
+            throws InterruptedException{
         Thread.sleep(1000);
 
         System.out.println("Selecting Request for Pick-up");
@@ -268,7 +268,7 @@ public class CnDRequest {
     // =====================================================================
 
     private void fillPropertyNature(WebDriver driver,WebDriverWait wait, JavascriptExecutor js)
-        throws InterruptedException{
+            throws InterruptedException{
 
         System.out.println("Filling Property Nature");
         Thread.sleep(1000);
@@ -276,7 +276,7 @@ public class CnDRequest {
         selectDropdownByIndex(driver, wait, js, 0,1);
         Thread.sleep(500);
 
-        fillInput(wait, "houseArea", "1800");
+        fillInput(wait, "houseArea", "1600");
 
 // Date Range
 
@@ -330,7 +330,7 @@ public class CnDRequest {
     // =====================================================================
 
     private void fillWasteType(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-        throws InterruptedException{
+            throws InterruptedException{
 
         System.out.println("Filling Waste Type");
         Thread.sleep(1000);
@@ -447,7 +447,7 @@ public class CnDRequest {
         input.sendKeys(value);
     }
     private void fillInputClear(WebDriver driver, WebDriverWait wait, JavascriptExecutor js,
-                                    String nameAttr, String value) throws InterruptedException {
+                                String nameAttr, String value) throws InterruptedException {
 
         WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.name(nameAttr)

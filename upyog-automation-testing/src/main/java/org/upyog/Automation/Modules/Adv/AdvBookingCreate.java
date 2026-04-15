@@ -184,40 +184,82 @@ public class AdvBookingCreate {
 
         // Date range (type="date" → yyyy-MM-dd) - Dynamic dates
         List<WebElement> dateInputs = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                By.cssSelector("input.employee-card-input[type='date']")));
+                By.cssSelector("input[type='date']")));
 
-        if (dateInputs.size() >= 2) {
+
             WebElement fromDate = dateInputs.get(0);
             WebElement toDate = dateInputs.get(1);
 
-            // Get current date and add days for future dates
-            LocalDate today = LocalDate.now();
-            LocalDate futureFromDate = today.plusDays(5);   // 5 days from today
-            LocalDate futureToDate = today.plusDays(55);    // 30 days from today
+        //  STEP 1: read min date from UI
+        String minDateStr = fromDate.getAttribute("min");   // e.g. 2026-04-07
+        LocalDate minDate = LocalDate.parse(minDateStr);
 
-            // Format dates as dd-MM-yyyy for Advertisement
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-            fromDate.clear();
-            fromDate.sendKeys(futureFromDate.format(formatter));
+        //  STEP 2: calculate dates based on min
+        LocalDate from = minDate.plusDays(1);
+        LocalDate to = minDate.plusDays(10);
 
-            toDate.clear();
-            toDate.sendKeys(futureToDate.format(formatter));
 
-            System.out.println("Advertisement From Date: " + futureFromDate.format(formatter));
-            System.out.println("Advertisement To Date: " + futureToDate.format(formatter));
-        } else {
-            System.out.println("Date inputs not found or less than 2");
-        }
+        //  format (ONLY valid for type=date)
+        // FORMAT
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
+        String fromStr = from.format(formatter);
+        String toStr = to.format(formatter);
+
+// =========================
+// FROM DATE
+// =========================
+        js.executeScript(
+                "var input = arguments[0];" +
+                        "var lastValue = input.value;" +
+                        "input.value = arguments[1];" +
+
+
+                        "var event = new Event('input', { bubbles: true });" +
+                        "event.simulated = true;" +
+                        "var tracker = input._valueTracker;" +
+                        "if (tracker) { tracker.setValue(lastValue); }" +
+
+
+                        "input.dispatchEvent(event);" +
+                        "input.dispatchEvent(new Event('change', { bubbles: true }));" +
+                        "input.dispatchEvent(new Event('blur', { bubbles: true }));",
+                fromDate,
+                fromStr
+        );
+// =========================
+// TO DATE
+// =========================
+        js.executeScript(
+                "var input = arguments[0];" +
+                        "var lastValue = input.value;" +
+                        "input.value = arguments[1];" +
+
+
+                        "var event = new Event('input', { bubbles: true });" +
+                        "event.simulated = true;" +
+                        "var tracker = input._valueTracker;" +
+                        "if (tracker) { tracker.setValue(lastValue); }" +
+
+
+                        "input.dispatchEvent(event);" +
+                        "input.dispatchEvent(new Event('change', { bubbles: true }));" +
+                        "input.dispatchEvent(new Event('blur', { bubbles: true }));",
+                toDate,
+                toStr
+        );
+        System.out.println("From Date: " + fromStr);
+        System.out.println("To Date: " + toStr);
+        Thread.sleep(2000);
         Thread.sleep(1000);
-
 
         // Radio: Advertisement With Night Light? -> No
         selectRadioButtonByLabel(driver, "No");
 
         // Search
         clickButtonByHeader(driver, wait, "Search");
-        Thread.sleep(2000);
     }
 
     // =====================================================================

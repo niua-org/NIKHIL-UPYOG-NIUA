@@ -535,13 +535,29 @@ private void fillGroundFloorDetails(WebDriver driver, WebDriverWait wait, Javasc
 
     private void fillPropertyAddressDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
         throws InterruptedException {
-        System.out.println("Selecting City and Locality");
+        System.out.println("Selecting City and Locality (Index Based)");
         Thread.sleep(1000);
 
-        selectRadioButtonByLabel(driver, "City A");
+        // GET ALL RADIOS (CITY LEVEL)
+
+
+        List<WebElement> cityRadios = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//input[@type='radio']")
+        ));
+
+
+        // City safe method for all environment
+        clickRadioByIndex(cityRadios, 0, js);
         Thread.sleep(1000);
 
-        selectRadioButtonByLabel(driver, "Main Road Abadpura");
+        // Locality safe method for all environment
+        List<WebElement> localityRadios = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//input[@type='radio']")
+        ));
+
+
+        // Locality
+        clickRadioByIndex(localityRadios, 1, js);
         Thread.sleep(1000);
 
         clickNextButton(driver, wait, js);
@@ -1120,7 +1136,7 @@ private void fillGroundFloorDetails(WebDriver driver, WebDriverWait wait, Javasc
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
         Thread.sleep(200);
 
-        // 🔥 CLICK PARENT, NOT INPUT
+        // CLICK PARENT, NOT INPUT
         WebElement clickable = radio.findElement(By.xpath(".."));
         js.executeScript("arguments[0].click();", clickable);
 

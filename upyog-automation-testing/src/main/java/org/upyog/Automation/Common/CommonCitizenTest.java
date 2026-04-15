@@ -9,8 +9,8 @@ import org.upyog.Automation.Modules.CHB.chbCreate;
 import org.upyog.Automation.Modules.CnD.CnDRequest;
 import org.upyog.Automation.Modules.DesludgingService.DesludgingCreate;
 import org.upyog.Automation.Modules.EWaste.EWasteCreate;
-import org.upyog.Automation.Modules.FireNoc.FireRequest;
 import org.upyog.Automation.Modules.OBPAS.OBPASCreate;
+import org.upyog.Automation.Modules.OBPAS.OBPASOcCreate;
 import org.upyog.Automation.Modules.Pet.PetCreateApplication;
 import org.upyog.Automation.Modules.PublicGrievanceRedressal.PgrCreate;
 import org.upyog.Automation.Modules.PropertyTax.PropertyTaxCreate;
@@ -20,6 +20,8 @@ import org.upyog.Automation.Modules.RequestService.TreePruningCitizen;
 import org.upyog.Automation.Modules.RequestService.WaterTankerCitizen;
 import org.upyog.Automation.Modules.RequestService.MobileToiletCitizen;
 import org.upyog.Automation.Modules.WaterAndSewerage.WAndSCreate;
+import org.upyog.Automation.Modules.DesludgingService.DesludgingCreate;
+
 
 /**
  * Common entry point for all citizen module tests
@@ -67,7 +69,7 @@ public class CommonCitizenTest {
     @Autowired
     private chbCreate chbCreate;
 
-    public void runCitizenTest(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
+    public void runCitizenTest(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) {
         logger.info("Starting {} citizen test", moduleName);
 
         try {
@@ -103,6 +105,11 @@ public class CommonCitizenTest {
                     waterTankerApp.WaterTankerCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
+                case "WATER_TANKER_VENDOR":
+                    WaterTankerCitizen waterTankerVendorApp = new WaterTankerCitizen();
+                    waterTankerVendorApp.WaterTankerCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    break;
+
                 case "MOBILE_TOILET":
                     MobileToiletCitizen mobileToiletApp = new MobileToiletCitizen();
                     mobileToiletApp.MobileToiletCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
@@ -120,7 +127,13 @@ public class CommonCitizenTest {
 
                 case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM":
                     OBPASCreate obpasApp = new OBPASCreate();
-                    obpasApp.OBPASReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    obpasApp.OBPASReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
+                    break;
+
+
+                case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM_OC":
+                    OBPASOcCreate obpasOcApp = new OBPASOcCreate();
+                    obpasOcApp.OBPASOCReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
                     break;
 
                 case "EWASTE_MANAGEMENT_SYSTEM":
@@ -146,11 +159,6 @@ public class CommonCitizenTest {
                 case "WATER_AND_SEWERAGE":
                     WAndSCreate WAndSApp = new  WAndSCreate();
                     WAndSApp.WandSReg(baseUrl, moduleName, mobileNumber, otp, cityName);
-                    break;
-
-                case "FIRE_NOC":
-                    FireRequest fireApp = new FireRequest();
-                    fireApp.fireReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 default:

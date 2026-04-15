@@ -30,10 +30,11 @@ public class OBPASCreate {
                 "OBPAS",
                 ConfigReader.get("architect.mobile.number"),
                 ConfigReader.get("test.otp"),
-                ConfigReader.get("test.city.name"));
+                ConfigReader.get("test.city.name"),
+                ConfigReader.get("permit.number"));
     }
 
-    public void OBPASReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
+    public void OBPASReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) {
         System.out.println("OBPAS Registration by Citizen");
 
         WebDriver driver = webDriverFactory.createDriver();
@@ -721,6 +722,15 @@ public class OBPASCreate {
         System.out.println("NOC Upload Page - Clicking Next");
         Thread.sleep(2000);
 
+        //Airport NOC
+        uploadFile(driver, wait, js, 0, ConfigReader.get("document.iDentity.proof"));
+        Thread.sleep(2000);
+
+
+        //Fire NOC
+        uploadFile(driver, wait, js, 2, ConfigReader.get("document.landTax.proof"));
+        Thread.sleep(2000);
+
         // Try multiple Next button selectors for NOC Upload page
         By[] nextSelectors = {By.xpath("//button[contains(.,'Next')]"),
 
@@ -1401,7 +1411,7 @@ public class OBPASCreate {
             js.executeScript("arguments[0].scrollIntoView({block:'center'});", payBtn);
             Thread.sleep(500);
 
-            // 🔥 REAL USER CLICK (IMPORTANT)
+            // REAL USER CLICK (IMPORTANT)
             new Actions(driver)
                     .moveToElement(payBtn)
                     .pause(Duration.ofMillis(300))
@@ -1410,7 +1420,7 @@ public class OBPASCreate {
 
             System.out.println("UPYOG Pay clicked properly");
 
-            // 🔥 WAIT for gateway to initialize
+            // WAIT for gateway to initialize
             Thread.sleep(4000);
 
             System.out.println("After Pay click URL: " + driver.getCurrentUrl());
@@ -1908,7 +1918,7 @@ public class OBPASCreate {
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
         Thread.sleep(200);
 
-        // 🔥 CLICK PARENT, NOT INPUT
+        // CLICK PARENT, NOT INPUT
         WebElement clickable = radio.findElement(By.xpath(".."));
         js.executeScript("arguments[0].click();", clickable);
 

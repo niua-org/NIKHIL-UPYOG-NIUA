@@ -1,4 +1,4 @@
-package org.upyog.Automation.Modules.WaterAndSewerage;
+package org.upyog.Automation.Modules.DesludgingService;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,21 +11,22 @@ import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
 
+import java.io.File;
 import java.util.List;
 
 @Component
-public class WAndSCreate {
+public class DesludgingCreate{
     //@PostConstruct
 
-    public void WandSReg() {
-        WandSReg(ConfigReader.get("citizen.base.url"),
-                "Water And Sewerage",
+    public void desludgingReg() {
+        desludgingReg(ConfigReader.get("citizen.base.url"),
+                "Desludging Service",
                 ConfigReader.get("citizen.mobile.number"),
                 ConfigReader.get("test.otp"),
                 ConfigReader.get("test.city.name"));
     }
 
-    public void WandSReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
+    public void desludgingReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Community Hall Booking by Citizen");
 
         WebDriver driver = DriverFactory.createChromeDriver();
@@ -37,50 +38,70 @@ public class WAndSCreate {
             // STEP 1: Citizen Login
             performCitizenLogin(driver, wait, js, actions, baseUrl, mobileNumber, otp, cityName);
 
-            // STEP 2: Navigate to Water and Sewerage
-            navigateToWaterAndSewerage(driver, wait, js);
+            // STEP 2: Navigate to Community Hall Booking
+            navigateToCommunityHallBooking(driver, wait, js);
 
-            // STEP 3: Search Property
+            // STEP 3: Service request
+            serviceRequest(driver, wait, js);
+
+            // STEP 4: Search Property
             searchProperty(driver, wait, js);
 
-            // STEP 4: Select Property
+            // STEP 5: Select Property
             selectSearchedProperty(driver, wait, js);
 
-            // STEP 5: Info Page
-            infoPage(driver, wait, js);
+            // STEP 6: Choose Property
+            chooseType(driver, wait, js);
 
-            // STEP 6: Property Details
-            propertyDetail(driver, wait, js);
+            // STEP 7: Choose Sub Property
+            chooseSubType(driver, wait, js);
 
-            // STEP 7: Common Connection Details
-            commonConnectionDetail(driver, wait, js);
+            // STEP 8: Pin Property
+            clickPinPropertyLocation(wait, js);
 
-            // STEP 8: Choose Service
-            chooseServiceType(driver, wait, js);
+            // STEP 9: Property Pin-code
+            fillPincodeDetail(driver, wait, js);
 
-            // STEP 9: Connection Details
-            connectionDetail(driver, wait, js);
+            // STEP 10: Property Address Details
+            fillPropertyAddressDetail(driver, wait, js);
 
-            // STEP 10: Sewerage Connection Details
-            sewerageDetails(driver, wait, js);
+            // STEP 11: Property Address Details 2
+            fillPropertyAddressDetail2(driver, wait, js);
 
-            // STEP 11: Upload Document
-            uploadDocumentPage(driver, wait, js);
+            // STEP 12: Slum Area
+            slumArea(driver, wait, js);
 
-            // STEP 12: Summary Page
-            submitApplication(driver, wait,js);
+            // STEP 13: Provide Details
+            providePropertyDetails(driver, wait, js);
 
+            // STEP 14: Landmark
+            fillLandMarkDetail(driver, wait,js);
+
+            // STEP 15: Choose Pit type
+            choosePitType(driver, wait, js);
+
+            // STEP 16: Road Width
+            roadWidth(driver, wait, js);
+
+            // STEP 17: Upload Image
+            uploadComplaintPhoto(driver, wait, js);
+
+            // STEP 18: Payment Details
+            paymentDetails(driver, wait, js);
+
+            // STEP 19: Summary Page
+            summaryPage(driver, wait, js);
 
 
         } catch (Exception e) {
-            System.out.println("Exception in Water and Sewerage Connection: " + e.getMessage());
+            System.out.println("Exception in Desludging Service: " + e.getMessage());
             e.printStackTrace();
         } finally {
             // driver.quit();
         }
     }
 
-    // =====================================================================
+    //=====================================================================
     // STEP 1: CITIZEN LOGIN
     // =====================================================================
 
@@ -115,7 +136,7 @@ public class WAndSCreate {
         // Submit OTP
         clickButton(wait, js, "//button[@type='submit']//header[text()='Next']/..");
 
-        // Select city`1
+        // Select city
         selectCity(driver, wait, js, cityName);
 
         // Continue
@@ -127,31 +148,53 @@ public class WAndSCreate {
 
 
     // =====================================================================
-    // STEP 2: NAVIGATE TO WATER AND SEWERAGE MODULE
-    // =====================================================================
+    // STEP 2: NAVIGATE TO COMMUNITY HALL BOOKING MODULE
+    //=====================================================================
 
 
-    private void navigateToWaterAndSewerage(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+    private void navigateToCommunityHallBooking(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
-        System.out.println("Navigating to Water And Sewerage");
+        System.out.println("Navigating to Community Hall Booking");
 
-        // Sidebar Water And Sewerage link
+        // Sidebar Desludging Service link
         js.executeScript("arguments[0].click();", wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//a[@href='/upyog-ui/citizen/ws-home']"))));
+                By.xpath("//a[@href='/upyog-ui/citizen/fsm-home']"))));
 
         Thread.sleep(2000);
-        System.out.println("Reached Water And Sewerage home page");
+        System.out.println("Reached Desludging Service home page");
 
-        // "New Connection" link
+        // "Apply for Emptying of Septic Tank / Pit" link
         js.executeScript("arguments[0].click();", wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//a[@href='/upyog-ui/citizen/ws/create-application/docs-required']"))));
-        System.out.println("Clicked New Connection link");
+                By.xpath("//a[@href='/upyog-ui/citizen/fsm/new-application']"))));
+
+        System.out.println("Clicked Apply for Emptying of Septic Tank / Pit link");
     }
 
     // =====================================================================
-    // STEP 3: SEARCH PROPERTY
+    // STEP 3: SERVICE REQUEST
+    //=====================================================================
+
+    private void serviceRequest(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Selecting the service");
+        Thread.sleep(500);
+
+        selectDropdownByIndex(driver, wait, js,0,1);
+        Thread.sleep(500);
+
+        selectDropdownByIndex(driver, wait, js,1,0);
+        Thread.sleep(500);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(1000);
+
+    }
+
     // =====================================================================
+    // STEP 4: SEARCH PROPERTY
+    //=====================================================================
 
 
     private void searchProperty(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -202,8 +245,8 @@ public class WAndSCreate {
     }
 
     // =====================================================================
-    // STEP 4: SELECT PROPERTY
-    // =====================================================================
+    // STEP 5: SELECT PROPERTY
+    //=====================================================================
 
 
     private void selectSearchedProperty(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -225,107 +268,135 @@ public class WAndSCreate {
     }
 
     // =====================================================================
-    // STEP 5: INFO PAGE DETAILS
+    // STEP 6: CHOOSE TYPE PROPERTY
+    //=====================================================================
+
+    private void chooseType(WebDriver driver,WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Select Type of Property ");
+        Thread.sleep(500);
+
+        selectRadioButtonByLabel(driver, "Residential");
+        Thread.sleep(1000);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(500);
+        System.out.println("Type of Property Selected");
+    }
+
     // =====================================================================
+    // STEP 7: CHOOSE TYPE PROPERTY
+    //=====================================================================
 
+    private void chooseSubType(WebDriver driver,WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
 
-    private void infoPage(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+        System.out.println("Select Sub Type of Property ");
+        Thread.sleep(500);
+
+        selectRadioButtonByLabel(driver, "Independent house");
+        Thread.sleep(1000);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(500);
+        System.out.println("Type of Sub Property Selected");
+    }
+
+    // =====================================================================
+    // STEP 8: PIN PROPERTY
+    //=====================================================================
+
+    private void clickPinPropertyLocation(WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
-        System.out.println("Construction and Demolition Info Page - Clicking Next");
-        Thread.sleep(2000);
+        System.out.println("Clicking Skip and Continue");
 
-        // Try multiple Next button selectors for info page
-        By[] nextSelectors = {
-                By.xpath("//button[contains(.,'Next')]"),
-
-        };
-
-        for (By selector : nextSelectors) {
-            try {
-                WebElement nextBtn = wait.until(ExpectedConditions.elementToBeClickable(selector));
-                js.executeScript("arguments[0].scrollIntoView({block:'center'});", nextBtn);
-                Thread.sleep(500);
-                js.executeScript("arguments[0].click();", nextBtn);
-                System.out.println("Clicked Next on info page");
-                return;
-            } catch (Exception e) {
-                System.out.println("Next selector failed: " + selector);
-            }
-        }
-
-        Thread.sleep(1000);
-
-    }
-
-    // =====================================================================
-    // STEP 6: PROPERTY DETAILS
-    // =====================================================================
-
-    private void propertyDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-        throws InterruptedException{
-
-        System.out.println("Selecting Property");
-
-        clickNextButton(driver, wait, js);
-        Thread.sleep(500);
-
-        System.out.println("Selected Property Details");
-    }
-
-    // =====================================================================
-    // STEP 7: COMMON CONNECTION DETAILS
-    // =====================================================================
-
-    private void commonConnectionDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException{
-
-        System.out.println("Selecting Property");
-
-        clickNextButton(driver, wait, js);
-        Thread.sleep(500);
-
-        System.out.println("Selected Property Details");
-    }
-
-    // =====================================================================
-    // STEP 8: CHOOSE SERVICE TYPE
-    // =====================================================================
-
-    private void chooseServiceType(WebDriver driver,WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException{
-
-        System.out.println("Select Service Name ");
-        Thread.sleep(500);
-
-        selectRadioButtonByLabel(driver, "WS_BOTH_WATER_AND_SEWERAGE");
-        Thread.sleep(1000);
-
-        clickNextButton(driver, wait, js);
-        Thread.sleep(500);
-        System.out.println("Selected Service Name");
-    }
-
-    // =====================================================================
-    // STEP 9: CONNECTION DETAILS
-    // =====================================================================
-
-    private void connectionDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException{
-
-        System.out.println("Filling Connection Details");
-
-        List<WebElement> inputs = wait.until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                        By.cssSelector("input.employee-card-input")
+        WebElement skipLink = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//span[contains(@class,'card-link cp undefined') and normalize-space()='Skip and Continue']")
                 )
         );
 
-        if (inputs.size() >= 1)
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", skipLink);
+        Thread.sleep(300);
 
-            fillInputField(js, inputs.get(0), "10");
-        Thread.sleep(500);
+        js.executeScript("arguments[0].click();", skipLink);
 
+        Thread.sleep(1000);
+        System.out.println("Skip and Continue clicked successfully");
+    }
+
+    // =====================================================================
+    // STEP 9: PIN-CODE PROPERTY
+    //=====================================================================
+
+    private void fillPincodeDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+
+        System.out.println("Filling Pincode");
+        Thread.sleep(1000);
+
+        // Try multiple selectors for pincode input
+        By[] pincodeSelectors = {
+                By.xpath("//input[contains(@name,'pincode')]"),
+                By.xpath("//input[contains(@id,'pincode')]"),
+                By.cssSelector("input.employee-card-input")
+        };
+
+        WebElement pincodeInput = null;
+        for (By selector : pincodeSelectors) {
+            try {
+                pincodeInput = wait.until(ExpectedConditions.elementToBeClickable(selector));
+                break;
+            } catch (Exception e) {
+                System.out.println("Pincode selector failed: " + selector);
+            }
+        }
+
+        if (pincodeInput != null) {
+            js.executeScript("arguments[0].scrollIntoView({block:'center'});", pincodeInput);
+            pincodeInput.click();
+            pincodeInput.clear();
+            pincodeInput.sendKeys("143001");
+
+        } else {
+            System.out.println("Pincode input not found");
+        }
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(1000);
+    }
+
+    // =====================================================================
+    // STEP 10: PROVIDE PROPERTY ADDRESS
+    //=====================================================================
+
+    private void fillPropertyAddressDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+        System.out.println("Selecting City and Locality");
+        Thread.sleep(1000);
+
+        selectRadioButtonByLabel(driver, "Within Ulb Limits");
+        Thread.sleep(1000);
+
+        selectRadioButtonByLabel(driver, "City A");
+        Thread.sleep(1000);
+
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(1000);
+
+    }
+
+    // =====================================================================
+    // STEP 11: PROVIDE PROPERTY ADDRESS 2
+    //=====================================================================
+
+    private void fillPropertyAddressDetail2(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Provide Property Details");
 
         selectDropdownByIndex(driver, wait, js,0,0);
         Thread.sleep(500);
@@ -335,13 +406,34 @@ public class WAndSCreate {
     }
 
     // =====================================================================
-    // STEP 10: SEWERAGE CONNECTION DETAILS
+    // STEP 12: SLUM AREA
+    //=====================================================================
+
+    private void slumArea(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Selecting Slum Area or Not");
+        Thread.sleep(500);
+
+        selectRadioButtonByLabel(driver, "NO");
+        Thread.sleep(1000);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(1000);
+
+        System.out.println("Selected Slum Or Not");
+
+    }
+
     // =====================================================================
+    // STEP 13: PROVIDE PROPERTY  ADDRESS
+    //=====================================================================
 
-    private void sewerageDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
+    private void providePropertyDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
 
-        System.out.println("Filling Sewerage Connection Details");
+        System.out.println("Filling Street name and House No.");
+        Thread.sleep(500);
 
         List<WebElement> inputs = wait.until(
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(
@@ -351,87 +443,200 @@ public class WAndSCreate {
 
         if (inputs.size() >= 2)
 
-            fillInputField(js, inputs.get(0), "6");
+            fillInputField(js, inputs.get(0), "Test Street");
         Thread.sleep(500);
 
-        fillInputField(js, inputs.get(1), "4");
+        fillInputField(js, inputs.get(1), "89");
         Thread.sleep(500);
 
         clickNextButton(driver, wait, js);
-        Thread.sleep(1000);
-
-    }
-
-    // =====================================================================
-    // STEP 11: DOCUMENTS UPLOAD
-    // =====================================================================
-
-    private void uploadDocumentPage(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException{
-
-        System.out.println("Uploading Documents");
-        Thread.sleep(2000);
-
-        // Document 0: Identity proof
-        selectDropdownByIndex(driver, wait, js, 0, 0);
-        Thread.sleep(1000);
-        uploadFile(driver, wait, js, 0, ConfigReader.get("document.identity1.proof"));
-        Thread.sleep(2000);
-
-        // Document 1: Address proof
-        selectDropdownByIndex(driver, wait, js, 1, 0);
-        Thread.sleep(1000);
-        uploadFile(driver, wait, js, 1, ConfigReader.get("document.address1.proof"));
-        Thread.sleep(2000);
-
-        // Document 2: Land Tax Receipt
-        selectDropdownByIndex(driver, wait, js, 2, 0);
-        Thread.sleep(1000);
-        uploadFile(driver, wait, js, 2, ConfigReader.get("document.electricityBill.proof"));
-        Thread.sleep(2000);
-
-        // Document 3: Title deed
-        selectDropdownByIndex(driver, wait, js, 3, 0);
-        Thread.sleep(1000);
-        uploadFile(driver, wait, js, 3, ConfigReader.get("document.plumberReportDrawing.proof"));
-        Thread.sleep(2000);
-
-        // Wait for Next button to be enabled
-        wait.until(driver1 -> {
-            WebElement btn = driver.findElement(By.xpath("//button[contains(.,'Next')]"));
-            return btn.isEnabled() && !btn.getAttribute("class").contains("disabled");
-        });
-
-        WebElement nextBtn = driver.findElement(By.xpath("//button[contains(., 'Next')]"));
-        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", nextBtn);
         Thread.sleep(500);
-        js.executeScript("arguments[0].click();", nextBtn);
-        System.out.println("Clicked Next button");
-        Thread.sleep(2000);
     }
 
     // =====================================================================
-    // STEP 12: SUMMARY PAGE
-    // =====================================================================
+    // STEP 14: LANDMARK
+    //=====================================================================
 
-    private void submitApplication(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+
+    private void fillLandMarkDetail(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
-        System.out.println("Submitting Water And Sewerage Application - Summary Page");
-        Thread.sleep(3000);
+        System.out.println("Filling Landmark");
 
+        // textarea (NOT input)
+        WebElement landmarkTextarea = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector("textarea.card-textarea")
+                )
+        );
+
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", landmarkTextarea);
+        Thread.sleep(300);
+
+        landmarkTextarea.click();
+        landmarkTextarea.clear();
+        landmarkTextarea.sendKeys("Test landmark near main road");
+
+        js.executeScript("arguments[0].dispatchEvent(new Event('input',{bubbles:true}));", landmarkTextarea);
+        js.executeScript("arguments[0].dispatchEvent(new Event('change',{bubbles:true}));", landmarkTextarea);
+        js.executeScript("arguments[0].dispatchEvent(new Event('blur',{bubbles:true}));", landmarkTextarea);
+
+        Thread.sleep(1000);
+
+        clickNextButton(driver, wait, js);
+
+        System.out.println("Landmark submitted successfully");
+    }
+
+    // =====================================================================
+    // STEP 15: CHOOSE PIT
+    //=====================================================================
+
+    private void choosePitType(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Choose Septic Tank Type");
+        Thread.sleep(500);
+
+        selectRadioButtonByLabel(driver, "Conventional septic tank");
+        Thread.sleep(1000);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(500);
+
+        System.out.println("Selected the Septic Tank Type");
+
+    }
+
+    // =====================================================================
+    // STEP 16: ROAD WIDTH
+    //=====================================================================
+
+    private void roadWidth(WebDriver driver,WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
+
+        System.out.println("Filling Road Details");
+        Thread.sleep(500);
+
+        List<WebElement> inputs = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.cssSelector("input.employee-card-input")
+                )
+        );
+
+        if (inputs.size() >= 2)
+
+            fillInputField(js, inputs.get(0), "400");
+        Thread.sleep(500);
+
+        fillInputField(js, inputs.get(1), "500");
+        Thread.sleep(500);
+
+        clickNextButton(driver, wait, js);
+        Thread.sleep(500);
+
+    }
+
+    // =====================================================================
+    // STEP 17: UPLOAD IMAGE
+    //=====================================================================
+
+    private void uploadComplaintPhoto(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+
+        System.out.println("Uploading complaint photo");
+
+        String photoPath = ConfigReader.get("document.pitPhoto.proof");
+        System.out.println("PHOTO PATH: " + photoPath);
+
+        File f = new File(photoPath);
+        if (!f.exists()) {
+            throw new RuntimeException("Photo file NOT found: " + photoPath);
+        }
+
+        // Find file input
+        WebElement fileInput = wait.until(
+                ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//input[@type='file']")
+                )
+        );
+
+        // Make input usable
+        js.executeScript(
+                "arguments[0].style.display='block'; arguments[0].style.opacity=1;",
+                fileInput
+        );
+        Thread.sleep(1000);
+
+        // Upload
+        fileInput.sendKeys(f.getAbsolutePath());
+        System.out.println("Complaint photo uploaded");
+
+        Thread.sleep(2000);
+
+        clickNextButton(driver, wait, js);
+    }
+
+    // =====================================================================
+    // STEP 18: PAYMENT PAGE
+    //=====================================================================
+
+    private void paymentDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+
+        System.out.println("Payment Details Page");
+        Thread.sleep(1000);
+
+        // Just ensure field visible (optional)
+        WebElement amountInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("input[type='number']")
+        ));
+
+        System.out.println("Amount auto-filled: " + amountInput.getAttribute("value"));
+
+        // ================================
+        // CLICK NEXT
+        // ================================
+
+        WebElement nextBtn = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector("button.submit-bar")
+        ));
+
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", nextBtn);
+        Thread.sleep(500);
+
+        // If disabled -> enable manually (React hack)
+        js.executeScript("arguments[0].removeAttribute('disabled');", nextBtn);
+
+        // React-safe click
+        js.executeScript(
+                "arguments[0].dispatchEvent(new MouseEvent('click', {bubbles:true}));",
+                nextBtn
+        );
+
+        System.out.println("Clicked Next on Payment Page");
+
+        Thread.sleep(1500);
+    }
+
+    // =====================================================================
+    // STEP 19: SUMMARY PAGE
+    //=====================================================================
+
+    private void summaryPage(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException{
 
         WebElement submitButton = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//button[@class='submit-bar ' and @type='button'][.//header[text()='SUBMIT']]")));
+                By.xpath("//button[@class='submit-bar ' and @type='button'][.//header[text()='Submit']]")));
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
         Thread.sleep(300);
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", submitButton);
         Thread.sleep(200);
         submitButton.click();
-        System.out.println("Water And Sewerage application: Submit clicked");
+        System.out.println("Property tax application: Submit clicked");
     }
 
-    /*
+ /*
              =====================================================================
              UTILITY METHODS
              =====================================================================

@@ -263,7 +263,7 @@ private void navigateToPgr(WebDriver driver, WebDriverWait wait, JavascriptExecu
         System.out.println("Selecting City and Locality");
         Thread.sleep(1000);
 
-        selectRadioButtonByLabel(driver, "City A");
+        selectRadioButtonByLabel(driver, "Delhi");
         Thread.sleep(1000);
 
         selectRadioButtonByLabel(driver, "Main Road Abadpura");
@@ -661,7 +661,7 @@ private void clickRadioByIndex(List<WebElement> radios,
     js.executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
     Thread.sleep(200);
 
-    // 🔥 CLICK PARENT, NOT INPUT
+    // CLICK PARENT, NOT INPUT
     WebElement clickable = radio.findElement(By.xpath(".."));
     js.executeScript("arguments[0].click();", clickable);
 

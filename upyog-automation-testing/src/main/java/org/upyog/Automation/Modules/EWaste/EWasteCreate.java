@@ -263,7 +263,7 @@ public class EWasteCreate {
         System.out.println("Selecting City and Locality");
         Thread.sleep(1000);
 
-        selectRadioButtonByLabel(driver, "City A");
+        selectRadioButtonByLabel(driver, "Delhi");
         Thread.sleep(1000);
 
         selectRadioButtonByLabel(driver, "Main Road Abadpura");
@@ -579,7 +579,7 @@ public class EWasteCreate {
         Thread.sleep(300);
 
         input.sendKeys(f.getAbsolutePath());
-        System.out.println("✅ Uploaded document into input index " + index);
+        System.out.println(" Uploaded document into input index " + index);
     }
 
 

@@ -230,10 +230,10 @@ public class WaterTankerCitizen {
 
         System.out.println("Handling Booking Popup");
 
-        // 🔥 Directly wait for button instead of popup container
+        // Directly wait for button instead of popup container
         WebElement fillNewDetailsBtn = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//button[contains(.,'Fill New')]")
+                        By.xpath("//button[contains(.,'Fill New Details')]")
                 )
         );
 
