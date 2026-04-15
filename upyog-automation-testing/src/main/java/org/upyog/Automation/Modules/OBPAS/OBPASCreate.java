@@ -1,6 +1,9 @@
 package org.upyog.Automation.Modules.OBPAS;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -67,7 +70,7 @@ public class OBPASCreate {
             searchProperty(driver, wait, js);
 
             // STEP 10: Select Searched City
-            selectSearchedCity(driver, wait, js);
+            selectSearchedProperty(driver, wait, js);
 
             // STEP 11: Location Detail Page
             locationDetailsPage(driver,wait,js);
@@ -123,7 +126,7 @@ public class OBPASCreate {
 
 
         } catch (Exception e) {
-            System.out.println("Exception in Property Registration: " + e.getMessage());
+            System.out.println("Exception in OBPAS Registration: " + e.getMessage());
             e.printStackTrace();
         } finally {
             // driver.quit();
@@ -489,13 +492,13 @@ public class OBPASCreate {
              =====================================================================
             */
 
-    private void selectSearchedCity(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+    private void selectSearchedProperty(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
         System.out.println("Selecting Searched Property");
         WebElement selectBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        By.xpath("(//button[normalize-space()='Select'])[1]")
+                        By.xpath("(//button[normalize-space()='Select'])[3]")
                 )
         );
 
@@ -514,32 +517,54 @@ public class OBPASCreate {
             */
 
     private void locationDetailsPage(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException{
+            throws InterruptedException {
 
-        System.out.println("Location Details Page - Clicking Next");
+        System.out.println("Location Details Page - Handling Next");
+
         Thread.sleep(2000);
 
-        // Try multiple Next button selectors for location details page
-        By[] nextSelectors = {
-                By.xpath("//button[contains(.,'Next')]"),
+        // STEP 1: Trigger React validation
+        try {
+            WebElement streetField = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.name("streetName"))
+            );
 
-        };
+            String val = streetField.getAttribute("value");
 
-        for (By selector : nextSelectors) {
-            try {
-                WebElement nextBtn = wait.until(ExpectedConditions.elementToBeClickable(selector));
-                js.executeScript("arguments[0].scrollIntoView({block:'center'});", nextBtn);
-                Thread.sleep(500);
-                js.executeScript("arguments[0].click();", nextBtn);
-                System.out.println("Clicked Next on Location Details Page");
-                return;
-            } catch (Exception e) {
-                System.out.println("Next selector failed: " + selector);
-            }
+            streetField.clear();
+            streetField.sendKeys(val + " ");
+
+            js.executeScript("arguments[0].dispatchEvent(new Event('change', {bubbles: true}));", streetField);
+
+            System.out.println("Triggered React validation");
+
+            Thread.sleep(1000);
+
+        } catch (Exception e) {
+            System.out.println("Validation trigger failed: " + e.getMessage());
         }
 
-        Thread.sleep(2000);
+        // STEP 2: Try normal click
+        try {
+            WebElement nextBtn = wait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(.,'Next')]"))
+            );
 
+            js.executeScript("arguments[0].click();", nextBtn);
+            System.out.println("Clicked Next normally");
+            return;
+
+        } catch (Exception e) {
+            System.out.println("Normal click failed, trying force click");
+        }
+
+        // STEP 3: Force click fallback
+        WebElement nextBtn = driver.findElement(By.xpath("//button[contains(.,'Next')]"));
+
+        js.executeScript("arguments[0].removeAttribute('disabled');", nextBtn);
+        js.executeScript("arguments[0].click();", nextBtn);
+
+        System.out.println("Force clicked Next button");
     }
 
             /*
@@ -920,6 +945,8 @@ public class OBPASCreate {
                         By.xpath("//button[contains(.,'VIEW DETAILS')]")
                 )
         );
+
+        Thread.sleep(3000);
 
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", viewDetailsBtn);
         Thread.sleep(500);
@@ -1318,163 +1345,258 @@ public class OBPASCreate {
              =====================================================================
              */
 
-    private void handlePaymentFlow(WebDriver driver, WebDriverWait wait, JavascriptExecutor js) throws InterruptedException {
+    private void handlePaymentFlow(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+        System.out.println("Starting payment flow (Card → Pay Now → Success)...");
 
-        System.out.println("==== STARTING PAYMENT FLOW ====");
+        // remember UPYOG window
+        String mainHandle = driver.getWindowHandle();
 
-        String upyogWindow = driver.getWindowHandle();
-
-    /* --------------------------------
-       STEP 1 – CLICK PAY (SUCCESS PAGE)
-    -------------------------------- */
-        wait.until(ExpectedConditions.urlContains("/response"));
-
-        WebElement pay = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[.//*[normalize-space()='PAY']]")
-        ));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", pay);
-        Thread.sleep(300);
-        js.executeScript("arguments[0].click();", pay);
-
-        System.out.println("Clicked SUCCESS PAGE PAY button");
-
-        Thread.sleep(3000);
-
-
-    /* --------------------------------
-       STEP 2 – CLICK PAY (Payment Method Page)
-    -------------------------------- */
-        wait.until(ExpectedConditions.urlContains("/payment/collect"));
-
-        WebElement payMethod = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[normalize-space()='Pay']")
-        ));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", payMethod);
-        Thread.sleep(300);
-        js.executeScript("arguments[0].click();", payMethod);
-
-        System.out.println("Clicked Payment Method Page Pay button");
-
-        Thread.sleep(4000);
-
-
-    /* --------------------------------
-       STEP 3 – SWITCH TO PAYMENT WINDOW
-    -------------------------------- */
-        for (String handle : driver.getWindowHandles()) {
-            if (!handle.equals(upyogWindow)) {
-                driver.switchTo().window(handle);
-                break;
-            }
-        }
-
-        wait.until(ExpectedConditions.urlContains("surepay"));
-        System.out.println("Switched to SurePay window");
-
-
-    /* --------------------------------
-       STEP 4 – SWITCH TO IFRAME (if present)
-    -------------------------------- */
-        List<WebElement> frames = driver.findElements(By.tagName("iframe"));
-        if (!frames.isEmpty()) {
-            driver.switchTo().frame(0);
-            System.out.println("Switched to SurePay iframe");
-        }
-
-        Thread.sleep(1500);
-
-
-    /* --------------------------------
-       STEP 5 – CLICK NET BANKING
-    -------------------------------- */
-        WebElement netBanking = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("//*[normalize-space()='Net Banking']")
-                )
-        );
-
-        js.executeScript("arguments[0].click();", netBanking);
-        System.out.println("Clicked Net Banking tab");
-
-        Thread.sleep(2000);
-
-
-    /* --------------------------------
-       STEP 6 – SELECT ICICI BANK
-    -------------------------------- */
-        List<WebElement> iciciOptions =
-                driver.findElements(By.xpath(
-                        "//*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'icici')]"
-                ));
-
-        if (!iciciOptions.isEmpty()) {
-            js.executeScript("arguments[0].click();", iciciOptions.get(0));
-            System.out.println("Selected ICICI Bank");
-        } else {
-            System.out.println("ICICI not found – selecting first available bank");
-
-            List<WebElement> banks =
-                    driver.findElements(By.xpath("//input[@type='radio']/parent::*"));
-
-            if (!banks.isEmpty()) {
-                js.executeScript("arguments[0].click();", banks.get(0));
-            }
-        }
-
-        Thread.sleep(1500);
-
-
-    /* --------------------------------
-       STEP 7 – CLICK PAY NOW
-    -------------------------------- */
-        WebElement payNow = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("//button[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'pay') and not(contains(.,'cancel'))]")
-                )
-        );
-
-        js.executeScript("arguments[0].click();", payNow);
-        System.out.println("Clicked Pay Now");
-
-        Thread.sleep(3000);
-
-
-    /* --------------------------------
-       STEP 8 – CLICK SUCCESS (MOCK BANK)
-    -------------------------------- */
+        // -----------------------------
+        // STEP 1: "Make Payment" (ack page)
+        // -----------------------------
         try {
-            WebElement successBtn = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            By.xpath("//*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'success')]")
-                    )
-            );
+            By paySel = By.xpath(
+                    "//button[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'pay')]");
+            boolean clicked = tryClickWithRetries(driver, wait, js, paySel, 25, 4, 700);
+            if (clicked) {
+                System.out.println("Clicked 'Pay'");
+                Thread.sleep(1000);
+            } else {
+                System.out.println("'Pay' button not found or not clickable, continuing...");
+            }
+        } catch (Exception e) {
+            System.out.println("'Pay' error: " + e.getMessage());
+        }
 
-            js.executeScript("arguments[0].click();", successBtn);
-            System.out.println("Clicked Success");
+        // -----------------------------
+        // STEP 2: "Proceed To Pay" (Tax Bill Details page)
+        // -----------------------------
+        try {
+            By pay1Sel = By.xpath(
+                    "//button[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'pay')]");
+            boolean proceedClicked = tryClickWithRetries(driver, wait, js, pay1Sel, 40, 5, 800);
+            if (proceedClicked) {
+                System.out.println("Clicked 'Pay'");
+                Thread.sleep(2000);
+            } else {
+                System.out.println("'Pay' not found or not clickable, continuing...");
+            }
+        } catch (Exception e) {
+            System.out.println("'Pay' error: " + e.getMessage());
+        }
+
+        // -----------------------------
+        // STEP 3: "Pay" on UPYOG payment-method page (PAYGOV)
+        // -----------------------------
+        try {
+            System.out.println("Clicking UPYOG Pay button (STRICT)...");
+
+            WebElement payBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//button[contains(@class,'submit-bar') and .//header[normalize-space()='Pay']]")
+            ));
+            System.out.println("==== DEBUG STEP 3 ====");
+            System.out.println("After Pay click URL: " + driver.getCurrentUrl());
+            System.out.println("Window handles count: " + driver.getWindowHandles().size());
+            js.executeScript("arguments[0].scrollIntoView({block:'center'});", payBtn);
+            Thread.sleep(500);
+
+            // 🔥 REAL USER CLICK (IMPORTANT)
+            new Actions(driver)
+                    .moveToElement(payBtn)
+                    .pause(Duration.ofMillis(300))
+                    .click()
+                    .perform();
+
+            System.out.println("UPYOG Pay clicked properly");
+
+            // 🔥 WAIT for gateway to initialize
+            Thread.sleep(4000);
+
+            System.out.println("After Pay click URL: " + driver.getCurrentUrl());
 
         } catch (Exception e) {
-            System.out.println("Success button not found (maybe auto redirect)");
+            System.out.println("Error in UPYOG Pay click: " + e.getMessage());
         }
 
-        Thread.sleep(4000);
+        try {
+            Thread.sleep(3000);
 
+            Set<String> handles = driver.getWindowHandles();
 
-    /* --------------------------------
-       STEP 9 – SWITCH BACK TO UPYOG
-    -------------------------------- */
-        driver.switchTo().defaultContent();
-
-        for (String handle : driver.getWindowHandles()) {
-            driver.switchTo().window(handle);
-            if (driver.getCurrentUrl().toLowerCase().contains("upyog")) {
-                break;
+            for (String handle : handles) {
+                driver.switchTo().window(handle);
             }
+
+            System.out.println("Switched to payment window");
+            System.out.println("Current URL after switch: " + driver.getCurrentUrl());
+
+        } catch (Exception e) {
+            System.out.println("Window switch failed: " + e.getMessage());
+        }
+        /* ------------------------------------------------------
+       STEP 4 → CLICK "NET BANKING" TAB
+    ------------------------------------------------------ */
+        try {
+            Thread.sleep(1500);
+            java.util.List<By> NETBANKING_LOCATORS = java.util.Arrays.asList(
+                    By.xpath("//a[contains(.,'Net Banking')]"),
+                    By.xpath("//div[contains(.,'Net Banking')]"),
+                    By.xpath("//button[contains(.,'Net Banking')]"),
+                    By.xpath("//*[contains(text(),'Net Banking')]")
+            );
+
+            WebElement netBankingTab = null;
+
+            for (By sel : NETBANKING_LOCATORS) {
+                try {
+                    netBankingTab = wait.until(ExpectedConditions.elementToBeClickable(sel));
+                    if (netBankingTab != null) break;
+                } catch (Exception ignored) {}
+            }
+            Thread.sleep(1000);
+            System.out.println("==== DEBUG STEP 4 ====");
+            System.out.println("Current URL before NetBanking: " + driver.getCurrentUrl());
+            System.out.println("Iframe count: " + driver.findElements(By.tagName("iframe")).size());
+            if (netBankingTab != null) {
+                js.executeScript("arguments[0].scrollIntoView({block:'center'});", netBankingTab);
+                Thread.sleep(1000);
+                js.executeScript("arguments[0].click();", netBankingTab);
+                System.out.println("Clicked NET BANKING tab");
+            } else {
+                System.out.println(" Net Banking tab NOT FOUND — maybe gateway UI changed or hidden.");
+            }
+
+            Thread.sleep(1000);
+
+        } catch (Exception e) {
+            System.out.println("Error clicking Net Banking tab: " + e.getMessage());
         }
 
-        System.out.println("Returned to UPYOG");
-        System.out.println("==== PAYMENT FLOW COMPLETED ====");
+        try {
+            Thread.sleep(2000);
+
+            List<WebElement> iframes = driver.findElements(By.tagName("iframe"));
+
+            if (!iframes.isEmpty()) {
+                driver.switchTo().frame(iframes.get(0));
+                System.out.println("Switched to payment iframe");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Iframe switch failed: " + e.getMessage());
+        }
+
+    /* ------------------------------------------------------
+       STEP 5 → SELECT ICICI BANK
+    ------------------------------------------------------ */
+        try {
+            Thread.sleep(1500);
+            System.out.println("==== DEBUG STEP 5 ====");
+            System.out.println("Trying to find ICICI...");
+            System.out.println("Page contains ICICI text: " + driver.getPageSource().toLowerCase().contains("icici"));
+            java.util.List<WebElement> iciciOptions =
+                    driver.findElements(By.xpath("//*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'icici')]"));
+
+            if (iciciOptions.isEmpty()) {
+                // Try bank icon alt text
+                iciciOptions = driver.findElements(By.xpath("//img[contains(translate(@alt,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'icici')]/parent::*"));
+            }
+
+            if (!iciciOptions.isEmpty()) {
+                WebElement icici = iciciOptions.get(0);
+                js.executeScript("arguments[0].scrollIntoView({block:'center'});", icici);
+                Thread.sleep(200);
+                js.executeScript("arguments[0].click();", icici);
+                System.out.println("Selected ICICI Bank");
+            } else {
+                System.out.println("⚠ ICICI not found — clicking first available bank option");
+
+                java.util.List<WebElement> bankTiles =
+                        driver.findElements(By.xpath("//div[contains(@class,'bank') or contains(@class,'tile')]"));
+
+                if (!bankTiles.isEmpty()) {
+                    WebElement first = bankTiles.get(0);
+                    js.executeScript("arguments[0].scrollIntoView({block:'center'});", first);
+                    Thread.sleep(200);
+                    js.executeScript("arguments[0].click();", first);
+                    System.out.println("Clicked fallback BANK tile.");
+                }
+            }
+
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            System.out.println("Error selecting bank: " + e.getMessage());
+        }
+
+    /* ------------------------------------------------------
+       STEP 6 → CLICK "PAY" BUTTON
+    ------------------------------------------------------ */
+        try {
+            By payBtn = By.xpath(
+                    "//button[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'pay') " +
+                            "and not(contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'cancel'))]"
+            );
+
+            boolean ok = tryClickWithRetries(driver, wait, js, payBtn, 30, 5, 600);
+
+            if (ok) {
+                System.out.println("Clicked PAY button");
+            } else {
+                System.out.println("⚠ Pay button NOT FOUND on gateway.");
+            }
+
+            Thread.sleep(1500);
+
+        } catch (Exception e) {
+            System.out.println("Error clicking Pay button: " + e.getMessage());
+        }
+
+    /* ------------------------------------------------------
+       STEP 7 → CLICK "SUCCESS" (MOCK BANK PAGE)
+    ------------------------------------------------------ */
+        try {
+            Thread.sleep(1500);
+
+            WebElement successBtn = null;
+
+            successBtn = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//button[contains(.,'Success')]")
+            ));
+
+            if (successBtn != null) {
+                js.executeScript("arguments[0].scrollIntoView({block:'center'});", successBtn);
+                Thread.sleep(2000);
+                js.executeScript("arguments[0].click();", successBtn);
+                System.out.println("Clicked SUCCESS on mock bank");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Success button not found: " + e.getMessage());
+        }
+        // -----------------------------
+        // STEP 8: Switch back to UPYOG window
+        // -----------------------------
+        try {
+            driver.switchTo().window(mainHandle);
+        } catch (Exception e) {
+            System.out.println("Could not switch back to UPYOG handle directly: " + e.getMessage());
+            // fallback: pick any window that has 'upyog' in URL
+            try {
+                java.util.Set<String> handles = driver.getWindowHandles();
+                for (String h : handles) {
+                    driver.switchTo().window(h);
+                    try {
+                        String url = driver.getCurrentUrl();
+                        if (url != null && url.toLowerCase().contains("upyog")) {
+                            break;
+                        }
+                    } catch (Exception ignored) {}
+                }
+            } catch (Exception ignored) {}
+        }
+
+        System.out.println("Payment flow finished (Card route).");
     }
 
 
@@ -1830,6 +1952,60 @@ public class OBPASCreate {
         Thread.sleep(1000);
     }
 
+    private void waitForNoOverlay(WebDriver driver, WebDriverWait wait) {
+        try {
+            java.util.List<By> loaderSelectors = java.util.Arrays.asList(
+                    By.cssSelector(".loading"),
+                    By.cssSelector(".overlay"),
+                    By.cssSelector(".loader"),
+                    By.cssSelector(".submit-bar-disabled"),
+                    By.cssSelector(".is-loading"),
+                    By.cssSelector(".ant-modal-root .ant-spin")
+            );
+            for (By sel : loaderSelectors) {
+                try {
+                    wait.until(org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated(sel));
+                } catch (Exception ignored) {
+                    // not present / timed out -> continue
+                }
+            }
+        } catch (Exception ignored) {}
+    }
 
+    /**
+     * Helper: try clicking an element multiple times, with a JS fallback.
+     * Returns true if clicked.
+     */
+    private boolean tryClickWithRetries(WebDriver driver, WebDriverWait wait, JavascriptExecutor js, By locator,
+                                        int timeoutSeconds, int retries, long retryDelayMs)
+            throws InterruptedException {
+        WebDriverWait localWait = new WebDriverWait(driver, java.time.Duration.ofSeconds(timeoutSeconds));
 
+        for (int attempt = 1; attempt <= retries; attempt++) {
+            try {
+                waitForNoOverlay(driver, wait);
+                WebElement el = localWait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(locator));
+                try {
+                    el.click();
+                    System.out.println("Clicked element " + locator + " (attempt " + attempt + ")");
+                    return true;
+                } catch (Exception clickEx) {
+                    // fallback to JS click
+                    try {
+                        js.executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+                        Thread.sleep(150);
+                        js.executeScript("arguments[0].click();", el);
+                        System.out.println("JS-clicked element " + locator + " (attempt " + attempt + ")");
+                        return true;
+                    } catch (Exception jsEx) {
+                        System.out.println("Click failed attempt " + attempt + " for " + locator + " : " + jsEx.getMessage());
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Element not clickable yet (" + locator + ") attempt " + attempt + " : " + e.getMessage());
+            }
+            Thread.sleep(retryDelayMs);
+        }
+        return false;
+    }
 }

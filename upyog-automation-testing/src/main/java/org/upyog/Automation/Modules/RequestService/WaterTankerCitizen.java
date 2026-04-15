@@ -1,5 +1,7 @@
 package org.upyog.Automation.Modules.RequestService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -51,15 +53,18 @@ public class WaterTankerCitizen {
             fillWaterTankerDetails(driver, wait, js);
 
             // STEP 5: Fill Applicant Details
+            selectFillNewDetails(driver, wait, js);
+
+            // STEP 6: Fill Applicant Details
             fillApplicantDetails(driver, wait, js);
 
-            // STEP 6: Fill Address Details
+            // STEP 7: Fill Address Details
             fillAddressDetails(driver, wait, js);
 
-            // STEP 7: Water Tanker Request Details
+            // STEP 8: Water Tanker Request Details
             fillWaterTankerRequestDetails(driver, wait, js);
 
-            // STEP 8: Submit Application
+            // STEP 9: Submit Application
             submitApplication(driver, wait, js);
 
 
@@ -206,6 +211,7 @@ public class WaterTankerCitizen {
                 Thread.sleep(500);
                 js.executeScript("arguments[0].click();", nextBtn);
                 System.out.println("Clicked Next on info page");
+                Thread.sleep(3000);
                 return;
             } catch (Exception e) {
                 System.out.println("Next selector failed: " + selector);
@@ -216,7 +222,32 @@ public class WaterTankerCitizen {
     }
 
     // =====================================================================
-    // STEP 5: FILL APPLICANT DETAILS
+    // STEP 5: FILL MOBILE TOILET DETAILS
+    // =====================================================================
+
+    private void selectFillNewDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+
+        System.out.println("Handling Booking Popup");
+
+        // 🔥 Directly wait for button instead of popup container
+        WebElement fillNewDetailsBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//button[contains(.,'Fill New')]")
+                )
+        );
+
+        System.out.println("Popup appeared (button detected)");
+
+        js.executeScript("arguments[0].click();", fillNewDetailsBtn);
+
+        System.out.println("Clicked Fill New Details");
+
+        Thread.sleep(1000);
+    }
+
+    // =====================================================================
+    // STEP 6: FILL APPLICANT DETAILS
     // =====================================================================
 
     private void fillApplicantDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -261,7 +292,7 @@ public class WaterTankerCitizen {
     }
 
     // =====================================================================
-    // STEP 6: FILL ADDRESS DETAILS
+    // STEP 7: FILL ADDRESS DETAILS
     // =====================================================================
 
     private void fillAddressDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -362,7 +393,7 @@ public class WaterTankerCitizen {
 
 
     // =====================================================================
-    // STEP 7: FILL WATER TANKER REQUEST DETAILS
+    // STEP 8: FILL WATER TANKER REQUEST DETAILS
     // =====================================================================
 
     private void fillWaterTankerRequestDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -407,18 +438,32 @@ public class WaterTankerCitizen {
             System.out.println("Tanker Quantity dropdown failed: " + e.getMessage());
         }
 
-        // Delivery Date - MANDATORY
-        try {
-            WebElement dateInput = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("input[type='date']")));
-            js.executeScript("arguments[0].scrollIntoView({block:'center'});", dateInput);
-            Thread.sleep(500);
-            dateInput.clear();
-            dateInput.sendKeys("10-04-2026");
-            System.out.println("Set delivery date");
-        } catch (Exception e) {
-            System.out.println("Date input failed: " + e.getMessage());
+        List<WebElement> dateInputs = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.cssSelector("input.employee-card-input[type='date']")
+                )
+        );
+
+        if (dateInputs.size() >= 1) {
+
+            WebElement deliveryDate = dateInputs.get(0);
+
+            // Get future date (5 days from today)
+            LocalDate today = LocalDate.now();
+            LocalDate futureDate = today.plusDays(5);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            deliveryDate.clear();
+            deliveryDate.sendKeys(futureDate.format(formatter));
+
+            System.out.println("Delivery Date: " + futureDate.format(formatter));
+
+        } else {
+            System.out.println("Delivery Date input not found");
         }
+
+        Thread.sleep(1000);
 
         // Description - MANDATORY
         try {
@@ -505,7 +550,7 @@ public class WaterTankerCitizen {
 
     }
     // =====================================================================
-    // STEP 8: SUBMIT APPLICATION
+    // STEP 9: SUBMIT APPLICATION
     // =====================================================================
 
     private void submitApplication(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)

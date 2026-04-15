@@ -1,6 +1,6 @@
 package org.upyog.Automation.Modules.Adv;
 
-import java.io.File;
+import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -16,6 +16,7 @@ import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.config.WebDriverFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 
 /**
@@ -46,7 +47,7 @@ public class AdvBookingCreate {
                      "Advertisement",
                      ConfigReader.get("citizen.mobile.number"),
                      ConfigReader.get("test.otp"),
-                     ConfigReader.get("test.city.name"));
+                     ConfigReader.get("test.cityA.name"));
     }
 
     public void AdvBookingReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
@@ -353,7 +354,6 @@ public class AdvBookingCreate {
     // STEP 9: UPLOAD DOCUMENTS (3 rows on a single page)
     // =====================================================================
 
-    // STEP 9: Upload Documents (Advertisement)
     private void uploadDocuments(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
@@ -480,7 +480,8 @@ public class AdvBookingCreate {
      * Returns true if clicked.
      */
     private boolean tryClickWithRetries(WebDriver driver, WebDriverWait wait, JavascriptExecutor js, By locator,
-                                        int timeoutSeconds, int retries, long retryDelayMs) throws InterruptedException {
+                                        int timeoutSeconds, int retries, long retryDelayMs)
+            throws InterruptedException {
         WebDriverWait localWait = new WebDriverWait(driver, java.time.Duration.ofSeconds(timeoutSeconds));
 
         for (int attempt = 1; attempt <= retries; attempt++) {
@@ -511,51 +512,6 @@ public class AdvBookingCreate {
         return false;
     }
 
-    private WebElement waitForNetBankingTab(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
-
-        System.out.println("Waiting for Net Banking tab in left sidebar...");
-
-        // 1) Wait for the left sidebar to render fully
-        try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//*[contains(@class,'left') or contains(@class,'side') or contains(@class,'menu')]"))
-            );
-        } catch (Exception e) {
-            System.out.println("Sidebar not detected yet: " + e.getMessage());
-        }
-
-        Thread.sleep(800);
-
-        // 2) Scroll sidebar down — Net Banking is always below Cards
-        js.executeScript("window.scrollBy(0, 400);");
-        Thread.sleep(300);
-        js.executeScript("window.scrollBy(0, 400);");
-        Thread.sleep(300);
-
-        // 3) Now find Net Banking using multiple possible matches
-        By[] possibleLocators = new By[]{
-                By.xpath("//a[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'net banking')]"),
-                By.xpath("//div[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'net banking')]"),
-                By.xpath("//li[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'net banking')]"),
-                By.xpath("//span[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'net banking')]"),
-                By.xpath("//*[contains(@href,'ibank')]")  // SurePay direct link
-        };
-
-        for (By locator : possibleLocators) {
-            try {
-                WebElement ele = wait.until(ExpectedConditions.elementToBeClickable(locator));
-                js.executeScript("arguments[0].scrollIntoView({block:'center'});", ele);
-                Thread.sleep(200);
-                System.out.println("Found Net Banking element using: " + locator);
-                return ele;
-            } catch (Exception ignore) {}
-        }
-
-        System.out.println("Net Banking tab NOT found in sidebar.");
-        return null;
-    }
-
 
     /**
      * Payment flow tailored to: Net Banking -> select ICICI -> Pay -> click Success on mock bank
@@ -564,7 +520,8 @@ public class AdvBookingCreate {
     /**
      * Payment flow: Card → Pay Now → Razorpay mock "Success"
      */
-    private void handlePaymentFlow(WebDriver driver, WebDriverWait wait, JavascriptExecutor js) throws InterruptedException {
+    private void handlePaymentFlow(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
         System.out.println("Starting payment flow (Card → Pay Now → Success)...");
 
         // remember UPYOG window
@@ -598,7 +555,7 @@ public class AdvBookingCreate {
             boolean proceedClicked = tryClickWithRetries(driver, wait, js, proceedSel, 40, 5, 800);
             if (proceedClicked) {
                 System.out.println("Clicked 'Proceed To Pay'");
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             } else {
                 System.out.println("'Proceed To Pay' not found or not clickable, continuing...");
             }
@@ -610,26 +567,55 @@ public class AdvBookingCreate {
         // STEP 3: "Pay" on UPYOG payment-method page (PAYGOV)
         // -----------------------------
         try {
-            // usually PAYGOV is already selected, we just click Pay
-            By payButtonSel = By.xpath(
-                    "//button[contains(@class,'submit-bar') and " +
-                            " ( .//header[normalize-space(.)='Pay'] " +
-                            "   or contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'pay'))]");
-            boolean payClicked = tryClickWithRetries(driver, wait, js, payButtonSel, 40, 5, 800);
-            if (payClicked) {
-                System.out.println("Clicked UPYOG 'Pay' button (PAYGOV)");
-                Thread.sleep(2000); // allow redirect to SurePay
-            } else {
-                System.out.println("UPYOG 'Pay' button not found or not clickable.");
-            }
+            System.out.println("Clicking UPYOG Pay button (STRICT)...");
+
+            WebElement payBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//button[contains(@class,'submit-bar') and .//header[normalize-space()='Pay']]")
+            ));
+            System.out.println("==== DEBUG STEP 3 ====");
+            System.out.println("After Pay click URL: " + driver.getCurrentUrl());
+            System.out.println("Window handles count: " + driver.getWindowHandles().size());
+            js.executeScript("arguments[0].scrollIntoView({block:'center'});", payBtn);
+            Thread.sleep(500);
+
+            // USER CLICK (IMPORTANT)
+            new Actions(driver)
+                    .moveToElement(payBtn)
+                    .pause(Duration.ofMillis(300))
+                    .click()
+                    .perform();
+
+            System.out.println("UPYOG Pay clicked properly");
+
+            // WAIT for gateway to initialize
+            Thread.sleep(4000);
+
+            System.out.println("After Pay click URL: " + driver.getCurrentUrl());
+
         } catch (Exception e) {
-            System.out.println("Error clicking UPYOG 'Pay' button: " + e.getMessage());
+            System.out.println("Error in UPYOG Pay click: " + e.getMessage());
         }
 
+        try {
+            Thread.sleep(3000);
+
+            Set<String> handles = driver.getWindowHandles();
+
+            for (String handle : handles) {
+                driver.switchTo().window(handle);
+            }
+
+            System.out.println("Switched to payment window");
+            System.out.println("Current URL after switch: " + driver.getCurrentUrl());
+
+        } catch (Exception e) {
+            System.out.println("Window switch failed: " + e.getMessage());
+        }
         /* ------------------------------------------------------
        STEP 4 → CLICK "NET BANKING" TAB
     ------------------------------------------------------ */
         try {
+            Thread.sleep(1500);
             java.util.List<By> NETBANKING_LOCATORS = java.util.Arrays.asList(
                     By.xpath("//a[contains(.,'Net Banking')]"),
                     By.xpath("//div[contains(.,'Net Banking')]"),
@@ -645,14 +631,17 @@ public class AdvBookingCreate {
                     if (netBankingTab != null) break;
                 } catch (Exception ignored) {}
             }
-
+            Thread.sleep(1000);
+            System.out.println("==== DEBUG STEP 4 ====");
+            System.out.println("Current URL before NetBanking: " + driver.getCurrentUrl());
+            System.out.println("Iframe count: " + driver.findElements(By.tagName("iframe")).size());
             if (netBankingTab != null) {
                 js.executeScript("arguments[0].scrollIntoView({block:'center'});", netBankingTab);
-                Thread.sleep(200);
+                Thread.sleep(1000);
                 js.executeScript("arguments[0].click();", netBankingTab);
                 System.out.println("Clicked NET BANKING tab");
             } else {
-                System.out.println("⚠ Net Banking tab NOT FOUND — maybe gateway UI changed or hidden.");
+                System.out.println(" Net Banking tab NOT FOUND — maybe gateway UI changed or hidden.");
             }
 
             Thread.sleep(1000);
@@ -661,12 +650,28 @@ public class AdvBookingCreate {
             System.out.println("Error clicking Net Banking tab: " + e.getMessage());
         }
 
+        try {
+            Thread.sleep(2000);
+
+            List<WebElement> iframes = driver.findElements(By.tagName("iframe"));
+
+            if (!iframes.isEmpty()) {
+                driver.switchTo().frame(iframes.get(0));
+                System.out.println("Switched to payment iframe");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Iframe switch failed: " + e.getMessage());
+        }
+
     /* ------------------------------------------------------
        STEP 5 → SELECT ICICI BANK
     ------------------------------------------------------ */
         try {
-            Thread.sleep(800);
-
+            Thread.sleep(1500);
+            System.out.println("==== DEBUG STEP 5 ====");
+            System.out.println("Trying to find ICICI...");
+            System.out.println("Page contains ICICI text: " + driver.getPageSource().toLowerCase().contains("icici"));
             java.util.List<WebElement> iciciOptions =
                     driver.findElements(By.xpath("//*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'icici')]"));
 
@@ -733,7 +738,7 @@ public class AdvBookingCreate {
             WebElement successBtn = null;
 
             successBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//*[contains(translate(.,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'success')]")
+                    By.xpath("//button[contains(.,'Success')]")
             ));
 
             if (successBtn != null) {
@@ -746,7 +751,6 @@ public class AdvBookingCreate {
         } catch (Exception e) {
             System.out.println("Success button not found: " + e.getMessage());
         }
-
         // -----------------------------
         // STEP 8: Switch back to UPYOG window
         // -----------------------------
@@ -995,7 +999,7 @@ public class AdvBookingCreate {
             throws InterruptedException {
 
         if (index >= fileInputs.size()) {
-            System.out.println("⚠ No file input at index " + index + " for " + filePath);
+            System.out.println(" No file input at index " + index + " for " + filePath);
             return;
         }
 
@@ -1003,7 +1007,7 @@ public class AdvBookingCreate {
         System.out.println("Attempting upload from: " + f.getAbsolutePath() + "  exists? " + f.exists());
 
         if (!f.exists()) {
-            System.out.println("⚠ File does NOT exist on disk. Skipping this input.");
+            System.out.println("File does NOT exist on disk. Skipping this input.");
             return;
         }
 
@@ -1015,7 +1019,7 @@ public class AdvBookingCreate {
         Thread.sleep(300);
 
         input.sendKeys(f.getAbsolutePath());
-        System.out.println("✅ Uploaded document into input index " + index);
+        System.out.println("Uploaded document into input index " + index);
     }
 
 
@@ -1040,20 +1044,8 @@ public class AdvBookingCreate {
         js.executeScript("arguments[0].style.opacity='1'; arguments[0].style.display='block';", fileInput);
         Thread.sleep(300);
 
-        fileInput.sendKeys(getAbsolutePath(filePath));
+        fileInput.sendKeys(filePath);
         System.out.println("Uploaded file at index " + index + ": " + filePath);
         Thread.sleep(500);
-    }
-
-    /**
-     * Converts relative path to absolute path for file uploads
-     * Selenium requires absolute paths for sendKeys() on file inputs
-     */
-    private String getAbsolutePath(String relativePath) {
-        File file = new File(relativePath);
-        if (!file.exists()) {
-            throw new RuntimeException("File not found: " + relativePath);
-        }
-        return file.getAbsolutePath();
     }
 }

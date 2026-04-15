@@ -51,18 +51,21 @@ public class TreePruningCitizen {
             fillTreePruningDetails(driver, wait, js);
 
             // STEP 5: Fill Applicant Details
+            selectFillNewDetails(driver, wait, js);
+
+            // STEP 6: Fill Applicant Details
             fillApplicantDetails(driver, wait, js);
 
-            // STEP 6: Fill Address Details
+            // STEP 7: Fill Address Details
             fillAddressDetails(driver, wait, js);
 
-            // STEP 7: Fill Tree Pruning Request Details
+            // STEP 8: Fill Tree Pruning Request Details
             fillTreePruningRequestDetails(driver, wait, js);
 
-            // STEP 8: Upload Documents
+            // STEP 9: Upload Documents
             uploadDocuments(driver, wait, js);
 
-            // STEP 9: Submit Application
+            // STEP 10: Submit Application
             submitApplication(driver, wait, js);
 
             System.out.println("Tree Pruning Application completed successfully!");
@@ -214,6 +217,7 @@ public class TreePruningCitizen {
                 Thread.sleep(500);
                 js.executeScript("arguments[0].click();", nextBtn);
                 System.out.println("Clicked Next on info page");
+                Thread.sleep(3000);
                 return;
             } catch (Exception e) {
                 System.out.println("Next selector failed: " + selector);
@@ -224,7 +228,32 @@ public class TreePruningCitizen {
     }
 
     // =====================================================================
-    // STEP 5: FILL APPLICANT DETAILS
+    // STEP 5: FILL MOBILE TOILET DETAILS
+    // =====================================================================
+
+    private void selectFillNewDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
+            throws InterruptedException {
+
+        System.out.println("Handling Booking Popup");
+
+        // 🔥 Directly wait for button instead of popup container
+        WebElement fillNewDetailsBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//button[contains(.,'Fill New')]")
+                )
+        );
+
+        System.out.println("Popup appeared (button detected)");
+
+        js.executeScript("arguments[0].click();", fillNewDetailsBtn);
+
+        System.out.println("Clicked Fill New Details");
+
+        Thread.sleep(1000);
+    }
+
+    // =====================================================================
+    // STEP 6: FILL APPLICANT DETAILS
     // =====================================================================
 
     private void fillApplicantDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -269,7 +298,7 @@ public class TreePruningCitizen {
     }
 
     // =====================================================================
-    // STEP 6: FILL ADDRESS DETAILS
+    // STEP 7: FILL ADDRESS DETAILS
     // =====================================================================
 
     private void fillAddressDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -369,7 +398,7 @@ public class TreePruningCitizen {
     }
 
     // =====================================================================
-    // STEP 7: FILL TREE PRUNING REQUEST DETAILS
+    // STEP 8: FILL TREE PRUNING REQUEST DETAILS
     // =====================================================================
 
     private void fillTreePruningRequestDetails(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -432,7 +461,7 @@ public class TreePruningCitizen {
     }
 
     // =====================================================================
-    // STEP 8: UPLOAD DOCUMENTS
+    // STEP 9: UPLOAD DOCUMENTS
     // =====================================================================
 
     private void uploadDocuments(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -452,7 +481,7 @@ public class TreePruningCitizen {
     }
 
     // =====================================================================
-    // STEP 9: SUBMIT APPLICATION
+    // STEP 10: SUBMIT APPLICATION
     // =====================================================================
 
     private void submitApplication(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)

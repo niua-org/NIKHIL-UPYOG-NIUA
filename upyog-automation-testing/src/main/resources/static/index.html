@@ -56,8 +56,11 @@
                         <option value="PUBLIC_GRIEVANCE_REDRESSAL">Public Grievance Redressal</option>
                         <option value="ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM">Online Building Plan Approval System</option>
                         <option value="EWASTE_MANAGEMENT_SYSTEM">E-Waste</option>
-                        <option value="ASSET_MANAGEMENT_SYSTEM">Asset Management</option>
-                        <option value="COMMUNITY HALL BOOKING">Community Hall Booking </option>
+                        <option value="COMMUNITY_HALL_BOOKING">Community Hall Booking</option>
+                        <option value="CONSTRUCTION_AND_DEMOLITION">Construction and Demolition</option>
+                        <option value="DESLUDGING_SERVICE">Desludging Service</option>
+                        <option value="WATER_AND_SEWERAGE">Water And Sewerage Service</option>
+                        <option value="FIRE_NOC">Fire NOC</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -101,7 +104,11 @@
                         <option value="ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM">Online Building Plan Approval System</option>
                         <option value="EWASTE_MANAGEMENT_SYSTEM">E-Waste</option>
                         <option value="ASSET_MANAGEMENT_SYSTEM">Asset Management</option>
-                        <option value="COMMUNITY HALL BOOKING">Community Hall Booking </option>
+                        <option value="COMMUNITY_HALL_BOOKING">Community Hall Booking </option>
+                        <option value="CONSTRUCTION_AND_DEMOLITION">Construction and Demolition </option>
+                        <option value="DESLUDGING_SERVICE">Desludging Service </option>
+                        <option value="WATER_AND_SEWERAGE">Water And Sewerage Service</option>
+                        <option value="FIRE_NOC">Fire NOC</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -138,7 +145,7 @@
             const resultDiv = document.getElementById('citizenResult');
             resultDiv.style.display = 'block';
             resultDiv.className = 'result';
-            resultDiv.textContent = 'Starting test...';
+            resultDiv.textContent = 'Running test...';
 
             try {
                 window.open('http://13.201.2.162:8000', '_blank');
@@ -148,11 +155,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                const result = await response.json();
-                
+                const result = await response.text();
                 resultDiv.className = 'result success';
-                resultDiv.innerHTML = result.message;
-                
+                resultDiv.textContent = result;
             } catch (error) {
                 resultDiv.className = 'result error';
                 resultDiv.textContent = 'Error: ' + error.message;
@@ -167,7 +172,7 @@
             const resultDiv = document.getElementById('employeeResult');
             resultDiv.style.display = 'block';
             resultDiv.className = 'result';
-            resultDiv.textContent = 'Starting test...';
+            resultDiv.textContent = 'Running test...';
 
             try {
                 window.open('http://13.201.2.162:8000', '_blank');
@@ -177,11 +182,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                const result = await response.json();
-                
+                const result = await response.text();
                 resultDiv.className = 'result success';
-                resultDiv.innerHTML = result.message;
-                
+                resultDiv.textContent = result;
             } catch (error) {
                 resultDiv.className = 'result error';
                 resultDiv.textContent = 'Error: ' + error.message;
