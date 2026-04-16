@@ -1,5 +1,5 @@
 import React from "react";
-import { InfoBannerIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { InfoBannerIcon } from "@upyog/digit-ui-react-components";
 
 const EyeSvgINdex = ({ style }) => {
   return <span>

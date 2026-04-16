@@ -1,4 +1,4 @@
-import { DetailsCard, Loader, Table } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { DetailsCard, Loader, Table } from "@upyog/digit-ui-react-components";
 import React, { memo, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useHistory } from "react-router-dom";

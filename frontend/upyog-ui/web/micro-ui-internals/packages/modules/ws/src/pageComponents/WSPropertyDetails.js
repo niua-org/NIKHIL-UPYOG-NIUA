@@ -1,4 +1,4 @@
-import { CardLabel, LabelFieldPair, LinkButton, Loader, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, LabelFieldPair, LinkButton, Loader, TextInput } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { Link } from "react-router-dom";
 

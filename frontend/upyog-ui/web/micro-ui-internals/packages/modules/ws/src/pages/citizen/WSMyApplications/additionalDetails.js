@@ -1,4 +1,4 @@
-import { Card, CardSubHeader, Header, LinkButton, Loader, Row, StatusTable, CardSectionHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, CardSubHeader, Header, LinkButton, Loader, Row, StatusTable, CardSectionHeader } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";

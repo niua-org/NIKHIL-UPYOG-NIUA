@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { RatingCard, CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { RatingCard, CardLabelError } from "@upyog/digit-ui-react-components";
 import { useParams, Redirect, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { updateComplaints } from "../../../redux/actions/index";

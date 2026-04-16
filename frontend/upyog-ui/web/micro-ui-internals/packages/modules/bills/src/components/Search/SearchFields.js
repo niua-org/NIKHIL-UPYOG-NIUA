@@ -8,7 +8,7 @@ import {
   Dropdown,
   MobileNumber,
   Loader
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 
 const SearchFields = ({register, control, reset, tenantId, t, previousPage ,formState}) => {
 

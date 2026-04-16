@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LocationSearchCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { LocationSearchCard } from "@upyog/digit-ui-react-components";
 import { cardBodyStyle } from "../utils";
 import Timeline from "../components/TLTimeline";
 

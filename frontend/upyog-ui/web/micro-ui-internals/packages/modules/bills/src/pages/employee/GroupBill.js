@@ -1,4 +1,4 @@
-import { Header } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 const GroupBill = () => {

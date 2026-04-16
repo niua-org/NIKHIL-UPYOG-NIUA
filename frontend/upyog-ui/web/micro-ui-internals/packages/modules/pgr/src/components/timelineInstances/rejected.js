@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionLinks, CheckPoint } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { ActionLinks, CheckPoint } from "@upyog/digit-ui-react-components";
 import { Link } from "react-router-dom";
 import StarRated from "./StarRated";
 import { useTranslation } from "react-i18next";

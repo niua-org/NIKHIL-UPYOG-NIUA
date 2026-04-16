@@ -1,4 +1,4 @@
-import { SearchField, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { SearchField, TextInput } from "@upyog/digit-ui-react-components";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 

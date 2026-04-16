@@ -1,4 +1,4 @@
-import { TelePhone, CheckPoint } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TelePhone, CheckPoint } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

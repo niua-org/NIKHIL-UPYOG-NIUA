@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Toast } from "@upyog/digit-ui-react-components";
 
 const TimerServices = ({ businessService, t, timerValues, SlotSearchData = "", setTime }) => {
   const [timeRemaining, setTimeRemaining] = useState(0); // Initialize with `timerValues`

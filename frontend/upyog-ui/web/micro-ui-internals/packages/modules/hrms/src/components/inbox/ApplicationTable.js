@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Table } from "@upyog/digit-ui-react-components";
 
 const ApplicationTable = ({ t, columns, data, getCellProps, onNextPage, onPrevPage, currentPage, totalRecords, pageSizeLimit, onPageSizeChange }) => (
   <Table

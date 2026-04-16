@@ -1,5 +1,5 @@
 import React, { useState,useEffect, useRef } from "react";
-import { Modal, Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, Toast } from "@upyog/digit-ui-react-components";
 import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import * as turf from "@turf/turf";

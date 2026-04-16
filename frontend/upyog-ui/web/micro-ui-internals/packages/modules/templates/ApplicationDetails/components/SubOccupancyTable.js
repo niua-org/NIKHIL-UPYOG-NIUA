@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from "react";
-import { Table, StatusTable, Row, CardSubHeader, CardSectionHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Table, StatusTable, Row, CardSubHeader, CardSectionHeader } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
 const SubOccupancyTable = ({ edcrDetails, applicationData }) => {

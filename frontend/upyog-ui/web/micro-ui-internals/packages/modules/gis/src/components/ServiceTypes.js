@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { FormStep, CardLabel, Dropdown, Modal } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, CardLabel, Dropdown, Modal } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 

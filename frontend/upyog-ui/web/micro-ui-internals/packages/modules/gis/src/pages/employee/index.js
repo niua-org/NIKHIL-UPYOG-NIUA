@@ -1,4 +1,4 @@
-import { AppContainer, PrivateRoute } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { AppContainer, PrivateRoute } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { Switch } from "react-router-dom";
 import MapView from "../../components/MapView";

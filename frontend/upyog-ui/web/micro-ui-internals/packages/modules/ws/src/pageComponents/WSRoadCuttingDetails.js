@@ -1,4 +1,4 @@
-import { CardLabel, Dropdown, LabelFieldPair, LinkButton, TextInput, CardLabelError, DeleteIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, Dropdown, LabelFieldPair, LinkButton, TextInput, CardLabelError, DeleteIcon } from "@upyog/digit-ui-react-components";
 import _, { filter } from "lodash";
 import React, { useState, useEffect, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";

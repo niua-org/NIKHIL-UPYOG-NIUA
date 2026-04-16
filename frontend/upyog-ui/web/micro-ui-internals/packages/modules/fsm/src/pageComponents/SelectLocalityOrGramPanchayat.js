@@ -1,4 +1,4 @@
-import { CardLabel, Dropdown, FormStep, LabelFieldPair, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, Dropdown, FormStep, LabelFieldPair, TextInput } from "@upyog/digit-ui-react-components";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

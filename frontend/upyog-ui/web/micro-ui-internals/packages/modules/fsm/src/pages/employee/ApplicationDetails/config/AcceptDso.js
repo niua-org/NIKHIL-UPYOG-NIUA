@@ -1,5 +1,5 @@
 import React from "react";
-import { CardLabelError, Dropdown, MultiSelectDropdown, RemoveableTag, LabelFieldPair, CardLabel } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabelError, Dropdown, MultiSelectDropdown, RemoveableTag, LabelFieldPair, CardLabel } from "@upyog/digit-ui-react-components";
 
 // steps
 // get individualIds array from workers array in vendor object

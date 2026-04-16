@@ -1,5 +1,5 @@
 // import React from "react";
-import { Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";

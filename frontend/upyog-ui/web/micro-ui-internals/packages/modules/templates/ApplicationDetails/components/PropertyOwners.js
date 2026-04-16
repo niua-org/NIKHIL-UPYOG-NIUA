@@ -1,4 +1,4 @@
-import { CardSubHeader, Row, StatusTable } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardSubHeader, Row, StatusTable } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

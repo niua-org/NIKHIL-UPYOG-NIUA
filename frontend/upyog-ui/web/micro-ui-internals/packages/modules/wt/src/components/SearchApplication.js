@@ -1,6 +1,6 @@
   import React, { useCallback, useMemo, useEffect} from "react"
   import { useForm, Controller } from "react-hook-form";
-  import { TextInput, SubmitBar, DatePicker, CardLabelError, SearchForm, SearchField, Dropdown, Table, Card, MobileNumber, Loader, Header } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+  import { TextInput, SubmitBar, DatePicker, CardLabelError, SearchForm, SearchField, Dropdown, Table, Card, MobileNumber, Loader, Header } from "@upyog/digit-ui-react-components";
   import { Link} from "react-router-dom";
   import { APPLICATION_PATH} from "../utils";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker, Dropdown, CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { DatePicker, Dropdown, CardLabelError } from "@upyog/digit-ui-react-components";
 
 function todayDate() {
   var today = new Date();

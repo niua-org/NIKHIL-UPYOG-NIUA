@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useMemo, useReducer, useEffect } from "react";
-import { InboxComposer, ComplaintIcon, Header, DropIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { InboxComposer, ComplaintIcon, Header, DropIcon } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import SearchFormFieldsComponents from "./SearchFormFieldsComponent";
 import FilterFormFieldsComponent from "./FilterFormFieldsComponent";

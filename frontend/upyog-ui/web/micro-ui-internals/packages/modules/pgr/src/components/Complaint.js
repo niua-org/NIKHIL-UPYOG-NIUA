@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
-import { Card, DateWrap, KeyNote } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { CardSubHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, DateWrap, KeyNote } from "@upyog/digit-ui-react-components";
+import { CardSubHeader } from "@upyog/digit-ui-react-components";
 import { LOCALIZATION_KEY } from "../constants/Localization";
 
 // import { ConvertTimestampToDate } from "../@upyog/digit-utils/services/date";

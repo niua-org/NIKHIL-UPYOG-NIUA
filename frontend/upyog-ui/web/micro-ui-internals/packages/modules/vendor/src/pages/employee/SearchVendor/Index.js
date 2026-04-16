@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Header } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header } from "@upyog/digit-ui-react-components";
 //import RegisryInbox from "../../../components/RegistryInbox";
 import VendorInbox from "../../../components/VendorInbox";
 import { useHistory } from "react-router-dom";

@@ -14,7 +14,7 @@ import {
   WhatsNewCard,
   OBPSIcon,
   WSICon,
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { CitizenSideBar } from "../../../components/TopBarSideBar/SideBar/CitizenSideBar";

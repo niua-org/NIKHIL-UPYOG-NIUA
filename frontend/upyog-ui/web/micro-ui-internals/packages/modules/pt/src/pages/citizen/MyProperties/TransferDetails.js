@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, StatusTable } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Row, StatusTable } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
 const returnTransferData = (value, rowContainerStyles) => {

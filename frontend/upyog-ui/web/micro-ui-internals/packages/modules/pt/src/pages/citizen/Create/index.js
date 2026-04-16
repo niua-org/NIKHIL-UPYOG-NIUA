@@ -1,4 +1,4 @@
-import { Loader,Modal ,Card , CardHeader, StatusTable,Row} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader,Modal ,Card , CardHeader, StatusTable,Row} from "@upyog/digit-ui-react-components";
 import React ,{Fragment,useState,useEffect}from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";

@@ -19,7 +19,7 @@ import {
   InfoBannerIcon,
   Toast,
   Table
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React, { Fragment, useEffect, useMemo, useReducer, useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";

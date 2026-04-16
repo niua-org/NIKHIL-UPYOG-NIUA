@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Table } from "@upyog/digit-ui-react-components";
 /*
  * ApplicationTable component renders a table to display application data.
  * It supports pagination, sorting, and customizable cell properties, 

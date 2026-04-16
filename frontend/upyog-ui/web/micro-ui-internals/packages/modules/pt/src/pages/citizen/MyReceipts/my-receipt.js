@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Card, KeyNote, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, KeyNote, SubmitBar } from "@upyog/digit-ui-react-components";
 import { Link } from "react-router-dom";
 
 const MyReceipt = ({ application }) => {

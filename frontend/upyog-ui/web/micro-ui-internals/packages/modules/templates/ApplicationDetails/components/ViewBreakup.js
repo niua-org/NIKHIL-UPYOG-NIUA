@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { CardSectionHeader, Modal, Row, StatusTable } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardSectionHeader, Modal, Row, StatusTable } from "@upyog/digit-ui-react-components";
 
 const ViewBreakup = ({ wsAdditionalDetails, workflowDetails }) => {
     const { t } = useTranslation();

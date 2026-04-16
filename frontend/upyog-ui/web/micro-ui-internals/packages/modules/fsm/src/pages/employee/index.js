@@ -8,7 +8,7 @@ import {
   ViewReportIcon,
   InboxIcon,
   ULBHomeCard,
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Switch, useLocation } from "react-router-dom";

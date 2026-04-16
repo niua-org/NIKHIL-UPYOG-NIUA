@@ -1,4 +1,4 @@
-import { StatusTable, Row, CardHeader, CardSectionHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { StatusTable, Row, CardHeader, CardSectionHeader } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import DocumentsPreview from "./DocumentsPreview";

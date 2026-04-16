@@ -1,4 +1,4 @@
-import { CardLabel, Dropdown, FormStep, LinkButton, Loader, RadioButtons, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, Dropdown, FormStep, LinkButton, Loader, RadioButtons, TextInput } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Timeline from "../components/TLTimeline";

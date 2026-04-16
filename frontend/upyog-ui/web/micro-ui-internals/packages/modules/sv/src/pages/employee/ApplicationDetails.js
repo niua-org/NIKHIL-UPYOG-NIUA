@@ -1,4 +1,4 @@
-import { Header, MultiLink, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, MultiLink, SubmitBar } from "@upyog/digit-ui-react-components";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";

@@ -13,7 +13,7 @@ import {
   MultiLink,
   LinkButton,
   Toast
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import { useParams, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ApplicationDetailsTemplate from "../../../../templates/ApplicationDetails";

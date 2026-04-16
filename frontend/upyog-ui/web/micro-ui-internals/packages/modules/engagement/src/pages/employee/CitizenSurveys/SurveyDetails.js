@@ -1,4 +1,4 @@
-import { Header, Modal, Loader, Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, Modal, Loader, Toast } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";

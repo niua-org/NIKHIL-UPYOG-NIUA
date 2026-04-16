@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { EmployeeModuleCard, CHBIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { EmployeeModuleCard, CHBIcon } from "@upyog/digit-ui-react-components";
 
 /**
  * `GISCard` component is a module card that displays information related to the GIS service.

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
     RadioOrSelect,
     CardLabel
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import Timeline from "../components/Timeline";
 import FormStep from "../../../../react-components/src/molecules/FormStep"
 const WSServiceName = ({ t, config, onSelect, userType, formData }) => {

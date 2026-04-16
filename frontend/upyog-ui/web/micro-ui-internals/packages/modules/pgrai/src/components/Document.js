@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CardLabel,Toast, FormStep, LabelFieldPair, SubmitBar, DeleteIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel,Toast, FormStep, LabelFieldPair, SubmitBar, DeleteIcon } from "@upyog/digit-ui-react-components";
 import UploadFile from "./UploadFile";
 import { styles } from "../utils/styles";
 

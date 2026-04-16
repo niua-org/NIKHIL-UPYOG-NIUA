@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { Dropdown, LabelFieldPair, CardLabel } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader } from "@upyog/digit-ui-react-components";
+import { Dropdown, LabelFieldPair, CardLabel } from "@upyog/digit-ui-react-components";
 import { useLocation } from "react-router-dom";
 
 const SelectEmployeeType = ({ t, config, onSelect, formData = {}, userType }) => {

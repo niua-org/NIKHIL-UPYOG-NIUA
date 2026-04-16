@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CardLabel, LabelFieldPair, Dropdown, UploadFile, Toast, Loader, MultiUploadWrapper } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, LabelFieldPair, Dropdown, UploadFile, Toast, Loader, MultiUploadWrapper } from "@upyog/digit-ui-react-components";
 import { useLocation } from "react-router-dom";
 
 const OBPSDocumentsEmp = ({ t, config, onSelect, userType, formData, setError: setFormError, clearErrors: clearFormErrors, formState, index: indexx, setFieldReports, documentList }) => {

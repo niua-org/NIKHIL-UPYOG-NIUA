@@ -1,4 +1,4 @@
-import { Card, ButtonSelector, CardText, CardSubHeader, Modal, CardSectionHeader, Row } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, ButtonSelector, CardText, CardSubHeader, Modal, CardSectionHeader, Row } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

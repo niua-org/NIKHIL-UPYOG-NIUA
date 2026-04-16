@@ -1,4 +1,4 @@
-import { CardLabel, FormStep, RadioOrSelect, TextInput, OpenLinkContainer, BackButton } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, FormStep, RadioOrSelect, TextInput, OpenLinkContainer, BackButton } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { stringReplaceAll } from "../utils";
 import Timeline from "../components/Timeline";

@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { RadioButtons } from "@upyog/digit-ui-react-components";
 
 export const configPTAssessProperty = ({ t, action, financialYears, selectedFinancialYear, setSelectedFinancialYear }) => {
   return {

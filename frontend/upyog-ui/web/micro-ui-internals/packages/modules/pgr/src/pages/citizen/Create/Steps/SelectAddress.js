@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CardLabel, Dropdown, FormStep, RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, Dropdown, FormStep, RadioButtons } from "@upyog/digit-ui-react-components";
 
 const SelectAddress = ({ t, config, onSelect, value }) => {
   const allCities = Digit.Hooks.pgr.useTenants();

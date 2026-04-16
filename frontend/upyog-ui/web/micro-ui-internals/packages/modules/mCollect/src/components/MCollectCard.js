@@ -1,4 +1,4 @@
-import { EmployeeModuleCard, PTIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { EmployeeModuleCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

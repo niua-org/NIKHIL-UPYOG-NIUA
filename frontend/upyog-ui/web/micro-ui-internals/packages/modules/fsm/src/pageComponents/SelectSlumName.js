@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CardLabel, LabelFieldPair, Dropdown, FormStep, Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, LabelFieldPair, Dropdown, FormStep, Loader } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/TLTimelineInFSM";
 
 const SelectSlumName = ({ config, onSelect, t, userType, formData }) => {

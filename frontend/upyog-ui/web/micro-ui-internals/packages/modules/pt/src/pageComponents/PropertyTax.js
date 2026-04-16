@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardSubHeader, CardText, Loader, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, CardHeader, CardSubHeader, CardText, Loader, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { cardBodyStyle, stringReplaceAll } from "../utils";
 //import { map } from "lodash-es";

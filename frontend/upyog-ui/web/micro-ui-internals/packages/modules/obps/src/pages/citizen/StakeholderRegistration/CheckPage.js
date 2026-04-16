@@ -12,7 +12,7 @@ import {
   BackButton,
   EditIcon,
   CardText,
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useRouteMatch } from "react-router-dom";

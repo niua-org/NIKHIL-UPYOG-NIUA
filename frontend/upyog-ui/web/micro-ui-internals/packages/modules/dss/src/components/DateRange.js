@@ -1,4 +1,4 @@
-import { Calender } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Calender } from "@upyog/digit-ui-react-components";
 import {
   addHours,
   addMinutes,

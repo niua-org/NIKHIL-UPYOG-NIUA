@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormStep, TextInput, CardLabel, RadioButtons, LabelFieldPair, Dropdown, Menu, MobileNumber, CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { cardBodyStyle } from "../utils";
+import { FormStep, TextInput, CardLabel, RadioButtons, LabelFieldPair, Dropdown, Menu, MobileNumber, CardLabelError } from "@upyog/digit-ui-react-components";
 import { useLocation, useRouteMatch } from "react-router-dom";
 import { stringReplaceAll } from "../utils";
 import { Controller, useForm } from "react-hook-form";

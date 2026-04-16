@@ -75,8 +75,6 @@ const FormComposer = (props) => {
       case "time":
         // if (populators.defaultValue) setTimeout(setValue(populators?.name, populators.defaultValue));
         return (
-          <Controller
-            render={({ field: { ref, ...field } }) => (
           <div className="field-container">
             {populators?.componentInFront ? (
               <span className={`component-in-front ${disable && "disabled"}`}>{populators.componentInFront}</span>
@@ -84,43 +82,25 @@ const FormComposer = (props) => {
             <TextInput
               className="field"
               {...populators}
-              {...field}
-              inputRef={ref}
+              inputRef={register(populators.validation)}
               isRequired={isMandatory}
               type={type}
               disable={disable}
               watch={watch}
             />
           </div>
-            )}
-            name={populators?.name}
-            control={control}
-            defaultValue={populators.defaultValue || ""}
-          />
         );
       case "textarea":
         // if (populators.defaultValue) setTimeout(setValue(populators?.name, populators.defaultValue));
         return (
-          <Controller
-            render={({ field }) => (
-              <TextArea className="field" name={populators?.name || ""} {...populators} {...field} disable={disable} />
-            )}
-            name={populators?.name}
-            control={control}
-            defaultValue={populators.defaultValue || ""}
-          />
+          <TextArea className="field" name={populators?.name || ""} {...populators} inputRef={register(populators.validation)} disable={disable} />
         );
       case "mobileNumber":
         return (
           <Controller
-            render={({ field }) => (
-              <MobileNumber
-                className={populators?.className || "field"}
-                onChange={field.onChange}
-                value={field.value}
-                disable={disable}
-              />
-            )}
+          render={(props) => (
+            <MobileNumber className={populators?.className || "field"} onChange={props.onChange} value={props.value} disable={disable} />
+          )}
             defaultValue={populators.defaultValue}
             name={populators?.name}
             control={control}
@@ -129,7 +109,7 @@ const FormComposer = (props) => {
       case "custom":
         return (
           <Controller
-            render={({ field }) => populators.component({ ...field, setValue }, populators.customProps)}
+            render={(props) => populators.component({ ...props, setValue }, populators.customProps)}
             defaultValue={populators.defaultValue}
             name={populators?.name}
             control={control}
@@ -138,7 +118,7 @@ const FormComposer = (props) => {
       case "component":
         return (
           <Controller
-            render={({ field }) => (
+            render={(props) => (
               <Component
                 userType={"employee"}
                 t={t}
@@ -149,11 +129,11 @@ const FormComposer = (props) => {
                 formData={formData}
                 register={register}
                 errors={errors}
-                props={field}
+                props={props}
                 setError={setError}
                 clearErrors={clearErrors}
                 formState={formState}
-                onBlur={field.onBlur}
+                onBlur={props.onBlur}
               />
             )}
             name={config.key}
@@ -231,22 +211,22 @@ const FormComposer = (props) => {
   const getCombinedComponent = (section) => {
     if (section.head && section.subHead) {
       return (
-        <Fragment>
+        <>
           <CardSectionHeader style={props?.sectionHeadStyle ? props?.sectionHeadStyle : { margin: "5px 0px" }} id={section.headId}>
             {t(section.head)}
           </CardSectionHeader>
           <CardSectionHeader style={titleStyle} id={`${section.headId}_DES`}>
             {t(section.subHead)}
           </CardSectionHeader>
-        </Fragment>
+        </>
       );
     } else if (section.head) {
       return (
-        <Fragment>
+        <>
           <CardSectionHeader style={props?.sectionHeadStyle ? props?.sectionHeadStyle : {}} id={section.headId}>
             {t(section.head)}
           </CardSectionHeader>
-        </Fragment>
+        </>
       );
     } else {
       return <div></div>;

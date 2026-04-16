@@ -1,4 +1,4 @@
-import { ArrowRightInbox, ShippingTruck, EmployeeModuleCard, Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { ArrowRightInbox, ShippingTruck, EmployeeModuleCard, Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

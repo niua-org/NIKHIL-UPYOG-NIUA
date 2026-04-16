@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Card, SubmitBar, BackButton, ImageUploadHandler, CardLabelError, LinkButton } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, SubmitBar, BackButton, ImageUploadHandler, CardLabelError, LinkButton } from "@upyog/digit-ui-react-components";
 
 import { LOCALIZATION_KEY } from "../../../constants/Localization";
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { EmployeeModuleCard,CHBIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { EmployeeModuleCard,CHBIcon } from "@upyog/digit-ui-react-components";
 import { APPLICATION_PATH } from "../utils";
 
 /**

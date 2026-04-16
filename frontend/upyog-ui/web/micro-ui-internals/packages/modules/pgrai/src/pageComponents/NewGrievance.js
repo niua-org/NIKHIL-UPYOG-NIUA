@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { FormStep, TextInput, CardLabel, Loader, CardLabelError, LabelFieldPair, SubmitBar, TextArea } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, TextInput, CardLabel, Loader, CardLabelError, LabelFieldPair, SubmitBar, TextArea } from "@upyog/digit-ui-react-components";
 import { fetchCurrentLocation, reverseGeocode } from "../components/locationUtils";
 import { fetchGrievanceCategories } from "../utils/index";
 import { styles } from "../utils/styles";

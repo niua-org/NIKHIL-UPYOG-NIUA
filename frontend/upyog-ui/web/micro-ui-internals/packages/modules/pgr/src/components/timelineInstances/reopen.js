@@ -1,4 +1,4 @@
-import { GreyOutText } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { GreyOutText } from "@upyog/digit-ui-react-components";
 import React from "react";
 const Reopen = ({ text, reopenDate }) => {
   // let { t } = useTranslation();

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Dropdown } from "@upyog/digit-ui-react-components";
 
 function getFilteredDsoData(dsoData, vehicle) {
   return dsoData?.filter((e) => e.vehicles?.find((veh) => veh?.type == vehicle?.code));

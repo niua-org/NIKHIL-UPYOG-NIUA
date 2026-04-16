@@ -26,7 +26,7 @@
  * - `react-query`: For data fetching and caching.
  * - `react-router-dom`: For routing.
  */
-import { Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";

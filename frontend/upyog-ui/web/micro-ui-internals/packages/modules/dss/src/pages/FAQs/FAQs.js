@@ -1,4 +1,4 @@
-import { Header, TextInput, ArrowForward, Loader, BackButton} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, TextInput, ArrowForward, Loader, BackButton} from "@upyog/digit-ui-react-components";
 import React, { useState, Fragment, useRef, useEffect}from "react";
 import { useTranslation } from "react-i18next";
 import FAQComponent from "./FAQComponent";

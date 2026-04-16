@@ -19,7 +19,7 @@
 
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TickMark } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TickMark } from "@upyog/digit-ui-react-components";
 
 let actions = [];
 

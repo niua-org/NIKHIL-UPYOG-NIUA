@@ -1,4 +1,4 @@
-import { CardLabel, CitizenInfoLabel, Dropdown, FormStep, LabelFieldPair, RadioOrSelect } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, CitizenInfoLabel, Dropdown, FormStep, LabelFieldPair, RadioOrSelect } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import Timeline from "../components/TLTimeline";
 

@@ -1,4 +1,4 @@
-import { BackButton, PrivateRoute } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { BackButton, PrivateRoute } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Switch, useLocation } from "react-router-dom";

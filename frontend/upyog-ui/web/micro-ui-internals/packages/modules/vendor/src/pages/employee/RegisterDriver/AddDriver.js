@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FormComposer, Toast, Header } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormComposer, Toast, Header } from "@upyog/digit-ui-react-components";
 import { useHistory } from "react-router-dom";
 //import DriverConfig from "../../configs/DriverConfig";
 import { useQueryClient } from "react-query";

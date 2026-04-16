@@ -1,4 +1,4 @@
-import { Dropdown, UploadFile, DatePicker } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Dropdown, UploadFile, DatePicker } from "@upyog/digit-ui-react-components";
 import React from "react";
 
 export const configWSDisConnectApplication = ({

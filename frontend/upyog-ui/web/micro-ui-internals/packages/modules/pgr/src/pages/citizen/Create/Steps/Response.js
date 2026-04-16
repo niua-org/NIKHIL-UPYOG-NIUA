@@ -1,5 +1,5 @@
 import React from "react";
-import { FormStep, Banner } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, Banner } from "@upyog/digit-ui-react-components";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 

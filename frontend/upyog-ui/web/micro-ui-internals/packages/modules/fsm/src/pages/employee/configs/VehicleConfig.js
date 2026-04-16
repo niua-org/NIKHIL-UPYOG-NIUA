@@ -1,5 +1,5 @@
 import React from "react";
-const { DatePicker, Dropdown } = require("@nudmcdgnpm/upyog-ui-react-components-lts");
+import { DatePicker, Dropdown } from "@upyog/digit-ui-react-components";
 import { convertEpochToDate } from "../../../utils";
 
 const VehicleConfig = (t, disabled = false) => {

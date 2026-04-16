@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { Card, CardLabel, CardHeader, KeyNote, Loader, Rating } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, CardLabel, CardHeader, KeyNote, Loader, Rating } from "@upyog/digit-ui-react-components";
 
 const RateView = (props) => {
   const { t } = useTranslation();

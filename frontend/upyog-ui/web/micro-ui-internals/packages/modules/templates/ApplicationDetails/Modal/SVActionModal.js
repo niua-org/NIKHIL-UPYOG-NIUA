@@ -1,4 +1,4 @@
-import { Loader, Modal, FormComposer } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, Modal, FormComposer } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect, act } from "react";
 import { configSVApproverApplication } from "../config";
 

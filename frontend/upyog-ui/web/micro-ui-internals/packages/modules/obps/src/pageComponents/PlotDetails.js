@@ -1,4 +1,4 @@
-import { Card,CardLabel, CardCaption, TextInput, CardHeader, TextArea, Label, StatusTable, Row, SubmitBar, Loader, FormStep } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card,CardLabel, CardCaption, TextInput, CardHeader, TextArea, Label, StatusTable, Row, SubmitBar, Loader, FormStep } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Timeline from "../components/Timeline";

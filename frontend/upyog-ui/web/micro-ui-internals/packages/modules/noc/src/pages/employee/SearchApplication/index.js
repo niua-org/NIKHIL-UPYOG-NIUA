@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CardHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardHeader } from "@upyog/digit-ui-react-components";
 import { businessServiceList } from "../../../utils";
 import cloneDeep from "lodash/cloneDeep";
 

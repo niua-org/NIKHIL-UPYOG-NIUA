@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { RadioButtons } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
-import { CloseSvg } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CloseSvg } from "@upyog/digit-ui-react-components";
 
 const SortBy = (props) => {
   const { t } = useTranslation();

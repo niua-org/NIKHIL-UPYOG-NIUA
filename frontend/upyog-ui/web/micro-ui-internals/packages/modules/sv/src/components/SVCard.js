@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { useTranslation } from "react-i18next";
-import { EmployeeModuleCard, PropertyHouse } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { EmployeeModuleCard, PropertyHouse } from "@upyog/digit-ui-react-components";
 
 // custom component for the employee card
 const SVCard = () => {

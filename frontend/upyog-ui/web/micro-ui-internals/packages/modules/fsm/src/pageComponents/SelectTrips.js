@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getVehicleType } from "../utils";
-import { LabelFieldPair, CardLabel, TextInput, Dropdown, Loader, CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { LabelFieldPair, CardLabel, TextInput, Dropdown, Loader, CardLabelError } from "@upyog/digit-ui-react-components";
 import { useLocation, useParams } from "react-router-dom";
 
 const SelectTrips = ({ t, config, onSelect, formData = {}, userType, styles, FSMTextFieldStyle }) => {

@@ -1,4 +1,4 @@
-import { CardLabel, CardLabelDesc,  UploadFile, FormStep } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, CardLabelDesc,  UploadFile, FormStep } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import Timeline from "../components/TLTimeline";
 import { getOwnersfromProperty } from "../utils";

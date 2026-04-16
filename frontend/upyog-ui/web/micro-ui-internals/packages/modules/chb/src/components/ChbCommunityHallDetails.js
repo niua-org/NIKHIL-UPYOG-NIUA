@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, CardLabel, CardLabelDesc, CardSubHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, CardLabel, CardLabelDesc, CardSubHeader } from "@upyog/digit-ui-react-components";
 
 // Close button component
 const Close = () => (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TelePhone } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TelePhone } from "@upyog/digit-ui-react-components";
 import Reason from "./Reason";
 
 const ChbCaption = ({ data }) => {

@@ -1,47 +1,69 @@
-# upyog-ui-react-components-lts
 
-This package contains shared UI components used across all SV-UI modules — forms, tables, date pickers, map components, and more.
+# digit-ui-react-components
 
 ## Install
 
 ```bash
-npm install --save @nudmcdgnpm/upyog-ui-react-components-lts
+npm install --save @upyog/digit-ui-react-components
 ```
 
-## Add as a dependency
+## Limitation
 
-In your `frontend/sv-ui/web/package.json`, add:
+```bash
+This Package is more specific to UPYOG can be used across mission's
+```
+
+## Usage
+
+After adding the dependency make sure you have this dependency in
+
+```bash
+frontend/micro-ui/web/package.json
+```
 
 ```json
-"@nudmcdgnpm/upyog-ui-react-components-lts": "^1.0.0"
+"@upyog/digit-ui-react-components":"1.5.24",
 ```
 
-## Requirements
+then navigate to App.js
 
-- Node.js `>= 22`
-- React `>= 19`
-- react-dom `>= 19`
-- react-router-dom `>= 6`
+```bash
+ frontend/micro-ui/web/src/App.js
+```
 
-## Key Dependencies
+Syntax for importing any component;
 
-| Package | Version | Purpose |
-|---|---|---|
-| react-hook-form | ^7.51.0 | Form state management |
-| react-i18next | ^14.0.0 | Translations and localization |
-| react-table | 7.7.0 | Table rendering |
-| react-date-range | 1.3.0 | Date range picker component |
-| date-fns | ^2.30.0 | Date formatting utilities |
-| @googlemaps/js-api-loader | 1.13.10 | Google Maps integration |
+```jsx
+import React, { Component } from "react";
+import MyComponent from "@upyog/digit-ui-react-components";
 
-## Changelog
+class Example extends Component {
+  render() {
+    return <MyComponent />;
+  }
+}
 
-See [CHANGELOG.md](./CHANGELOG.md)
+### Changelog
 
-## License
+```bash
+1.7.1 UPYOG base version
+```
 
-MIT
+### Contributors
 
-## Published from UPYOG Frontend
+[jagankumar-egov] [nipunarora-eGov] [Tulika-eGov] [Ramkrishna-egov] [nabeelmd-eGov] [anil-egov] [vamshikrishnakole-wtt-egov] 
 
-[UPYOG Frontend Repo](https://github.com/upyog/UPYOG/tree/develop)
+## Documentation
+
+Documentation Site (https://core.digit.org/guides/developer-guide/ui-developer-guide/digit-ui)
+
+## Maintainer
+
+- [Shivank-NIUA](https://github.com/ShivankShuklaa)
+
+
+### Published from UPYOG Frontend 
+DIGIT Frontend Repo (https://github.com/upyog/UPYOG/tree/develop)
+
+
+![Logo](https://s3.ap-south-1.amazonaws.com/works-dev-asset/mseva-white-logo.png)

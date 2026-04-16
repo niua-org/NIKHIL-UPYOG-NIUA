@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { Modal, Card,SubmitBar, CheckBox} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, Card,SubmitBar, CheckBox} from "@upyog/digit-ui-react-components";
 import { useHistory } from "react-router-dom";
 // import { demandPayloadData } from "../utils";
 

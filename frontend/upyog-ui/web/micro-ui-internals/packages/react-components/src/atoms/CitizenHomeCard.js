@@ -22,7 +22,7 @@ const CitizenHomeCard = ({ header, links = [], state, Icon, Info, isInfo = false
 
       <div className="links">
         {updatedData.map((e, i) => (
-          <div key={i} className="linksWrapper" style={{paddingLeft:"10px"}}>
+          <div className="linksWrapper" style={{paddingLeft:"10px"}}>
             {(e?.parentModule?.toUpperCase() == "BIRTH" ||
               e?.parentModule?.toUpperCase() == "DEATH" ||
               e?.parentModule?.toUpperCase() == "FIRENOC") ?

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormStep, TextInput, LabelFieldPair, CardLabel } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, TextInput, LabelFieldPair, CardLabel } from "@upyog/digit-ui-react-components";
 import Timeline from "../../components/TLTimeline";
 
 const PropertyMarketValue = (props) => {

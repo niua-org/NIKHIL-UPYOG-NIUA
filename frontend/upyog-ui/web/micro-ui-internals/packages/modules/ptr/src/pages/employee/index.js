@@ -18,7 +18,7 @@
  */
 
 
-import { PrivateRoute,BreadCrumb } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { PrivateRoute,BreadCrumb } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Switch, useLocation } from "react-router-dom";

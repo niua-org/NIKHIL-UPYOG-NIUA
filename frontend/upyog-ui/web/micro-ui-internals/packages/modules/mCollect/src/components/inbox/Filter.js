@@ -1,6 +1,6 @@
 import React from "react";
-import { ActionBar, CloseSvg } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { ApplyFilterBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { ActionBar, CloseSvg } from "@upyog/digit-ui-react-components";
+import { ApplyFilterBar } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Status from "./Status";
 import ServiceCategory from "./ServiceCategory";

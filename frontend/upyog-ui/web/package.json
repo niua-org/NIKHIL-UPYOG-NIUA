@@ -31,37 +31,11 @@
     "micro-ui-internals/packages/modules/reports",
     "micro-ui-internals/packages/modules/noc",
     "micro-ui-internals/packages/modules/mcollect"
-    "micro-ui-internals/packages/modules/common",
-    "micro-ui-internals/packages/modules/core",
-    "micro-ui-internals/packages/modules/pt",
-    "micro-ui-internals/packages/modules/tl",
-    "micro-ui-internals/packages/modules/ws",
-    "micro-ui-internals/packages/modules/pgr",
-    "micro-ui-internals/packages/modules/obps",
-    "micro-ui-internals/packages/modules/hrms",
-    "micro-ui-internals/packages/modules/fsm",
-    "micro-ui-internals/packages/modules/engagement",
-    "micro-ui-internals/packages/modules/vendor",
-    "micro-ui-internals/packages/modules/wt",
-    "micro-ui-internals/packages/modules/sv",
-    "micro-ui-internals/packages/modules/ew",
-    "micro-ui-internals/packages/modules/ads",
-    "micro-ui-internals/packages/modules/asset",
-    "micro-ui-internals/packages/modules/pgrai",
-    "micro-ui-internals/packages/modules/commonPt",
-    "micro-ui-internals/packages/modules/ptr",
-    "micro-ui-internals/packages/modules/receipts",
-    "micro-ui-internals/packages/modules/bills",
-    "micro-ui-internals/packages/modules/dss",
-    "micro-ui-internals/packages/modules/reports",
-    "micro-ui-internals/packages/modules/noc",
-    "micro-ui-internals/packages/modules/mcollect"
   ],
   "engines": {
     "node": ">=22"
   },
   "dependencies": {
-    "@nudmcdgnpm/upyog-css": "2.1.0",
     "@nudmcdgnpm/upyog-css": "2.1.0",
     "@upyog/digit-ui-libraries": "3.10.0",
     "@upyog/digit-ui-module-bills": "3.10.0",
@@ -80,16 +54,16 @@
     "@upyog/digit-ui-module-receipts": "3.0.1",
     "@upyog/digit-ui-module-tl": "3.10.0",
     "@upyog/digit-ui-module-ws": "3.10.0",
-    "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
+    "@upyog/digit-ui-react-components": "3.10.0",
     "@upyog/upyog-ui-module-ads": "3.10.0",
     "@upyog/upyog-ui-module-asset": "3.10.0",
     "@upyog/upyog-ui-module-ew": "3.10.0",
-    "@upyog/upyog-ui-module-pgrai": "3.10.0",
     "@upyog/upyog-ui-module-pgrai": "3.10.0",
     "@upyog/upyog-ui-module-ptr": "3.10.0",
     "@upyog/upyog-ui-module-sv": "3.10.0",
     "@upyog/upyog-ui-module-vendor": "3.10.0",
     "@upyog/upyog-ui-module-wt": "3.10.0",
+    "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
     "qrcode": "^1.5.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -105,15 +79,10 @@
   "scripts": {
     "start": "vite --config web/vite.config.js",
     "build": "vite build",
-    "start": "vite",
-    "build": "vite build",
     "build:prepare": "./build.sh"
   },
   "browserslist": [
     ">0.2%",
-    "not dead",
-    "not op_mini all"
-  ]
     "not dead",
     "not op_mini all"
   ]

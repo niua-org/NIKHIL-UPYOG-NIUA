@@ -16,7 +16,7 @@
 
 
 
-import { CardLabel, FormStep, TextInput ,SubmitBar} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, FormStep, TextInput ,SubmitBar} from "@upyog/digit-ui-react-components";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";

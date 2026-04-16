@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormStep, RadioButtons, LabelFieldPair, CardLabel, Dropdown, Loader, TextInput, CheckBox } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, RadioButtons, LabelFieldPair, CardLabel, Dropdown, Loader, TextInput, CheckBox } from "@upyog/digit-ui-react-components";
 import Timeline from "../../components/TLTimeline";
 
 const IsMutationPending = (props) => {

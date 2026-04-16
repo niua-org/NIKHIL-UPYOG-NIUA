@@ -7,7 +7,7 @@ import {
   CardLabel,
   CardLabelError,
   Loader,
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import { cardBodyStyle } from "../utils";
 import FormStep from "../../../../react-components/src/molecules/FormStep"
 import { useLocation } from "react-router-dom";

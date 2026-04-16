@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useRef } from "react";
-import { Header, MultiLink } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, MultiLink } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import ApplicationDetailsTemplate from "../../../../templates/ApplicationDetails";
 import * as func from "../../utils";

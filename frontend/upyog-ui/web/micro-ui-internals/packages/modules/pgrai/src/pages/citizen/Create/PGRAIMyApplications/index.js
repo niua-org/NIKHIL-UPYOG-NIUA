@@ -1,4 +1,4 @@
-import { Header, Loader, Card, CardLabel, TextInput, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, Loader, Card, CardLabel, TextInput, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";

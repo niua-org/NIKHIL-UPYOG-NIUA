@@ -1,4 +1,4 @@
-import { ActionLinks, CardSectionHeader, CheckPoint, ConnectingCheckPoints, Loader, SubmitBar, LinkButton } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { ActionLinks, CardSectionHeader, CheckPoint, ConnectingCheckPoints, Loader, SubmitBar, LinkButton } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";

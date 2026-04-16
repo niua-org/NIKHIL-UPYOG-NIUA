@@ -1,4 +1,4 @@
-import { DatePicker, UploadFile,TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { DatePicker, UploadFile,TextInput } from "@upyog/digit-ui-react-components";
 import React, { act } from "react";
 
 export const configEWApproverApplication = ({

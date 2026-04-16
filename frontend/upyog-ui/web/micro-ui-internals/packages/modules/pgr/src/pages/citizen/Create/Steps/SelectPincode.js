@@ -1,4 +1,4 @@
-import { FormStep } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 
 const SelectPincode = ({ t, config, onSelect, value }) => {

@@ -12,7 +12,7 @@
  */
 
 
-import { Card, Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, Loader } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ApplicationTable from "./inbox/ApplicationTable";

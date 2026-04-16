@@ -1,7 +1,7 @@
 import {
     Card, CardHeader, CardSubHeader, CardText,
     CitizenInfoLabel, Header, LinkButton, Row, StatusTable, SubmitBar, Table, CardSectionHeader, EditIcon, PDFSvg, Loader
-  } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+  } from "@upyog/digit-ui-react-components";
   import React,{ useMemo, useEffect }  from "react";
   import { useTranslation } from "react-i18next";
   import { useHistory, useRouteMatch } from "react-router-dom";

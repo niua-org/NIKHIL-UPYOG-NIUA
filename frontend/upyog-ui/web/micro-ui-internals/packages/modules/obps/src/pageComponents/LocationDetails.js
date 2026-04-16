@@ -1,4 +1,4 @@
-import { CardLabel, FormStep, LinkButton, RadioOrSelect, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, FormStep, LinkButton, RadioOrSelect, TextInput } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import GIS from "./GIS";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EditPencilIcon, LogoutIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { EditPencilIcon, LogoutIcon } from "@upyog/digit-ui-react-components";
 import TopBar from "./TopBar";
 import { useHistory } from "react-router-dom";
 import SideBar from "./SideBar";

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { Loader, MultiSelectDropdown, RemoveableTag } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, MultiSelectDropdown, RemoveableTag } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import ServiceCategoryCount from "./ServiceCategoryCount";
 

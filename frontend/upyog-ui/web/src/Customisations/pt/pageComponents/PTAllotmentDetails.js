@@ -1,4 +1,4 @@
-import { CardLabel, CitizenInfoLabel, FormStep, LabelFieldPair, TextInput,CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, CitizenInfoLabel, FormStep, LabelFieldPair, TextInput,CardLabelError } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 var validation ={};
 const PTAllotmentDetails = ({ t, config, onSelect, value, userType, formData }) => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Header, MultiLink } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, MultiLink } from "@upyog/digit-ui-react-components";
 import ApplicationDetailsTemplate from "../../../../templates/ApplicationDetails";
 import * as func from "../../utils";
 import cloneDeep from "lodash/cloneDeep";

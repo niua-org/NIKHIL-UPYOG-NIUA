@@ -1,4 +1,4 @@
-import { CardSectionHeader, CardText, Loader, PDFSvg, StatusTable } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardSectionHeader, CardText, Loader, PDFSvg, StatusTable } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 

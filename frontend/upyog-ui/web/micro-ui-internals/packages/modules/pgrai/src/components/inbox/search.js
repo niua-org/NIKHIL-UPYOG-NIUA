@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg } from "@upyog/digit-ui-react-components";
 
 /**
  * SearchComplaint Component

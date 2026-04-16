@@ -1,4 +1,4 @@
-import { CardLabelError, Dropdown, RemoveableTag, TextInput, MultiSelectDropdown } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabelError, Dropdown, RemoveableTag, TextInput, MultiSelectDropdown } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useMemo } from "react";
 import { Controller } from "react-hook-form";
 

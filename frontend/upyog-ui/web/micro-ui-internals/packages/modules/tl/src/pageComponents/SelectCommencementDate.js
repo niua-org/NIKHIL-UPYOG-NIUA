@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { CardLabel, DatePicker, TypeSelectCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { FormStep, RadioOrSelect, RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, DatePicker, TypeSelectCard } from "@upyog/digit-ui-react-components";
+import { FormStep, RadioOrSelect, RadioButtons } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/TLTimeline";
 
 const SelectCommencementDate = ({ t, config, onSelect, userType, formData }) => {

@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo  } from "react"
-import { CardLabelError, Dropdown, SearchField, TextInput } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabelError, Dropdown, SearchField, TextInput } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import {Controller } from "react-hook-form";
 import { alphabeticalSortFunctionForTenantsBasedOnName } from "../../../../utils";

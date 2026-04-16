@@ -85,6 +85,8 @@ export default defineConfig(({ mode }) => {
 
     root: __dirname,
 
+    cacheDir: path.resolve(__dirname, "../node_modules/.vite"),
+
     base: isProd ? "/upyog-ui/" : "/",
 
     define: {
@@ -97,7 +99,6 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: moduleAliases,
       dedupe: ["react", "react-dom"],
-      preserveSymlinks: true,
     },
 
     esbuild: {
@@ -111,8 +112,21 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       proxy,
       fs: {
-        allow: [".."], // 👈 VERY IMPORTANT
+        allow: [".."],
       },
+      watch: {
+        usePolling: true,
+        interval: 300,
+        include: [
+          path.resolve(__dirname, "../packages/**"),
+          path.resolve(__dirname, "src/**"),
+        ],
+        awaitWriteFinish: {
+          stabilityThreshold: 100,
+          pollInterval: 100,
+        },
+      },
+      hmr: true,
     },
 
     build: {

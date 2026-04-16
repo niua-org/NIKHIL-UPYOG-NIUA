@@ -24,7 +24,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { FormStep, TextInput, CardLabel, MobileNumber } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, TextInput, CardLabel, MobileNumber } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/PTRTimeline";
 
 const PTRCitizenDetails = ({ t, config, onSelect, userType, formData, renewApplication }) => {

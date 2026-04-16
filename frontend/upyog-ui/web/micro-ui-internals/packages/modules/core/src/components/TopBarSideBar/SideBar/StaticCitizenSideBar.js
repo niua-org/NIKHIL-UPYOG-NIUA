@@ -20,7 +20,7 @@ import {
   FirenocIcon,
   LoginIcon,
   CHBIcon
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import { Link, useLocation } from "react-router-dom";
 import SideBarMenu from "../../../config/sidebar-menu";
 import { useTranslation } from "react-i18next";

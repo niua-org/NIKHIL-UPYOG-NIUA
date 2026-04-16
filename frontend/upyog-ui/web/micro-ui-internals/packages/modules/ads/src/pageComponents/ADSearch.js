@@ -13,7 +13,7 @@ import {
   RadioButtons,
   TextInput,
 
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import BookingPopup from "../components/BookingPopup";
 
 
@@ -577,7 +577,7 @@ const handleCloseCart = () => {
             <SubmitBar label={t("ADS_VIEW_CART")} onSubmit={handleViewCart} />
           </div>
           <div
-            class="container"
+            className="container"
             style={{
               width: "1px",
             }}

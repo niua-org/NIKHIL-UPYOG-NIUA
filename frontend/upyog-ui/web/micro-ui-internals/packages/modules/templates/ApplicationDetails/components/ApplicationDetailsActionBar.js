@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import { useTranslation } from "react-i18next";
-import { SubmitBar, ActionBar, Menu, CardLabel } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { SubmitBar, ActionBar, Menu, CardLabel } from "@upyog/digit-ui-react-components";
 
 function ApplicationDetailsActionBar({ workflowDetails, displayMenu, onActionSelect, setDisplayMenu, businessService, forcedActionPrefix,ActionBarStyle={},MenuStyle={},isAction,applicationDetails }) {
   const { t } = useTranslation();

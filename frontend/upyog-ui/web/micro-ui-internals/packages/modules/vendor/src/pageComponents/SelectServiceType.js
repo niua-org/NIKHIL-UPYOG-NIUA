@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Dropdown, Loader } from "@upyog/digit-ui-react-components";
 
 const SelectServiceType = ({ config, onSelect, t, userType, formData }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();

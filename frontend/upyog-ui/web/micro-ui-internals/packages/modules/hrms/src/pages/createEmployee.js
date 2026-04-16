@@ -1,4 +1,4 @@
-import { FormComposer, Toast ,Loader, Header} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormComposer, Toast ,Loader, Header} from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

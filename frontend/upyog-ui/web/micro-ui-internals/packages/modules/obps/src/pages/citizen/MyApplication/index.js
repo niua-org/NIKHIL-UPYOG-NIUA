@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Card, KeyNote, Loader, SubmitBar, Header } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, KeyNote, Loader, SubmitBar, Header } from "@upyog/digit-ui-react-components";
 import { Fragment } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getBPAFormData } from "../../../utils/index";

@@ -1,5 +1,5 @@
 import React from "react";
-import { FormStep, StatusTable, Row, CardHeader, KeyNote, CardCaption } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, StatusTable, Row, CardHeader, KeyNote, CardCaption } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Timeline from "../../components/TLTimeline";
 // import { cardBodyStyle, stringReplaceAll } from "../utils";

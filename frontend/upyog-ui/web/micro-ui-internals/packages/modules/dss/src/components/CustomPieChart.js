@@ -1,4 +1,4 @@
-import { Loader, RemoveableTag } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, RemoveableTag } from "@upyog/digit-ui-react-components";
 import React, { useContext, useMemo, useState, Fragment, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";

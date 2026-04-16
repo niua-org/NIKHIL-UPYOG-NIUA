@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { Modal, Card,CheckBox} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, Card,CheckBox} from "@upyog/digit-ui-react-components";
 import {useForm } from "react-hook-form";
 
 const Heading = (props) => {

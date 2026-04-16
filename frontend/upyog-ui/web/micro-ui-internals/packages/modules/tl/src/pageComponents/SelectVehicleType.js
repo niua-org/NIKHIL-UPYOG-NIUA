@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Loader, TypeSelectCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { FormStep, RadioOrSelect, RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, TypeSelectCard } from "@upyog/digit-ui-react-components";
+import { FormStep, RadioOrSelect, RadioButtons } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/TLTimeline";
 
 const SelectVehicleType = ({ t, config, onSelect, userType, formData }) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CardLabel, UploadFile, Toast, FormStep, LabelFieldPair, SubmitBar, DeleteIcon } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, UploadFile, Toast, FormStep, LabelFieldPair, SubmitBar, DeleteIcon } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/VENDORTimeline";
 
 const VendorDocuments = ({ t, config, onSelect, formData }) => {

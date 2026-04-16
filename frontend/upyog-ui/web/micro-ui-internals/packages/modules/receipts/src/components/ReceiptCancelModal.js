@@ -1,4 +1,4 @@
-import { FormComposer, Loader, Modal } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormComposer, Loader, Modal } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { configCancelConfig } from "./Modal/CancelConfig";

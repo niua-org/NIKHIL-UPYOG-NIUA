@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, RadioButtons, ActionBar, RemoveableTag, CloseSvg, CheckBox, Localities, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Dropdown, RadioButtons, ActionBar, RemoveableTag, CloseSvg, CheckBox, Localities, SubmitBar } from "@upyog/digit-ui-react-components";
 
 import { useTranslation } from "react-i18next";
 

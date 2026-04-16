@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, LabelFieldPair, CardLabel, WrapUnMaskComponent, FormStep } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TextInput, LabelFieldPair, CardLabel, WrapUnMaskComponent, FormStep } from "@upyog/digit-ui-react-components";
 //import FormStep from "../../../../react-components/src/molecules/FormStep";
 import { useForm, Controller } from "react-hook-form";
 import _ from "lodash";

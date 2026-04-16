@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Loader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import StatusCount from "./StatusCount";
 

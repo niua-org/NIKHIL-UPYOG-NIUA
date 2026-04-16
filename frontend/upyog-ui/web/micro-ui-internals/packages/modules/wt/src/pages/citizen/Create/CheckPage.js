@@ -9,7 +9,7 @@ import {
   SubmitBar,
   EditIcon,
   GenericFileIcon,
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React, { useState, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";

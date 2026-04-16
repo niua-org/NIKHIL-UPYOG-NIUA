@@ -1,4 +1,4 @@
-import { TypeSelectCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TypeSelectCard } from "@upyog/digit-ui-react-components";
 import React, { useState } from "react";
 
 const SelectSubType = ({ t, config, onSelect, value }) => {

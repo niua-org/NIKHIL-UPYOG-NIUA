@@ -9,7 +9,7 @@ import {
   StatusTable,
   SubmitBar,
   Toast
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React, { useCallback, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 

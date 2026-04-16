@@ -1,5 +1,5 @@
 import React, { Fragment, useState,useEffect, useCallback, useMemo } from "react";
-import { SearchForm, Table, Card, Loader, Header,Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { SearchForm, Table, Card, Loader, Header,Toast } from "@upyog/digit-ui-react-components";
 import { useForm, Controller } from "react-hook-form";
 import SearchFields from "./SearchFields";
 import { useTranslation } from "react-i18next";

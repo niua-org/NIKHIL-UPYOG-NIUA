@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Loader, TypeSelectCard, Dropdown, FormStep, CardLabel, RadioOrSelect } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, TypeSelectCard, Dropdown, FormStep, CardLabel, RadioOrSelect } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/TLTimelineInFSM";
 import { useLocation } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { TickMark } from "../index";
+import { TickMark } from "@upyog/digit-ui-react-components";
 
 import { useLocation } from "react-router-dom";
 

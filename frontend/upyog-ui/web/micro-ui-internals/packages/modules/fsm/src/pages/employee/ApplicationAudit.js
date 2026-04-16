@@ -1,4 +1,4 @@
-import { Header, LinkButton, Loader, Table } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, LinkButton, Loader, Table } from "@upyog/digit-ui-react-components";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";

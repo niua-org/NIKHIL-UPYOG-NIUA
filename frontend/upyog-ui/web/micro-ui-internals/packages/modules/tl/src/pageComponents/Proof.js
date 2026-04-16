@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FormStep, UploadFile, CardLabelDesc, Dropdown, CardLabel } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, UploadFile, CardLabelDesc, Dropdown, CardLabel } from "@upyog/digit-ui-react-components";
 import { stringReplaceAll } from "../utils";
 import Timeline from "../components/TLTimeline";
 

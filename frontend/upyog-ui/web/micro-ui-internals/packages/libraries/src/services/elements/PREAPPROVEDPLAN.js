@@ -1,4 +1,4 @@
-import { DateRange, Details } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { DateRange, Details } from "@upyog/digit-ui-react-components";
 import Urls from "../atoms/urls";
 import { Request } from "../atoms/Utils/Request";
 

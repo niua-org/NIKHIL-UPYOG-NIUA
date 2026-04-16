@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker } from "@upyog/digit-ui-react-components";
 import DropdownUlb from "./DropdownUlb";
 import { alphabeticalSortFunctionForTenantsBasedOnName } from "../../utils";
 

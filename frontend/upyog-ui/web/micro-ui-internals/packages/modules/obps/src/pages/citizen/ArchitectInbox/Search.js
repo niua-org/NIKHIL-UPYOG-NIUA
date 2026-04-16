@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker, CardHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TextInput, Label, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker, CardHeader } from "@upyog/digit-ui-react-components";
 
 const Search = ({ onSearch, searchParams, searchFields, type, onClose, isInboxPage, t }) => {
   const { register, handleSubmit, formState, reset, watch, control } = useForm({

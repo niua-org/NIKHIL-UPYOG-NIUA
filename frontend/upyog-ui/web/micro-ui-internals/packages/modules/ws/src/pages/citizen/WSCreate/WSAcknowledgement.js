@@ -1,4 +1,4 @@
-import { Banner, Card, CardText, LinkButton, Loader, SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Banner, Card, CardText, LinkButton, Loader, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";

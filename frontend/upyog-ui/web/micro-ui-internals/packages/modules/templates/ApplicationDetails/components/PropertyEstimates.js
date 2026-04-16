@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { StatusTable, Row, BreakLine } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { StatusTable, Row, BreakLine } from "@upyog/digit-ui-react-components";
 
 function PropertyEstimates({ taxHeadEstimatesCalculation }) {
   const { taxHeadEstimates } = taxHeadEstimatesCalculation;

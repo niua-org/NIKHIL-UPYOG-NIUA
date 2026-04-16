@@ -1,7 +1,7 @@
-import { Loader, Modal, FormComposer, Toast } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, Modal, FormComposer, Toast } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect } from "react";
 import { useQueryClient } from "react-query";
-import { UploadPitPhoto } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { UploadPitPhoto } from "@upyog/digit-ui-react-components";
 
 import { configAssignDso, configCompleteApplication, configReassignDSO, configAcceptDso, configRejectApplication, configScheduleDso, configUpdateTrips, configRejectFstpo } from "../config";
 

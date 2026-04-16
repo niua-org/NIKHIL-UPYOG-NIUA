@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { Modal, AddressDetails } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, AddressDetails } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 

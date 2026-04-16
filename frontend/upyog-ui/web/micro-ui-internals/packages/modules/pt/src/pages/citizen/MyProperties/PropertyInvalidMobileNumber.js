@@ -1,4 +1,4 @@
-import { Card, ButtonSelector } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, ButtonSelector } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";

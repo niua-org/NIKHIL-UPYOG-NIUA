@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Header, Card, KeyNote, LinkButton, Loader, MultiLink } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Header, Card, KeyNote, LinkButton, Loader, MultiLink } from "@upyog/digit-ui-react-components";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import getPDFData from "../../getPDFData";
 import { getVehicleType } from "../../utils";

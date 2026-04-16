@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { TypeSelectCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
-import { FormStep, RadioOrSelect, RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TypeSelectCard } from "@upyog/digit-ui-react-components";
+import { FormStep, RadioOrSelect, RadioButtons } from "@upyog/digit-ui-react-components";
 
 const IsResidential = ({ t, config, onSelect, userType, formData }) => {
   const [isResdential, setisResdential] = useState(formData?.isResdential);

@@ -1,5 +1,5 @@
 import React from "react";
-import { LabelFieldPair, CardLabel, TextInput, CardLabelError, RadioButtons } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { LabelFieldPair, CardLabel, TextInput, CardLabelError, RadioButtons } from "@upyog/digit-ui-react-components";
 import { useLocation } from "react-router-dom";
 
 const SelectEmployeeGender = ({ t, config, onSelect, formData = {}, userType, register, errors }) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FormStep, Dropdown, Loader, CardLabel, RadioButtons, RadioOrSelect } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, Dropdown, Loader, CardLabel, RadioButtons, RadioOrSelect } from "@upyog/digit-ui-react-components";
 import Timeline from "../components/TLTimelineInFSM";
 
 const SelectPitType = ({ t, formData, config, onSelect, userType }) => {

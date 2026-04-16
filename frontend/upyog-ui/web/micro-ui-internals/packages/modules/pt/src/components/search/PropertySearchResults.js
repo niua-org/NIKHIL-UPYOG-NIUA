@@ -1,4 +1,4 @@
-import { DetailsCard, Loader, Table, Modal } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { DetailsCard, Loader, Table, Modal } from "@upyog/digit-ui-react-components";
 import React, { memo, useMemo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PropertyInvalidMobileNumber from "../../pages/citizen/MyProperties/PropertyInvalidMobileNumber";

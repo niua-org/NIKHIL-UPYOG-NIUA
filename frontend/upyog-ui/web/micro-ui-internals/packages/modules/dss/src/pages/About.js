@@ -1,4 +1,4 @@
-import { Card, Loader, Header, CardSubHeader } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, Loader, Header, CardSubHeader } from "@upyog/digit-ui-react-components";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 const About = () => {

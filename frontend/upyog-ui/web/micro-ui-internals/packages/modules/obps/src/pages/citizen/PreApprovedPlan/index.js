@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQueryClient } from "react-query";
 import { Switch,  Redirect } from "react-router-dom";
 import { useRouteMatch, useLocation, useHistory, Route, Link} from "react-router-dom";
-import { SubmitBar } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { SubmitBar } from "@upyog/digit-ui-react-components";
 
 import { newConfig as newPreApprovedConfig } from "../../../config/PreApprovedPlanConfig"
 import BuildingPlanScrutiny from "../../../pageComponents/BuildingPlanScrutiny";

@@ -1,4 +1,4 @@
-import { TextInput, CardLabel, LabelFieldPair, Dropdown, Loader, LocationSearch, CardLabelError, TextArea, MultiUploadWrapper } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { TextInput, CardLabel, LabelFieldPair, Dropdown, Loader, LocationSearch, CardLabelError, TextArea, MultiUploadWrapper } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Controller } from "react-hook-form";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, AddressDetails } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Modal, AddressDetails } from "@upyog/digit-ui-react-components";
 
 const Close = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFFFFF">

@@ -1,4 +1,4 @@
-import { CardLabel, Dropdown, LabelFieldPair, Loader, TextInput, CardLabelError } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { CardLabel, Dropdown, LabelFieldPair, Loader, TextInput, CardLabelError } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { stringReplaceAll, getPattern } from "../utils";
 import cloneDeep from "lodash/cloneDeep";

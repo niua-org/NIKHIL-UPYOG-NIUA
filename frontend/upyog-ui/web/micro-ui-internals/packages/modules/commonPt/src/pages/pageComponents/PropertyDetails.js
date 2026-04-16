@@ -1,6 +1,6 @@
 import {
   CardHeader, FormStep, LinkButton, Loader, Row, StatusTable, SubmitBar
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 import React from "react";
 import { Link } from "react-router-dom";
 import Timeline from "../../components/CPTTimeline";

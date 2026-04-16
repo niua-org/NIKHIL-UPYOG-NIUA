@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { Card, DetailsCard, Loader, PopUp, SearchAction, FilterAction } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, DetailsCard, Loader, PopUp, SearchAction, FilterAction } from "@upyog/digit-ui-react-components";
 import SearchApplication from "./search";
 import SortBy from "./SortBy";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormStep, TextInput, CardLabel, RadioButtons,CheckBox,Dropdown, TextArea } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { FormStep, TextInput, CardLabel, RadioButtons,CheckBox,Dropdown, TextArea } from "@upyog/digit-ui-react-components";
 
 /**
  * Major Page which is developed for Request/Booking detail page
