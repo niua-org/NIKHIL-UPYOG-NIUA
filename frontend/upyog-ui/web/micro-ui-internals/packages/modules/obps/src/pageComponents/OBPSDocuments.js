@@ -1,7 +1,7 @@
 import { CardText, Loader, PDFSvg } from "@nudmcdgnpm/upyog-ui-react-components-lts";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { pdfDocumentName, pdfDownloadLink, getDocumentsName,stringReplaceAll } from "../utils";
+import { pdfDownloadLink, stringReplaceAll } from "../utils";
 
 function OBPSDocument({ value = {}, Code, index, isNOC = false, svgStyles = { width: "100px", height: "100px", viewBox: "0 0 25 25", minWidth: "100px" }, isStakeHolder = false }) {
   const { t } = useTranslation();

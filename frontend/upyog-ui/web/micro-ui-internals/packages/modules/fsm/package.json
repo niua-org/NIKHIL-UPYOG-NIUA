@@ -2,18 +2,10 @@
   "name": "@upyog/digit-ui-module-fsm",
   "version": "3.10.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "src/Module.js",
   "description": "Digit FSM Module",
-  "module": "dist/index.modern.js",
   "source": "src/Module.js",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "build": "microbundle-crl --compress --no-sourcemap --format cjs",
-    "prepublish": "yarn build"
-  },
+
   "peerDependencies": {
     "react": ">=19",
     "react-dom": ">=19",

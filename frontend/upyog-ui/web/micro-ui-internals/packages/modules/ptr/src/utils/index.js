@@ -245,3 +245,4 @@ export const getWorkflow = (data = {}) => {
   };
 };
 
+export const cardBodyStyle = { paddingBottom: "16px" };

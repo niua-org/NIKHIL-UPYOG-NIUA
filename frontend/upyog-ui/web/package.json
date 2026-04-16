@@ -103,7 +103,7 @@
     "vite-plugin-commonjs": "^0.10.4"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --config web/vite.config.js",
     "build": "vite build",
     "start": "vite",
     "build": "vite build",

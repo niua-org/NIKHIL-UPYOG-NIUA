@@ -28,7 +28,7 @@ const WSDisconnectAcknowledgement = () => {
   return (
     <Card style={{ padding: "10px" }}>
       <CardSectionHeader>
-        <BannerPicker isSuccess={true} message={t("WS_APPLICATION_COMPLETED_SUCCESSFULLY_LABEL")} applicationNumber={disconnectionData?.DisconnectionResponse?.applicationNo}/> <successSvg />
+        <BannerPicker isSuccess={true} message={t("WS_APPLICATION_COMPLETED_SUCCESSFULLY_LABEL")} applicationNumber={disconnectionData?.DisconnectionResponse?.applicationNo}/> <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#00703C"/></svg>
       </CardSectionHeader>
       <CardText>
         {t('WS_DISCONNECTION_APPLICATION_SUCC_MSG')}

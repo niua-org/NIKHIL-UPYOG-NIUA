@@ -1,7 +1,7 @@
 import { Loader, Modal, FormComposer } from "@nudmcdgnpm/upyog-ui-react-components-lts";
 import React, { useState, useEffect } from "react";
 
-import { configPTVerifyApplication, configPTApproverApplication, configPTAssessProperty } from "../config";
+import { configPTApproverApplication, configPTAssessProperty } from "../config";
 import * as predefinedConfig from "../config";
 
 const Heading = (props) => {

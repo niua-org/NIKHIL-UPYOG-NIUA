@@ -2,7 +2,7 @@ import { StatusTable, Header, Card, CardHeader, Row, PDFSvg, CardSectionHeader, 
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { pdfDocumentName, pdfDownloadLink, stringReplaceAll } from "../../../utils";
+import { pdfDownloadLink, stringReplaceAll } from "../../../utils";
 import ApplicationTimeline from "../../../components/ApplicationTimeline";
 import { downloadAndPrintReciept } from "../../../utils";
 const ApplicationDetails = () => {
