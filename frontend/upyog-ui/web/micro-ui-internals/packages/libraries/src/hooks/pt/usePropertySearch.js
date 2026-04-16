@@ -1,4 +1,5 @@
-import { useQuery, useQueryClient } from "react-query";
+import { queryTemplate } from "../../common/queryTemplate";
+import { useQueryClient } from "../../common/queryClientTemplate";
 
 const usePropertySearch = ({ tenantId, filters, auth,searchedFrom="" }, config = {}) => {
   const client = useQueryClient();
@@ -17,12 +18,9 @@ const usePropertySearch = ({ tenantId, filters, auth,searchedFrom="" }, config =
     return data;
   };
 
-  const { isLoading, error, data, isSuccess } = useQuery(["propertySearchList", tenantId, filters, auth, config], () => Digit.PTService.search(args), {
-    select: defaultSelect,
-    ...config,
-  });
+  const { isLoading, error, data, isSuccess } = queryTemplate({ queryKey: ["propertySearchList", tenantId, filters, auth, config], queryFn: () => Digit.PTService.search(args), select: defaultSelect, config });
 
-  return { isLoading, error, data, isSuccess, revalidate: () => client.invalidateQueries(["propertySearchList", tenantId, filters, auth]) };
+  return { isLoading, error, data, isSuccess, revalidate: () => client.invalidateQueries({ queryKey: ["propertySearchList", tenantId, filters, auth] }) };
 };
 
 export default usePropertySearch;

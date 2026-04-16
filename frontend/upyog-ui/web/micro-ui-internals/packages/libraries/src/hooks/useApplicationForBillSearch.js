@@ -1,6 +1,6 @@
 import { FSMService } from "../services/elements/FSM";
 import { PTService } from "../services/elements/PT";
-import { useQuery } from "react-query";
+import { queryTemplate } from "../common/queryTemplate";
 import { MCollectService } from "../services/elements/MCollect";
 import { PTRService } from "../services/elements/PTR";
 import { CHBServices } from "../services/elements/CHB";
@@ -175,9 +175,7 @@ export const useApplicationsForBusinessServiceSearch = ({ tenantId, businessServ
 
   /* key from application ie being used as consumer code in bill */
   const { searchFn, key, label } = refObj(tenantId, filters)[_key];
-  const applications = useQuery(["applicationsForBillDetails", { tenantId, businessService, filters, searchFn }], searchFn, {
-    ...config,
-  });
+  const applications = queryTemplate({ queryKey: ["applicationsForBillDetails", { tenantId, businessService, filters, searchFn }], queryFn: searchFn, config });
 
   return { ...applications, key, label };
 };

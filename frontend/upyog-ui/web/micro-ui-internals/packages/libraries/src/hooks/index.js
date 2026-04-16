@@ -354,6 +354,8 @@ import useEnabledMDMS from "./useEnabledMDMS";
 import useSelectedMDMS from "./useSelectedMDMS";
 import useRouteSubscription from "./useRouteSubscription";
 import { useCustomBackNavigation } from "./UseCustomBackNavigationProps";
+import useCustomNavigate from "./useCustomNavigate";
+
 
 const pgr = {
   useComplaintDetails,
@@ -791,6 +793,7 @@ const Hooks = {
   useSelectedMDMS,
   useRouteSubscription,
   useCustomBackNavigation,
+  useCustomNavigate,
   pgrAi,
   useInbox
 };

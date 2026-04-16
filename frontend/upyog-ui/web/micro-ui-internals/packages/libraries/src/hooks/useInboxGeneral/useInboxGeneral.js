@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { useQuery, useQueryClient } from "react-query";
+import { queryTemplate } from "../../common/queryTemplate";
+import { useQueryClient } from "../../common/queryClientTemplate";
 import { FSMService } from "../../services/elements/FSM";
 import { PTService } from "../../services/elements/PT";
 import { PTRService } from "../../services/elements/PTR";
@@ -74,7 +75,7 @@ const inboxConfig = (tenantId, filters) => ({
     businessIdAliasForSearch: "applicationNo",
     fetchFilters: filterFunctions.SV,
     _searchFn: () => SVService.search({ tenantId, filters }),
-  }
+  },
 });
 
 const defaultCombineResponse = ({ totalCount, ...d }, wf) => {
@@ -96,13 +97,6 @@ const defaultCatchSearch = (Err) => {
     return [];
   throw Err;
 };
-
-/**
- *
- * @param {*} data
- * @param {Array of Objects containing async or pure functions} middlewares
- * @returns {object}
- */
 
 const callMiddlewares = async (data, middlewares) => {
   let applyBreak = false;
@@ -142,20 +136,16 @@ const useInboxGeneral = ({
 
   let { workflowFilters, searchFilters } = fetchFilters(filters);
 
-  const { data: processInstances, isFetching: wfFetching, isFetched, isSuccess: wfSuccess } = useQuery(
-    ["WORKFLOW_INBOX", businessService, workflowFilters],
-    () =>
+  const { data: processInstances, isFetching: wfFetching, isFetched, isSuccess: wfSuccess } = queryTemplate({
+    queryKey: ["WORKFLOW_INBOX", businessService, workflowFilters],
+    queryFn: () =>
       Digit.WorkflowService.getAllApplication(tenantId, { businessServices: services.join(), ...workflowFilters })
         .then(rawWfHandler)
         .then((data) => callMiddlewares(data.ProcessInstances, middlewaresWf)),
-    {
-      enabled: isInbox,
-      select: (d) => {
-        return d;
-      },
-      ...wfConfig,
-    }
-  );
+    enabled: isInbox,
+    select: (d) => d,
+    config: wfConfig,
+  });
 
   const applicationNoFromWF = processInstances?.map((e) => e.businessId).join() || "";
 
@@ -164,36 +154,30 @@ const useInboxGeneral = ({
 
   const { _searchFn } = inboxConfig(tenantId, { ...searchFilters })[businessService];
 
-  /**
-   * Convert Wf Array to Object
-   */
-
   const processInstanceBuisnessIdMap = processInstances?.reduce((object, item) => {
     return { ...object, [item?.["businessId"]]: item };
   }, {});
 
   const allowSearch = isInbox ? isFetched && wfSuccess && !!searchFilters[businessIdsParamForSearch] : true;
 
-  const searchResult = useQuery(
-    ["SEARCH_INBOX", businessService, searchFilters, workflowFilters, isInbox],
-    () => {
+  const searchResult = queryTemplate({
+    queryKey: ["SEARCH_INBOX", businessService, searchFilters, workflowFilters, isInbox],
+    queryFn: () => {
       if (allowSearch)
         return _searchFn()
           .then((d) => rawSearchHandler(d, searchResponseKey, businessIdAliasForSearch))
           .then((data) => callMiddlewares(data[searchResponseKey], middlewareSearch))
           .catch(catchSearch);
     },
-    {
-      enabled: allowSearch,
-      select: (d) => {
-        return d.map((searchResult) => ({
-          totalCount: d.totalCount,
-          ...combineResponse(searchResult, processInstanceBuisnessIdMap?.[searchResult?.[businessIdAliasForSearch]]),
-        }));
-      },
-      ...searchConfig,
-    }
-  );
+    enabled: allowSearch,
+    select: (d) => {
+      return d.map((searchResult) => ({
+        totalCount: d.totalCount,
+        ...combineResponse(searchResult, processInstanceBuisnessIdMap?.[searchResult?.[businessIdAliasForSearch]]),
+      }));
+    },
+    config: searchConfig,
+  });
 
   const revalidate = () => {
     client.refetchQueries(["WORKFLOW_INBOX"]);
@@ -208,7 +192,6 @@ const useInboxGeneral = ({
     searchResponseKey,
     businessIdsParamForSearch,
     businessIdAliasForSearch,
-
     searchFields: getSearchFields(isInbox)[businessService],
     wfFetching,
   };
