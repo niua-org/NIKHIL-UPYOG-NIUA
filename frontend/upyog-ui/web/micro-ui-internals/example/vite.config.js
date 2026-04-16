@@ -117,9 +117,10 @@ export default defineConfig(({ mode }) => {
       watch: {
         usePolling: true,
         interval: 300,
-        cwd: path.resolve(__dirname, ".."),
-        followSymlinks: true,
-        ignored: ["**/node_modules/**", "**/dist/**"],
+        include: [
+          path.resolve(__dirname, "../packages/**"),
+          path.resolve(__dirname, "src/**"),
+        ],
         awaitWriteFinish: {
           stabilityThreshold: 100,
           pollInterval: 100,
