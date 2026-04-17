@@ -6,7 +6,6 @@
   "source": "src/Module.js",
   "dependencies": {
     "@upyog/digit-ui-react-components": "3.10.0",
-    "microbundle-crl": "^0.13.11",
     "react": ">=18",
     "react-dom": ">=18",
     "react-i18next": "11.16.2",
@@ -18,12 +17,12 @@
     "redux-thunk": "2.4.1",
     "react-google-recaptcha": "^3.1.0"
   },
-  "author": "JaganKumar <jagan.kumar@egov.org.in>",
+  "author": "Internal Tech Team, NIUA",
   "keywords": [
-    "digit",
-    "egov",
+    "niua",
+    "nudm",
     "dpg",
-    "digit-ui",
+    "upyog-ui",
     "core"
   ]
 }

@@ -8,7 +8,6 @@
 
   "dependencies": {
     "@upyog/digit-ui-react-components": "3.10.0",
-    "microbundle-crl": "^0.13.11",
     "react": ">=18",
     "react-dom": ">=18",
     "react-hook-form": "6.15.8",
