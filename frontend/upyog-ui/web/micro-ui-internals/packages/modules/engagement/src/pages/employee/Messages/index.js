@@ -1,6 +1,6 @@
 import React from "react"
 import { Routes, Route } from "react-router-dom"
-import { PrivateRoute } from "@nudmcdgnpm/upyog-ui-react-components-lts"
+import { PrivateRoute } from "@upyog/digit-ui-react-components"
 import Inbox from "./Inbox"
 import NewMessage from "./NewMessage"
 import Response from "./NewMessage/Response"

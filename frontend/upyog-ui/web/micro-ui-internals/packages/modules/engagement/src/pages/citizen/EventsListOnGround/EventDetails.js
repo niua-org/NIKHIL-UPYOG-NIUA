@@ -1,4 +1,4 @@
-import { Clock, Header, Loader, MapMarker, OnGroundEventCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Clock, Header, Loader, MapMarker, OnGroundEventCard } from "@upyog/digit-ui-react-components";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useParams } from "react-router-dom";

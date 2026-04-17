@@ -3,7 +3,7 @@ import {
     TextInput,
     SearchIconSvg,
 
-} from "@nudmcdgnpm/upyog-ui-react-components-lts";
+} from "@upyog/digit-ui-react-components";
 
 const Searchbar = ({searchValue, onChange, handleKeyPress, handleSearch, t}) => {
  

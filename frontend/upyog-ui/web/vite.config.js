@@ -5,10 +5,16 @@
 
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
-import commonjs from "vite-plugin-commonjs";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const isProd = mode === "production";
 
   const proxyTarget = env.REACT_APP_PROXY_API || "https://niuatt.niua.in";
   const assetsTarget = env.REACT_APP_PROXY_ASSETS || proxyTarget;
@@ -31,6 +37,41 @@ export default defineConfig(({ mode }) => {
     "/bpa-calculator", "/request-service",
   ];
 
+  const packagesRoot = path.resolve(__dirname, "../packages");
+
+  function getAliases() {
+    const aliases = {};
+
+    function register(pkgDir) {
+      const pkgJsonPath = path.join(pkgDir, "package.json");
+      if (!fs.existsSync(pkgJsonPath)) return;
+      const { name, main } = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"));
+      if (!name) return;
+      // Point to the declared main entry, falling back to src/index.js
+      const entry = main
+        ? path.join(pkgDir, main)
+        : path.join(pkgDir, "src", "index.js");
+      if (fs.existsSync(entry)) aliases[name] = entry;
+    }
+
+    // modules/ contains subdirectories, each a separate package
+    const modulesDir = path.join(packagesRoot, "modules");
+    if (fs.existsSync(modulesDir)) {
+      fs.readdirSync(modulesDir).forEach((pkg) => {
+        const pkgDir = path.join(modulesDir, pkg);
+        if (fs.statSync(pkgDir).isDirectory()) register(pkgDir);
+      });
+    }
+
+    // libraries and react-components are single packages themselves
+    register(path.join(packagesRoot, "libraries"));
+    register(path.join(packagesRoot, "react-components"));
+
+    return aliases;
+  }
+
+  const moduleAliases = getAliases();
+
   const proxy = {};
   apiPaths.forEach((path) => {
     proxy[path] = { target: proxyTarget, changeOrigin: true };
@@ -40,11 +81,13 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
-      // Handles CJS dist files built by microbundle-crl
-      commonjs({transformMixedEsModules: true}),
     ],
 
-    base: "/upyog-ui/",
+    root: __dirname,
+
+    cacheDir: path.resolve(__dirname, "../node_modules/.vite"),
+
+    base: isProd ? "/upyog-ui/" : "/",
 
     define: {
       // Keeps all process.env.REACT_APP_* working without source changes
@@ -54,10 +97,8 @@ export default defineConfig(({ mode }) => {
     // No mainFields override — use Node standard resolution
     // dist/ exists because yarn build ran before this
     resolve: {
-      mainFields: ["main", "module"],
+      alias: moduleAliases,
       dedupe: ["react", "react-dom"],
-      preserveSymlinks: true
-
     },
 
     esbuild: {
@@ -70,6 +111,22 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       proxy,
+      fs: {
+        allow: [".."],
+      },
+      watch: {
+        usePolling: true,
+        interval: 300,
+        include: [
+          path.resolve(__dirname, "../packages/**"),
+          path.resolve(__dirname, "src/**"),
+        ],
+        awaitWriteFinish: {
+          stabilityThreshold: 100,
+          pollInterval: 100,
+        },
+      },
+      hmr: true,
     },
 
     build: {
@@ -85,11 +142,8 @@ export default defineConfig(({ mode }) => {
     },
 
     optimizeDeps: {
-      include: [
-    "react",
-    "react-dom",
-    "react-router-dom"
-  ],
+      include: ["react", "react-dom", "react-router-dom"],
+      exclude: Object.keys(moduleAliases), // 👈 IMPORTANT
       esbuildOptions: {
         loader: { ".js": "jsx" },
       },

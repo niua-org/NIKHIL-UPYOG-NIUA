@@ -1,4 +1,4 @@
-import { Loader, BreadCrumb } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Loader, BreadCrumb } from "@upyog/digit-ui-react-components";
 import React, {Fragment} from "react";
 import { useTranslation } from "react-i18next";
 import { Routes, Route, useLocation } from "react-router-dom";

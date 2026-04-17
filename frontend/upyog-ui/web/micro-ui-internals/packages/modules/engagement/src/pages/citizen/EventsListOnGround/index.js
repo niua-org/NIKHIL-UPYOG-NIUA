@@ -1,4 +1,4 @@
-import { Card, CardCaption, Header, Loader, OnGroundEventCard } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Card, CardCaption, Header, Loader, OnGroundEventCard } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";

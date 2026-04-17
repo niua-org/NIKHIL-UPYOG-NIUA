@@ -63,7 +63,6 @@
     "@upyog/upyog-ui-module-sv": "3.10.0",
     "@upyog/upyog-ui-module-vendor": "3.10.0",
     "@upyog/upyog-ui-module-wt": "3.10.0",
-    "@nudmcdgnpm/upyog-ui-react-components-lts": "1.0.0",
     "qrcode": "^1.5.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -77,8 +76,9 @@
     "vite-plugin-commonjs": "^0.10.4"
   },
   "scripts": {
-    "start": "vite --config web/vite.config.js",
+    "start": "vite --config vite.config.js",
     "build": "vite build",
+    "preview": "vite preview",
     "build:prepare": "./build.sh"
   },
   "browserslist": [

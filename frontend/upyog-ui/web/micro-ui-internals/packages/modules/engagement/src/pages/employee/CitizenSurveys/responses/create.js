@@ -1,4 +1,4 @@
-import { Banner, Card, Loader, CardText, ActionBar, SubmitBar,Menu } from "@nudmcdgnpm/upyog-ui-react-components-lts";
+import { Banner, Card, Loader, CardText, ActionBar, SubmitBar,Menu } from "@upyog/digit-ui-react-components";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect,useState } from "react";
 import { useTranslation } from "react-i18next";

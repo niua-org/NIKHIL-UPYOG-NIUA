@@ -10,7 +10,7 @@ import {
   PTLinks,
   PTComponents,
 } from "@upyog/digit-ui-module-pt";
-import { MCollectModule, MCollectLinks, initMCollectComponents } from "@upyog/digit-ui-module-mcollect";
+// import { MCollectModule, MCollectLinks, initMCollectComponents } from "@upyog/digit-ui-module-mcollect";
 import { initDSSComponents } from "@upyog/digit-ui-module-dss";
 import {
   PaymentModule,
@@ -57,8 +57,8 @@ import { VENDORComponents, VENDORLinks, VENDORModule } from "@upyog/upyog-ui-mod
 import { PGRAIComponents, PGRAILinks, PGRAIModule } from "@upyog/upyog-ui-module-pgrai";
 // import { ASSETV2Components, ASSETV2Links, ASSETV2Module } from "@nudmcdgnpm/upyog-ui-module-asset-v2";
 // import { GISComponents, GISLinks, GISModule } from "@nudmcdgnpm/upyog-ui-module-gis";
-import "leaflet/dist/leaflet.css";
-import "leaflet-draw/dist/leaflet.draw.css";
+// import "leaflet/dist/leaflet.css";
+// import "leaflet-draw/dist/leaflet.draw.css";
 
 initLibraries();
 
@@ -71,7 +71,7 @@ const enabledModules = [
   "QuickPayLinks",
   "DSS",
   "NDSS",
-  "MCollect",
+  // "MCollect",
   "HRMS",
   "TL",
   "Receipts",
@@ -107,8 +107,8 @@ window.Digit.ComponentRegistryService.setupRegistry({
   PaymentModule,
   PaymentLinks,
   ...PTComponents,
-  MCollectLinks,
-  MCollectModule,
+  // MCollectLinks,
+  // MCollectModule,
   HRMSModule,
   TLModule,
   TLLinks,
@@ -151,7 +151,7 @@ window.Digit.ComponentRegistryService.setupRegistry({
 initPGRComponents();
 initFSMComponents();
 initDSSComponents();
-initMCollectComponents();
+// initMCollectComponents();
 initHRMSComponents();
 initTLComponents();
 initReceiptsComponents();
