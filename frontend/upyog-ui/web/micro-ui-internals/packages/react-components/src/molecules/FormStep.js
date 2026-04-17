@@ -6,7 +6,7 @@ import CardLabel from "../atoms/CardLabel";
 import CardLabelError from "../atoms/CardLabelError";
 import TextInput from "../atoms/TextInput";
 import InputCard from "./InputCard";
-import { DatePicker } from "@upyog/digit-ui-react-components";
+import { DatePicker } from "../index";
 const FormStep = ({
   t,
   children,
@@ -27,12 +27,19 @@ const FormStep = ({
   textInputStyle,
   isMandatory
 }) => {
-  const { register, watch, errors, handleSubmit } = useForm({
+  const { register, watch, formState: { errors }, handleSubmit, setValue } = useForm({
     defaultValues: _defaultValues,
+    mode: "onChange",
   });
 
   const goNext = (data) => {
     onSelect(data);
+  };
+
+  const handleInputChange = (e, inputName) => {
+    const newValue = e.target.value;
+    setValue(inputName, newValue, { shouldValidate: true });
+    if (onChange) onChange(e);
   };
 
   var isDisable = isDisabled ? true : config.canDisable && Object.keys(errors).filter((i) => errors[i]).length;
@@ -49,13 +56,13 @@ const FormStep = ({
               key={index}
               name={input.name}
               value={value}
-              onChange={onChange}
+              onChange={(e) => handleInputChange(e, input.name)}
               minlength={input.validation.minlength}
               maxlength={input.validation.maxlength}
               pattern={input.validation?.pattern}
               title={input.validation?.title}
               placeholder={input.placeholder}
-              inputRef={register(input.validation)}
+              inputRef={register(input.name, input.validation).ref}
               isMandatory={errors[input.name]}
               disable={input.disable ? input.disable : false}
               textInputStyle={textInputStyle}
@@ -68,7 +75,7 @@ const FormStep = ({
       return (
         <React.Fragment key={index}>
           <CardLabel>{t(input.label)}</CardLabel>
-          <TextArea key={index} name={input.name} value={value} onChange={onChange} inputRef={register(input.validation)} maxLength="1024"></TextArea>
+          <TextArea key={index} name={input.name} value={value} onChange={(e) => handleInputChange(e, input.name)} inputRef={register(input.name, input.validation).ref} maxLength="1024"></TextArea>
         </React.Fragment>
       )
       if (input.type === "date")
@@ -84,10 +91,10 @@ const FormStep = ({
             key={index}
             name={input.name}
             value={value}
-            onChange={onChange}
+            onChange={(e) => handleInputChange(e, input.name)}
             pattern={input.validation?.pattern}
             title={input.validation?.title}
-            inputRef={register(input.validation)}
+            inputRef={register(input.name, input.validation).ref}
             isMandatory={errors[input.name]}
             disable={input.disable ? input.disable : false}
             textInputStyle={textInputStyle}

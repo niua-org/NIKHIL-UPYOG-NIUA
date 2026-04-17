@@ -28,7 +28,6 @@ import DatePicker from "./atoms/DatePicker";
 import DateRange from "./molecules/DateRange";
 import DateWrap from "./atoms/DateWrap";
 import DisplayPhotos from "./atoms/DisplayPhotos";
-import DisplayPhotosnew from "./atoms/DisplayPhotosnew";
 import Dropdown from "./atoms/Dropdown";
 import EllipsisMenu from "./atoms/EllipsisMenu";
 import EmployeeAppContainer from "./atoms/EmployeeAppContainer";
@@ -79,7 +78,6 @@ import {
   ComplaintIcon,
   Details,
   DocumentSVG,
-  SuccessSvg,
   DownloadIcon,
   DownloadImgIcon,
   DownwardArrow,
@@ -232,6 +230,7 @@ import CitizenConsentForm from "./atoms/CitizenConsentForm";
 import AddressDetails from "./molecules/AddressDetails";
 import ApplicantDetails from "./molecules/ApplicantDetails";
 import Timeline from "./molecules/Timeline";
+// import { Route, Switch, useHistory, useRouteMatch, useLocation, Redirect, withRouter, Prompt, useQueryParams, useParams } from "./atoms/RouterCompat";
 
 export {
   Phone,
@@ -273,7 +272,6 @@ export {
   LastRow,
   MediaRow,
   DisplayPhotos,
-  DisplayPhotosnew,
   ConnectingCheckPoints,
   CheckPoint,
   Rating,
@@ -339,7 +337,6 @@ export {
   CloseSvg,
   Close,
   PropertyHouse,
-  SuccessSvg,
   MultiLink,
   MultiSelectDropdown,
   CaseIcon,
@@ -473,6 +470,18 @@ export {
   CHBIcon,
   AddressDetails,
   ApplicantDetails,
-  Timeline
+  Timeline,
+  /*Router Compatibility
+  // Route,
+  // Switch,
+  // useHistory,
+  // useRouteMatch,
+  // useLocation,
+  // Redirect,
+  // withRouter,
+  // Prompt,
+  // useQueryParams,
+  // useParams 
+  // End of Compatibility */ 
   
 };

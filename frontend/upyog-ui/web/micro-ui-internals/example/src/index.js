@@ -34,16 +34,14 @@ import "@nudmcdgnpm/upyog-css";
 import { PTRModule, PTRLinks, PTRComponents } from "@upyog/upyog-ui-module-ptr";
 import { ASSETComponents, ASSETLinks, ASSETModule } from "@upyog/upyog-ui-module-asset";
 // import { ASSETV2Components, ASSETV2Links, ASSETV2Module } from "@nudmcdgnpm/upyog-ui-module-asset-v2";
-// import { ASSETV2Components, ASSETV2Links, ASSETV2Module } from "@nudmcdgnpm/upyog-ui-module-asset-v2";
 
-// import { 
-//   EWModule, 
-//   EWLinks, 
-//   EWComponents }
-//   from "@upyog/upyog-ui-module-ew";
+import { 
+  EWModule, 
+  EWLinks, 
+  EWComponents }
+  from "@upyog/upyog-ui-module-ew";
 
 import { SVComponents, SVLinks, SVModule } from "@upyog/upyog-ui-module-sv";
-// import {CHBModule,CHBLinks,CHBComponents} from "@upyog/upyog-ui-module-chb";
 // import {CHBModule,CHBLinks,CHBComponents} from "@upyog/upyog-ui-module-chb";
 import {ADSModule,ADSLinks,ADSComponents} from "@upyog/upyog-ui-module-ads";
 import { WTModule, WTLinks, WTComponents } from "@upyog/upyog-ui-module-wt";
@@ -89,16 +87,13 @@ const enabledModules = [
   "PTR",
   "ASSET",
   "ADS",
-  // "EW",
-  // "CHB",
+  "EW",
   // "CHB",
   "WT",
   "VENDOR",
   "MT",
   "PGRAI",
   "TP",
-  // "ASSETV2",
-  // "GIS"
   // "ASSETV2",
   // "GIS"
 ];
@@ -158,12 +153,9 @@ const initDigitUI = () => {
   SVModule,
   SVLinks,
   ...SVComponents,
-  // EWModule,
-  // EWLinks,
-  // ...EWComponents,
-  // CHBModule,
-  // CHBLinks,
-  // ...CHBComponents,
+  EWModule,
+  EWLinks,
+  ...EWComponents,
   // CHBModule,
   // CHBLinks,
   // ...CHBComponents,
@@ -176,12 +168,6 @@ const initDigitUI = () => {
   PGRAIModule,
   PGRAILinks,
   ...PGRAIComponents,
-  // ...ASSETV2Components, 
-  // ASSETV2Links, 
-  // ASSETV2Module,
-  // GISLinks,
-  // GISModule,
-  // ...GISComponents
   // ...ASSETV2Components, 
   // ASSETV2Links, 
   // ASSETV2Module,
