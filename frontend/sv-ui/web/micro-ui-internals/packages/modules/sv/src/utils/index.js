@@ -53,7 +53,11 @@ export const formatTime = (time) => {
 // helper function to format date from DD-MM-YYYY to YYYY-MM-DD
 export const formatToInputDate = (dateStr) => {
   if (!dateStr) return "";
-  const [dd, mm, yyyy] = dateStr.split("-");
+  const parts = dateStr.split("-");
+  // Check if already in YYYY-MM-DD format (year is 4 digits)
+  if (parts[0].length === 4) return dateStr;
+  // Convert DD-MM-YYYY to YYYY-MM-DD
+  const [dd, mm, yyyy] = parts;
   return `${yyyy}-${mm}-${dd}`;
 };
 

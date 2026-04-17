@@ -22,7 +22,10 @@ const SVCreate = ({ parentRoute }) => {
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("SV_CREATES", {});
 
-  const basePath = pathname.split("/").slice(0, pathname.split("/").indexOf("apply") + 1).join("/");
+  const FLOW_SEGMENTS = ["apply", "edit", "renew-application"];
+  const pathParts = pathname.split("/");
+  const flowIndex = pathParts.findIndex((seg) => FLOW_SEGMENTS.includes(seg));
+  const basePath = flowIndex !== -1 ? pathParts.slice(0, flowIndex + 1).join("/") : pathParts.slice(0, -1).join("/");
 
   const vendingApplicationNo=sessionStorage.getItem("vendingApplicationID")?sessionStorage.getItem("vendingApplicationID"):null;
   const { data: vendingApplicationData } = Digit.Hooks.sv.useSvSearchApplication(
