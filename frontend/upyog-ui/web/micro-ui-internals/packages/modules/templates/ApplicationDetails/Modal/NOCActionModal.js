@@ -1,6 +1,6 @@
 import { Loader, Modal, FormComposer } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { configNOCApproverApplication } from "../config";
 import * as predefinedConfig from "../config";

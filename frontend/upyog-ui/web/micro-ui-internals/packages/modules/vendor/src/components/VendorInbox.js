@@ -9,7 +9,7 @@ import Filter from "./inbox/Filter";
 import { ToggleSwitch } from "@upyog/digit-ui-react-components";
 //import RegistrySearch from "./RegistrySearch";
 import RegistredVendorSearch from "./RegisteredVendorSearch";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { add } from "lodash";
 
 const VendorInbox = (props) => {

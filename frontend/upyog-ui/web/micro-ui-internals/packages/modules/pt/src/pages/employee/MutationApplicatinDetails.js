@@ -12,7 +12,7 @@ import { newConfigMutate } from "../../config/Mutate/config";
 import _ from "lodash";
 import get from "lodash/get";
 import { pdfDownloadLink } from "../../utils";
-import { useQuery, useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import ApplicationDetailsToast from "../../../../templates/ApplicationDetails/components/ApplicationDetailsToast";
 const MutationApplicationDetails = ({ propertyId, acknowledgementIds, workflowDetails, mutate,showToast,
   setShowToast,closeToast}) => {

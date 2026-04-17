@@ -7,7 +7,7 @@ import ApplicationTable from "./inbox/ApplicationTable";
 import Filter from "./inbox/Filter";
 import { ToggleSwitch } from "@upyog/digit-ui-react-components";
 import RegistrySearch from "./RegistrySearch";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const RegisryInbox = (props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();

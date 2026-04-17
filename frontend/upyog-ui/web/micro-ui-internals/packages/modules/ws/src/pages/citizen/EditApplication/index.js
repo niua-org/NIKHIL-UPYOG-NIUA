@@ -1,7 +1,7 @@
 import { Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Redirect, Route, Switch, useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { newConfig as newConfigWS } from "../../../config/wsCreateConfig";
 import { stringReplaceAll } from "../../../utils/index";

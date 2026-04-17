@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormComposer, Toast, Header } from "@upyog/digit-ui-react-components";
 import { useHistory } from "react-router-dom";
 //import VendorConfig from "../../configs/VendorConfig";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import VendorConfig from "../../../config/VendorConfig";
 
 const AddVendor = ({ parentUrl, heading }) => {

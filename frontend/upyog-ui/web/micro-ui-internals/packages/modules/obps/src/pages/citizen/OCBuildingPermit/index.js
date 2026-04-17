@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouteMatch, useLocation, useHistory, Switch, Route, Redirect } from "react-router-dom";
 import { newConfig as newConfigOCBPA } from "../../../config/ocbuildingPermitConfig";
 // import CheckPage from "./CheckPage";

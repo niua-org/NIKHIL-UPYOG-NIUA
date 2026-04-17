@@ -2,7 +2,7 @@ import { DetailsCard, Loader, Table, Modal,SearchField,SubmitBar,SearchForm } fr
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PropertyInvalidMobileNumber from "../../pages/citizen/MyProperties/PropertyInvalidMobileNumber";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 const GetCell = (value) => <span className="cell-text">{value}</span>;
 
 const SearchPTID = ({ tenantId, t, payload, showToast, setShowToast,ptSearchConfig }) => {
@@ -21,8 +21,13 @@ const [groupBillrecords, setGroupBillrecords] = useState([]);
 console.log("payload", payload);
 let filters={ ...payload,isDefaulterNoticeSearch:true }
 const args = tenantId ? { tenantId, filters } : { filters };
-const { isLoading, error, data, isSuccess } = useQuery(["propertySearchList", tenantId,filters ], () => Digit.PTService.search(args));
-  
+// const { isLoading, error, data, isSuccess } = useQuery(["propertySearchList", tenantId,filters ], () => Digit.PTService.search(args));   // v4 useQuery Syntax
+
+//v5 useQuery syntax
+  const { isLoading, error, data, isSuccess } = useQuery({
+  queryKey: ["propertySearchList", tenantId, filters],
+  queryFn: () => Digit.PTService.search(args),
+});
 
   const mutation = Digit.Hooks.pt.usePropertyAPI(tenantId, false);
 

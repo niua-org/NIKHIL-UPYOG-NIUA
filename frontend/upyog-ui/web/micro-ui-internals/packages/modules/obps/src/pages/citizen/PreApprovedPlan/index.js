@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Switch,  Redirect } from "react-router-dom";
 import { useRouteMatch, useLocation, useHistory, Route, Link} from "react-router-dom";
 import { SubmitBar } from "@upyog/digit-ui-react-components";

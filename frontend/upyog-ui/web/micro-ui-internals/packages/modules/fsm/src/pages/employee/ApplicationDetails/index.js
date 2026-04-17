@@ -26,7 +26,7 @@ import {
 import ActionModal from "./Modal";
 import TLCaption from "../../../components/TLCaption";
 
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Link, useHistory, useParams } from "react-router-dom";
 import { ViewImages } from "../../../components/ViewImages";

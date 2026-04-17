@@ -5,7 +5,7 @@ import { Toast, Header, Loader,FormComposer } from "@upyog/digit-ui-react-compon
 
 import { useHistory } from "react-router-dom";
 import WorkerConfig from "../../../employee/configs/WorkerConfig";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 // IND-2023-11-24-010875
 const EditWorker = ({ parentUrl, heading }) => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Banner, CardText, SubmitBar, Loader, LinkButton, Toast, ActionBar } from "@upyog/digit-ui-react-components";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import getPTAcknowledgementData from "../getPTAcknowledgementData";
 
 const GetMessage = (type, action, isSuccess, isEmployee, t) => {

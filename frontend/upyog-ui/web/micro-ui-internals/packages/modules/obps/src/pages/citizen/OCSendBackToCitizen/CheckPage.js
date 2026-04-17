@@ -21,7 +21,7 @@ import Timeline from "../../../components/Timeline";
 import ActionModal from "../BpaApplicationDetail/Modal";
 import { convertToBPAObject, stringReplaceAll, convertEpochToDateDMY, getOrderDocuments } from "../../../utils";
 import cloneDeep from "lodash/cloneDeep";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import DocumentsPreview from "../../../../../templates/ApplicationDetails/components/DocumentsPreview";
 import usePreApprovedSearch from "../../../../../../libraries/src/hooks/obps/usePreApprovedSearch";
 

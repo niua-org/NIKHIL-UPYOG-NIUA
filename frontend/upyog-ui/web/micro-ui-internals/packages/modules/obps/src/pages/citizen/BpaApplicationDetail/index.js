@@ -1,7 +1,7 @@
 import { CardHeader, Header, Toast, Card, StatusTable, Row, Loader, Menu, PDFSvg, SubmitBar, LinkButton, ActionBar, CheckBox, MultiLink, CardText, CardSubHeader } from "@upyog/digit-ui-react-components";
 import React, { Fragment, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import BPAApplicationTimeline from "./BPAApplicationTimeline";
 import DocumentDetails from "../../../components/DocumentDetails";

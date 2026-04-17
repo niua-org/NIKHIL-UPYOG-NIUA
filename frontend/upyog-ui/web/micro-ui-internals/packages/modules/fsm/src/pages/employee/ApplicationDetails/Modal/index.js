@@ -1,6 +1,6 @@
 import { Loader, Modal, FormComposer, Toast } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { UploadPitPhoto } from "@upyog/digit-ui-react-components";
 
 import { configAssignDso, configCompleteApplication, configReassignDSO, configAcceptDso, configRejectApplication, configScheduleDso, configUpdateTrips, configRejectFstpo } from "../config";

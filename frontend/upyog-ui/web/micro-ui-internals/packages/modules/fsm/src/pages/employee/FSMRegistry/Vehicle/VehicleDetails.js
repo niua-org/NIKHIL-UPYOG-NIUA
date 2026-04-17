@@ -20,7 +20,7 @@ import {
   Dropdown,
 } from "@upyog/digit-ui-react-components";
 
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useHistory, useParams } from "react-router-dom";
 import ConfirmationBox from "../../../../components/Confirmation";

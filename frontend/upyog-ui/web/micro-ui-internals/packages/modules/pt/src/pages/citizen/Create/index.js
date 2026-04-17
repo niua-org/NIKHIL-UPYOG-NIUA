@@ -1,7 +1,7 @@
 import { Loader,Modal ,Card , CardHeader, StatusTable,Row} from "@upyog/digit-ui-react-components";
 import React ,{Fragment,useState,useEffect}from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { newConfig } from "../../../config/Create/config";
 

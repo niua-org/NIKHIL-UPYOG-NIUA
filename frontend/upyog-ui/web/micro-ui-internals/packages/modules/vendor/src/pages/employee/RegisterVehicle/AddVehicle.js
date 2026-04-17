@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FormComposer, Toast, Header, InfoIcon } from "@upyog/digit-ui-react-components";
 import { useHistory } from "react-router-dom";
 //import VehicleConfig from "../../../configs/VehicleConfig";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import VehicleConfig from "../../../config/VehicleConfig";
 
 const AddVehicle = ({ parentUrl, heading }) => {

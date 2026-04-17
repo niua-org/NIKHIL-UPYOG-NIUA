@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { newConfig as newConfigOCEDCR } from "../../../config/ocEdcrConfig";
 import { uuidv4, convertDateToEpoch } from "../../../utils";

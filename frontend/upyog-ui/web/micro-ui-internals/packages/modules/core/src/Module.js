@@ -1,5 +1,5 @@
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient as TanstackQueryClient, QueryClientProvider as TanstackQueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";

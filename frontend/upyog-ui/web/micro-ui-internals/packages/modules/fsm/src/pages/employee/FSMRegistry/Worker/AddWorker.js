@@ -4,7 +4,7 @@ import { FormComposer, Toast, Header } from "@upyog/digit-ui-react-components";
 //import { FormComposerV2 } from "../../../../../../../react-components/src";
 import { useHistory } from "react-router-dom";
 import WorkerConfig from "../../configs/WorkerConfig";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddWorker = ({ parentUrl, heading }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();

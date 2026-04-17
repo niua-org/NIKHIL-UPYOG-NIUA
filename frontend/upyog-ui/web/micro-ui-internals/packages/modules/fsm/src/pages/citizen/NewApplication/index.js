@@ -5,7 +5,7 @@ import { TypeSelectCard, Loader } from "@upyog/digit-ui-react-components";
 import { newConfig } from "../../../config/NewApplication/config";
 import CheckPage from "./CheckPage";
 import Response from "./Response";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FileComplaint = ({ parentRoute }) => {
   const queryClient = useQueryClient();
