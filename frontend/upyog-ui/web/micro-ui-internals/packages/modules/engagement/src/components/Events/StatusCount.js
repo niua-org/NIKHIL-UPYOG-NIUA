@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { CheckBox } from "@upyog/digit-ui-react-components";
+import { CheckBox } from "@nudmcdgnpm/upyog-ui-react-components-lts";
 
 const StatusCount = ({ status, onAssignmentChange, searchParams }) => {
   const { t } = useTranslation();
