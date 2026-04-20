@@ -30,6 +30,8 @@ class EGFFinance extends Component {
     // Preparing finance subdomain url using the above environment name and the domain url
     //subdomainurl = !!(finEnv) ? "-" + finEnv + "." + domainurl : "." + domainurl;
     //erp_url = loc.protocol + "//" + getTenantId().split(".")[1] + subdomainurl + menuUrl;
+
+    //TO DO - this is only for testing purpose if not worked out , we will roll back
     subdomainurl = !!(finEnv) ? finEnv + "." + domainurl : domainurl; 
     erp_url = loc.protocol + "//" + subdomainurl + menuUrl;  // this will form url like - erp_url = "https://niuatt.niua.in/services/EGF/expensebill/newform"
 
