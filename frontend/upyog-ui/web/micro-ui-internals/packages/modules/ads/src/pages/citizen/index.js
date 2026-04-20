@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const hideBackButtonConfig = [];
 
 const App = () => {
-  const { path, url, ...match } = Digit.Hooks.useModuleBasePath();
+  // const { path, url, ...match } = Digit.Hooks.useModuleBasePath();
   const { t } = useTranslation();
   const ADSCreate = Digit?.ComponentRegistryService?.getComponent("ADSCreate");
 //  to show back button on top left of the page in order to go back to previous page
@@ -18,11 +18,11 @@ const ADSApplicationDetails = Digit?.ComponentRegistryService?.getComponent("ADS
     <span className={"ads-citizen"} style={{ width: "100%" }}>
       <AppContainer>
         {!shouldHideBackButton(hideBackButtonConfig) ? <BackButton>Back</BackButton> : ""}
-        <Routes>
-          <Route path={`${path}/bookad`} element={<PrivateRoute><ADSCreate /></PrivateRoute>} />
-          <Route path={`${path}/myBookings`} element={<PrivateRoute><ADSMyApplications /></PrivateRoute>} />
-          <Route path={`${path}/application/:acknowledgementIds/:tenantId`} element={<PrivateRoute><ADSApplicationDetails /></PrivateRoute>} />
-        </Routes>
+       <Routes>
+        <Route path="bookad/*" element={<PrivateRoute><ADSCreate /></PrivateRoute>} />
+        <Route path="myBookings/*" element={<PrivateRoute><ADSMyApplications /></PrivateRoute>} />
+        <Route path="application/:acknowledgementIds/:tenantId" element={<PrivateRoute><ADSApplicationDetails /></PrivateRoute>} />
+      </Routes>
       </AppContainer>
     </span>
   );
