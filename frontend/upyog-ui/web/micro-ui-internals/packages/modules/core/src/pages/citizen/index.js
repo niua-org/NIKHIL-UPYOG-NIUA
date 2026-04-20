@@ -143,26 +143,63 @@ const Home = (props) => {
 
   const Advertisement = advertisement || [];
 
-  const ModuleLevelLinkHomePages = modules.map(({ code }, index) => {
+  const ModuleLevelLinkHomePages = modules.map(({ code, bannerImage }, index) => {
   let mdmsDataObj = isLinkDataFetched ? processLinkData(linkData, code, t) : undefined;
+  mdmsDataObj?.links && mdmsDataObj?.links.sort((a, b) => a.orderNumber - b.orderNumber);
 
   return (
     <React.Fragment key={index}>
       <Route
         path={`${code.toLowerCase()}-home`}
-        element={<div className="moduleLinkHomePage">...</div>}
+        element={
+          <div className="moduleLinkHomePage">
+            <img src={"https://nugp-assets.s3.ap-south-1.amazonaws.com/nugp+asset/Banner+UPYOG+%281920x500%29B+%282%29.jpg" || bannerImage || stateInfo?.bannerUrl} alt="noimagefound" />
+            <BackButton className="moduleLinkHomePageBackButton" />
+            {isMobile ? <h4 style={{top:"calc(16vw + 40px)",left:"1.5rem",position:"absolute",color:"white"}}>{t("MODULE_" + code.toUpperCase())}</h4> : <h1>{t("MODULE_" + code.toUpperCase())}</h1>}
+            <div className="moduleLinkHomePageModuleLinks">
+              {mdmsDataObj && (
+                <CitizenHomeCard
+                  header={t(mdmsDataObj?.header)}
+                  links={mdmsDataObj?.links}
+                  Icon={() => <span />}
+                  Info={code === "OBPS" ? () => (
+                    <CitizenInfoLabel
+                      style={{ margin: "0px", padding: "10px" }}
+                      info={t("CS_FILE_APPLICATION_INFO_LABEL")}
+                      text={t(`BPA_CITIZEN_HOME_STAKEHOLDER_INCLUDES_INFO_LABEL`)}
+                    />
+                  ) : null}
+                  isInfo={code === "OBPS" ? true : false}
+                />
+              )}
+            </div>
+            {code?.toUpperCase() === "ADS" && (
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+                {Advertisement.map((ad) => (
+                  <AdvertisementModuleCard
+                    imageSrc={ad.imageSrc}
+                    poleNo={ad.poleNo}
+                    light={ad.light}
+                    title={ad.title}
+                    location={ad.location}
+                    price={ad.price}
+                    path={`/upyog-ui/citizen/${code.toLowerCase()}/`}
+                    adType={ad.adtype}
+                    faceArea={ad.faceArea}
+                  />
+                ))}
+              </div>
+            )}
+            <StaticDynamicCard moduleCode={code?.toUpperCase()} />
+          </div>
+        }
       />
-      <Route
-        path={`${code.toLowerCase()}-faq`}
-        element={<FAQsSection module={code?.toUpperCase()} />}
-      />
-      <Route
-        path={`${code.toLowerCase()}-how-it-works`}
-        element={<HowItWorks module={code?.toUpperCase()} />}
-      />
+      <Route path={`${code.toLowerCase()}-faq`} element={<FAQsSection module={code?.toUpperCase()} />} />
+      <Route path={`${code.toLowerCase()}-how-it-works`} element={<HowItWorks module={code?.toUpperCase()} />} />
     </React.Fragment>
   );
 });
+
 
   return (
     <div className={classname}>
@@ -214,7 +251,14 @@ const Home = (props) => {
           <Route path="select-language" element={<LanguageSelection />} />
           <Route path="select-location" element={<LocationSelection />} />
           <Route path="error" element={<ErrorComponent initData={initData} />} />
-          <Route path="all-services" element={<AppHome />} />
+          <Route path="all-services" element={
+            <AppHome 
+            userType="citizen"
+              modules={modules}
+              getCitizenMenu={linkData}
+              fetchedCitizen={isLinkDataFetched}
+              isLoading={islinkDataLoading}
+              />} />
           <Route path="feedback" element={<PrivateRoute><CitizenFeedback /></PrivateRoute>} />
           <Route path="feedback-acknowledgement" element={<PrivateRoute><AcknowledgementCF /></PrivateRoute>} />
           <Route path="user/profile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
