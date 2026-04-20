@@ -3,7 +3,7 @@ import { Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, useLocation, useNavigate, Routes, Navigate } from "react-router-dom";
 import { newConfig } from "../../../config/Create/config";
 
 import { checkArrayLength, stringReplaceAll,getSuperBuiltUpareafromob } from "../../../utils";
@@ -412,10 +412,10 @@ const getPropertyEditDetails = (data = { }) => {
 };
 const EditProperty = ({ parentRoute }) => {
   const queryClient = useQueryClient();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("PT_CREATE_PROPERTY", { });
   const stateId = Digit.ULBService.getStateId();
@@ -524,9 +524,9 @@ const EditProperty = ({ parentRoute }) => {
     /* if (nextStep === "is-this-floor-self-occupied") {
       isMultiple = false;
     } */
-    let redirectWithHistory = history.push;
+    let redirectWithHistory = (to, state) => navigate(to, state != null ? { state } : undefined);
     if (skipStep) {
-      redirectWithHistory = history.replace;
+      redirectWithHistory = (to, state) => navigate(to, state != null ? { replace: true, state } : { replace: true });
     }
     if (isAddMultiple) {
       nextStep = key;
@@ -544,7 +544,7 @@ const EditProperty = ({ parentRoute }) => {
   };
 
   const createProperty = async () => {
-    history.push(`${match.path}/acknowledgement`);
+    navigate(`${match.path}/acknowledgement`);
   };
 
   function handleSelect(key, data, skipStep, index, isAddMultiple = false) {
@@ -588,26 +588,24 @@ const EditProperty = ({ parentRoute }) => {
   const PTAcknowledgement = Digit?.ComponentRegistryService?.getComponent('PTAcknowledgement');
 
   return (
-    <Switch>
+    <Routes>
       {config.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         return (
-          <Route path={`${match.path}/${routeObj.route}`} key={index}>
-            <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} />
-          </Route>
+          <Route
+            path={`${match.path}/${routeObj.route}`}
+            key={index}
+            element={
+              <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} />
+            }
+          />
         );
       })}
-      <Route path={`${match.path}/check`}>
-        <CheckPage onSubmit={createProperty} value={params} />
-      </Route>
-      <Route path={`${match.path}/acknowledgement`}>
-        <PTAcknowledgement data={params} onSuccess={onSuccess} />
-      </Route>
-      <Route>
-        <Redirect to={`${match.path}/${config.indexRoute}`} />
-      </Route>
-    </Switch>
+      <Route path={`${match.path}/check`} element={<CheckPage onSubmit={createProperty} value={params} />} />
+      <Route path={`${match.path}/acknowledgement`} element={<PTAcknowledgement data={params} onSuccess={onSuccess} />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} replace />} />
+    </Routes>
   );
 };
 

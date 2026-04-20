@@ -2,7 +2,7 @@ import { Loader } from "@upyog/digit-ui-react-components";
 import React ,{Fragment}from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, useLocation, useNavigate, Routes, Navigate } from "react-router-dom";
 import { citizenConfig } from "../../../config/Create/citizenconfig";
 import { data } from "jquery";
 
@@ -54,10 +54,10 @@ import { data } from "jquery";
 const CHBCreate = ({ parentRoute }) => {
 
   const queryClient = useQueryClient();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const stateId = Digit.ULBService.getStateId();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("CHB_CREATE", {});
@@ -90,9 +90,9 @@ const CHBCreate = ({ parentRoute }) => {
 
 
     
-    let redirectWithHistory = history.push;
+    let redirectWithHistory = (to, state) => navigate(to, state != null ? { state } : undefined);
     if (skipStep) {
-      redirectWithHistory = history.replace;
+      redirectWithHistory = (to, state) => navigate(to, state != null ? { replace: true, state } : { replace: true });
     }
     if (isAddMultiple) {
       nextStep = key;
@@ -118,7 +118,7 @@ const CHBCreate = ({ parentRoute }) => {
     }
 
   const chbcreate = async () => {
-    history.push(`${match.path}/acknowledgement`);
+    navigate(`${match.path}/acknowledgement`);
   };
 
   function handleSelect(key, data, skipStep, index, isAddMultiple = false) {
@@ -159,27 +159,25 @@ const CHBCreate = ({ parentRoute }) => {
   
   
   return (
-    <Switch>
+    <Routes>
       {config.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         return (
-          <Route path={`${match.path}/${routeObj.route}`} key={index}>
-            <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} />
-          </Route>
+          <Route
+            path={`${match.path}/${routeObj.route}`}
+            key={index}
+            element={
+              <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} />
+            }
+          />
         );
       })}
 
-      <Route path={`${match.path}/check`}>
-        <CheckPage onSubmit={chbcreate} value={params} />
-      </Route>
-      <Route path={`${match.path}/acknowledgement`}>
-        <CHBAcknowledgement data={params} onSuccess={onSuccess} />
-      </Route>
-      <Route>
-        <Redirect to={`${match.path}/${config.indexRoute}`} />
-      </Route>
-    </Switch>
+      <Route path={`${match.path}/check`} element={<CheckPage onSubmit={chbcreate} value={params} />} />
+      <Route path={`${match.path}/acknowledgement`} element={<CHBAcknowledgement data={params} onSuccess={onSuccess} />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} replace />} />
+    </Routes>
   );
 };
 

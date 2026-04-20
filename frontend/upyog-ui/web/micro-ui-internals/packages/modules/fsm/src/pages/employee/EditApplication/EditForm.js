@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormComposer, Header, Loader } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 
@@ -8,7 +8,7 @@ const isConventionalSpecticTank = (tankDimension) => tankDimension === "lbd";
 const EditForm = ({ tenantId, applicationData, channelMenu, vehicleMenu, sanitationMenu }) => {
   console.log("applndata",applicationData)
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [canSubmit, setSubmitValve] = useState(false);
   const stateId = Digit.ULBService.getStateId();
   const { data: commonFields, isLoading } = Digit.Hooks.fsm.useMDMS(stateId, "FSM", "CommonFieldsConfig");
@@ -241,11 +241,11 @@ const EditForm = ({ tenantId, applicationData, channelMenu, vehicleMenu, sanitat
     Digit.SessionStorage.set("city_property", null);
     Digit.SessionStorage.set("selected_localities", null);
     Digit.SessionStorage.set("locality_property", null);
-    history.replace("/upyog-ui/employee/fsm/response", {
+    navigate("/upyog-ui/employee/fsm/response", { replace: true, state: {
       applicationData: formData,
       key: "update",
       action: applicationData?.applicationStatus === "CREATED" ? "SUBMIT" : "SCHEDULE",
-    });
+    } });
   };
 
   if (isLoading || isTripConfigLoading || isApplicantConfigLoading) {

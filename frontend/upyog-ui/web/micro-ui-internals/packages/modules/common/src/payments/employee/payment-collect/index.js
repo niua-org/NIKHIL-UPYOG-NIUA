@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RadioButtons, FormComposer, Dropdown, CardSectionHeader, Loader, Toast, Card, Header } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
-import { useHistory, useParams, useRouteMatch, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCashPaymentDetails } from "./ManualReciept";
 import { useCardPaymentDetails } from "./card";
@@ -15,10 +15,10 @@ export const CollectPayment = (props) => {
   // const { formData, addParams } = props;
   const { workflow: ModuleWorkflow, IsDisconnectionFlow } = Digit.Hooks.useQueryParams();
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {state,search}=useLocation();
-  const { path: currentPath } = useRouteMatch();
+  const { path: currentPath } = Digit.Hooks.useModuleBasePath();
   let { consumerCode, businessService } = useParams();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const [Time, setTime ] = useState(0);
@@ -185,7 +185,7 @@ export const CollectPayment = (props) => {
     try {
       const resposne = await Digit.PaymentService.createReciept(tenantId, recieptRequest);
       queryClient.invalidateQueries();
-      history.push(
+      navigate(
         IsDisconnectionFlow ? `${props.basePath}/success/${businessService}/${resposne?.Payments[0]?.paymentDetails[0]?.receiptNumber.replace(/\//g, "%2F")}/${
           resposne?.Payments[0]?.paymentDetails[0]?.bill?.consumerCode
         }?IsDisconnectionFlow=${IsDisconnectionFlow}` : 

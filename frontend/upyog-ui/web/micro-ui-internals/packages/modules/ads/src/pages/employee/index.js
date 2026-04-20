@@ -1,7 +1,7 @@
 import { AppContainer, BackButton, PrivateRoute, BreadCrumb } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Switch, useLocation } from "react-router-dom";
+import { Link, useLocation, Routes, Route } from "react-router-dom";
 import SearchApp from "./SearchApp";
 
 /* EmployeeApp component serves as the main application container for employee-related routes.
@@ -27,31 +27,28 @@ const EmployeeApp = ({ path, url, userType }) => {
     window.location.href.includes("ads/application-details");
 
   return (
-    <Switch>
-      <AppContainer>
-        <React.Fragment>
-          <div className="ground-container">
-            {!isRes ? (
-              <div
-                style={
-                  isNewRegistration
-                    ? { marginLeft: "12px", display: "flex", alignItems: "center" }
-                    : { marginLeft: "-4px", display: "flex", alignItems: "center" }
-                }
-              >
-                <BackButton location={location} />
-                {/* <CHBBreadCrumbs location={location} /> */}
-              </div>
-            ) : null}
-            
-            <PrivateRoute path={`${path}/bookad`} component={ADSCreate} />
-            <PrivateRoute path={`${path}/my-applications`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
-            <PrivateRoute path={`${path}/applicationsearch/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-
-          </div>
-        </React.Fragment>
-      </AppContainer>
-    </Switch>
+    <AppContainer>
+      <React.Fragment>
+        <div className="ground-container">
+          {!isRes ? (
+            <div
+              style={
+                isNewRegistration
+                  ? { marginLeft: "12px", display: "flex", alignItems: "center" }
+                  : { marginLeft: "-4px", display: "flex", alignItems: "center" }
+              }
+            >
+              <BackButton location={location} />
+            </div>
+          ) : null}
+          <Routes>
+            <Route path={`${path}/bookad`} element={<PrivateRoute><ADSCreate /></PrivateRoute>} />
+            <Route path={`${path}/my-applications`} element={<PrivateRoute><SearchApp parentRoute={path} /></PrivateRoute>} />
+            <Route path={`${path}/applicationsearch/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          </Routes>
+        </div>
+      </React.Fragment>
+    </AppContainer>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, DateWrap, KeyNote } from "@upyog/digit-ui-react-components";
 import { CardSubHeader } from "@upyog/digit-ui-react-components";
 import { LOCALIZATION_KEY } from "../constants/Localization";
@@ -10,11 +10,11 @@ import { LOCALIZATION_KEY } from "../constants/Localization";
 const Complaint = ({ data, path }) => {
   let { serviceCode, serviceRequestId, applicationStatus } = data;
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleClick = () => {
-    history.push(`${path}/${serviceRequestId}`);
+    navigate(`${path}/${serviceRequestId}`);
   };
 
   const closedStatus = ["RESOLVED", "REJECTED", "CLOSEDAFTERREJECTION", "CLOSEDAFTERRESOLUTION"];

@@ -1,7 +1,7 @@
 import { PrivateRoute,BreadCrumb } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Switch, useLocation } from "react-router-dom";
+import { Link, useLocation, Routes, Route } from "react-router-dom";
 import { PTLinks } from "../../Module";
 import Inbox from "./Inbox";
 import PaymentDetails from "./PaymentDetails";
@@ -160,63 +160,64 @@ const EmployeeApp = ({ path, url, userType }) => {
   const isLocation = window.location.href.includes("pt") || window.location.href.includes("application");
   const isNewRegistration = window.location.href.includes("new-application") || window.location.href.includes("modify-application") || window.location.href.includes("pt/application-details");
   return (
-    <Switch>
-      <React.Fragment>
-        <div className="ground-container">
-          {/* <p className="breadcrumb" style={{ marginLeft: mobileView ? "2vw" : "revert" }}>
-            <Link to="/upyog-ui/employee" style={{ cursor: "pointer", color: "#666" }}>
-              {t("ES_COMMON_HOME")}
-            </Link>{" "}
-            / <span>{getBreadCrumb()}</span>
-          </p>} */}
-          {!isRes ? <div style={isNewRegistration ? {marginLeft: "12px" } : {marginLeft:"-4px"}}><PTBreadCrumbs location={location} /></div> : null}
-          <PrivateRoute exact path={`${path}/`} component={() => <PTLinks matchPath={path} userType={userType} />} />
-          <PrivateRoute
+    <React.Fragment>
+      <div className="ground-container">
+        {!isRes ? (
+          <div style={isNewRegistration ? { marginLeft: "12px" } : { marginLeft: "-4px" }}>
+            <PTBreadCrumbs location={location} />
+          </div>
+        ) : null}
+        <Routes>
+          <Route path={`${path}/`} element={<PrivateRoute><PTLinks matchPath={path} userType={userType} /></PrivateRoute>} />
+          <Route
             path={`${path}/inbox`}
-            component={() => (
-              <Inbox
-                useNewInboxAPI={true}
-                parentRoute={path}
-                businessService="PT"
-                filterComponent="PT_INBOX_FILTER"
-                initialStates={inboxInitialState}
-                isInbox={true}
-              />
-            )}
+            element={
+              <PrivateRoute>
+                <Inbox
+                  useNewInboxAPI={true}
+                  parentRoute={path}
+                  businessService="PT"
+                  filterComponent="PT_INBOX_FILTER"
+                  initialStates={inboxInitialState}
+                  isInbox={true}
+                />
+              </PrivateRoute>
+            }
           />
-          <PrivateRoute path={`${path}/new-application`} component={() => <NewApplication parentUrl={url} />} />
-          <PrivateRoute path={`${path}/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/property-details/:id`} component={() => <PropertyDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/applicationsearch/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/ptsearch/property-details/:id`} component={() => <PropertyDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/payment-details/:id`} component={() => <PaymentDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/ptsearch/payment-details/:id`} component={() => <PaymentDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/assessment-details/:id`} component={() => <AssessmentDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/ptsearch/assessment-details/:id`} component={() => <AssessmentDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/modify-application/:id`} component={() => <EditApplication />} />
-          {/**/}
-          <PrivateRoute path={`${path}/response`} component={(props) => <Response {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/property-mutate/:id`} component={() => <TransferOwnership parentRoute={path} />} />
-          <PrivateRoute path={`${path}/property-mutate-docs-required/:id`} component={() => <DocsRequired parentRoute={path} />} />
-          <PrivateRoute path={`${path}/search`} component={(props) => <Search {...props} t={t} parentRoute={path} />} />
-          <PrivateRoute
+          <Route path={`${path}/new-application`} element={<PrivateRoute><NewApplication parentUrl={url} /></PrivateRoute>} />
+          <Route path={`${path}/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/property-details/:id`} element={<PrivateRoute><PropertyDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/applicationsearch/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/ptsearch/property-details/:id`} element={<PrivateRoute><PropertyDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/payment-details/:id`} element={<PrivateRoute><PaymentDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/ptsearch/payment-details/:id`} element={<PrivateRoute><PaymentDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/assessment-details/:id`} element={<PrivateRoute><AssessmentDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/ptsearch/assessment-details/:id`} element={<PrivateRoute><AssessmentDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/modify-application/:id`} element={<PrivateRoute><EditApplication /></PrivateRoute>} />
+          <Route path={`${path}/response`} element={<PrivateRoute><Response parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/property-mutate/:id`} element={<PrivateRoute><TransferOwnership parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/property-mutate-docs-required/:id`} element={<PrivateRoute><DocsRequired parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/search`} element={<PrivateRoute><Search t={t} parentRoute={path} /></PrivateRoute>} />
+          <Route
             path={`${path}/searchold`}
-            component={() => (
-              <Inbox
-                parentRoute={path}
-                businessService="PT"
-                middlewareSearch={searchMW}
-                initialStates={inboxInitialState}
-                isInbox={false}
-                EmptyResultInboxComp={"PTEmptyResultInbox"}
-              />
-            )}
+            element={
+              <PrivateRoute>
+                <Inbox
+                  parentRoute={path}
+                  businessService="PT"
+                  middlewareSearch={searchMW}
+                  initialStates={inboxInitialState}
+                  isInbox={false}
+                  EmptyResultInboxComp={"PTEmptyResultInbox"}
+                />
+              </PrivateRoute>
+            }
           />
-          <PrivateRoute path={`${path}/application-search`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/ulb-assesment`} component={(props) => <UlbAssesment {...props} parentRoute={path} />} />
-        </div>
-      </React.Fragment>
-    </Switch>
+          <Route path={`${path}/application-search`} element={<PrivateRoute><SearchApp parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/ulb-assesment`} element={<PrivateRoute><UlbAssesment parentRoute={path} /></PrivateRoute>} />
+        </Routes>
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { FormStep, CardLabel, Dropdown, Modal } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /* This file is made for choosing the particular request type.  
     It provides a dropdown menu that allows users to select a service type, such as  
@@ -25,7 +25,7 @@ const Heading = (props) => {
 
 const ServiceTypes = ({ config = {} }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   //Fetching service type data from MDMS
   const serviceTypeData = [
     { i18nKey: "Property Tax", businessService: "PT" },
@@ -40,7 +40,7 @@ const ServiceTypes = ({ config = {} }) => {
     }
     const nextStep = "mapview";
     const userType = Digit.UserService.getUser()?.info?.type === "EMPLOYEE" ? "employee" : "citizen";
-    history.push(`/upyog-ui/${userType}/gis/${nextStep}`);
+    navigate(`/upyog-ui/${userType}/gis/${nextStep}`);
   }, [config, history, serviceType]);
 
   useEffect(() => {

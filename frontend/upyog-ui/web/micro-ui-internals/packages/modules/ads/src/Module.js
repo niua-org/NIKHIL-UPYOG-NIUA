@@ -1,7 +1,6 @@
 import { Header, CitizenHomeCard,CHBIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 
 import CitizenApp from "./pages/citizen";
 import ADSCreate from "./pages/citizen/Create";
@@ -45,7 +44,7 @@ const addComponentsToRegistry = () => {
 
 // Main ADSModule component
 export const ADSModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "ADS";
   const language = Digit.StoreData.getCurrentLanguage();

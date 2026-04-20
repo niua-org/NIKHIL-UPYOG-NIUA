@@ -1,7 +1,7 @@
 import { Banner, Card, CardText, LinkButton, LinkLabel, Loader, Row, StatusTable, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import getEwAcknowledgementData from "../../../utils/getEwAcknowledgementData";
 import { EWDataConvert } from "../../../utils";
 

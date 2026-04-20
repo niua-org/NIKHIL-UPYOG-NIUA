@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, useLocation, useNavigate, Routes, Navigate } from "react-router-dom";
 import { newConfigMutate } from "../../../config/Mutate/config";
 
 import { useTranslation } from "react-i18next";
@@ -7,10 +7,10 @@ import CheckPage from "./CheckPage";
 
 const MutationCitizen = (props) => {
   const { t } = useTranslation();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { pathname } = useLocation();
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("PT_MUTATE_PROPERTY", {});
-  const history = useHistory();
+  const navigate = useNavigate();
   const [submit, setSubmit] = useState(false);
   const [formData, setFormData] = useState(null);
 
@@ -48,12 +48,12 @@ const MutationCitizen = (props) => {
     if (!activeRouteObj.nextStep) {
       setSubmit(true);
     } else if (typeof activeRouteObj.nextStep === "string") {
-      if (skipStep) history.replace(`${pathArray.join("/")}/${activeRouteObj.nextStep}${queryString}`);
-      else history.push(`${pathArray.join("/")}/${activeRouteObj.nextStep}${queryString}`);
+      if (skipStep) navigate(`${pathArray.join("/")}/${activeRouteObj.nextStep}${queryString}`, { replace: true });
+      else navigate(`${pathArray.join("/")}/${activeRouteObj.nextStep}${queryString}`);
     } else if (typeof activeRouteObj.nextStep === "object") {
       let nextStep = activeRouteObj.nextStep[configObj?.routeKey];
-      if (skipStep) history.replace(`${pathArray.join("/")}/${nextStep}${queryString}`);
-      else history.push(`${pathArray.join("/")}/${nextStep}${queryString}`);
+      if (skipStep) navigate(`${pathArray.join("/")}/${nextStep}${queryString}`, { replace: true });
+      else navigate(`${pathArray.join("/")}/${nextStep}${queryString}`);
     }
   }
 
@@ -161,11 +161,11 @@ const MutationCitizen = (props) => {
   };
 
   useEffect(() => {
-    if (formData) history.push(`${match.path}/check`);
+    if (formData) navigate(`${match.path}/check`);
   }, [formData]);
 
   const mutateProperty = () => {
-    history.push(`${match.path}/acknowledgement`);
+    navigate(`${match.path}/acknowledgement`);
   };
 
   const handleSkip = () => {};
@@ -173,36 +173,39 @@ const MutationCitizen = (props) => {
   const PTAcknowledgement = Digit?.ComponentRegistryService?.getComponent("PTAcknowledgement");
   return (
     <React.Fragment>
-      <Switch>
+      <Routes>
         {config.map((routeObj, index) => {
           const { component } = routeObj;
           const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
           return (
-            <Route path={`${match.path}/${routeObj.route}`} key={index}>
-              {Component ? (
-                <Component config={routeObj} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} clearParams={() => clearParams()} />
-              ) : (
-                <div>Component not found</div>
-              )}
-            </Route>
+            <Route
+              path={`${match.path}/${routeObj.route}`}
+              key={index}
+              element={
+                Component ? (
+                  <Component config={routeObj} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} clearParams={() => clearParams()} />
+                ) : (
+                  <div>Component not found</div>
+                )
+              }
+            />
           );
         })}
-        <Route path={`${match.path}/check`}>
-          <CheckPage onSubmit={mutateProperty} value={params} />
-        </Route>
-        <Route path={`${match.path}/acknowledgement`}>
-          <PTAcknowledgement
-            data={formData}
-            onSuccess={() => {
-              clearParams();
-              setFormData(null);
-            }}
-          />
-        </Route>
-        <Route>
-          <Redirect to={`${match.path}/${config.indexRoute}`} />
-        </Route>
-      </Switch>
+        <Route path={`${match.path}/check`} element={<CheckPage onSubmit={mutateProperty} value={params} />} />
+        <Route
+          path={`${match.path}/acknowledgement`}
+          element={
+            <PTAcknowledgement
+              data={formData}
+              onSuccess={() => {
+                clearParams();
+                setFormData(null);
+              }}
+            />
+          }
+        />
+        <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} replace />} />
+      </Routes>
     </React.Fragment>
   );
 };

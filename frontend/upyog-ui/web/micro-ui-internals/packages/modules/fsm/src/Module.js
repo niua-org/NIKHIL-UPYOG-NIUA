@@ -1,7 +1,7 @@
 import { CitizenHomeCard, CitizenTruck, Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FSMCard from "./components/FsmCard";
 import CheckSlum from "./pageComponents/CheckSlum";
 // import SelectAddress from "./pageComponents/SelectAddress";
@@ -69,7 +69,7 @@ import TqmCard from "./components/TqmCard";
 
 const FSMModule = ({ stateCode, userType, tenants }) => {
   const moduleCode = "FSM";
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
 

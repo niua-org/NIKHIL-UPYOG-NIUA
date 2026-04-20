@@ -1,7 +1,7 @@
 import { Banner, Card, CardText, LinkButton, LinkLabel, Loader, Row, StatusTable, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import getPTAcknowledgementData from "../../../getPTAcknowledgementData";
 import { convertToProperty, convertToUpdateProperty } from "../../../utils";
 
@@ -42,7 +42,7 @@ const PTAcknowledgement = ({ data, onSuccess }) => {
     !window.location.href.includes("edit-application") && !isPropertyMutation
   );
   const { data: storeData } = Digit.Hooks.useStore.getInitData();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { tenants } = storeData || {};
 
   useEffect(() => {

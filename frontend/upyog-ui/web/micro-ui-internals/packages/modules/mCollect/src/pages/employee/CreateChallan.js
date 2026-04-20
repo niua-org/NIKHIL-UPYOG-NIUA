@@ -5,13 +5,13 @@ import * as func from "./Utils/Category";
 import { FormComposer } from "../../components/FormComposer";
 import { sortDropdownNames } from "./Utils/Sortbyname";
 import { stringReplaceAll } from "../../utils/index";
-import { useParams, useHistory, useRouteMatch } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const CreateChallen = ({ ChallanData }) => {
   const childRef = useRef();
-  const history = useHistory();
-  const { url } = useRouteMatch();
+  const navigate = useNavigate();
+  const { url } = Digit.Hooks.useModuleBasePath();
   let defaultval;
   let isEdit = false;
   if (url.includes("modify-challan")) {
@@ -382,7 +382,7 @@ const CreateChallen = ({ ChallanData }) => {
             let LastModifiedTime = Digit.SessionStorage.set("isMcollectAppChanged", challan.auditDetails.lastModifiedTime);
             Digit.MCollectService.generateBill(challan.challanNo, tenantId, challan.businessService, "challan").then((response) => {
               if (response.Bill && response.Bill.length > 0) {
-                history.push(
+                navigate(
                   `/upyog-ui/employee/mcollect/acknowledgement?purpose=challan&status=success&tenantId=${tenantId}&billNumber=${
                     response.Bill[0].billNumber
                   }&serviceCategory=${response.Bill[0].businessService}&challanNumber=${response.Bill[0].consumerCode}&isEdit=${true}`,
@@ -400,7 +400,7 @@ const CreateChallen = ({ ChallanData }) => {
             const challan = result.challans[0];
             Digit.MCollectService.generateBill(challan.challanNo, tenantId, challan.businessService, "challan").then((response) => {
               if (response.Bill && response.Bill.length > 0) {
-                history.push(
+                navigate(
                   `/upyog-ui/employee/mcollect/acknowledgement?purpose=challan&status=success&tenantId=${tenantId}&billNumber=${response.Bill[0].billNumber}&serviceCategory=${response.Bill[0].businessService}&challanNumber=${response.Bill[0].consumerCode}`,
                   { from: url }
                 );

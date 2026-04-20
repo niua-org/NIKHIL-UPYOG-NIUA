@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FormComposer, Toast, Header } from "@upyog/digit-ui-react-components";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DriverConfig from "../../configs/DriverConfig";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -9,7 +9,7 @@ const AddDriver = ({ parentUrl, heading }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
   const [showToast, setShowToast] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const [mutationHappened, setMutationHappened, clear] = Digit.Hooks.useSessionStorage("FSM_MUTATION_HAPPENED", false);
@@ -92,7 +92,7 @@ const AddDriver = ({ parentUrl, heading }) => {
         queryClient.invalidateQueries("FSM_DRIVER_SEARCH");
         setTimeout(() => {
           closeToast();
-          history.push(`/upyog-ui/employee/fsm/registry?selectedTabs=DRIVER`);
+          navigate(`/upyog-ui/employee/fsm/registry?selectedTabs=DRIVER`);
         }, 5000);
       },
     });

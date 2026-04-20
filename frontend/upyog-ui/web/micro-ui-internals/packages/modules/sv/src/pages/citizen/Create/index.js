@@ -2,16 +2,16 @@
 import React ,{Children, Fragment}from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, useLocation, useNavigate, Routes, Navigate } from "react-router-dom";
 import { Config } from "../../../config/config";
 
 const SVCreate = ({ parentRoute }) => {
 
   const queryClient = useQueryClient();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const stateId = Digit.ULBService.getStateId();
   let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("SV_CREATES", {});
@@ -59,9 +59,9 @@ const SVCreate = ({ parentRoute }) => {
     let { nextStep = {} } = config.find((routeObj) => routeObj.route === currentPath);
 
 
-    let redirectWithHistory = history.push;
+    let redirectWithHistory = (to, state) => navigate(to, state != null ? { state } : undefined);
     if (skipStep) {
-      redirectWithHistory = history.replace;
+      redirectWithHistory = (to, state) => navigate(to, state != null ? { replace: true, state } : { replace: true });
     }
     if (isAddMultiple) {
       nextStep = key;
@@ -87,7 +87,7 @@ const SVCreate = ({ parentRoute }) => {
     }
 
   const svcreate = async () => {
-    history.replace(`${match.path}/acknowledgement`);
+    navigate(`${match.path}/acknowledgement`, { replace: true });
   };
 
   function handleSelect(key, data, skipStep, index, isAddMultiple = false) {
@@ -144,29 +144,26 @@ const SVCreate = ({ parentRoute }) => {
   
   
   return (
-    <Switch>
+    <Routes>
       {config.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         const user = Digit.UserService.getUser().info.type;
         return (
-          <Route path={`${match.path}/${routeObj.route}`} key={index}>
-            <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} userType={user} editdata={pathname.includes("apply") ? {} : vendingData} previousData={vending_draft_data} />
-          </Route>
+          <Route
+            path={`${match.path}/${routeObj.route}`}
+            key={index}
+            element={
+              <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} userType={user} editdata={pathname.includes("apply") ? {} : vendingData} previousData={vending_draft_data} />
+            }
+          />
         );
       })}
 
-      
-      <Route path={`${match.path}/check`}>
-        <SVCheckPage onSubmit={svcreate} value={params} editdata={pathname.includes("apply") ? {} : vendingData} />
-      </Route>
-      <Route path={`${match.path}/acknowledgement`}>
-        <SVAcknowledgement data={params} onSuccess={onSuccess}/>
-      </Route>
-      <Route>
-        <Redirect to={`${match.path}/${config.indexRoute}`} />
-      </Route>
-    </Switch>
+      <Route path={`${match.path}/check`} element={<SVCheckPage onSubmit={svcreate} value={params} editdata={pathname.includes("apply") ? {} : vendingData} />} />
+      <Route path={`${match.path}/acknowledgement`} element={<SVAcknowledgement data={params} onSuccess={onSuccess} />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} replace />} />
+    </Routes>
   );
 };
 

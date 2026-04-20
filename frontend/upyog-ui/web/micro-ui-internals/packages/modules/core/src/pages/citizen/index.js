@@ -1,7 +1,7 @@
 import { BackButton, WhatsappIcon, Card, CitizenHomeCard, CitizenInfoLabel, PrivateRoute,AdvertisementModuleCard } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Switch, useRouteMatch, useHistory, Link } from "react-router-dom";
+import { Route, Routes, useNavigate, Link } from "react-router-dom";
 import ErrorBoundary from "../../components/ErrorBoundaries";
 import { AppHome, processLinkData } from "../../components/Home";
 import TopBarSideBar from "../../components/TopBarSideBar";
@@ -79,10 +79,10 @@ const Home = ({
   // const classname = Digit.Hooks.fsm.useRouteSubscription(pathname);
   const classname = Digit.Hooks.useRouteSubscription(pathname);
   const { t } = useTranslation();
-  const { path } = useRouteMatch();
+  const path = "/upyog-ui/citizen";
   sourceUrl = "https://s3.ap-south-1.amazonaws.com/egov-qa-assets";
   const pdfUrl = "https://pg-egov-assets.s3.ap-south-1.amazonaws.com/Upyog+Code+and+Copyright+License_v1.pdf"
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleClickOnWhatsApp = (obj) => {
     window.open(obj);
   };
@@ -97,9 +97,15 @@ const Home = ({
 
     const Module = Digit.ComponentRegistryService.getComponent(`${code}Module`);
     return Module ? (
-      <Route key={index} path={`${path}/${code.toLowerCase()}`}>
-        <Module stateCode={stateCode} moduleCode={code} userType="citizen" tenants={getTenants(tenants, appTenants)} />
-      </Route>
+      <Route
+        key={index}
+        path={`${path}/${code.toLowerCase()}/*`}
+        element={
+          <ErrorBoundary initData={initData}>
+            <Module stateCode={stateCode} moduleCode={code} userType="citizen" tenants={getTenants(tenants, appTenants)} />
+          </ErrorBoundary>
+        }
+      />
     ) : null;
   });
   // Fetches advertisement details (e.g., image, title, location, pole number, price) 
@@ -125,7 +131,10 @@ const Home = ({
     // }
     return (
       <React.Fragment>
-        <Route key={index} path={`${path}/${code.toLowerCase()}-home`}>
+        <Route
+          key={index}
+          path={`${path}/${code.toLowerCase()}-home`}
+          element={
           <div className="moduleLinkHomePage">
             <img src={ "https://nugp-assets.s3.ap-south-1.amazonaws.com/nugp+asset/Banner+UPYOG+%281920x500%29B+%282%29.jpg"||bannerImage || stateInfo?.bannerUrl} alt="noimagefound" />
             <BackButton className="moduleLinkHomePageBackButton" />
@@ -171,13 +180,10 @@ const Home = ({
             )}
             <StaticDynamicCard moduleCode={code?.toUpperCase()}/>
           </div>
-        </Route>
-        <Route key={"faq" + index} path={`${path}/${code.toLowerCase()}-faq`}>
-          <FAQsSection module={code?.toUpperCase()} />
-        </Route>
-        <Route key={"hiw" + index} path={`${path}/${code.toLowerCase()}-how-it-works`}>
-          <HowItWorks module={code?.toUpperCase()} />
-        </Route>
+          }
+        />
+        <Route key={"faq" + index} path={`${path}/${code.toLowerCase()}-faq`} element={<FAQsSection module={code?.toUpperCase()} />} />
+        <Route key={"hiw" + index} path={`${path}/${code.toLowerCase()}-how-it-works`} element={<HowItWorks module={code?.toUpperCase()} />} />
       </React.Fragment>
     );
   });
@@ -205,30 +211,29 @@ const Home = ({
           </div>
         )}
 
-        <Switch>
-          <Route exact path={path}>
-            <CitizenHome />
-          </Route>
+        <Routes>
+          <Route path={path} element={<CitizenHome />} />
 
-          <PrivateRoute path={`${path}/feedback`} component={CitizenFeedback}></PrivateRoute>
-          <PrivateRoute path={`${path}/feedback-acknowledgement`} component={AcknowledgementCF}></PrivateRoute>
+          <Route path={`${path}/feedback`} element={<PrivateRoute><CitizenFeedback /></PrivateRoute>} />
+          <Route path={`${path}/feedback-acknowledgement`} element={<PrivateRoute><AcknowledgementCF /></PrivateRoute>} />
 
-          <Route exact path={`${path}/select-language`}>
-            <LanguageSelection />
-          </Route>
+          <Route path={`${path}/select-language`} element={<LanguageSelection />} />
 
-          <Route exact path={`${path}/select-location`}>
-            <LocationSelection />
-          </Route>
-          <Route path={`${path}/error`}>
+          <Route path={`${path}/select-location`} element={<LocationSelection />} />
+          <Route
+            path={`${path}/error`}
+            element={
             <ErrorComponent
               initData={initData}
               goToHome={() => {
-                history.push("/upyog-ui/citizen");
+                navigate("/upyog-ui/citizen");
               }}
             />
-          </Route>
-          <Route path={`${path}/all-services`}>
+            }
+          />
+          <Route
+            path={`${path}/all-services`}
+            element={
             <AppHome
               userType="citizen"
               modules={modules}
@@ -236,47 +241,26 @@ const Home = ({
               fetchedCitizen={isLinkDataFetched}
               isLoading={islinkDataLoading}
             />
-          </Route>
+            }
+          />
 
-          <Route path={`${path}/login`}>
-            <Login stateCode={stateCode} />
-          </Route>
+          <Route path={`${path}/login/*`} element={<Login stateCode={stateCode} />} />
 
-          <Route path={`${path}/register`}>
-            <Login stateCode={stateCode} isUserRegistered={false} />
-          </Route>
+          <Route path={`${path}/register/*`} element={<Login stateCode={stateCode} isUserRegistered={false} />} />
 
-          <PrivateRoute path={`${path}/user/profile`}>
-            <UserProfile stateCode={stateCode} userType={"citizen"} cityDetails={cityDetails} />
-          </PrivateRoute>
+          <Route path={`${path}/user/profile`} element={<PrivateRoute><UserProfile stateCode={stateCode} userType={"citizen"} cityDetails={cityDetails} /></PrivateRoute>} />
 
-          <Route path={`${path}/Audit`}>
-            <Search/>
-          </Route>
-          <Route path={`${path}/payment/verification`}>
-            <QRCode></QRCode>
-          </Route>
-          <Route path={`${path}/assets/services`}>
-            <AssetsQRCode></AssetsQRCode>
-          </Route>
-          <Route path={`${path}/verificationsearch-home`}>
-            <VSearchCertificate/>
-          </Route>
-          <Route path={`${path}/challan/details`}>
-         <ChallanQRCode></ChallanQRCode>
-          </Route>
-          <Route path={`${APPLICATION_PATH}/citizen/core/edcr/scrutiny`}>
-            <CreateAnonymousEDCR />
-          </Route>
-          <Route path={`${APPLICATION_PATH}/citizen/core/edcr/scrutiny/acknowledgement`}>
-            <EDCRAcknowledgement />
-          </Route>
+          <Route path={`${path}/Audit`} element={<Search/>} />
+          <Route path={`${path}/payment/verification`} element={<QRCode></QRCode>} />
+          <Route path={`${path}/assets/services`} element={<AssetsQRCode></AssetsQRCode>} />
+          <Route path={`${path}/verificationsearch-home`} element={<VSearchCertificate/>} />
+          <Route path={`${path}/challan/details`} element={<ChallanQRCode></ChallanQRCode>} />
+          <Route path={`${APPLICATION_PATH}/citizen/core/edcr/scrutiny`} element={<CreateAnonymousEDCR />} />
+          <Route path={`${APPLICATION_PATH}/citizen/core/edcr/scrutiny/acknowledgement`} element={<EDCRAcknowledgement />} />
 
-          <ErrorBoundary initData={initData}>
-            {appRoutes}
-            {ModuleLevelLinkHomePages}
-          </ErrorBoundary>
-        </Switch>
+          {appRoutes}
+          {ModuleLevelLinkHomePages}
+        </Routes>
       </div>
 
       <div style={{ width: '100%', position: 'fixed', bottom: 0,backgroundColor:"white",textAlign:"center" }}>

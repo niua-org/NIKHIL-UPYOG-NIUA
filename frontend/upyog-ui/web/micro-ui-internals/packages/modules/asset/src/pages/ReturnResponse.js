@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Banner, CardText, SubmitBar, Loader, LinkButton, Toast, ActionBar } from "@upyog/digit-ui-react-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -38,7 +38,7 @@ const BannerPicker = (props) => {
 const ReturnResponse = (props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(null);
   const [enableAudit, setEnableAudit] = useState(false);

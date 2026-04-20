@@ -3,7 +3,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory ,Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const description = {
   description: "PT_SEARCH_OR_DESC",
@@ -19,7 +19,7 @@ const description = {
 
 const SearchProperty = ({ config: propsConfig, onSelect }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { action = 0 } = Digit.Hooks.useQueryParams();
   const [searchData, setSearchData] = useState({});
   const [showToast, setShowToast] = useState(null);
@@ -107,7 +107,7 @@ const SearchProperty = ({ config: propsConfig, onSelect }) => {
                   props?.setValue("doorNo", "");
                   props?.setValue("oldPropertyId", "");
                   props?.setValue("name", "");
-                  history.replace(`${history.location.pathname}?action=${action == 0 ? 1 : 0}`);
+                  navigate(`${location.pathname}?action=${action == 0 ? 1 : 0}`, { replace: true });
                 }}
               />
             ),
@@ -220,7 +220,7 @@ const SearchProperty = ({ config: propsConfig, onSelect }) => {
                   props?.setValue("doorNo", "");
                   props?.setValue("oldPropertyId", "");
                   props?.setValue("name", "");
-                  history.replace(`${history.location.pathname}?action=${action == 0 ? 1 : 0}`);
+                  navigate(`${location.pathname}?action=${action == 0 ? 1 : 0}`, { replace: true });
                 }}
               />
             ),
@@ -428,7 +428,7 @@ const SearchProperty = ({ config: propsConfig, onSelect }) => {
         queryParams: { ...qs },
       });
     } else {
-      history.push(
+      navigate(
         `/upyog-ui/citizen/pt/property/search-results?${Object.keys(qs)
           .map((key) => `${key}=${qs[key]}`)
           .join("&")}`

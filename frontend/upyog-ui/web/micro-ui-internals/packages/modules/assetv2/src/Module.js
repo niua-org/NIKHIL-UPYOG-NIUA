@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import EmployeeApp from "./pages/employee";
 import ASSETV2Card from "./components/ASSETV2Card";
 import InboxFilter from "./components/inbox/NewInboxFilter";
@@ -93,7 +92,7 @@ const addComponentsToRegistry = () => {
 
 
 export const ASSETV2Module = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "ASSET";
   const language = Digit.StoreData.getCurrentLanguage();

@@ -7,12 +7,12 @@ import {
 } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const PropertyLinkSuccess = ({ onSelect }) => {
   const { t } = useTranslation();
   const { propertyIds } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onSubmit = () => {
     if(onSelect) {
@@ -53,7 +53,7 @@ const PropertyLinkSuccess = ({ onSelect }) => {
             <SubmitBar
               submit={false}
               label={t("PT_PROPERTY_CREATE")}
-              onSubmit={() => history.push('/upyog-ui/citizen/commonPt/property/new-application')}
+              onSubmit={() => navigate('/upyog-ui/citizen/commonPt/property/new-application')}
             />
           }
         </Card>

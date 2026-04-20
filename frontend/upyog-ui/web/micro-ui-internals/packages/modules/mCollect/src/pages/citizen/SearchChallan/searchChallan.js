@@ -3,7 +3,7 @@ import { FormComposer, CardLabelDesc, Loader, Menu } from "@upyog/digit-ui-react
 import { FormStep, CardLabel, RadioButtons, RadioOrSelect } from "@upyog/digit-ui-react-components";
 import { TextInput, LabelFieldPair, Dropdown } from "@upyog/digit-ui-react-components";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useMCollectMDMS from "../../../../../../libraries/src/hooks/mcollect/useMCollectMDMS";
 import ServiceCategory from "../../../components/inbox/ServiceCategory";
@@ -11,7 +11,7 @@ import ServiceCategory from "../../../components/inbox/ServiceCategory";
 const SearchChallan = ({ config: propsConfig, formData }) => {
   const { t } = useTranslation();
   let validation = {};
-  const history = useHistory();
+  const navigate = useNavigate();
   const tenantId = Digit.ULBService.getCurrentTenantId();
 
   const [mobileNumber, setMobileNumber] = useState(formData?.mobileNumber || "");
@@ -27,7 +27,7 @@ const SearchChallan = ({ config: propsConfig, formData }) => {
     return <Loader />;
   }
   const onChallanSearch = async (data) => {
-    //history.push(`/upyog-ui/citizen/mcollect/search-results`);
+    //navigate(`/upyog-ui/citizen/mcollect/search-results`);
     if (!mobileNumber && !challanNo && !Servicecateogry && !city) {
       return alert("Provide at least one parameter");
     } else if (!Servicecateogry) {
@@ -37,7 +37,7 @@ const SearchChallan = ({ config: propsConfig, formData }) => {
       return alert("Please Provide City");
     }
      else {
-      history.push(
+      navigate(
         `/upyog-ui/citizen/mcollect/search-results?mobileNumber=${mobileNumber}&challanNo=${challanNo}&Servicecategory=${
           Servicecateogry ? Servicecateogry.code.replace("BILLINGSERVICE_BUSINESSSERVICE_","") : ""
         }&tenantId=${city.code}`

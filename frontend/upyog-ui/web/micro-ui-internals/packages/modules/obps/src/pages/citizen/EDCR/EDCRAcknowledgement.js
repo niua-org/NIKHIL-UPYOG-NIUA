@@ -1,11 +1,11 @@
 import { Banner, Card, CardText, LinkButton, SubmitBar, Toast } from "@upyog/digit-ui-react-components";
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const EDCRAcknowledgement = (props) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => { 
@@ -68,7 +68,7 @@ const EDCRAcknowledgement = (props) => {
   };
 
   const routeToBPAScreen = async () => {
-    history.push(
+    navigate(
       `/upyog-ui/citizen/obps/bpa/${edcrData?.appliactionType?.toLowerCase()}/${edcrData?.applicationSubType?.toLowerCase()}/docs-required`,
       { edcrNumber: edcrData?.edcrNumber }
     );

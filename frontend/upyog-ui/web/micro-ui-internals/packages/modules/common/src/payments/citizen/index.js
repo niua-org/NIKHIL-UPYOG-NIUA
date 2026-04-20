@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "@upyog/digit-ui-react-components";
 import PayersDetails from "./payers-details";
 
@@ -8,13 +8,13 @@ import { SelectPaymentType } from "./payment-type/index";
 import { SuccessfulPayment, FailedPayment } from "./response";
 
 const CitizenPayment = ({ stateCode, cityCode, moduleCode }) => {
-  const { path: currentPath } = useRouteMatch();
+  const { path: currentPath } = Digit.Hooks.useModuleBasePath();
   const commonProps = { stateCode, cityCode, moduleCode };
 
   return (
     <React.Fragment>
       <div className="bills-citizen-wrapper">
-        <Switch>
+        <Routes>
           <Route path={`${currentPath}/my-bills/:businessService`}>
             <MyBills stateCode={stateCode} />
           </Route>
@@ -30,7 +30,7 @@ const CitizenPayment = ({ stateCode, cityCode, moduleCode }) => {
           <Route path={`${currentPath}/failure`}>
             <FailedPayment {...commonProps} />
           </Route>
-        </Switch>
+        </Routes>
       </div>
     </React.Fragment>
   );

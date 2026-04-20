@@ -2,7 +2,7 @@ import { BackButton, Banner, Card, CardText, LinkButton, Loader, SubmitBar } fro
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { convertToStakeholderObject } from "../../../utils/index";
 import getAcknowledgementData from "../../../../getAcknowlegment";
 const GetActionMessage = ( props) => {

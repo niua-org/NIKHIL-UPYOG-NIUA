@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Header, ResponseComposer, Loader } from "@upyog/digit-ui-react-components";
 import PropTypes from "prop-types";
 import Axios from "axios";
-import { useHistory, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const MyChallanResult = ({ template, header, actionButtonLabel }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const filters = {};
   const userInfo = Digit.UserService.getUser();
   const tenantId = userInfo?.info?.tenantId;
@@ -17,7 +17,7 @@ const MyChallanResult = ({ template, header, actionButtonLabel }) => {
   const result = Digit.Hooks.mcollect.useMcollectSearchBill({ tenantId, filters });
 
   const onSubmit = (data) => {
-   history.push(`/upyog-ui/citizen/payment/my-bills/${data?.businesService}/${data?.ChannelNo}?workflow=mcollect`);
+   navigate(`/upyog-ui/citizen/payment/my-bills/${data?.businesService}/${data?.ChannelNo}?workflow=mcollect`);
   };
 
   const payment = {};

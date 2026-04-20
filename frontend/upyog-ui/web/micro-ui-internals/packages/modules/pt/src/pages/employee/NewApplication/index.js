@@ -1,7 +1,7 @@
 import { FormComposer, Loader,Modal ,Card , CardHeader, StatusTable,Row } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { newConfig } from "../../../config/Create/config";
 
 const NewApplication = () => {
@@ -10,7 +10,7 @@ const NewApplication = () => {
   const { t } = useTranslation();
   const [canSubmit, setSubmitValve] = useState(false);
   const defaultValues = { };
-  const history = useHistory();
+  const navigate = useNavigate();
   // delete
   // const [_formData, setFormData,_clear] = Digit.Hooks.useSessionStorage("store-data",null);
   const [mutationHappened, setMutationHappened, clear] = Digit.Hooks.useSessionStorage("EMPLOYEE_MUTATION_HAPPENED", false);
@@ -149,7 +149,7 @@ const NewApplication = () => {
       };
     }
 
-    history.replace("/upyog-ui/employee/pt/response", { Property: formData }); //current wala
+    navigate("/upyog-ui/employee/pt/response", { replace: true, state: { Property: formData } }); //current wala
 
   };
   if (isLoading) {
@@ -170,7 +170,7 @@ const NewApplication = () => {
   }
   const setModal=()=>{
       setShowToast(false)   
-      history.replace("/upyog-ui/employee/pt/response", { Property: formData })
+      navigate("/upyog-ui/employee/pt/response", { replace: true, state: { Property: formData } })
     }
 let conf =[
   {

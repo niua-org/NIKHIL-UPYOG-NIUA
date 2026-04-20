@@ -2,7 +2,7 @@ import { Banner, Card, CardText, ActionBar, SubmitBar, Loader, LinkButton } from
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { stringReplaceAll, getBusinessServices } from "../../utils";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const OBPSResponse = (props) => {
@@ -19,7 +19,7 @@ const OBPSResponse = (props) => {
   }
   const [applicationData, setApplicationData] = useState({});
   const [isLoader, setIsLoader] = useState(true);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isSanctionFee, setSanctionFee] = useState("");
   const [billData, setBillData] = useState(null);
 
@@ -59,7 +59,7 @@ const OBPSResponse = (props) => {
   };
 
   const onSubmit = () => {
-    history.push(`/upyog-ui/employee`);
+    navigate(`/upyog-ui/employee`);
   }
 
   const getApplicationNoLabel = () => {
@@ -71,7 +71,7 @@ const OBPSResponse = (props) => {
   }
 
   const getPaymentURLEmployee = () => {
-    history.push(`/upyog-ui/employee/payment/collect/${getBusinessServices(applicationData?.businessService, applicationData?.status)}/${applicationData?.applicationNo}/${applicationData?.tenantId}?tenantId=${applicationData?.tenantId}`);
+    navigate(`/upyog-ui/employee/payment/collect/${getBusinessServices(applicationData?.businessService, applicationData?.status)}/${applicationData?.applicationNo}/${applicationData?.tenantId}?tenantId=${applicationData?.tenantId}`);
   }
 
   let isWorkflowLoading = true, isPayButtonEnable = false;

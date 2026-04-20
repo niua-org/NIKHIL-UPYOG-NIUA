@@ -1,7 +1,6 @@
 import { CitizenHomeCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 
 import PTRCitizenPet from "./pageComponents/PTRCitizenPet";
 
@@ -52,7 +51,7 @@ const addComponentsToRegistry = () => {
 
 // Main module function to get to the routes file of citizen or employee module
 export const PTRModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
   const moduleCode = "PTR";
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });

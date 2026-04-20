@@ -1,11 +1,11 @@
 import { BackButton, CardHeader, CardLabelError, Loader, PageBasedInput, SearchOnRadioButtons } from "@upyog/digit-ui-react-components";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LocationSelection = () => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const { data: cities, isLoading } = Digit.Hooks.useTenants();
 
@@ -40,8 +40,8 @@ const LocationSelection = () => {
       Digit.SessionStorage.set("CITIZEN.COMMON.HOME.CITY", selectedCity);
       const redirectBackTo = location.state?.redirectBackTo;
       if (redirectBackTo) {
-        history.replace(redirectBackTo);
-      } else history.push("/upyog-ui/citizen");
+        navigate(redirectBackTo, { replace: true });
+      } else navigate("/upyog-ui/citizen");
     } else {
       setShowError(true);
     }

@@ -16,7 +16,7 @@ import {
 } from "@upyog/digit-ui-react-components";
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Timeline from "../../../components/Timeline";
 import ActionModal from "../BpaApplicationDetail/Modal";
 import { convertToBPAObject, stringReplaceAll, convertEpochToDateDMY, getOrderDocuments } from "../../../utils";
@@ -27,8 +27,8 @@ import usePreApprovedSearch from "../../../../../../libraries/src/hooks/obps/use
 
 const CheckPage = ({ onSubmit, value }) => {
   const { t } = useTranslation();
-  const history = useHistory();
-  const match = useRouteMatch();
+  const navigate = useNavigate();
+  const match = Digit.Hooks.useModuleBasePath();
   let user = Digit.UserService.getUser(), BusinessService;
   const tenantId = user?.info?.permanentCity;
   const [selectedAction, setSelectedAction] = useState(null);
@@ -111,7 +111,7 @@ const { data: preApprovedResponse} = usePreApprovedSearch({drawingNo:value?.edcr
           setTimeout(closeToast, 5000);
           queryClient.invalidateQueries("BPA_DETAILS_PAGE");
           queryClient.invalidateQueries("workFlowDetails");
-          history.replace(`/upyog-ui/citizen/obps/sendbacktocitizen/ocbpa/${value?.tenantId}/${value?.applicationNo}/acknowledgement`, { data: value?.applicationNo });
+          navigate(`/upyog-ui/citizen/obps/sendbacktocitizen/ocbpa/${value?.tenantId}/${value?.applicationNo}/acknowledgement`, { replace: true, state: { data: value?.applicationNo } });
         },
       }
     );

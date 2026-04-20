@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, Dropdown, Loader, Menu, SubmitBar, Toast } from "@upyog/digit-ui-react-components";
 //import FSMLink from "./inbox/FSMLink";
 import VENDORLink from "./inbox/VENDORLink";
@@ -15,7 +15,7 @@ import { add } from "lodash";
 const VendorInbox = (props) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const DSO = Digit.UserService.hasAccess(["FSM_DSO"]) || false;
   const GetCell = (value) => <span className="cell-text">{value}</span>;
   const FSTP = Digit.UserService.hasAccess("FSM_EMP_FSTPO") || false;
@@ -234,10 +234,10 @@ const VendorInbox = (props) => {
 
   const onActionSelect = (action, type, data) => {
     if (type === "VEHICLE") {
-      history.push("/upyog-ui/employee/vendor/registry/vehicle-details/" + action);
+      navigate("/upyog-ui/employee/vendor/registry/vehicle-details/" + action);
     } else {
       let driver = data.find((ele) => ele.name === action);
-      history.push("/upyog-ui/employee/vendor/registry/driver-details/" + driver?.id);
+      navigate("/upyog-ui/employee/vendor/registry/driver-details/" + driver?.id);
     }
   };
 
@@ -245,11 +245,11 @@ const VendorInbox = (props) => {
   const onSelectAdd = () => {
     switch (props.selectedTab) {
       case "VENDOR":
-        return history.push("/upyog-ui/employee/vendor/registry/new-vendor");
+        return navigate("/upyog-ui/employee/vendor/registry/new-vendor");
       case "VEHICLE":
-        return history.push("/upyog-ui/employee/vendor/registry/new-vehicle");
+        return navigate("/upyog-ui/employee/vendor/registry/new-vehicle");
       case "DRIVER":
-        return history.push("/upyog-ui/employee/vendor/registry/new-driver");
+        return navigate("/upyog-ui/employee/vendor/registry/new-driver");
       default:
         break;
     }

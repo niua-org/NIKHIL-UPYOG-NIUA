@@ -1,7 +1,6 @@
 import { Header, CitizenHomeCard,PGRIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import CitizenApp from "./pages/citizen";
 import NewGrievance from "./pageComponents/NewGrievance";
 import PGRAICreate from "./pages/citizen/Create";
@@ -38,7 +37,7 @@ const addComponentsToRegistry = () => {
 
 // Main ADSModule component
 export const PGRAIModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "PGRAI";
   const language = Digit.StoreData.getCurrentLanguage();

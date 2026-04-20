@@ -14,14 +14,14 @@ import {
 } from "@upyog/digit-ui-react-components";
 import DropdownStatus from "./inbox/DropdownStatus";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchApplication = ({ onSearch, type, onClose, onTabChange, isFstpOperator, searchFields, searchParams, isInboxPage, selectedTab }) => {
   const storedSearchParams = isInboxPage ? Digit.SessionStorage.get("vendor/inbox/searchParams") : Digit.SessionStorage.get("vendor/search/searchParams");
 
 
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { register, handleSubmit, reset, watch, control } = useForm({
     defaultValues: storedSearchParams || searchParams,
   });
@@ -63,7 +63,7 @@ const SearchApplication = ({ onSearch, type, onClose, onTabChange, isFstpOperato
 
   // const onAddClick = () => {
   //   console.log("clickkkkkeeeddd")
-  //   return history.push("registry/new-vendor");
+  //   return navigate("registry/new-vendor");
   // };
 
   const onAddClick = () => {
@@ -77,11 +77,11 @@ const SearchApplication = ({ onSearch, type, onClose, onTabChange, isFstpOperato
   function onActionSelect(action) {
     switch (action) {
       case "VENDOR":
-        return history.push("/upyog-ui/employee/vendor/registry/new-vendor");
+        return navigate("/upyog-ui/employee/vendor/registry/new-vendor");
       case "VEHICLE":
-        return history.push("/upyog-ui/employee/vendor/registry/new-vehicle");
+        return navigate("/upyog-ui/employee/vendor/registry/new-vehicle");
       case "DRIVER":
-        return history.push("/upyog-ui/employee/vendor/registry/new-driver");
+        return navigate("/upyog-ui/employee/vendor/registry/new-driver");
       default:
         break;
     }

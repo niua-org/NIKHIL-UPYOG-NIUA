@@ -1,7 +1,7 @@
 import { Banner, Card, Loader, Row, StatusTable, SubmitBar,Toast } from "@upyog/digit-ui-react-components";
 import React, {useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useRouteMatch,useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ADSDataConvert } from "../../../utils";
 
 const GetActionMessage = (props) => {
@@ -43,9 +43,9 @@ const ADSAcknowledgement = ({ data, onSuccess }) => {
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true) || Digit.ULBService.getCurrentTenantId();
   const mutation = Digit.Hooks.ads.useADSCreateAPI(tenantId);
   const { data: storeData } = Digit.Hooks.useStore.getInitData();
-  const match = useRouteMatch();
+  const match = Digit.Hooks.useModuleBasePath();
   const { tenants } = storeData || {};
-  const history = useHistory();
+  const navigate = useNavigate();
   const user = Digit.UserService.getUser().info;
   const [showToast, setShowToast] = useState(null);
   const slotSearchData = Digit.Hooks.ads.useADSSlotSearch();
@@ -77,13 +77,13 @@ const ADSAcknowledgement = ({ data, onSuccess }) => {
         if (isSlotBooked) {
           setShowToast({ error: true, label: t("ADS_ADVERTISEMENT_ALREADY_BOOKED") });
         }else if(user.type==="CITIZEN") {
-          history.push({
+          navigate({
             pathname: `/upyog-ui/citizen/payment/my-bills/${"adv-services"}/${ mutation.data?.bookingApplication[0]?.bookingNo}`,
             state: { tenantId:tenantId, bookingNo: mutation.data?.bookingApplication[0]?.bookingNo, timerValue:timerValue , SlotSearchData:SlotSearchData},
           });
         }
           else if(user.type==="EMPLOYEE") {
-            history.push({
+            navigate({
               pathname: `/upyog-ui/employee/payment/collect/${"adv-services"}/${mutation.data?.bookingApplication[0]?.bookingNo}`,
               state: { tenantId:tenantId, bookingNo: mutation.data?.bookingApplication[0]?.bookingNo, timerValue:timerValue , SlotSearchData:SlotSearchData},
             });

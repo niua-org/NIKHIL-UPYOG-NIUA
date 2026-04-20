@@ -1,7 +1,6 @@
 import { CitizenHomeCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 
 import CitizenApp from "./pages/citizen";
 import EmployeeApp from "./pages/employee";
@@ -42,7 +41,7 @@ const addComponentsToRegistry = () => {
 };
 
 export const CommonPTModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "PT";
   const language = Digit.StoreData.getCurrentLanguage();

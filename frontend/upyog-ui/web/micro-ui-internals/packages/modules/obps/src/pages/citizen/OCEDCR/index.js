@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { newConfig as newConfigOCEDCR } from "../../../config/ocEdcrConfig";
 import { uuidv4, convertDateToEpoch } from "../../../utils";
 // import EDCRAcknowledgement from "./EDCRAcknowledgement";
 
 const CreateOCEDCR = ({ parentRoute }) => {
   const queryClient = useQueryClient();
-  const match = useRouteMatch();
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { path, url } = useRouteMatch();
-  const history = useHistory();
-  let config = [];
+  const navigate = useNavigate();
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("OC_EDCR_CREATE", {});
   const [isShowToast, setIsShowToast] = useState(null);
   const [isSubmitBtnDisable, setIsSubmitBtnDisable] = useState(false);
@@ -76,10 +73,7 @@ const CreateOCEDCR = ({ parentRoute }) => {
         setIsSubmitBtnDisable(false);
         if (result?.data?.edcrDetail) {
           setParams(result?.data?.edcrDetail);
-          history.replace(
-            `/upyog-ui/citizen/obps/edcrscrutiny/oc-apply/acknowledgement`,
-            { data: result?.data?.edcrDetail }
-          );
+          navigate(`/upyog-ui/citizen/obps/edcrscrutiny/oc-apply/acknowledgement`, { replace: true, state: { data: result?.data?.edcrDetail } });
         }
       })
       .catch((e) => {
@@ -89,15 +83,26 @@ const CreateOCEDCR = ({ parentRoute }) => {
       });
   }
 
+  const wizardConfig = useMemo(() => {
+    let config = [];
+    const mdms = newConfig?.OCEdcrConfig ? newConfig?.OCEdcrConfig : newConfigOCEDCR;
+    mdms?.forEach((obj) => {
+      config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
+    });
+    config.indexRoute = "docs-required";
+    return config;
+  }, [newConfig]);
+
+  const match = Digit.Hooks.useWizardPath(wizardConfig);
+
   const goNext = (skipStep) => {
     const currentPath = pathname.split("/").pop();
-    const { nextStep } = config.find((routeObj) => routeObj.route === currentPath);
-    let redirectWithHistory = history.push;
+    const { nextStep } = wizardConfig.find((routeObj) => routeObj.route === currentPath);
     if (nextStep === null) {
-      return redirectWithHistory(`${path}/check`);
+      return navigate(`${match.path}/check`);
     }
-    redirectWithHistory(`${path}/${nextStep}`);
-  }
+    navigate(`${match.path}/${nextStep}`);
+  };
 
   const handleSelect = (key, data, skipStep, isFromCreateApi) => {
     if (isFromCreateApi) createOCEdcr(key, data);
@@ -112,32 +117,37 @@ const CreateOCEDCR = ({ parentRoute }) => {
     sessionStorage.removeItem("CurrentFinancialYear");
     queryClient.invalidateQueries("TL_CREATE_TRADE");
   };
-  newConfig = newConfig?.OCEdcrConfig ? newConfig?.OCEdcrConfig : newConfigOCEDCR;
-  newConfig.forEach((obj) => {
-    config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
-  });
-  config.indexRoute = "docs-required";
 
   const EDCRAcknowledgement = Digit?.ComponentRegistryService?.getComponent('OCEDCRAcknowledgement');
 
   return (
-    <Switch>
-      {config.map((routeObj, index) => {
+    <Routes>
+      {wizardConfig.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         return (
-          <Route path={`${match.path}/${routeObj.route}`} key={index}>
-            <Component config={{ texts, inputs, key }} onSelect={handleSelect} onSkip={handleSkip} t={t} formData={params} onAdd={handleMultiple} isShowToast={isShowToast} isSubmitBtnDisable={isSubmitBtnDisable} setIsShowToast={setIsShowToast}/>
-          </Route>
+          <Route
+            path={`${match.path}/${routeObj.route}`}
+            key={index}
+            element={
+              <Component
+                config={{ texts, inputs, key }}
+                onSelect={handleSelect}
+                onSkip={handleSkip}
+                t={t}
+                formData={params}
+                onAdd={handleMultiple}
+                isShowToast={isShowToast}
+                isSubmitBtnDisable={isSubmitBtnDisable}
+                setIsShowToast={setIsShowToast}
+              />
+            }
+          />
         );
       })}
-      <Route path={`${match.path}/acknowledgement`}>
-        <EDCRAcknowledgement data={params} onSuccess={onSuccess} />
-      </Route>
-      <Route>
-        <Redirect to={`${match.path}/${config.indexRoute}`} />
-      </Route>
-    </Switch>
+      <Route path={`${match.path}/acknowledgement`} element={<EDCRAcknowledgement data={params} onSuccess={onSuccess} />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${wizardConfig.indexRoute}`} replace />} />
+    </Routes>
   );
 };
 

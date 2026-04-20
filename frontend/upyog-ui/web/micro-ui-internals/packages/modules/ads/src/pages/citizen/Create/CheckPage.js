@@ -13,7 +13,7 @@ import {
   } from "@upyog/digit-ui-react-components";
   import React, { useState } from "react";
   import { useTranslation } from "react-i18next";
-  import { useHistory } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
   import {
     checkForNA
   } from "../../../utils";
@@ -32,9 +32,9 @@ import {
 
   const ActionButton = ({ jumpTo }) => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     function routeTo() {
-      history.push(jumpTo);
+      navigate(jumpTo);
     }
   
     return <LinkButton label={t("CS_COMMON_EDIT")} className="check-page-link-button" onClick={routeTo} />;
@@ -42,7 +42,7 @@ import {
   
   const CheckPage = ({ onSubmit, value = {} }) => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [params, setParams] = Digit.Hooks.useSessionStorage("ADS_CREATE", {});
     const {
       applicant,

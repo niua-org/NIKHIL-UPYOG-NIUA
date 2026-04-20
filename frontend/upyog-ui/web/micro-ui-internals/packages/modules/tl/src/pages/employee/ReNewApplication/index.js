@@ -2,7 +2,7 @@ import { FormComposer, Header, Toast, Loader } from "@upyog/digit-ui-react-compo
 import cloneDeep from "lodash/cloneDeep";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { convertDateToEpoch, convertEpochToDate, stringReplaceAll } from "../../../utils";
 import { newConfig as newConfigTL } from "../../../config/config";
 
@@ -25,7 +25,7 @@ const ReNewApplication = (props) => {
     propertyDetails= propertydetails;   
 }
 
-  const history = useHistory();
+  const navigate = useNavigate();
   // delete
   const [_formData, setFormData, _clear] = Digit.Hooks.useSessionStorage("store-data", null);
   const [mutationHappened, setMutationHappened, clear] = Digit.Hooks.useSessionStorage("EMPLOYEE_MUTATION_HAPPENED", false);
@@ -335,7 +335,7 @@ const ReNewApplication = (props) => {
         .then((result, err) => {
           if (result?.Licenses?.length > 0) {
             if (result?.Licenses?.length > 0) {
-              history.replace(`/upyog-ui/employee/tl/response`, { data: result?.Licenses });
+              navigate(`/upyog-ui/employee/tl/response`, { replace: true, state: { data: result?.Licenses } });
             }
           }
         })
@@ -402,7 +402,7 @@ const ReNewApplication = (props) => {
               .then((response) => {
                 Digit.SessionStorage.set("EditRenewalApplastModifiedTime", response?.Licenses[0]?.auditDetails?.lastModifiedTime);
                 if (response?.Licenses?.length > 0) {
-                  history.replace(`/upyog-ui/employee/tl/response`, { data: response?.Licenses });
+                  navigate(`/upyog-ui/employee/tl/response`, { replace: true, state: { data: response?.Licenses } });
                 }
               })
               .catch((e) => {

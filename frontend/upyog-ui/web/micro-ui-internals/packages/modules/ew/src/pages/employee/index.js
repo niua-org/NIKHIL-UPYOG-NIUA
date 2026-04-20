@@ -1,13 +1,12 @@
 import { PrivateRoute,BreadCrumb } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Switch, useLocation } from "react-router-dom";
+import { useLocation, Routes, Route } from "react-router-dom";
 import Inbox from "./Inbox";
 import SearchApp from "./SearchApp";
 
 
 const EmployeeApp = ({ path, url, userType }) => {
-  const { t } = useTranslation();
   const location = useLocation();
   const mobileView = innerWidth <= 640;
   sessionStorage.removeItem("revalidateddone");
@@ -23,7 +22,8 @@ const EmployeeApp = ({ path, url, userType }) => {
     },
   };
 
- 
+  const searchMW = [];
+
 
   const EWBreadCrumbs = ({ location }) => {
     const { t } = useTranslation();
@@ -58,44 +58,49 @@ const EmployeeApp = ({ path, url, userType }) => {
   const ApplicationDetails = Digit?.ComponentRegistryService?.getComponent("EWApplicationDetails");
 
   return (
-    <Switch>
-      <React.Fragment>
-        <div className="ground-container">
-          
-          {<div style={{marginLeft: "12px" }}><EWBreadCrumbs location={location} /></div>}
-          <PrivateRoute
-            path={`${path}/inbox`}
-            component={() => (
-              <Inbox
-                useNewInboxAPI={true}
-                parentRoute={path}
-                businessService="ewst"
-                filterComponent="EW_INBOX_FILTER"
-                initialStates={inboxInitialState}
-                isInbox={true}
-              />
-            )}
-          />
-          <PrivateRoute path={`${path}/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/applicationsearch/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/search`} component={(props) => <Search {...props} t={t} parentRoute={path} />} />
-          <PrivateRoute
-            path={`${path}/searchold`}
-            component={() => (
-              <Inbox
-                parentRoute={path}
-                businessService="ewst"
-                middlewareSearch={searchMW}
-                initialStates={inboxInitialState}
-                isInbox={false}
-                EmptyResultInboxComp={"PTEmptyResultInbox"}
-              />
-            )}
-          />
-          <PrivateRoute path={`${path}/my-applications`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
+    <React.Fragment>
+      <div className="ground-container">
+        <div style={{ marginLeft: "12px" }}>
+          <EWBreadCrumbs location={location} />
         </div>
-      </React.Fragment>
-    </Switch>
+        <Routes>
+          <Route
+            path={`${path}/inbox`}
+            element={
+              <PrivateRoute>
+                <Inbox
+                  useNewInboxAPI={true}
+                  parentRoute={path}
+                  businessService="ewst"
+                  filterComponent="EW_INBOX_FILTER"
+                  initialStates={inboxInitialState}
+                  isInbox={true}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route path={`${path}/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/applicationsearch/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/search`} element={<PrivateRoute><SearchApp path={`${path}/search`} /></PrivateRoute>} />
+          <Route
+            path={`${path}/searchold`}
+            element={
+              <PrivateRoute>
+                <Inbox
+                  parentRoute={path}
+                  businessService="ewst"
+                  middlewareSearch={searchMW}
+                  initialStates={inboxInitialState}
+                  isInbox={false}
+                  EmptyResultInboxComp={"PTEmptyResultInbox"}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route path={`${path}/my-applications`} element={<PrivateRoute><SearchApp path={`${path}/my-applications`} /></PrivateRoute>} />
+        </Routes>
+      </div>
+    </React.Fragment>
   );
 };
 

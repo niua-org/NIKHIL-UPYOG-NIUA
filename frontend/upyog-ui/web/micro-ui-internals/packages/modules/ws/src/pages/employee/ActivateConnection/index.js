@@ -2,7 +2,7 @@ import { FormComposer, Header, Loader, Toast } from "@upyog/digit-ui-react-compo
 import cloneDeep from "lodash/cloneDeep";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { newConfig as newConfigLocal } from "../../../config/wsActivationConfig";
 import { stringReplaceAll, convertDateToEpochNew, convertEpochToDates } from "../../../utils";
 import * as func from "../../../utils";
@@ -12,7 +12,7 @@ const ActivateConnection = () => {
     const { t } = useTranslation();
     let { state } = useLocation();
     state = state ? JSON.parse(state) : {};
-    const history = useHistory();
+    const navigate = useNavigate();
     let filters = func.getQueryStringParams(location.search);
     const [canSubmit, setSubmitValve] = useState(false);
     const [isEnableLoader, setIsEnableLoader] = useState(false);
@@ -128,7 +128,7 @@ const ActivateConnection = () => {
 
     const closeToast = () => {
         setShowToast(null);
-        // history.push(`/upyog-ui/employee/ws/application-details?applicationNumber=${filters?.applicationNumber}&service=${filters?.service}`, {});
+        // navigate(`/upyog-ui/employee/ws/application-details?applicationNumber=${filters?.applicationNumber}&service=${filters?.service}`, {});
     };
 
     const closeToastOfError = () => { setShowToast(null); };
