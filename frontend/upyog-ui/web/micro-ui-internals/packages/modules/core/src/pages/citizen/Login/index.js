@@ -89,9 +89,11 @@ const Login = ({ stateCode, isUserRegistered = true }) => {
         }
         return { ...step, texts };
       },
-      [loginSteps]
+      [t]
     )
   );
+
+  console.log("stepItemsstepItemsstepItems", stepItems);
 
   const getUserType = () => "citizen";
 

@@ -78,7 +78,7 @@ console.log("DigitAppDigitAppDigitApp",stateCode, modules, appTenants, logoUrl, 
       />
       <Route
         path="*"
-        element={<Navigate to="/upyog-ui/citizen" replace />}
+        element={<Navigate to="/upyog-ui/citizen" />}
       />
     </Routes>
   );

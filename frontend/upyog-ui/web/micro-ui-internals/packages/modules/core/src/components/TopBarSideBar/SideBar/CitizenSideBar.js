@@ -170,7 +170,7 @@ export const CitizenSideBar = ({ isOpen, isMobile = false, toggleSidebar, onLogo
       })
       linkData.FSM = FSM;
     }
-    Object.keys(linkData)
+    Object.keys(linkData || {})
       ?.sort((x, y) => y.localeCompare(x))
       ?.map((key) => {
         if (linkData[key][0]?.sidebar === "digit-ui-links")

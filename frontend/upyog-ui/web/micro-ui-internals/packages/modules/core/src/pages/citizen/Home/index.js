@@ -16,12 +16,13 @@ import {
   WSICon,
 } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { CitizenSideBar } from "../../../components/TopBarSideBar/SideBar/CitizenSideBar";
 import StaticCitizenSideBar from "../../../components/TopBarSideBar/SideBar/StaticCitizenSideBar";
 import ChatBot from "./ChatBot";
 const Home = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
   const tenantId = Digit.ULBService.getCitizenCurrentTenant(true);
   const [user, setUser] = useState(null);
