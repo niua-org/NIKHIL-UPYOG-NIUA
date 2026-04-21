@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 import org.springframework.validation.annotation.Validated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -23,19 +20,19 @@ import jakarta.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Document   {
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("documentType")
   private String documentType = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("fileStoreId")
   private String fileStoreId = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("documentUid")
   private String documentUid = null;
 

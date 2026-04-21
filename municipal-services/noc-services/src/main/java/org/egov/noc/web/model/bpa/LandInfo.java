@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 
 import lombok.Getter;
 import org.egov.noc.web.model.AuditDetails;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,19 +31,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class LandInfo   {
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("landUId")
   private String landUId = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("landUniqueRegNo")
   private String landUniqueRegNo = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -53,7 +53,7 @@ public class LandInfo   {
   @JsonProperty("address")
   private Address address = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("ownershipCategory")
   private String ownershipCategory = null;
 
