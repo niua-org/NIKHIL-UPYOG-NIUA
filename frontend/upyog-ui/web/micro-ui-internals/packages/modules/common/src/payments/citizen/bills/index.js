@@ -1,6 +1,6 @@
 import { Loader } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
-import { useParams, useHistory, useRouteMatch, useLocation } from "react-router-dom";
+import { useParams, useLocation,  } from "react-router-dom";
 import Routes from "./routes";
 // import { myBillMap } from "./myBillsKeysMap";
 
@@ -14,14 +14,14 @@ export const MyBills = ({ stateCode }) => {
     language: Digit.StoreData.getCurrentLanguage(),
   });
 
-  const history = useHistory();
-  const { url } = useRouteMatch();
+  const navigate = Digit.Hooks.useCustomNavigate();
+  const { url } = Digit.Hooks.useModuleBasePath();
   const location = useLocation();
 
   const { tenantId } = Digit.UserService.getUser()?.info || location?.state || { tenantId: _tenantId } || {};
 
   if (!tenantId && !location?.state?.fromSearchResults) {
-    history.replace(`/upyog-ui/citizen/login`, { from: url });
+    navigate(`/upyog-ui/citizen/login`, { replace: true, state: { from: url } });
   }
 
   const { isLoading, data } = Digit.Hooks.useFetchCitizenBillsForBuissnessService(

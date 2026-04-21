@@ -32,7 +32,7 @@ import { Header, MultiLink, SubmitBar } from "@upyog/digit-ui-react-components";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams, Link,  } from "react-router-dom";
 import ApplicationDetailsTemplate from "../../../../templates/ApplicationDetails";
 import getPetAcknowledgementData from "../../getPetAcknowledgementData";
 
@@ -49,7 +49,7 @@ const ApplicationDetails = () => {
   const [enableAudit, setEnableAudit] = useState(false);
   const [businessService, setBusinessService] = useState("ptr");
 
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
 
   // isAction is added to enable or disable the actionbar
   let isAction = false;

@@ -1,7 +1,6 @@
 import { Header, CitizenHomeCard,CHBIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import CHBSlotDetails from "./pageComponents/CHBSlotDetails";
 import CHBCreate from "./pages/citizen/Create";
 import CHBCitizenDetails from "./pageComponents/CHBCitizenDetails";
@@ -90,7 +89,7 @@ const addComponentsToRegistry = () => {
 
 
 export const CHBModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "CHB";
   const language = Digit.StoreData.getCurrentLanguage();

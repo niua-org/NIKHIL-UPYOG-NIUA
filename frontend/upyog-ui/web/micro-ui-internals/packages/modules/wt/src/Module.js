@@ -1,7 +1,6 @@
 import { CitizenHomeCard, PTIcon,ApplicantDetails, AddressDetails } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import WTCreate from "./pages/citizen/Create";
 import CitizenApp from "./pages/citizen";
 import InfoPage from "./pageComponents/InfoPage";
@@ -64,7 +63,7 @@ const componentsToRegister = {
 
   // Parent component of module
   export const WTModule = ({ stateCode, userType, tenants }) => {
-    const { path, url } = useRouteMatch();
+    const { path, url } = Digit.Hooks.useModuleBasePath();
     const moduleCode = "WT";
     const language = Digit.StoreData.getCurrentLanguage();
     const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });

@@ -16,7 +16,7 @@ import {
   Modal,
   Toast,
 } from "@upyog/digit-ui-react-components";
-import { useHistory } from "react-router-dom";
+
 import _ from "lodash";
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -33,7 +33,7 @@ const ConnectionDetails = () => {
   const { t } = useTranslation();
   const menuRef = useRef();
   const user = Digit.UserService.getUser();
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const tenantId = Digit.SessionStorage.get("CITIZEN.COMMON.HOME.CITY")?.code || user?.info?.permanentCity || Digit.ULBService.getCurrentTenantId();
   const [showOptions, setShowOptions] = useState(false);
   const applicationNobyData = window.location.href.includes("SW_") ? window.location.href.substring(window.location.href.indexOf("SW_")) : window.location.href.substring(window.location.href.indexOf("WS_"));
@@ -189,13 +189,13 @@ const ConnectionDetails = () => {
         if (paymentDetails?.data?.Bill?.length === 0 ) {
           let pathname = `/upyog-ui/citizen/ws/disconnect-application`;
           Digit.SessionStorage.set("WS_DISCONNECTION", {...state, serviceType: isSW ? "SEWERAGE" : "WATER"});
-          history.push(`${pathname}`);
+          navigate(`${pathname}`);
         } 
         else if(paymentDetails?.data?.Bill?.[0]?.totalAmount < 0)
         {
           let pathname = `/upyog-ui/citizen/ws/disconnect-application`;
           Digit.SessionStorage.set("WS_DISCONNECTION", {...state, serviceType: isSW ? "SEWERAGE" : "WATER"});
-          history.push(`${pathname}`);
+          navigate(`${pathname}`);
         }
         else if (paymentDetails?.data?.Bill?.[0]?.totalAmount !== 0) {
           setshowModal(true);
@@ -221,12 +221,12 @@ const ConnectionDetails = () => {
           console.log("Payment",paymentDetails)
           let pathname = `/upyog-ui/citizen/ws/restoration-application`;
           Digit.SessionStorage.set("WS_DISCONNECTION", {...state, serviceType: isSW ? "SEWERAGE" : "WATER"});
-          history.push(`${pathname}`);
+          navigate(`${pathname}`);
         } else if(paymentDetails?.data?.Bill?.[0]?.totalAmount < 0)
         {
           let pathname = `/upyog-ui/citizen/ws/restore-application/restoration-application`;
         Digit.SessionStorage.set("WS_DISCONNECTION", {...state, serviceType: isSW ? "SEWERAGE" : "WATER"});
-        history.push(`${pathname}`);
+        navigate(`${pathname}`);
         }
         else if (paymentDetails?.data?.Bill?.[0]?.totalAmount !== 0) {
           setshowModal(true);
@@ -234,7 +234,7 @@ const ConnectionDetails = () => {
         else if(paymentDetails?.data?.Bill?.[0]?.totalAmount == 0)
         {let pathname = `/upyog-ui/citizen/ws/restore-application/restoration-application`;
         Digit.SessionStorage.set("WS_DISCONNECTION", {...state, serviceType: isSW ? "SEWERAGE" : "WATER"});
-        history.push(`${pathname}`);
+        navigate(`${pathname}`);
 
         }
       
@@ -610,7 +610,7 @@ let serviceType = state?.applicationType?.includes("WATER") ? "WATER":"SEWERAGE"
               actionSingleLabel={t("COMMON_MAKE_PAYMENT")}
               hideSubmit={true}
               actionSingleSubmit={() => {
-                history.push(
+                navigate(
                   `/upyog-ui/citizen/payment/collect/${isSW ? "SW" : "WS"}/${encodeURIComponent(
                     state?.connectionNo
                   )}/${tenantId}?consumerCode=${state?.connectionNo}&&tenantId=${tenantId}&&workflow=WNS`

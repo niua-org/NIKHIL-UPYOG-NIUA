@@ -1,7 +1,7 @@
 import { Card, CardSubHeader, Header, LinkButton, Loader, Row, StatusTable, MultiLink } from "@upyog/digit-ui-react-components";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
+
 import getPTAcknowledgementData from "../../getPTAcknowledgementData";
 import PropertyDocument from "../../pageComponents/PropertyDocument";
 import PTWFApplicationTimeline from "../../pageComponents/PTWFApplicationTimeline";
@@ -24,7 +24,7 @@ const MutationApplicationDetails = ({ propertyId, acknowledgementIds, workflowDe
   const { data: storeData } = Digit.Hooks.useStore.getInitData();
   const { tenants } = storeData || {};
   const [businessService, setBusinessService] = useState("PT.MUTATION");
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [isEnableLoader, setIsEnableLoader] = useState(false);
   const { isLoading, isError, error, data } = Digit.Hooks.pt.usePropertySearch(
     { filters: { acknowledgementIds },tenantId },
@@ -150,14 +150,14 @@ const MutationApplicationDetails = ({ propertyId, acknowledgementIds, workflowDe
           setIsEnableLoader(false);
           if (isOBPS?.bpa) {
             data.selectedAction = selectedAction;
-            history.replace(`/upyog-ui/employee/obps/response`, { data: data });
+            navigate(`/upyog-ui/employee/obps/response`, { replace: true, state: { data: data } });
           }
           if (isOBPS?.isStakeholder) {
             data.selectedAction = selectedAction;
-            history.push(`/upyog-ui/employee/obps/stakeholder-response`, { data: data });
+            navigate(`/upyog-ui/employee/obps/stakeholder-response`, { data: data });
           }
           if (isOBPS?.isNoc) {
-            history.push(`/upyog-ui/employee/noc/response`, { data: data });
+            navigate(`/upyog-ui/employee/noc/response`, { data: data });
           }
           setShowToast({ key: "success", action: selectedAction });
           setTimeout(closeToast, 5000);
@@ -205,7 +205,7 @@ const MutationApplicationDetails = ({ propertyId, acknowledgementIds, workflowDe
       } else if (!action?.redirectionUrl) {
         setShowModal(true);
       } else {
-        history.push({
+        navigate({
           pathname: action.redirectionUrl?.pathname,
           state: { ...action.redirectionUrl?.state },
         });

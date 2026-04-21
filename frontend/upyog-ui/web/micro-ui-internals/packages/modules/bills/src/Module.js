@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EmployeeApp from "./pages/employee";
 import BillsCard from "./billHomeCard";
@@ -26,7 +25,7 @@ export const BillsModule = ({ stateCode, userType, tenants }) => {
 
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   Digit.SessionStorage.set("BILLS_TENANTS", tenants);
 

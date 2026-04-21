@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { config } from "./config";
 import SearchResultsComponent from "./searchResults";
 
 const CitizenSearchResults = () => {
   const { t } = useTranslation();
-  const { path } = useRouteMatch();
+  const { path } = Digit.Hooks.useModuleBasePath();
 
   const params = useMemo(() =>
     config.map(
@@ -22,7 +22,7 @@ const CitizenSearchResults = () => {
   );
 
   return (
-    <Switch>
+    <Routes>
       <Route path={`${path}`} exact>
         <SearchResultsComponent
           template={params[0].labels}
@@ -31,7 +31,7 @@ const CitizenSearchResults = () => {
           t={t}
         />
       </Route>
-    </Switch>
+    </Routes>
   );
 };
 

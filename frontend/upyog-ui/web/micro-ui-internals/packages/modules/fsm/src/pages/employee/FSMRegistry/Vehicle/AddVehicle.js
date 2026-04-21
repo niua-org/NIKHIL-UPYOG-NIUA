@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FormComposer, Toast, Header, InfoIcon } from "@upyog/digit-ui-react-components";
-import { useHistory } from "react-router-dom";
+
 import VehicleConfig from "../../configs/VehicleConfig";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -9,7 +9,7 @@ const AddVehicle = ({ parentUrl, heading }) => {
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
   const [showToast, setShowToast] = useState(null);
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const queryClient = useQueryClient();
 
   const [mutationHappened, setMutationHappened, clear] = Digit.Hooks.useSessionStorage("FSM_MUTATION_HAPPENED", false);
@@ -133,7 +133,7 @@ const AddVehicle = ({ parentUrl, heading }) => {
         queryClient.invalidateQueries("FSM_VEICLES_SEARCH");
         setTimeout(() => {
           closeToast();
-          history.push(`/upyog-ui/employee/fsm/registry?selectedTabs=VEHICLE`);
+          navigate(`/upyog-ui/employee/fsm/registry?selectedTabs=VEHICLE`);
         }, 5000);
       },
     });

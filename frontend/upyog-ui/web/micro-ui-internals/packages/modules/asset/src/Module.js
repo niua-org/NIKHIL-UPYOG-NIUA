@@ -1,7 +1,6 @@
 import { Header, CitizenHomeCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import EmployeeApp from "./pages/employee";
 import ASSETCard from "./components/ASSETCard";
 import InboxFilter from "./components/inbox/NewInboxFilter";
@@ -88,7 +87,7 @@ const addComponentsToRegistry = () => {
 
 
 export const ASSETModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "ASSET";
   const language = Digit.StoreData.getCurrentLanguage();

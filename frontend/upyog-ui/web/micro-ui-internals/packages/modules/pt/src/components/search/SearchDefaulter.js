@@ -1,12 +1,12 @@
 import { DetailsCard, Loader, Table, Modal,SearchField,SubmitBar,SearchForm } from "@upyog/digit-ui-react-components";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import PropertyInvalidMobileNumber from "../../pages/citizen/MyProperties/PropertyInvalidMobileNumber";
 import { useQuery } from "@tanstack/react-query";
 const GetCell = (value) => <span className="cell-text">{value}</span>;
 
 const SearchPTID = ({ tenantId, t, payload, showToast, setShowToast,ptSearchConfig }) => {
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   
   const [searchQuery, setSearchQuery] = useState({
     /* ...defaultValues,   to enable pagination */
@@ -66,7 +66,7 @@ const args = tenantId ? { tenantId, filters } : { filters };
       setSelectedProperty(val);
     } else {
       revalidate();
-      history.push(`/upyog-ui/employee/payment/collect/PT/${val?.["propertyId"]}`)
+      navigate(`/upyog-ui/employee/payment/collect/PT/${val?.["propertyId"]}`)
     }
 
   }
@@ -87,7 +87,7 @@ const args = tenantId ? { tenantId, filters } : { filters };
   };
 
   const skipNContinue = () => {
-    history.push(`/upyog-ui/employee/payment/collect/PT/${selectedProperty?.['propertyId']}`)
+    navigate(`/upyog-ui/employee/payment/collect/PT/${selectedProperty?.['propertyId']}`)
   }
 
   const updateMobileNumber = () => {

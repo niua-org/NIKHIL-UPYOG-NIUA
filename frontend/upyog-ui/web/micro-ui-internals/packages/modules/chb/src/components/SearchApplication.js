@@ -1,7 +1,7 @@
   import React, { useCallback, useMemo, useEffect,useRef,useState } from "react"
   import { useForm, Controller } from "react-hook-form";
   import { TextInput, SubmitBar, LinkLabel, ActionBar, CloseSvg, DatePicker, CardLabelError, SearchForm, SearchField, Dropdown, Table, Card, MobileNumber, Loader, CardText, Header } from "@upyog/digit-ui-react-components";
-  import { Link,useHistory} from "react-router-dom";
+  import { Link,  } from "react-router-dom";
   import CHBCancelBooking from "./CHBCancelBooking";
 
   /**
@@ -159,7 +159,7 @@
               Cell: ({ row }) => {
                 const [isMenuOpen, setIsMenuOpen] = useState(false);
                 const menuRef = useRef();
-                const history = useHistory(); // Initialize history
+                const navigate = Digit.Hooks.useCustomNavigate(); // Initialize history
 
                 const toggleMenu = () => {
                   setIsMenuOpen(!isMenuOpen);
@@ -216,7 +216,7 @@
                   if (isSlotBooked) {
                     setShowToast({ error: true, label: t("CHB_COMMUNITY_HALL_ALREADY_BOOKED") });
                   } else {
-                    history.push({
+                    navigate({
                       pathname: `/upyog-ui/employee/payment/collect/${"chb-services"}/${application?.bookingNo}`,
                       state: { tenantId: application?.tenantId, bookingNo: application?.bookingNo,timerValue:result?.data.timerValue ,SlotSearchData:SlotSearchData },
                     });

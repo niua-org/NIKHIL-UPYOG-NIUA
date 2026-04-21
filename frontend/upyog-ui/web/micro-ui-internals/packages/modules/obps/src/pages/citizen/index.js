@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import OBPSSearchApplication from "../../components/SearchApplication";
 import Search from "../employee/Search";
 import { useTranslation } from "react-i18next";
-import { Switch, useLocation, Route } from "react-router-dom";
+import { Routes, useLocation, Route } from "react-router-dom";
 import { PrivateRoute, BackButton } from "@upyog/digit-ui-react-components";
 // import NewBuildingPermit from "./NewBuildingPermit";
 // import CreateEDCR from "./EDCR";
@@ -46,28 +46,28 @@ const App = ({ path }) => {
     <React.Fragment>
       <div className="ws-citizen-wrapper">
        {!location.pathname.includes("response") && !location.pathname.includes("openlink/stakeholder") && !location.pathname.includes("/acknowledgement") && !isDocScreenAfterEdcr && <BackButton style={{ border: "none" }}>{t("CS_COMMON_BACK")}</BackButton>}
-      <Switch>
-        <PrivateRoute path={`${path}/home`} component={BPACitizenHomeScreen} />
-        <PrivateRoute path={`${path}/search/application`} component={(props) => <Search {...props} parentRoute={path} />} />
-        <PrivateRoute path={`${path}/search/obps-application`} component={(props) => <Search {...props} parentRoute={path} />} />
-        <PrivateRoute path={`${path}/edcrscrutiny/apply`} component={CreateEDCR} />
-        <PrivateRoute path={`${path}/edcrscrutiny/oc-apply`} component={CreateOCEDCR} />
-        <PrivateRoute path={`${path}/bpa/:applicationType/:serviceType`} component={NewBuildingPermit} />
-        <PrivateRoute path={`${path}/ocbpa/:applicationType/:serviceType`} component={OCBuildingPermit}/>
-        <PrivateRoute path={`${path}/stakeholder/apply`} component={StakeholderRegistration} />
-        <PrivateRoute path={`${path}/preApprovedPlan`} component={PreApprovedPlan} />
-        <Route path={`${path}/openlink/stakeholder/apply`} component={StakeholderRegistration} />
-        <PrivateRoute path={`${path}/my-applications`} component={MyApplication} />
-        <PrivateRoute path={`${path}/bpa/inbox`} component={(props) => <Inbox {...props} parentRoute={path} />} />
-        <PrivateRoute path={`${path}/edcr/inbox`} component={(props) => <EdcrInbox {...props} parentRoute={path} />} />
-        <PrivateRoute path={`${path}/stakeholder/:id`} component={ApplicationDetails} />
-        <PrivateRoute path={`${path}/bpa/:id`} component={BpaApplicationDetail} />
-        <PrivateRoute path={`${path}/editApplication/bpa/:tenantId/:applicationNo`} component={BPASendToArchitect} />
-        <PrivateRoute path={`${path}/editApplication/ocbpa/:tenantId/:applicationNo`} component={OCSendToArchitect} />
-        <PrivateRoute path={`${path}/sendbacktocitizen/bpa/:tenantId/:applicationNo`} component={BPASendBackToCitizen} />
-        <PrivateRoute path={`${path}/sendbacktocitizen/ocbpa/:tenantId/:applicationNo`} component={OCSendBackToCitizen} />
-        <PrivateRoute path={`${path}/response`} component={OBPSResponse} />
-      </Switch>
+      <Routes>
+        <Route path={`${path}/home`} element={<PrivateRoute><BPACitizenHomeScreen /></PrivateRoute>} />
+        <Route path={`${path}/search/application`} element={<PrivateRoute><Search parentRoute={path} /></PrivateRoute>} />
+        <Route path={`${path}/search/obps-application`} element={<PrivateRoute><Search parentRoute={path} /></PrivateRoute>} />
+        <Route path={`${path}/edcrscrutiny/apply/*`} element={<PrivateRoute><CreateEDCR /></PrivateRoute>} />
+        <Route path={`${path}/edcrscrutiny/oc-apply/*`} element={<PrivateRoute><CreateOCEDCR /></PrivateRoute>} />
+        <Route path={`${path}/bpa/:applicationType/:serviceType/*`} element={<PrivateRoute><NewBuildingPermit /></PrivateRoute>} />
+        <Route path={`${path}/ocbpa/:applicationType/:serviceType/*`} element={<PrivateRoute><OCBuildingPermit /></PrivateRoute>} />
+        <Route path={`${path}/stakeholder/apply/*`} element={<PrivateRoute><StakeholderRegistration /></PrivateRoute>} />
+        <Route path={`${path}/preApprovedPlan/*`} element={<PrivateRoute><PreApprovedPlan /></PrivateRoute>} />
+        <Route path={`${path}/openlink/stakeholder/apply/*`} element={<StakeholderRegistration />} />
+        <Route path={`${path}/my-applications`} element={<PrivateRoute><MyApplication /></PrivateRoute>} />
+        <Route path={`${path}/bpa/inbox`} element={<PrivateRoute><Inbox parentRoute={path} /></PrivateRoute>} />
+        <Route path={`${path}/edcr/inbox`} element={<PrivateRoute><EdcrInbox parentRoute={path} /></PrivateRoute>} />
+        <Route path={`${path}/stakeholder/:id`} element={<PrivateRoute><ApplicationDetails /></PrivateRoute>} />
+        <Route path={`${path}/bpa/:id`} element={<PrivateRoute><BpaApplicationDetail /></PrivateRoute>} />
+        <Route path={`${path}/editApplication/bpa/:tenantId/:applicationNo`} element={<PrivateRoute><BPASendToArchitect /></PrivateRoute>} />
+        <Route path={`${path}/editApplication/ocbpa/:tenantId/:applicationNo`} element={<PrivateRoute><OCSendToArchitect /></PrivateRoute>} />
+        <Route path={`${path}/sendbacktocitizen/bpa/:tenantId/:applicationNo`} element={<PrivateRoute><BPASendBackToCitizen /></PrivateRoute>} />
+        <Route path={`${path}/sendbacktocitizen/ocbpa/:tenantId/:applicationNo`} element={<PrivateRoute><OCSendBackToCitizen /></PrivateRoute>} />
+        <Route path={`${path}/response`} element={<PrivateRoute><OBPSResponse /></PrivateRoute>} />
+      </Routes>
       </div>
     </React.Fragment>
   );

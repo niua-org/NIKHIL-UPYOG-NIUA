@@ -5,7 +5,7 @@ import BulkBillSearchFields from "./BulkBillSearchFields";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MobileSearchWater from "./MobileSearchWater";
-import { useHistory } from "react-router-dom";
+
 import { convertDateToEpoch } from "../../utils/index"
 import * as XLSX from "xlsx";
 const BulkBillSearch = ({ tenantId, onSubmit, data, count, resultOk, businessService, isLoading }) => {

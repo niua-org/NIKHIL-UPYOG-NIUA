@@ -6,9 +6,9 @@
   "exports": {
     ".": {
       "development": "./src/index.js",
-      "import": "./dist/index.modern.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": "./src/index.js",
+      "require": "./src/index.js",
+      "default": "./src/index.js"
     }
   },
   "license": "MIT",

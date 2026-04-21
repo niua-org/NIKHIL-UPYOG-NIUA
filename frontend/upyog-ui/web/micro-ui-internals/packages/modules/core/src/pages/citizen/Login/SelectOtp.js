@@ -85,7 +85,7 @@ const SelectOtp = ({ config, otp, onOtpChange, onResend, onSelect, t, error, use
       console.log("datadatadata",data,sessionStorage.getItem("userName"))
       const [res, err] = await sendOtp({ otp: { ...data, ...TYPE_REGISTER } });
       if (!err) {
-        history.replace(`${path}/otp`, { from: getFromLocation(location.state, searchParams) });
+        navigate(`${path}/otp`, { replace: true, state: { from: getFromLocation(location.state, searchParams) } });
         return;
       }
       else {

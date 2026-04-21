@@ -2,7 +2,7 @@ import { Card, KeyNote, SubmitBar, Toast,CardSubHeader } from "@upyog/digit-ui-r
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
-import { Link, useHistory } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 
 /*
  * AdsApplication component displays the details of a specific advertisement application.
@@ -13,7 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 
 const AdsApplication = ({ application, tenantId, buttonLabel }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showToast, setShowToast] = useState(null);
 
   /*
@@ -84,7 +84,7 @@ const formatTime = (seconds) => {
           if (isSlotBooked) {
             setShowToast({ error: true, label: t("ADS_ADVERTISEMENT_ALREADY_BOOKED") });
           } else {
-            history.push({
+            navigate({
               pathname: `/upyog-ui/citizen/payment/my-bills/${"adv-services"}/${application?.bookingNo}`,
               state: { tenantId: application?.tenantId, bookingNo: application?.bookingNo, timerValue:timerValue, SlotSearchData:SlotSearchData },
             });

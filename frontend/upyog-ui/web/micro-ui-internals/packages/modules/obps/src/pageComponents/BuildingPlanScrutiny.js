@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { PreApprovedPlanService } from "../../../../libraries/src/services/elements/PREAPPROVEDPLAN";
 import  usePreApprovedSearch  from "../../../../libraries/src/hooks/obps/usePreApprovedSearch";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams,  } from "react-router-dom";
 import useEstimateDetails from "../../../../libraries/src/hooks/obps/useEstimateDetails";
 import Timeline from "../components/Timeline";
 const BuildingPlanScrutiny = ({ t, config, onSelect, formData, isShowToast, isSubmitBtnDisable, setIsShowToast }) => {
@@ -181,7 +181,7 @@ const getDetailsRow = (estimateDetails) => {
   }
   const ActionButton = ({ label, jumpTo }) => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = Digit.Hooks.useCustomNavigate();
     function routeTo() {
       location.href = jumpTo;
     }

@@ -1,11 +1,11 @@
 import { Toast, Card, KeyNote, SubmitBar } from "@upyog/digit-ui-react-components";
 import React,{ useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link,useHistory } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 
 const StreetVendingApplication = ({ application, buttonLabel,previousDraftId,onDiscard }) => {
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [showToast, setShowToast] = useState(null);
   //TODO: Need to remove all session storage from here and get the data from Search API call
   const handleEditClick = () => {
@@ -17,7 +17,7 @@ const StreetVendingApplication = ({ application, buttonLabel,previousDraftId,onD
     sessionStorage.setItem("vendorIds",application?.addressDetails?.[0]?.vendorId);
     sessionStorage.setItem("bankIds",application?.bankDetail?.id);
     sessionStorage.setItem("venId",application?.vendorDetail?.[0]?.id);
-    history.push(`/upyog-ui/citizen/sv/edit`);
+    navigate(`/upyog-ui/citizen/sv/edit`);
   };
 
   useEffect(() => {

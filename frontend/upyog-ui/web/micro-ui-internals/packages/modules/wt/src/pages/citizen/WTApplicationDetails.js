@@ -11,7 +11,7 @@ import {
 import React, {useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import get from "lodash/get";
 import { size } from "lodash";

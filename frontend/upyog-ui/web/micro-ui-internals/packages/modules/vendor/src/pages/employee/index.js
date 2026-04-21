@@ -1,7 +1,7 @@
 import { PrivateRoute,BreadCrumb,AppContainer,BackButton, CloseSvg } from "@upyog/digit-ui-react-components";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Switch, useLocation } from "react-router-dom";
+import { Link, useLocation, Routes, Route } from "react-router-dom";
 import SearchApp from "./SearchApp";
 
 export const VendorBreadCrumb = ({ location }) => {
@@ -71,31 +71,25 @@ const EmployeeApp = ({ path, url, userType }) => {
   const VehicleDetails = Digit.ComponentRegistryService.getComponent("VehicleDetails");
 
   return (
-    <Switch>
-      <AppContainer>
-      <React.Fragment>
-       <div className="ground-container">
-                 <div style={{ marginLeft: "-4px" }}>
+    <AppContainer>
+      <div className="ground-container">
+        <div style={{ marginLeft: "-4px" }}>
           <VendorBreadCrumb location={location} />
-        </div>         
-          {/* <PrivateRoute path={`${path}/additional`} component={Create} /> */}
-          <PrivateRoute path={`${path}/registry/new-vendor`} component={() => <AddVendor parentRoute={path} />} />
-          <PrivateRoute path={`${path}/search-vendor`} component={() => <SearchVendor parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/new-driver`} component={() => <AddDriver parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/vendor-details/:id`} component={() => <EditVendorDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/vehicle-details/:id`} component={() => <VehicleDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/new-vehicle`} component={() => <AddVehicle parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/additionaldetails`} component={() => <VendorCreate parentRoute={path} />} />
-          <PrivateRoute path={`${path}/registry/driver-details`} component={() => <DriverDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/common-search/:id`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
-
-          
-          {/* <PrivateRoute path={`${path}/new-application`} component={(props) => <Create {...props} parentRoute={path} />} /> */}
-
-        </div> 
-      </React.Fragment>
-      </AppContainer>
-    </Switch>
+        </div>
+        <Routes>
+          <Route path={`${path}/registry/new-vendor`} element={<PrivateRoute><AddVendor parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/search-vendor`} element={<PrivateRoute><SearchVendor parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/new-driver`} element={<PrivateRoute><AddDriver parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/vendor-details/:id`} element={<PrivateRoute><EditVendorDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/vehicle-details/:id`} element={<PrivateRoute><VehicleDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/new-vehicle`} element={<PrivateRoute><AddVehicle parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/additionaldetails`} element={<PrivateRoute><VendorCreate parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/registry/driver-details`} element={<PrivateRoute><DriverDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/common-search/:id`} element={<PrivateRoute><SearchApp parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/new-application`} element={<PrivateRoute><Create parentRoute={path} /></PrivateRoute>} />
+        </Routes>
+      </div>
+    </AppContainer>
   );
 };
 

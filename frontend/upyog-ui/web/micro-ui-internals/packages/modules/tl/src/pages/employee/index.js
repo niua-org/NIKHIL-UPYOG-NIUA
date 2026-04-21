@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Routes, Route } from "react-router-dom";
 import { PrivateRoute, BreadCrumb } from "@upyog/digit-ui-react-components";
 import { useTranslation } from "react-i18next";
 import Inbox from "./Inbox";
@@ -156,49 +156,33 @@ const EmployeeApp = ({ path, url, userType }) => {
   const ReNewApplication = Digit?.ComponentRegistryService?.getComponent('TLReNewApplication');
   const Response = Digit?.ComponentRegistryService?.getComponent('TLResponse');
   const Search = Digit?.ComponentRegistryService?.getComponent('TLSearch');
+  const CommonRedirect = Digit?.ComponentRegistryService?.getComponent("CommonRedirect");
 
   return (
-    <Switch>
-      <React.Fragment>
-      <div className="ground-container" style={locationCheck ? {width: "100%", marginLeft: "0px"} : {marginLeft: "0px"}}>
-          <div style={locationCheck ? {marginLeft: "15px"} : {}}>
-            <TLBreadCrumb location={location} />
-          </div>
-          {/* <p className="breadcrumb" style={{ marginLeft: mobileView ? "2vw" : !locationCheck ? "revert": "15px" }}>
-            <Link to="/upyog-ui/employee" style={{ cursor: "pointer", color: "#666" }}>
-              {t("ES_COMMON_HOME")}
-            </Link>{" "}
-            / 
-            {location.pathname === "/upyog-ui/employee/tl/inbox" ? 
-              <span>{location.pathname === "/upyog-ui/employee/tl/inbox" ? t("ES_COMMON_INBOX") : ""}</span>
-              : 
-              <Link to="/upyog-ui/employee/tl/inbox" style={{ cursor: "pointer", color: "#666" }}>
-                {location.pathname.includes("/upyog-ui/employee/tl/") ? t("ES_COMMON_INBOX") : ""}
-              </Link>}
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/search/application") ? `/ ${t("ES_COMMON_SEARCH_APPLICATION") }`  : null}</span>
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/search/license") ? `/ ${t("TL_SEARCH_TRADE_HEADER") }`  : null}</span>
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/application-details") ? `/ ${t("TL_DETAILS_HEADER_LABEL") }`  : null}</span>
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/new-application") ? `/ ${t("TL_HOME_SEARCH_RESULTS_NEW_APP_BUTTON") }`  : null}</span>
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/renew-application-details") ? `/ ${t("ES_TITLE_RENEW_TRADE_LICESE_APPLICATION") }`  : null}</span>
-            <span>{location.pathname.includes("/upyog-ui/employee/tl/edit-application-details") ? `/ ${t("ES_TITLE_RE_NEW_TRADE_LICESE_APPLICATION") }`  : null}</span>
-          </p> */}
-          <PrivateRoute
-            path={`${path}/inbox`}
-            component={() => (
-              <Inbox parentRoute={path} businessService="TL" filterComponent="TL_INBOX_FILTER" initialStates={{}} isInbox={true} />
-            )}
-          />
-            <PrivateRoute path={`${path}/common/:filestore`} component={() => <CommonRedirect parentUrl={url} />} />
-          <PrivateRoute path={`${path}/new-application`} component={() => <NewApplication parentUrl={url} />} />
-          <PrivateRoute path={`${path}/application-details/:id`} component={() => <ApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/renew-application-details/:id`} component={(props) => <ReNewApplication {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/edit-application-details/:id`} component={(props) => <ReNewApplication {...props} header={t("TL_ACTION_RESUBMIT")} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/response`} component={(props) => <Response {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/search/:variant`} component={(props) => <Search {...props} parentRoute={path} />} />
-          
+    <React.Fragment>
+      <div className="ground-container" style={locationCheck ? { width: "100%", marginLeft: "0px" } : { marginLeft: "0px" }}>
+        <div style={locationCheck ? { marginLeft: "15px" } : {}}>
+          <TLBreadCrumb location={location} />
         </div>
-      </React.Fragment>
-    </Switch>
+        <Routes>
+          <Route
+            path={`${path}/inbox`}
+            element={
+              <PrivateRoute>
+                <Inbox parentRoute={path} businessService="TL" filterComponent="TL_INBOX_FILTER" initialStates={{}} isInbox={true} />
+              </PrivateRoute>
+            }
+          />
+          <Route path={`${path}/common/:filestore`} element={<PrivateRoute><CommonRedirect parentUrl={url} /></PrivateRoute>} />
+          <Route path={`${path}/new-application`} element={<PrivateRoute><NewApplication parentUrl={url} /></PrivateRoute>} />
+          <Route path={`${path}/application-details/:id`} element={<PrivateRoute><ApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/renew-application-details/:id`} element={<PrivateRoute><ReNewApplication parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/edit-application-details/:id`} element={<PrivateRoute><ReNewApplication header={t("TL_ACTION_RESUBMIT")} parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/response`} element={<PrivateRoute><Response parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/search/:variant`} element={<PrivateRoute><Search parentRoute={path} /></PrivateRoute>} />
+        </Routes>
+      </div>
+    </React.Fragment>
   );
 };
 

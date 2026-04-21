@@ -1,7 +1,6 @@
 import { CitizenHomeCard, PTIcon,ApplicantDetails, AddressDetails } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import CitizenApp from "./pages";
 import EmployeeApp from "./pages/employee";
 import ServiceTypes from "./components/ServiceTypes";
@@ -31,7 +30,7 @@ const componentsToRegister = {
 
   // Parent component of module
   export const GISModule = ({ stateCode, userType, tenants }) => {
-    const { path, url } = useRouteMatch();
+    const { path, url } = Digit.Hooks.useModuleBasePath();
     const moduleCode = "GIS";
     const language = Digit.StoreData.getCurrentLanguage();
     const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });

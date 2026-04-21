@@ -1,6 +1,6 @@
 import { AppContainer, BackButton, PrivateRoute, BreadCrumb } from "@upyog/digit-ui-react-components";
 import React from "react";
-import { Route, Switch, useRouteMatch, useLocation } from "react-router-dom";
+import { Route, useLocation, Routes } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Inbox from "./Inbox";
 import SearchApp from "./SearchApp";
@@ -10,7 +10,7 @@ import SearchApp from "./SearchApp";
  * Contains breadcrumbs for each page
  */
 const EmployeeApp = () => {
-  const { path, url, ...match } = useRouteMatch();
+  const { path, url, ...match } = Digit.Hooks.useModuleBasePath();
   const { t } = useTranslation();
   const location = useLocation();
   const isMobile = false
@@ -30,30 +30,32 @@ const EmployeeApp = () => {
   const SVApplicationDetails = Digit?.ComponentRegistryService?.getComponent("SVApplicationDetails")
   return (
     <span className={"sv-citizen"}style={{width:"100%"}}>
-      <Switch>
-        <AppContainer>
-          <BackButton style={{marginTop:"15px"}}>Back</BackButton>
-          <PrivateRoute path={`${path}/apply`} component={SVEmpCreate} />
-          <PrivateRoute
+      <AppContainer>
+        <BackButton style={{marginTop:"15px"}}>Back</BackButton>
+        <Routes>
+          <Route path={`${path}/apply`} element={<PrivateRoute><SVEmpCreate /></PrivateRoute>} />
+          <Route
             path={`${path}/inbox`}
-            component={() => (
-              <Inbox
-                useNewInboxAPI={true}
-                parentRoute={path}
-                businessService="sv"
-                filterComponent="SV_INBOX_FILTER"
-                initialStates={inboxInitialState}
-                isInbox={true}
-              />
-            )}
+            element={
+              <PrivateRoute>
+                <Inbox
+                  useNewInboxAPI={true}
+                  parentRoute={path}
+                  businessService="sv"
+                  filterComponent="SV_INBOX_FILTER"
+                  initialStates={inboxInitialState}
+                  isInbox={true}
+                />
+              </PrivateRoute>
+            }
           />
-          <PrivateRoute path={`${path}/application-details/:id`} component={() => <SVApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/applicationsearch/application-details/:id`} component={() => <SVApplicationDetails parentRoute={path} />} />
-          <PrivateRoute path={`${path}/my-applications`} component={(props) => <SearchApp {...props} parentRoute={path} />} />
-        </AppContainer>
-      </Switch>
+          <Route path={`${path}/application-details/:id`} element={<PrivateRoute><SVApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/applicationsearch/application-details/:id`} element={<PrivateRoute><SVApplicationDetails parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/my-applications`} element={<PrivateRoute><SearchApp parentRoute={path} /></PrivateRoute>} />
+        </Routes>
+      </AppContainer>
     </span>
   );
 };
 
-export default EmployeeApp;345678
+export default EmployeeApp;

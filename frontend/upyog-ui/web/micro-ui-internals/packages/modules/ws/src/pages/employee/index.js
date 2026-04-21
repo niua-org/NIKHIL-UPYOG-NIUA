@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Switch, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { PrivateRoute, BreadCrumb } from "@upyog/digit-ui-react-components";
 
 
@@ -285,58 +285,55 @@ const App = ({ path }) => {
   const locationCheckReqDocs = window.location.href.includes("/employee/ws/create-application") || window.location.href.includes("/employee/ws/new-disconnection/docsrequired");
 
   return (
-    <Switch>
-      <React.Fragment>
-        <div className="ground-container">
-          <div style={locationCheck ? { marginLeft: "12px" } : (locationCheckReqDocs?{marginLeft:"25px"}:{ marginLeft: "-4px" })}>
-            <BILLSBreadCrumbs location={location} />
-          </div>
-
-          <PrivateRoute path={`${path}/create-application`} component={WSDocsRequired} />
-          <PrivateRoute path={`${path}/new-application`} component={WSNewApplication} />
-          <PrivateRoute path={`${path}/edit-application`} component={WSEditApplication} />
-          <PrivateRoute path={`${path}/edit-disconnection-application`} component={WSEditDisconnectionApplication} />
-          <PrivateRoute path={`${path}/resubmit-disconnection-application`} component={WSResubmitDisconnection} />
-          <PrivateRoute path={`${path}/config-by-disconnection-application`} component={WSEditDisconnectionByConfig} />
-          <PrivateRoute path={`${path}/application-details`} component={WSApplicationDetails} />
-          <PrivateRoute path={`${path}/modify-details`} component={WSModifyApplicationDetails} />
-          <PrivateRoute path={`${path}/connection-details`} component={WSGetConnectionDetails} />
-          <PrivateRoute path={`${path}/bill-amendment`} component={() => <WSApplicationBillAmendment {...{ path }} />} />
-          <PrivateRoute path={`${path}/generate-note-bill-amendment`} component={() => <WSApplicationDetailsBillAmendment {...{ path }} />} />
-          <PrivateRoute path={`${path}/response`} component={() => <Response {...{ path }} />} />
-          <PrivateRoute path={`${path}/response-bill-amend`} component={() => <ResponseBillAmend {...{ path }} />} />
-          <PrivateRoute path={`${path}/required-documents`} component={() => <WSRequiredDocuments {...{ path }} />} />
-          <PrivateRoute path={`${path}/activate-connection`} component={WSActivateConnection} />
-          <PrivateRoute path={`${path}/water/search-application`} component={(props) => <WSSearch {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/sewerage/search-application`} component={(props) => <WSSearch {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/ws-response`} component={WSResponse} />
-          <PrivateRoute path={`${path}/ws-disconnection-response`} component={WSDisconnectionResponse} />
-          <PrivateRoute path={`${path}/ws-restoration-response`} component={WSRestorationResponse} />
-          <PrivateRoute path={`${path}/water/search-connection`} component={(props) => <WSSearchWater {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/sewerage/search-connection`} component={(props) => <WSSearchWater {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/water/search-demand`} component={(props) => <WSSearchWater {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/sewerage/search-demand`} component={(props) => <WSSearchWater {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/consumption-details`} component={WSConsumptionDetails} />
-          <PrivateRoute path={`${path}/modify-application`} component={WSModifyApplication} />
-          <PrivateRoute path={`${path}/modify-application-edit`} component={WSEditModifyApplication} />
-          <PrivateRoute path={`${path}/disconnection-application`} component={WSDisconnectionDocsRequired} />
-          <PrivateRoute path={`${path}/new-disconnection`} component={WSDisconnectionApplication} />
-          <PrivateRoute path={`${path}/new-restoration`} component={WSRestorationApplication} />
-          <PrivateRoute path={`${path}/bill-amend/inbox`} component={(props) => <WSBillIAmendMentInbox {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/water/inbox`} component={(props) => <WSInbox {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/sewerage/inbox`} component={(props) => <WSInbox {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/edit-application-by-config`} component={WSEditApplicationByConfig} />
-          <PrivateRoute path={`${path}/disconnection-details`} component={WSGetDisconnectionDetails} />
-          <PrivateRoute path={`${path}/water/bill-amendment/inbox`} component={(props) => <WSBillIAmendMentInbox {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/sewerage/bill-amendment/inbox`} component={(props) => <WSBillIAmendMentInbox {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/water/wns-search`} component={(props) => <WSSearchIntegrated {...props} parentRoute={path} />} />
-          <PrivateRoute path={`${path}/water/bulk-bill`} component={(props) => <WSBulkBillGeneration {...props} parentRoute={path} />} />
+    <div className="ground-container">
+      <div style={locationCheck ? { marginLeft: "12px" } : (locationCheckReqDocs?{marginLeft:"25px"}:{ marginLeft: "-4px" })}>
+        <BILLSBreadCrumbs location={location} />
+      </div>
+      <Routes>
+          <Route path={`${path}/create-application`} element={<PrivateRoute><WSDocsRequired /></PrivateRoute>} />
+          <Route path={`${path}/new-application`} element={<PrivateRoute><WSNewApplication /></PrivateRoute>} />
+          <Route path={`${path}/edit-application`} element={<PrivateRoute><WSEditApplication /></PrivateRoute>} />
+          <Route path={`${path}/edit-disconnection-application`} element={<PrivateRoute><WSEditDisconnectionApplication /></PrivateRoute>} />
+          <Route path={`${path}/resubmit-disconnection-application`} element={<PrivateRoute><WSResubmitDisconnection /></PrivateRoute>} />
+          <Route path={`${path}/config-by-disconnection-application`} element={<PrivateRoute><WSEditDisconnectionByConfig /></PrivateRoute>} />
+          <Route path={`${path}/application-details`} element={<PrivateRoute><WSApplicationDetails /></PrivateRoute>} />
+          <Route path={`${path}/modify-details`} element={<PrivateRoute><WSModifyApplicationDetails /></PrivateRoute>} />
+          <Route path={`${path}/connection-details`} element={<PrivateRoute><WSGetConnectionDetails /></PrivateRoute>} />
+<Route path={`${path}/bill-amendment`} element={<PrivateRoute><WSApplicationBillAmendment {...{ path }} /></PrivateRoute>} />
+<Route path={`${path}/generate-note-bill-amendment`} element={<PrivateRoute><WSApplicationDetailsBillAmendment {...{ path }} /></PrivateRoute>} />
+<Route path={`${path}/response`} element={<PrivateRoute><Response {...{ path }} /></PrivateRoute>} />
+<Route path={`${path}/response-bill-amend`} element={<PrivateRoute><ResponseBillAmend {...{ path }} /></PrivateRoute>} />
+<Route path={`${path}/required-documents`} element={<PrivateRoute><WSRequiredDocuments {...{ path }} /></PrivateRoute>} />
+          <Route path={`${path}/activate-connection`} element={<PrivateRoute><WSActivateConnection /></PrivateRoute>} />
+<Route path={`${path}/water/search-application`} element={<PrivateRoute><WSSearch  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/sewerage/search-application`} element={<PrivateRoute><WSSearch  parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/ws-response`} element={<PrivateRoute><WSResponse /></PrivateRoute>} />
+          <Route path={`${path}/ws-disconnection-response`} element={<PrivateRoute><WSDisconnectionResponse /></PrivateRoute>} />
+          <Route path={`${path}/ws-restoration-response`} element={<PrivateRoute><WSRestorationResponse /></PrivateRoute>} />
+<Route path={`${path}/water/search-connection`} element={<PrivateRoute><WSSearchWater  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/sewerage/search-connection`} element={<PrivateRoute><WSSearchWater  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/water/search-demand`} element={<PrivateRoute><WSSearchWater  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/sewerage/search-demand`} element={<PrivateRoute><WSSearchWater  parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/consumption-details`} element={<PrivateRoute><WSConsumptionDetails /></PrivateRoute>} />
+          <Route path={`${path}/modify-application`} element={<PrivateRoute><WSModifyApplication /></PrivateRoute>} />
+          <Route path={`${path}/modify-application-edit`} element={<PrivateRoute><WSEditModifyApplication /></PrivateRoute>} />
+          <Route path={`${path}/disconnection-application`} element={<PrivateRoute><WSDisconnectionDocsRequired /></PrivateRoute>} />
+          <Route path={`${path}/new-disconnection`} element={<PrivateRoute><WSDisconnectionApplication /></PrivateRoute>} />
+          <Route path={`${path}/new-restoration`} element={<PrivateRoute><WSRestorationApplication /></PrivateRoute>} />
+<Route path={`${path}/bill-amend/inbox`} element={<PrivateRoute><WSBillIAmendMentInbox  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/water/inbox`} element={<PrivateRoute><WSInbox  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/sewerage/inbox`} element={<PrivateRoute><WSInbox  parentRoute={path} /></PrivateRoute>} />
+          <Route path={`${path}/edit-application-by-config`} element={<PrivateRoute><WSEditApplicationByConfig /></PrivateRoute>} />
+          <Route path={`${path}/disconnection-details`} element={<PrivateRoute><WSGetDisconnectionDetails /></PrivateRoute>} />
+<Route path={`${path}/water/bill-amendment/inbox`} element={<PrivateRoute><WSBillIAmendMentInbox  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/sewerage/bill-amendment/inbox`} element={<PrivateRoute><WSBillIAmendMentInbox  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/water/wns-search`} element={<PrivateRoute><WSSearchIntegrated  parentRoute={path} /></PrivateRoute>} />
+<Route path={`${path}/water/bulk-bill`} element={<PrivateRoute><WSBulkBillGeneration  parentRoute={path} /></PrivateRoute>} />
           
           {/* <Route path={`${path}/search`} component={SearchConnectionComponent} />
           <Route path={`${path}/search-results`} component={SearchResultsComponent} /> */}
-        </div>
-      </React.Fragment>
-    </Switch>
+      </Routes>
+    </div>
   );
 };
 

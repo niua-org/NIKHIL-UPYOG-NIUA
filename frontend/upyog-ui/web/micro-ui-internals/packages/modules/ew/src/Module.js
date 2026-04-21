@@ -1,7 +1,6 @@
 import { Header, CitizenHomeCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 import { TableConfig } from "./config/inbox-table-config";
 import EWCard from "./components/EWCard";
 import EWASTEProductDetails from "./pageComponents/EWASTEProductDetails";
@@ -55,7 +54,7 @@ const addComponentsToRegistry = () => {
 };
 
 export const EWModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
 
   const moduleCode = "EW";
   const language = Digit.StoreData.getCurrentLanguage();

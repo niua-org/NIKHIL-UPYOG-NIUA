@@ -6,7 +6,7 @@ import { Loader } from "@upyog/digit-ui-react-components";
 
 import ActionModal from "./Modal";
 
-import { useHistory, useParams } from "react-router-dom";
+import { useParams,  } from "react-router-dom";
 import ApplicationDetailsContent from "./components/ApplicationDetailsContent";
 import ApplicationDetailsToast from "./components/ApplicationDetailsToast";
 import ApplicationDetailsActionBar from "./components/ApplicationDetailsActionBar";
@@ -16,7 +16,7 @@ const ApplicationDetails = (props) => {
     const tenantId = Digit.ULBService.getCurrentTenantId();
   const state = Digit.ULBService.getStateId();
   const { t } = useTranslation();
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   let { id: applicationNumber } = useParams();
   const [displayMenu, setDisplayMenu] = useState(false);
   const [selectedAction, setSelectedAction] = useState(null);
@@ -70,10 +70,10 @@ const ApplicationDetails = (props) => {
         if (action?.redirectionUrll?.action === "ACTIVATE_CONNECTION") {
           // window.location.assign(`${window.location.origin}digit-ui/employee/ws/${action?.redirectionUrll?.pathname}`, { data: action?.redirectionUrll?.state });
 
-          history.push(`${action?.redirectionUrll?.pathname}`, JSON.stringify({ data: action?.redirectionUrll?.state, url: `${location?.pathname}${location.search}` }));
+          navigate(`${action?.redirectionUrll?.pathname}`, JSON.stringify({ data: action?.redirectionUrll?.state, url: `${location?.pathname}${location.search}` }));
         }
         else if (action?.redirectionUrll?.action === "RE-SUBMIT-APPLICATION"){
-          history.push(`${action?.redirectionUrll?.pathname}`, { data: action?.redirectionUrll?.state });
+          navigate(`${action?.redirectionUrll?.pathname}`, { data: action?.redirectionUrll?.state });
         }
         else {
           window.location.assign(`${window.location.origin}/upyog-ui/employee/payment/collect/${action?.redirectionUrll?.pathname}`);
@@ -81,7 +81,7 @@ const ApplicationDetails = (props) => {
       } else if (!action?.redirectionUrl) {
         setShowModal(true);
       } else {
-        history.push({
+        navigate({
           pathname: action.redirectionUrl?.pathname,
           state: { ...action.redirectionUrl?.state },
         });
@@ -148,19 +148,19 @@ const ApplicationDetails = (props) => {
             setIsEnableLoader(false);
             if (isOBPS?.bpa) {
              // data.selectedAction = selectedAction;
-              history.replace(`/upyog-ui/employee/obps/response`, { data: data });
+              navigate(`/upyog-ui/employee/obps/response`, { replace: true, state: { data: data } });
             }
             if (isOBPS?.isStakeholder) {
              // data.selectedAction = selectedAction;
-              history.push(`/upyog-ui/employee/obps/stakeholder-response`, { data: data });
+              navigate(`/upyog-ui/employee/obps/stakeholder-response`, { state: { data: data } });
             }
             if (isOBPS?.isNoc) {
-              history.push(`/upyog-ui/employee/noc/response`, { data: data });
+              navigate(`/upyog-ui/employee/noc/response`, { state: { data: data } });
             }
             if (data?.Amendments?.length > 0) {
               //RAIN-6981 instead just show a toast here with appropriate message
               //show toast here and return 
-              //history.push("/upyog-ui/employee/ws/response-bill-amend", { status: true, state: data?.Amendments?.[0] })
+              //navigate("/upyog-ui/employee/ws/response-bill-amend", { status: true, state: data?.Amendments?.[0] })
   
               if (variables?.AmendmentUpdate?.workflow?.action.includes("SEND_BACK")) {
                 setShowToast({ key: "success", label: t("ES_MODIFYSWCONNECTION_SEND_BACK_UPDATE_SUCCESS") })

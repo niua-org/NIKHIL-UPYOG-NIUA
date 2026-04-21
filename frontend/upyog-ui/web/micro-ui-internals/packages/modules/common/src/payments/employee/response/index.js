@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Banner, Card, CardText, SubmitBar, ActionBar, DownloadPrefixIcon, Loader, Menu, LinkLabel } from "@upyog/digit-ui-react-components";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useParams, Link,  } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -19,7 +19,7 @@ export const convertEpochToDate = (dateEpoch) => {
   }
 };
 export const SuccessfulPayment = (props) => {
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const { addParams, clearParams } = props;
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -72,9 +72,9 @@ export const SuccessfulPayment = (props) => {
   useEffect(() => {
     switch (selectedAction) {
       case "GO_TO_HOME":
-        return history.push("/upyog-ui/employee");
+        return navigate("/upyog-ui/employee");
       case "ASSIGN_TO_DSO":
-        return history.push(`/upyog-ui/employee/fsm/application-details/${consumerCode}`);
+        return navigate(`/upyog-ui/employee/fsm/application-details/${consumerCode}`);
       default:
         return null;
     }

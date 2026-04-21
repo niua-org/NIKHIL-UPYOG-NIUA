@@ -14,7 +14,7 @@
 import { Banner, Card, LinkButton, Loader, Row, StatusTable, SubmitBar } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import getPetAcknowledgementData from "../../../getPetAcknowledgementData";
 import { PetDataConvert } from "../../../utils";
 

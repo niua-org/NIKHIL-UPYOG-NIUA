@@ -5,9 +5,9 @@ import SearchFields from "./SearchFields";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MobileSearchWater from "./MobileSearchWater";
-import { useHistory } from "react-router-dom";
+
 const SearchWaterConnection = ({ tenantId, onSubmit, data, count, resultOk, businessService, isLoading }) => {
-  const history = useHistory()
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [result,setResult]=  useState([])
   const [showToast, setShowToast] = useState(null);
   const replaceUnderscore = (str) => {
@@ -255,7 +255,7 @@ const SearchWaterConnection = ({ tenantId, onSubmit, data, count, resultOk, busi
     setShowToast({
       label: `${data}`
   })
-    history.push(`/upyog-ui/employee/payment/collect/SW/${encodeURIComponent(
+    navigate(`/upyog-ui/employee/payment/collect/SW/${encodeURIComponent(
       row.original?.["connectionNo"])}/${row.original?.["tenantId"]}?tenantId=${row.original?.["tenantId"]}?workflow=WS&ISWSCON`)
 
   }

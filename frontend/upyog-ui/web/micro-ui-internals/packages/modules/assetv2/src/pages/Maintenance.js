@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Banner, CardText, SubmitBar, Loader, LinkButton, Toast, ActionBar } from "@upyog/digit-ui-react-components";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation,  } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -37,7 +37,7 @@ const Maintenance = (props) => {
   console.log('For coming data from props in response:- ', props)
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const history = useHistory();
+  const navigate = Digit.Hooks.useCustomNavigate();
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(null);
   const [enableAudit, setEnableAudit] = useState(false);

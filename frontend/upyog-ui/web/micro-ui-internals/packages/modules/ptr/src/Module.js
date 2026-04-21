@@ -1,7 +1,6 @@
 import { CitizenHomeCard, PTIcon } from "@upyog/digit-ui-react-components";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useRouteMatch } from "react-router-dom";
 
 import PTRCitizenPet from "./pageComponents/PTRCitizenPet";
 
@@ -52,7 +51,7 @@ const addComponentsToRegistry = () => {
 
 // Main module function to get to the routes file of citizen or employee module
 export const PTRModule = ({ stateCode, userType, tenants }) => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
   const moduleCode = "PTR";
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
@@ -63,16 +62,15 @@ export const PTRModule = ({ stateCode, userType, tenants }) => {
   Digit.SessionStorage.set("PTR_TENANTS", tenants);  // setting a value in a session storage object
 
   // loads localization settings for an employee based on the current tenant and language when the component mounts
-  useEffect(
-    () =>
-      userType === "employee" &&
+  useEffect(() => {
+    if (userType === "employee") {
       Digit.LocalizationService.getLocale({
         modules: [`rainmaker-${Digit.ULBService.getCurrentTenantId()}`],
         locale: Digit.StoreData.getCurrentLanguage(),
         tenantId: Digit.ULBService.getCurrentTenantId(),
-      }),
-    []
-  );
+      });
+    }
+  }, []);
 
     // Displaying employee module if userType is 'employee', otherwise displaying citizen module
   if (userType === "employee") {

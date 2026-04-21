@@ -1,6 +1,6 @@
 import React, { useMemo,useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Switch, useRouteMatch, useLocation } from "react-router-dom";
+import { Route, useLocation, Routes } from "react-router-dom";
 import { config as defaultConfig } from "./config";
 import PropertySearchResults from "./searchResults";
 import { loginSteps } from "../Otp/config";
@@ -8,7 +8,7 @@ import { loginSteps } from "../Otp/config";
 const SearchResultsComponent = (props) => {
   const { config: propConfig, onSelect, clearParams, formData, stateCode } = props;
   const { t } = useTranslation();
-  const { path } = useRouteMatch();
+  const { path } = Digit.Hooks.useModuleBasePath();
 
   const search = useLocation().search;
   const redirectToUrl = new URLSearchParams(search).get('redirectToUrl');
@@ -27,7 +27,7 @@ const SearchResultsComponent = (props) => {
   }, [config]);
  
   return (
-    <Switch>
+    <Routes>
       <Route path={`${path}`} exact>
         <PropertySearchResults
           template={params[0].labels}
@@ -43,7 +43,7 @@ const SearchResultsComponent = (props) => {
           searchQuery={formData?.cptSearchQuery}
         />
       </Route>
-    </Switch>
+    </Routes>
   );
 };
 export default SearchResultsComponent;

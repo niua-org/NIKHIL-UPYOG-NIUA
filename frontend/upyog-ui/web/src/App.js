@@ -169,11 +169,7 @@ const moduleReducers = (initData) => ({
 });
 
 function App() {
-  const stateCode = 
-  // To this — import.meta.env is Vite's native env access
-// process.env still works via the define shim but import.meta.env is the correct Vite way
-window.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") ||
-  import.meta.env.REACT_APP_STATE_LEVEL_TENANT_ID;
+  const stateCode = window.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || process.env.REACT_APP_STATE_LEVEL_TENANT_ID;
   
   if (!stateCode) {
     return <h1>stateCode is not defined</h1>;

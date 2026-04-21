@@ -5,7 +5,7 @@ import { BackButton, Loader, PrivateRoute, BreadCrumb } from "@upyog/digit-ui-re
 import DashBoard from "./pages";
 import NewDashBoard from "./pages/NewDashboard";
 import Home from "./pages/Home";
-import { Route, Switch, useRouteMatch, useLocation } from "react-router-dom";
+import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import Overview from "./pages/Overview";
 import {checkCurrentScreen, DSSCard,NDSSCard} from "./components/DSSCard";
 import DrillDown from "./pages/DrillDown";
@@ -52,7 +52,7 @@ const DssBreadCrumb = ({ location }) => {
   return <BreadCrumb crumbs={crumbs?.filter(ele=>ele.show)} />;
 };
 
-const Routes = ({ path, stateCode }) => {
+const DssModuleRoutes = ({ path, stateCode }) => {
   const location = useLocation();
   const isMobile = window.Digit.Utils.browser.isMobile();
 
@@ -79,18 +79,14 @@ Desludging Service</div>
       </div>
       <div className="chart-wrapper" style={isMobile ? {marginTop:"unset"} : {width:"100%"}}>
       <DssBreadCrumb location={location} />
-      <Switch>
-        <PrivateRoute path={`${path}/landing/:moduleCode`} component={() => <Home stateCode={stateCode} />} />
-        <PrivateRoute path={`${path}/dashboard/:moduleCode`} component={() => <DashBoard stateCode={stateCode} />} />
-        <PrivateRoute path={`${path}/main-dashboard-landing`} component={() => <NewDashBoard stateCode={stateCode} />} />
-        <PrivateRoute path={`${path}/drilldown`} component={() => <DrillDown  stateCode={stateCode}  />} />
-        <Route key={"national-faq"} path={`${path}/national-faqs`}>
-          <FAQsSection/>
-        </Route>
-        <Route key={"national-about"} path={`${path}/national-about`}>
-          <About/>
-        </Route>
-      </Switch>
+      <RouterRoutes>
+        <Route path={`${path}/landing/:moduleCode`} element={<PrivateRoute><Home stateCode={stateCode} /></PrivateRoute>} />
+        <Route path={`${path}/dashboard/:moduleCode`} element={<PrivateRoute><DashBoard stateCode={stateCode} /></PrivateRoute>} />
+        <Route path={`${path}/main-dashboard-landing`} element={<PrivateRoute><NewDashBoard stateCode={stateCode} /></PrivateRoute>} />
+        <Route path={`${path}/drilldown`} element={<PrivateRoute><DrillDown stateCode={stateCode} /></PrivateRoute>} />
+        <Route key={"national-faq"} path={`${path}/national-faqs`} element={<FAQsSection />} />
+        <Route key={"national-about"} path={`${path}/national-about`} element={<About />} />
+      </RouterRoutes>
     </div>
     </div>
    
@@ -99,8 +95,7 @@ Desludging Service</div>
 
 const DSSModule = ({ stateCode, userType, tenants }) => {
   const moduleCode = "DSS";
-  // const { path, url } = useRouteMatch();
-  const { path, url } = useRouteMatch();
+  const { path, url } = Digit.Hooks.useModuleBasePath();
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({ stateCode, moduleCode, language });
 
@@ -111,7 +106,7 @@ const DSSModule = ({ stateCode, userType, tenants }) => {
   Digit.SessionStorage.set("DSS_TENANTS", tenants);
 
   if (userType !== "citizen") {
-    return <Routes path={path} stateCode={stateCode} />;
+    return <DssModuleRoutes path={path} stateCode={stateCode} />;
   }
 };
 
