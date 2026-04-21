@@ -47,7 +47,7 @@ const EmployeeApp = ({
     <div className="employee">
       <Routes>
         <Route
-          path={`${path}/user/*`}
+          path="user/*"
           element={
             <>
               {isUserProfile && (
