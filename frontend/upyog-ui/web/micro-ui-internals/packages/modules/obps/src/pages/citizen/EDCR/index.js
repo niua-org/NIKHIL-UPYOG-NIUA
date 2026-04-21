@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Navigate, Route, Routes,  } from "react-router-dom";
@@ -10,6 +10,7 @@ const CreateEDCR = ({ parentRoute }) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const navigate = Digit.Hooks.useCustomNavigate();
+  let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("EDCR_CREATE", {});
   const [isShowToast, setIsShowToast] = useState(null);
   const [isSubmitBtnDisable, setIsSubmitBtnDisable] = useState(false);
@@ -84,23 +85,17 @@ const CreateEDCR = ({ parentRoute }) => {
     sessionStorage.removeItem("CurrentFinancialYear");
     queryClient.invalidateQueries("TL_CREATE_TRADE");
   };
-  const wizardConfig = useMemo(() => {
-    let config = [];
-    const mdms = newConfig?.EdcrConfig ? newConfig?.EdcrConfig : newConfigEDCR;
-    mdms?.forEach((obj) => {
-      config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
-    });
-    config.indexRoute = "home";
-    return config;
-  }, [newConfig]);
-
-  const match = Digit.Hooks.useWizardPath(wizardConfig);
+  newConfig = newConfig?.EdcrConfig ? newConfig?.EdcrConfig : newConfigEDCR;
+  newConfig.forEach((obj) => {
+    config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
+  });
+  config.indexRoute = "home";
 
   const EDCRAcknowledgement = Digit?.ComponentRegistryService?.getComponent('EDCRAcknowledgement') ;
 
   return (
     <Routes>
-      {wizardConfig.map((routeObj, index) => {
+      {config.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         return (
@@ -124,7 +119,7 @@ const CreateEDCR = ({ parentRoute }) => {
         );
       })}
       <Route path={`${match.path}/acknowledgement`} element={<EDCRAcknowledgement data={params} onSuccess={onSuccess} />} />
-      <Route path="*" element={<Navigate to={`${match.path}/${wizardConfig.indexRoute}`} replace />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} />} />
     </Routes>
   );
 };

@@ -356,7 +356,6 @@ import useRouteSubscription from "./useRouteSubscription";
 import { useCustomBackNavigation } from "./UseCustomBackNavigationProps";
 import useCustomNavigate from "./useCustomNavigate";
 import useModuleBasePath from "./useModuleBasePath";
-import useWizardPath from "./useWizardPath";
 
 
 const pgr = {
@@ -797,7 +796,6 @@ const Hooks = {
   useCustomBackNavigation,
   useCustomNavigate,
   useModuleBasePath,
-  useWizardPath,
   pgrAi,
   useInbox
 };

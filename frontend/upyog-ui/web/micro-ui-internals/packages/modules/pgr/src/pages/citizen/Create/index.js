@@ -7,15 +7,14 @@ import { PGR_CITIZEN_COMPLAINT_CONFIG, PGR_CITIZEN_CREATE_COMPLAINT } from "../.
 import Response from "./Response";
 
 import { config as defaultConfig } from "./defaultConfig";
-import { Navigate, Route, Routes, useLocation,  } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useMatch } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const CreateComplaint = () => {
   const ComponentProvider = Digit.Contexts.ComponentProvider;
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const config = useMemo(() => defaultConfig);
-  const match = Digit.Hooks.useWizardPath(config);
+  const match = useMatch();
   const navigate = Digit.Hooks.useCustomNavigate();
   const registry = useContext(ComponentProvider);
   const dispatch = useDispatch();
@@ -23,6 +22,7 @@ export const CreateComplaint = () => {
   const { stateInfo } = storeData || {};
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage(PGR_CITIZEN_CREATE_COMPLAINT, {});
   // const [customConfig, setConfig] = Digit.Hooks.useSessionStorage(PGR_CITIZEN_COMPLAINT_CONFIG, {});
+  const config = useMemo(() => defaultConfig);
   const [paramState, setParamState] = useState(params);
   const [nextStep, setNextStep] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
@@ -137,7 +137,7 @@ export const CreateComplaint = () => {
         );
       })}
       <Route path={`${match.path}/response`} element={<Response match={match} />} />
-      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} replace />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} />} />
     </Routes>
   );
 };

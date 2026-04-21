@@ -1,62 +1,55 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { Navigate, Route, Routes, useLocation,  } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useMatch } from "react-router-dom";
 import { commonConfig } from "../../../config/config";
 import { Timeline } from "@upyog/digit-ui-react-components";
 
+
 const WTCreate = () => {
   const queryClient = useQueryClient();
+  const match = useMatch();
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = Digit.Hooks.useCustomNavigate();
 
+  let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("WT_Create", {});
 
+  // Sets the serviceType in case of employee side for WT, MT, and TP
   if ((!params.serviceType || Object.keys(params.serviceType).length === 0) && pathname.includes("employee")) {
     if (pathname.includes("mt")) {
+      console.log("MT Create");
       setParams({
-        serviceType: {
-          serviceType: {
-            code: "MobileToilet",
-            i18nKey: "Mobile Toilet",
-            value: "Mobile Toilet",
-          },
-        },
-      });
+        "serviceType": {
+          "serviceType": {
+            "code": "MobileToilet",
+            "i18nKey": "Mobile Toilet",
+            "value": "Mobile Toilet"
+          }
+        }
+      })
     } else if (pathname.includes("tp")) {
       setParams({
-        serviceType: {
-          serviceType: {
-            code: "TREE_PRUNING",
-            i18nKey: "Tree Pruning",
-            value: "Tree Pruning",
-          },
-        },
-      });
-    } else {
+        "serviceType": {
+          "serviceType": {
+            "code": "TREE_PRUNING",
+            "i18nKey": "Tree Pruning",
+            "value": "Tree Pruning"
+          }
+        }
+      })
+    }
+    else {
       setParams({
-        serviceType: {
-          serviceType: {
-            code: "WT",
-            i18nKey: "Water Tanker",
-            value: "Water Tanker",
-          },
-        },
-      });
+        "serviceType": {
+          "serviceType": {
+            "code": "WT", "i18nKey": "Water Tanker", "value": "Water Tanker"
+          }
+        }
+      })
     }
   }
-
-  const wizardConfig = useMemo(() => {
-    let config = [];
-    commonConfig.forEach((obj) => {
-      config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
-    });
-    config.indexRoute = pathname.includes("citizen") ? "service-type" : "info";
-    return config;
-  }, [pathname]);
-
-  const match = Digit.Hooks.useWizardPath(wizardConfig);
 
   const goNext = (skipStep, index, isAddMultiple, key) => {
     let currentPath = pathname.split("/").pop(),
@@ -79,7 +72,7 @@ const WTCreate = () => {
     if (!isNaN(lastchar)) {
       isMultiple = true;
     }
-    let { nextStep = {} } = wizardConfig.find((routeObj) => routeObj.route === currentPath);
+    let { nextStep = {} } = config.find((routeObj) => routeObj.route === currentPath);
 
     let redirectWithHistory = (to, state) => navigate(to, state != null ? { state } : undefined);
     if (skipStep) {
@@ -88,27 +81,31 @@ const WTCreate = () => {
     if (isAddMultiple) {
       nextStep = key;
     }
-    if (nextStep === "request-details") {
-      const code = params?.serviceType?.serviceType?.code;
-      if (code === "MobileToilet") {
-        nextStep = "toiletRequest-details";
-      } else if (code === "TREE_PRUNING") {
-        nextStep = "treePruningRequest-details";
-      }
-    }
+    // Change next step to "toiletRequest-details" if the current step is "request-details" and the service type code is not "WT".
+    if (nextStep === "request-details") { 
+        const code = params?.serviceType?.serviceType?.code;
+        if (code === "MobileToilet") {
+          nextStep = "toiletRequest-details";
+        } else if (code === "TREE_PRUNING") {
+          nextStep = "treePruningRequest-details"; 
+        }
+    } 
     if (nextStep === null) {
       return redirectWithHistory(`${match.path}/check`);
     }
     if (!isNaN(nextStep.split("/").pop())) {
       nextPage = `${match.path}/${nextStep}`;
-    } else {
+    }
+    else {
       nextPage = isMultiple && nextStep !== "map" ? `${match.path}/${nextStep}/${index}` : `${match.path}/${nextStep}`;
     }
 
     redirectWithHistory(nextPage);
   };
 
-  if (params && Object.keys(params).length > 0 && window.location.href.includes("/service-type") && sessionStorage.getItem("docReqScreenByBack") !== "true") {
+ 
+
+  if (params && Object.keys(params).length>0 && window.location.href.includes("/service-type") && sessionStorage.getItem("docReqScreenByBack") !== "true") {
     clearParams();
     queryClient.invalidateQueries("WT_Create");
   }
@@ -132,7 +129,9 @@ const WTCreate = () => {
       setParams({ ...params, ...{ [key]: [...owners] } });
     } else if (key === "units") {
       let units = params.units || [];
+      // if(index){units[index] = data;}else{
       units = data;
+
       setParams({ ...params, units });
     } else {
       setParams({ ...params, ...{ [key]: { ...params[key], ...data } } });
@@ -145,6 +144,14 @@ const WTCreate = () => {
     queryClient.invalidateQueries("WT_Create");
   };
 
+  let commonFields = commonConfig;
+  commonFields.forEach((obj) => {
+    config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
+  });
+
+  // Changes the indexRoute based on the pathname
+  config.indexRoute = pathname.includes("citizen")? "service-type" : "info";
+
   const CheckPage = Digit?.ComponentRegistryService?.getComponent("WTCheckPage");
   const WTAcknowledgement = Digit?.ComponentRegistryService?.getComponent("WTAcknowledgement");
   const MTAcknowledgement = Digit?.ComponentRegistryService?.getComponent("MTAcknowledgement");
@@ -152,9 +159,9 @@ const WTCreate = () => {
 
   return (
     <React.Fragment>
-      <Timeline config={wizardConfig} />
+      <Timeline config={config} />
       <Routes>
-        {wizardConfig.map((routeObj, index) => {
+        {config.map((routeObj, index) => {
           const { component, texts, inputs, key, additionaFields } = routeObj;
           const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
           return (
@@ -169,7 +176,7 @@ const WTCreate = () => {
         <Route path={`${match.path}/wt-acknowledgement`} element={<WTAcknowledgement data={params} onSuccess={onSuccess} />} />
         <Route path={`${match.path}/mt-acknowledgement`} element={<MTAcknowledgement data={params} onSuccess={onSuccess} />} />
         <Route path={`${match.path}/tp-acknowledgement`} element={<TPAcknowledgement data={params} onSuccess={onSuccess} />} />
-        <Route path="*" element={<Navigate to={`${match.path}/${wizardConfig.indexRoute}`} replace />} />
+        <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} />} />
       </Routes>
     </React.Fragment>
   );

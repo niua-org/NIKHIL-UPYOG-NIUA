@@ -153,4 +153,3 @@ const initLibraries = () => {
 
 export { initLibraries, Enums, Hooks, subFormRegistry };
 export { default as useModuleBasePath } from "./hooks/useModuleBasePath";
-export { default as useWizardPath } from "./hooks/useWizardPath";

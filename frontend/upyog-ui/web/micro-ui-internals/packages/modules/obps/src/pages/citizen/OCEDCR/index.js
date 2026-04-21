@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Navigate, Route, Routes, useLocation,  } from "react-router-dom";
@@ -11,6 +11,7 @@ const CreateOCEDCR = ({ parentRoute }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = Digit.Hooks.useCustomNavigate();
+  let config = [];
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("OC_EDCR_CREATE", {});
   const [isShowToast, setIsShowToast] = useState(null);
   const [isSubmitBtnDisable, setIsSubmitBtnDisable] = useState(false);
@@ -83,21 +84,9 @@ const CreateOCEDCR = ({ parentRoute }) => {
       });
   }
 
-  const wizardConfig = useMemo(() => {
-    let config = [];
-    const mdms = newConfig?.OCEdcrConfig ? newConfig?.OCEdcrConfig : newConfigOCEDCR;
-    mdms?.forEach((obj) => {
-      config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
-    });
-    config.indexRoute = "docs-required";
-    return config;
-  }, [newConfig]);
-
-  const match = Digit.Hooks.useWizardPath(wizardConfig);
-
   const goNext = (skipStep) => {
     const currentPath = pathname.split("/").pop();
-    const { nextStep } = wizardConfig.find((routeObj) => routeObj.route === currentPath);
+    const { nextStep } = config.find((routeObj) => routeObj.route === currentPath);
     if (nextStep === null) {
       return navigate(`${match.path}/check`);
     }
@@ -117,12 +106,17 @@ const CreateOCEDCR = ({ parentRoute }) => {
     sessionStorage.removeItem("CurrentFinancialYear");
     queryClient.invalidateQueries("TL_CREATE_TRADE");
   };
+  newConfig = newConfig?.OCEdcrConfig ? newConfig?.OCEdcrConfig : newConfigOCEDCR;
+  newConfig.forEach((obj) => {
+    config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
+  });
+  config.indexRoute = "docs-required";
 
   const EDCRAcknowledgement = Digit?.ComponentRegistryService?.getComponent('OCEDCRAcknowledgement');
 
   return (
     <Routes>
-      {wizardConfig.map((routeObj, index) => {
+      {config.map((routeObj, index) => {
         const { component, texts, inputs, key } = routeObj;
         const Component = typeof component === "string" ? Digit.ComponentRegistryService.getComponent(component) : component;
         return (
@@ -146,7 +140,7 @@ const CreateOCEDCR = ({ parentRoute }) => {
         );
       })}
       <Route path={`${match.path}/acknowledgement`} element={<EDCRAcknowledgement data={params} onSuccess={onSuccess} />} />
-      <Route path="*" element={<Navigate to={`${match.path}/${wizardConfig.indexRoute}`} replace />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${config.indexRoute}`} />} />
     </Routes>
   );
 };

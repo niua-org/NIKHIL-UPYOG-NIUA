@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate, Route, Routes, useLocation,  } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useMatch } from "react-router-dom";
 import { TypeSelectCard, Loader } from "@upyog/digit-ui-react-components";
 import { newConfig } from "../../../config/NewApplication/config";
 import CheckPage from "./CheckPage";
@@ -14,6 +14,9 @@ const FileComplaint = ({ parentRoute }) => {
   const navigate = Digit.Hooks.useCustomNavigate();
   const tenantId = Digit.ULBService.getCurrentTenantId();
   const stateId = Digit.ULBService.getStateId();
+  const match = useMatch();
+  let config = [];
+  let configs = []
   const [params, setParams, clearParams] = Digit.Hooks.useSessionStorage("FSM_CITIZEN_FILE_PROPERTY", {});
   const { data: commonFields, isLoading } = Digit.Hooks.fsm.useMDMS(stateId, "FSM", "CommonFieldsConfig");
 
@@ -28,18 +31,6 @@ const FileComplaint = ({ parentRoute }) => {
       clearError();
     }
   }, []);
-
-  const configs = useMemo(() => {
-    let config = [];
-    commonFields?.forEach((obj) => {
-      config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
-    });
-    const out = [...config];
-    out.indexRoute = "select-trip-number";
-    return out;
-  }, [commonFields]);
-
-  const match = Digit.Hooks.useWizardPath(configs);
 
   const goNext = (skipStep) => {
     const currentPath = pathname.split("/").pop();
@@ -75,6 +66,13 @@ const FileComplaint = ({ parentRoute }) => {
     return <Loader />;
   }
 
+  commonFields.forEach((obj) => {
+    config = config.concat(obj.body.filter((a) => !a.hideInCitizen));
+  });
+
+  configs = [...config]
+  configs.indexRoute = "select-trip-number";
+
   return (
     <Routes>
       {configs.map((routeObj, index) => {
@@ -90,7 +88,7 @@ const FileComplaint = ({ parentRoute }) => {
       })}
       <Route path={`${match.path}/check`} element={<CheckPage onSubmit={submitComplaint} value={params} />} />
       <Route path={`${match.path}/response`} element={<Response data={params} onSuccess={handleSUccess} />} />
-      <Route path="*" element={<Navigate to={`${match.path}/${configs.indexRoute}`} replace />} />
+      <Route path="*" element={<Navigate to={`${match.path}/${configs.indexRoute}`} />} />
     </Routes>
   );
 };
