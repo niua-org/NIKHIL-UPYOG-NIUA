@@ -24,7 +24,7 @@ public class GisDxController {
     /**
      * Generate GeoJSON data for any municipal service
      */
-    @PostMapping("/_search")
+    @PostMapping("/_search/{businessService}")
     public ResponseEntity<GeoJsonResponse> search(
             @Valid @RequestBody GeoJsonRequest request) {
         
@@ -32,7 +32,7 @@ public class GisDxController {
                 request.getBusinessService(), request.getTenantId());
         
         try {
-            var response = gisDxService.fetchGeoJson(request);
+            GeoJsonResponse response = gisDxService.fetchGeoJson(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Error processing GeoJSON search request: ", e);
