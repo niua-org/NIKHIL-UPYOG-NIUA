@@ -73,7 +73,9 @@ public class MobileToiletCitizen {
         } catch (Exception e) {
             System.out.println("Exception in Mobile Toilet: " + e.getMessage());
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -159,7 +161,7 @@ public class MobileToiletCitizen {
 
         WebElement serviceTypeDropdown = dropdownSvgs.get(0);
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", serviceTypeDropdown);
-        Thread.sleep(500);
+        Thread.sleep(2000);
 
         try {
             serviceTypeDropdown.click();

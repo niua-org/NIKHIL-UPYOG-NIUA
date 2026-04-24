@@ -86,8 +86,10 @@ public class TradeLicenseCreate {
         } catch (Exception e) {
             System.out.println("Exception in Trade License Registration: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            // driver.quit(); // Commented out to keep browser open for observation
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

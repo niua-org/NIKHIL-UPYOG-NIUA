@@ -7,14 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class TreePruningVerifier {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
     public void TreePruningInbox1() {
@@ -28,7 +33,7 @@ public class TreePruningVerifier {
         System.out.println("Tree Pruning Application Verifier Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -61,7 +66,10 @@ public class TreePruningVerifier {
         } catch (Exception e) {
             System.out.println("Exception in Tree Pruning Application Verifier Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     // =====================================================================

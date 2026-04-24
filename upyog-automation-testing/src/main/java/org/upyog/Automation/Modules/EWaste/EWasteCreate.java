@@ -69,7 +69,9 @@ public class EWasteCreate {
             System.out.println("Exception in EWaste Management Booking: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -313,33 +315,44 @@ public class EWasteCreate {
     private void submitApplication(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
             throws InterruptedException {
 
-        System.out.println("Submitting Property Tax Application - Summary Page");
-        Thread.sleep(3000);
+        System.out.println("Submitting Ewaste Application - Summary Page");
 
-        List<WebElement> checkboxes = driver.findElements(By.cssSelector("input[type='checkbox']"));
-        if (!checkboxes.isEmpty()) {
-            WebElement lastCheckbox = checkboxes.get(checkboxes.size() - 1);
-            try {
-                if (!lastCheckbox.isSelected()) {
-                    js.executeScript("arguments[0].scrollIntoView(true);", lastCheckbox);
-                    Thread.sleep(300);
-                    js.executeScript("arguments[0].click();", lastCheckbox);
-                    System.out.println("Checked declaration checkbox");
-                }
-            } catch (Exception ex) {
-                System.out.println("Could not click declaration checkbox: " + ex.getMessage());
-            }
+        // ===== CHECKBOX =====
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//input[@type='checkbox']")
+        ));
+
+        if (!checkbox.isSelected()) {
+            js.executeScript("arguments[0].scrollIntoView({block:'center'});", checkbox);
+            js.executeScript("arguments[0].click();", checkbox);
+            System.out.println("Checked declaration checkbox");
         }
 
-        WebElement submitButton = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//button[@class='submit-bar ' and @type='button'][.//header[text()='Submit']]")));
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        Thread.sleep(300);
-        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", submitButton);
-        Thread.sleep(200);
-        submitButton.click();
-        System.out.println("Property tax application: Submit clicked");
+        // ===== SUBMIT BUTTON =====
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[.//header[contains(text(),'Submit')]]")
+        ));
 
+        js.executeScript("arguments[0].scrollIntoView({block:'center'});", submitButton);
+        js.executeScript("arguments[0].click();", submitButton);
+
+        System.out.println("Submit clicked");
+
+        // ===== MOST IMPORTANT PART =====
+        System.out.println("Waiting for next page after submit...");
+
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains("acknowledgement"),
+                ExpectedConditions.urlContains("success"),
+                ExpectedConditions.urlContains("payment"),
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//*[contains(text(),'Application Submitted') or contains(text(),'Acknowledgement')]")
+                )
+        ));
+
+        System.out.println("Post-submit page loaded successfully");
+
+        Thread.sleep(2000); // optional stabilization
     }
 
 

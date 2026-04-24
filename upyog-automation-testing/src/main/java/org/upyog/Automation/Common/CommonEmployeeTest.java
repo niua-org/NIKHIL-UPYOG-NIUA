@@ -9,6 +9,7 @@ import org.upyog.Automation.Modules.Asset.AssetEmp;
 import org.upyog.Automation.Modules.CnD.CnDEmp;
 import org.upyog.Automation.Modules.EWaste.EWasteEmp;
 import org.upyog.Automation.Modules.OBPAS.OBPASEmp;
+import org.upyog.Automation.Modules.OBPAS.OBPASOcEmp;
 import org.upyog.Automation.Modules.Pet.PetApplicationEmp;
 import org.upyog.Automation.Modules.PropertyTax.PropertyTaxEmp;
 import org.upyog.Automation.Modules.PublicGrievanceRedressal.PgrEmp;
@@ -43,6 +44,50 @@ public class CommonEmployeeTest {
     @Autowired
     private AssetEmp assetEmp;
 
+    @Autowired
+    private AdvEmp advEmp;
+
+    @Autowired
+    private PropertyTaxEmp propertyTaxEmp;
+
+    @Autowired
+    private EWasteEmp eWasteEmp;
+
+    @Autowired
+    private OBPASEmp oBPASEmp;
+
+    @Autowired
+    private OBPASOcEmp oBPASOcEmp;
+
+    @Autowired
+    private WaterTankerEmployee waterTankerEmployee;
+
+    @Autowired
+    private TreePruningEmp treePruningEmp;
+
+    @Autowired
+    private TreePruningVerifier treePruningVerifier;
+
+    @Autowired
+    private MobileToiletEmp mobileToiletEmp;
+
+    @Autowired
+    private chbEmp chbEmp;
+
+    @Autowired
+    private CnDEmp cnDEmp;
+
+    @Autowired
+    private PgrEmp pgrEmp;
+
+    @Autowired
+    private SewerageEmp sewerageEmp;
+
+    @Autowired
+    private WaterEmp waterEmp;
+
+
+
     public void runEmployeeTest(String baseUrl, String moduleName, String username, String password, String applicationNumber) {
         logger.info("Starting {} employee test", moduleName);
 
@@ -51,70 +96,74 @@ public class CommonEmployeeTest {
 
 
                 case "STREET_VENDING":
-                    new SvEmp().InboxEmpSv(baseUrl, username, password, applicationNumber);
+                    svEmp.InboxEmpSv(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "PET_REGISTRATION":
-                    new PetApplicationEmp().petInboxEmp(baseUrl, username, password, applicationNumber);
+                    petApplicationEmp.petInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "TRADE_LICENSE":
-                    new TradeLicenseEmp().tlInboxEmp(baseUrl, username, password, applicationNumber);
+                    tradeLicenseEmp.tlInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "ASSET_MANAGEMENT_SYSTEM":
-                    new AssetEmp().assetInboxEmp(baseUrl, username, password, applicationNumber);
+                    assetEmp.assetInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "ADVERTISEMENT":
-                    new AdvEmp().AdvInboxEmp(baseUrl, username, password, applicationNumber);
+                    advEmp.AdvInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "PROPERTY_TAX":
-                    new PropertyTaxEmp().PropertyInboxEmp(baseUrl, username, password, applicationNumber);
+                    propertyTaxEmp.PropertyInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "EWASTE_MANAGEMENT_SYSTEM":
-                    new EWasteEmp().EWasteInboxEmp(baseUrl, username, password, applicationNumber);
+                    eWasteEmp.EWasteInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM":
-                    new OBPASEmp().OBPASInboxEmp(baseUrl, username, password, applicationNumber);
+                    oBPASEmp.OBPASInboxEmp(baseUrl, username, password, applicationNumber);
+                    break;
+
+                case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM_OC":
+                    oBPASOcEmp.OBPASOcInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "WATER_TANKER":
-                    new WaterTankerEmployee().WaterTankerInboxEmp(baseUrl, username, password, applicationNumber);
+                    waterTankerEmployee.WaterTankerInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "TREE_PRUNING":
-                    new TreePruningEmp().TreePruningInboxEmp(baseUrl, username, password, applicationNumber);
+                    treePruningEmp.TreePruningInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "TREE_PRUNING_VERIFIER":
-                    new TreePruningVerifier().TreePruningInboxVerifier(baseUrl, username, password, applicationNumber);
+                    treePruningVerifier.TreePruningInboxVerifier(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "MOBILE_TOILET":
-                    new MobileToiletEmp().MobileToiletInboxEmp(baseUrl, username, password, applicationNumber);
+                    mobileToiletEmp.MobileToiletInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "COMMUNITY_HALL_BOOKING":
-                    new chbEmp().chbInboxEmp(baseUrl, username, password, applicationNumber);
+                    chbEmp.chbInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "CONSTRUCTION_AND_DEMOLITION":
-                    new CnDEmp().CnDInboxEmp(baseUrl, username, password, applicationNumber);
+                    cnDEmp.CnDInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "PUBLIC_GRIEVANCE_REDRESSAL":
-                    new PgrEmp().PgrInboxEmp(baseUrl, username, password, applicationNumber);
+                    pgrEmp.PgrInboxEmp(baseUrl, username, password, applicationNumber);
                     break;
 
                 case "WATER_AND_SEWERAGE":
                     if (applicationNumber.startsWith("SW")) {
-                        new SewerageEmp().SewerageInboxEmp(baseUrl, username, password, applicationNumber);
+                        sewerageEmp.SewerageInboxEmp(baseUrl, username, password, applicationNumber);
                     } else {
-                        new WaterEmp().WaterInboxEmp(baseUrl, username, password, applicationNumber);
+                        waterEmp.WaterInboxEmp(baseUrl, username, password, applicationNumber);
                     }
                     break;
 

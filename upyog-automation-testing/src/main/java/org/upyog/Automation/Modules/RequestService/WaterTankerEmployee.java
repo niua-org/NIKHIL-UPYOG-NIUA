@@ -7,20 +7,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class WaterTankerEmployee {
 
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
     public void WaterTankerInbox() {
         WaterTankerInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("wt.login.username"),
+                ConfigReader.get("wt.login.password"),
                 ConfigReader.get("waterTanker.application.number"));
     }
 
@@ -28,7 +33,7 @@ public class WaterTankerEmployee {
         System.out.println("Water Tanker Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -80,7 +85,10 @@ public class WaterTankerEmployee {
         } catch (Exception e) {
             System.out.println("Exception in Water Tanker Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
         // =====================================================================

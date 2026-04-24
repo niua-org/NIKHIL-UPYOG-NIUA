@@ -7,15 +7,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.io.File;
 import java.util.List;
 
 @Component
 public class DesludgingCreate{
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
     //@PostConstruct
 
     public void desludgingReg() {
@@ -29,7 +34,7 @@ public class DesludgingCreate{
     public void desludgingReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Community Hall Booking by Citizen");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -96,8 +101,10 @@ public class DesludgingCreate{
         } catch (Exception e) {
             System.out.println("Exception in Desludging Service: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            // driver.quit();
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -958,7 +965,7 @@ public class DesludgingCreate{
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
         Thread.sleep(200);
 
-        // 🔥 CLICK PARENT, NOT INPUT
+        // CLICK PARENT, NOT INPUT
         WebElement clickable = radio.findElement(By.xpath(".."));
         js.executeScript("arguments[0].click();", clickable);
 

@@ -7,20 +7,28 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class chbEmp {
 
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
+
+
+
     //@PostConstruct
     public void ChbInbox() {
         chbInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("chb.login.username"),
+                ConfigReader.get("chb.login.password"),
                 ConfigReader.get("chb.application.number"));
     }
 
@@ -28,7 +36,7 @@ public class chbEmp {
         System.out.println("Community Hall Booking Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -57,7 +65,10 @@ public class chbEmp {
         } catch (Exception e) {
             System.out.println("Exception in Community Hall Booking Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     private void performEmployeeLogin(WebDriver driver, WebDriverWait wait, JavascriptExecutor js, Actions actions, String baseUrl, String username, String password) throws InterruptedException {
@@ -293,7 +304,7 @@ public class chbEmp {
                 By.cssSelector("div.options-card")
         ));
 
-        // 🔥 CHANGE HERE
+        // CHANGE HERE
         WebElement mohaliOption = dropdownOptions.findElement(
                 By.cssSelector(".profile-dropdown--item:nth-child(8)")
         );

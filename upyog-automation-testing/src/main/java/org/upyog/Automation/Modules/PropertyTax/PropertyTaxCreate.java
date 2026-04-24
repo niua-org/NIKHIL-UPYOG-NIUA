@@ -111,7 +111,9 @@ public class PropertyTaxCreate {
             System.out.println("Exception in Property Registration: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

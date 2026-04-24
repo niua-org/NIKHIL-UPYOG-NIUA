@@ -62,7 +62,9 @@ public class TradeLicenseEmp {
             System.out.println("Exception in Trade License Employee Workflow: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

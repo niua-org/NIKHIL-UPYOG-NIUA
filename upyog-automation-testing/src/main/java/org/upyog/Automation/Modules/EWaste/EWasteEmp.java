@@ -7,9 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,11 +21,14 @@ import java.util.List;
 @Component
 public class EWasteEmp {
 
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
     public void EWasteInbox() {
         EWasteInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("ewaste.login.username"),
+                ConfigReader.get("ewaste.login.password"),
                 ConfigReader.get("eWaste.application.number"));
     }
 
@@ -31,7 +36,7 @@ public class EWasteEmp {
         System.out.println("Advertisement Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -72,7 +77,10 @@ public class EWasteEmp {
         } catch (Exception e) {
             System.out.println("Exception in EWaste Management Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     // =====================================================================

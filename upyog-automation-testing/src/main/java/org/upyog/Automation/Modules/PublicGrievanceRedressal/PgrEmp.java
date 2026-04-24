@@ -7,20 +7,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class PgrEmp {
 
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
     public void PgrInbox() {
         PgrInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("pgr.login.username"),
+                ConfigReader.get("pgr.login.password"),
                 ConfigReader.get("pgr.application.number"));
     }
 
@@ -28,7 +33,7 @@ public class PgrEmp {
         System.out.println("PGR Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -63,7 +68,10 @@ public class PgrEmp {
         } catch (Exception e) {
             System.out.println("Exception in PGR Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     // =====================================================================

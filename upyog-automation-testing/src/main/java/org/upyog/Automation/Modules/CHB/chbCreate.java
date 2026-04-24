@@ -86,8 +86,9 @@ public class chbCreate {
             System.out.println("Exception in Community Hall Booking Registration: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
-        }
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     //=====================================================================
@@ -1132,7 +1133,7 @@ public class chbCreate {
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", radio);
         Thread.sleep(200);
 
-        // 🔥 CLICK PARENT, NOT INPUT
+        // CLICK PARENT, NOT INPUT
         WebElement clickable = radio.findElement(By.xpath(".."));
         js.executeScript("arguments[0].click();", clickable);
 

@@ -58,8 +58,9 @@ public class SearchApplication {
             System.out.println("Exception in Pet Application Search: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // Uncomment to close browser after test
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

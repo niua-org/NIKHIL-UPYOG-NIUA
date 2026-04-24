@@ -129,8 +129,11 @@ public class OBPASCreate {
         } catch (Exception e) {
             System.out.println("Exception in OBPAS Registration: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            // driver.quit();
+        }
+        finally {
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -1607,6 +1610,23 @@ public class OBPASCreate {
         }
 
         System.out.println("Payment flow finished (Card route).");
+        Thread.sleep(5000);
+        // ===============================
+        // WAIT FOR ACKNOWLEDGEMENT PAGE
+        // ===============================
+        System.out.println("Waiting for acknowledgement page...");
+
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.urlContains("acknowledgement"),
+                ExpectedConditions.urlContains("success")
+        ));
+
+// Extra stability
+        Thread.sleep(3000);
+
+// Debug
+        System.out.println("Final URL: " + driver.getCurrentUrl());
+        System.out.println("Final Title: " + driver.getTitle());
     }
 
 

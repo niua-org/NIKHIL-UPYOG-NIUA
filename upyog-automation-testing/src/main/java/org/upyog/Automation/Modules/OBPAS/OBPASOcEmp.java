@@ -18,20 +18,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class OBPASEmp {
+public class OBPASOcEmp {
 
     @Autowired
     private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
-    public void OBPASInbox() {
-        OBPASInboxEmp(ConfigReader.get("employee.base.url"),
+    public void OBPASOcInbox() {
+        OBPASOcInboxEmp(ConfigReader.get("employee.base.url"),
                 ConfigReader.get("obpas.login.username"),
                 ConfigReader.get("obpas.login.password"),
                 ConfigReader.get("obpas.application.number"));
     }
 
-    public void OBPASInboxEmp(String baseUrl, String username, String password, String applicationNumber) {
+    public void OBPASOcInboxEmp(String baseUrl, String username, String password, String applicationNumber) {
         System.out.println("Advertisement Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
@@ -86,19 +86,19 @@ public class OBPASEmp {
             // STEP 15: Pop Up Forward Fire NOC
             handleForwardPopup1(driver, wait, js);
 
-            // STEP 16: Go to Home Page Again2 For OBPAS NOC
+            // STEP 16: Go to Home Page Again2 For OBPASOc NOC
             takeActionGoToHomeAgain2(driver, wait, js);
 
-            // STEP 17: Inbox Again2 OBPAS NOC
+            // STEP 17: Inbox Again2 OBPASOc NOC
             navigateToSearchApplicationAgain2(driver, wait, js);
 
             // STEP 18: Search Application Again 2
             searchByApplicationAgain2(driver, wait, js, applicationNumber);
 
-            // STEP 19: Take Action Forward1 OBPAS NOC
+            // STEP 19: Take Action Forward1 OBPASOc NOC
             takeActionAndForward2(driver, wait, js);
 
-            // STEP 20: Pop Up Forward OBPAS NOC
+            // STEP 20: Pop Up Forward OBPASOc NOC
             handleForwardPopup2(driver, wait, js);
 
             // STEP 21: Go to Home Page Again1 For Approver
@@ -116,34 +116,20 @@ public class OBPASEmp {
             // STEP 25: Pop Up  Approver
             handleApproverPopup(driver, wait, js);
 
-            // STEP 26: Take Action Pay
-            takeActionAndPay(driver, wait, js);
-
-            // STEP 27: Collect Payment
-            fillPaymentAndCollect(driver, wait, js);
-
-            // STEP 28: Go to Home Page Again4 For OBPAS NOC
+            // STEP 26: Go to Home Page Again4
             takeActionGoToHomeAgain4(driver, wait, js);
 
-            // STEP 29: Inbox Again4 OBPAS NOC
-            navigateToSearchApplicationAgain4(driver, wait, js);
 
-            // STEP 30: Search Application Again 4
-            searchByApplicationAgain4(driver, wait, js, applicationNumber);
-
-            // STEP 31: Capture Planning Permit Number
-            capturePermitNumber(wait, js);
-
-            System.out.println("OBPAS Application Employee Workflow completed successfully!");
+            System.out.println("OBPASOc Application Employee Workflow completed successfully!");
             Thread.sleep(50000); // Keep browser open for observation
 
         } catch (Exception e) {
-            System.out.println("Exception in OBPAS Application Employee Workflow: " + e.getMessage());
+            System.out.println("Exception in OBPASOc Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
         }
-       finally {
+        finally {
            if (driver != null) {
-               driver.quit();
+                driver.quit();
             }}
     }
 
@@ -677,7 +663,7 @@ public class OBPASEmp {
         // =========================
         // STEP 3: CLICK FORWARD BUTTON
         // =========================
-        By forwardBtnLocator = By.xpath("//button[normalize-space()='FORWARD']");
+        By forwardBtnLocator = By.xpath("//button[normalize-space()='VERIFY AND FORWARD']");
 
         WebElement forwardBtn = wait.until(ExpectedConditions.elementToBeClickable(forwardBtnLocator));
 
@@ -846,6 +832,7 @@ public class OBPASEmp {
 
         System.out.println("File uploaded");
         Thread.sleep(1000);
+
 
         // TAKE ACTION
 
@@ -1133,7 +1120,7 @@ public class OBPASEmp {
         // =========================
         // STEP 3: CLICK FORWARD BUTTON
         // =========================
-        By forwardBtnLocator = By.xpath("//button[normalize-space()='FORWARD']");
+        By forwardBtnLocator = By.xpath("//button[normalize-space()='VERIFY AND FORWARD']");
 
         WebElement forwardBtn = wait.until(ExpectedConditions.elementToBeClickable(forwardBtnLocator));
 
@@ -1169,7 +1156,7 @@ public class OBPASEmp {
     }
 
     // =====================================================================
-    // STEP 21: SEARCH APPLICATION AGAIN3
+    // STEP 22: SEARCH APPLICATION AGAIN3
     // =====================================================================
 
     private void navigateToSearchApplicationAgain3(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -1191,7 +1178,7 @@ public class OBPASEmp {
     }
 
     // =====================================================================
-    // STEP 22: SEARCH APPLICATION BY APPLICATION NUMBER
+    // STEP 23: SEARCH APPLICATION BY APPLICATION NUMBER
     // =====================================================================
 
 
@@ -1274,7 +1261,7 @@ public class OBPASEmp {
     }
 
     // =====================================================================
-    // STEP 23: TAKE ACTION APPROVER
+    // STEP 24: TAKE ACTION APPROVER
     // =====================================================================
 
     private void takeActionAndApprover(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -1316,7 +1303,7 @@ public class OBPASEmp {
     }
 
     // =====================================================================
-    // STEP 24: POP UP APPROVER
+    // STEP 25: POP UP APPROVER
     // =====================================================================
 
     private void handleApproverPopup(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -1368,104 +1355,7 @@ public class OBPASEmp {
     }
 
     // =====================================================================
-    // STEP 25: TAKE ACTION PAY
-    // =====================================================================
-
-    private void takeActionAndPay(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
-
-        System.out.println("Starting Take Action → PAY");
-
-
-        // TAKE ACTION
-
-        clickPayButton(driver, wait);
-        Thread.sleep(500);
-
-        System.out.println("Pay Button clicked");
-    }
-
-    // =====================================================================
-    // STEP 26: COLLECT PAYMENT
-    // =====================================================================
-
-    private void fillPaymentAndCollect(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
-
-        System.out.println("Filling Payment Details");
-
-
-        // PAYER MOBILE
-
-        By mobileLocator = By.name("payerMobile");
-
-        WebElement mobileInput = wait.until(ExpectedConditions.visibilityOfElementLocated(mobileLocator));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", mobileInput);
-        Thread.sleep(300);
-
-        mobileInput.clear();
-        mobileInput.sendKeys("9999999999");
-
-        System.out.println("Payer Mobile entered");
-
-
-        // RECEIPT NUMBER
-
-        By receiptNoLocator = By.name("instrumentNumber");
-
-        WebElement receiptInput = wait.until(ExpectedConditions.visibilityOfElementLocated(receiptNoLocator));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", receiptInput);
-        Thread.sleep(300);
-
-        receiptInput.clear();
-        receiptInput.sendKeys("GEN123456");
-
-        System.out.println("Receipt Number entered");
-
-
-        // RECEIPT DATE
-
-        String currentDate = java.time.LocalDate.now().toString();
-
-        By dateLocator = By.xpath("//input[@type='date']");
-
-        WebElement dateInput = wait.until(ExpectedConditions.visibilityOfElementLocated(dateLocator));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", dateInput);
-        Thread.sleep(300);
-
-        // Set current date
-        js.executeScript(
-                "arguments[0].value='" + currentDate + "';" +
-                        "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
-                dateInput
-        );
-
-        System.out.println("Date entered: " + currentDate);
-
-
-        // CLICK COLLECT PAYMENT
-
-        By collectBtnLocator = By.xpath("//button[.//header[normalize-space()='Collect Payment']]");
-
-        WebElement collectBtn = wait.until(ExpectedConditions.elementToBeClickable(collectBtnLocator));
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", collectBtn);
-        Thread.sleep(500);
-
-        try {
-            collectBtn.click();
-        } catch (Exception e) {
-            js.executeScript("arguments[0].click();", collectBtn);
-        }
-
-        System.out.println("Collect Payment clicked");
-    }
-
-    // =====================================================================
-    // STEP 27: TAKE ACTION GO TO HOME AGAIN 4
+    // STEP 26: TAKE ACTION GO TO HOME AGAIN 4
     // =====================================================================
 
     private void takeActionGoToHomeAgain4(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
@@ -1481,184 +1371,6 @@ public class OBPASEmp {
 
         System.out.println("Go To Home clicked");
 
-    }
-
-    // =====================================================================
-    // STEP 28: SEARCH APPLICATION AGAIN4 OBPAS NOC
-    // =====================================================================
-
-    private void navigateToSearchApplicationAgain4(WebDriver driver, WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
-        System.out.println("Navigating to Search Property Application");
-
-        // Wait for page to load after login
-        Thread.sleep(2000);
-
-        // Click Search Application link
-        WebElement inboxLink = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//span[text()='OBPS']" +
-                        "/ancestor::div[contains(@class,'employeeCustomCard')]" +
-                        "//div[contains(@class,'employee-card-banner')]" +
-                        "//*[normalize-space()='Search Application']")));
-        js.executeScript("arguments[0].scrollIntoView(true);", inboxLink);
-        inboxLink.click();
-        System.out.println("Clicked Inbox link");
-    }
-
-    // =====================================================================
-    // STEP 29: SEARCH APPLICATION BY APPLICATION NUMBER
-    // =====================================================================
-
-    private void searchByApplicationAgain4(WebDriver driver, WebDriverWait wait,
-                                           JavascriptExecutor js, String applicationNumber)
-            throws InterruptedException {
-
-        System.out.println("Searching Application in Search Application");
-
-        wait.until(ExpectedConditions.urlContains("application"));
-        Thread.sleep(2000);
-
-        String obpasId = applicationNumber.trim();
-        System.out.println("Application Number " + obpasId);
-
-        WebElement obpasInput = null;
-
-        try {
-            obpasInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("(//div[contains(@class,'search-complaint-container')]//input[@type='text'])[1]")
-            ));
-            System.out.println("Found using index fallback locator");
-
-
-        } catch (Exception e1) {
-
-            try {
-                obpasInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//h4[text()='Application Number']/parent::span//input")
-                ));
-                System.out.println("Found using label-based locator");
-
-            } catch (Exception e2) {
-
-                obpasInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                        By.name("applicationNo")
-                ));
-                System.out.println("Found using name locator");
-            }
-        }
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", obpasInput);
-        Thread.sleep(500);
-
-        obpasInput.clear();
-        obpasInput.sendKeys(obpasId);
-
-        System.out.println("Application Number entered");
-
-        //SEARCH BUTTON
-
-        WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[normalize-space()='Search']")
-        ));
-
-        try {
-            searchBtn.click();
-        } catch (Exception e) {
-            js.executeScript("arguments[0].click();", searchBtn);
-        }
-
-        System.out.println("Search button clicked");
-
-
-        // CLICK RESULT
-
-        new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        By applicationLinkLocator = By.xpath("//a[text()='" + obpasId + "']");
-
-        WebElement applicationLink = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(applicationLinkLocator)
-        );
-
-// scroll
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                applicationLink
-        );
-
-// force click
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                applicationLink
-        );
-
-        System.out.println("Application clicked: " + obpasId);
-    }
-
-    // =====================================================================
-    // STEP 30: CAPTURE PLANNING PERMIT NUMBER
-    // =====================================================================
-
-    private String capturePermitNumber(WebDriverWait wait, JavascriptExecutor js)
-            throws InterruptedException {
-
-        System.out.println("Capturing Permit Number");
-
-        // =============================
-        // STEP 1: CAPTURE PERMIT NUMBER
-        // =============================
-        WebElement permitNumberEl = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//h2[normalize-space()='Permit Number']/following-sibling::div")
-                )
-        );
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", permitNumberEl);
-        Thread.sleep(300);
-
-        String permitNumber = permitNumberEl.getText().trim();
-
-        System.out.println("Captured Permit Number: " + permitNumber);
-
-
-        // =============================
-        // STEP 2: CAPTURE PERMIT DATE
-        // =============================
-        WebElement permitDateEl = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//h2[normalize-space()='Permit Validity']/following-sibling::div")
-                )
-        );
-
-        js.executeScript("arguments[0].scrollIntoView({block:'center'});", permitDateEl);
-        Thread.sleep(300);
-
-        String validity = permitDateEl.getText().trim();
-        // Example: "22/04/2026 - 22/04/2029"
-
-        String permitDateUI = validity.split("-")[0].trim(); // 22/04/2026
-
-        // CONVERT FORMAT (IMPORTANT FIX)
-        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        LocalDate date = LocalDate.parse(permitDateUI, inputFormat);
-        String permitDate = date.format(outputFormat);
-
-        System.out.println("Captured Permit Date (converted): " + permitDate);
-
-
-        // =============================
-        // STEP 3: STORE FOR OC FLOW
-        // =============================
-        TestDataStore.PERMIT_NUMBER = permitNumber;
-        TestDataStore.PERMIT_DATE = permitDate;
-
-        System.out.println("Stored Permit Number: " + TestDataStore.PERMIT_NUMBER);
-        System.out.println("Stored Permit Date: " + TestDataStore.PERMIT_DATE);
-
-
-        return permitNumber;
     }
 
 
@@ -1963,3 +1675,4 @@ public class OBPASEmp {
         Thread.sleep(500);
     }
 }
+

@@ -73,8 +73,9 @@ public class PetCempCreate {
             System.out.println("Exception in Pet Registration: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // Uncomment to close browser after test
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

@@ -62,7 +62,9 @@ public class CreateApplication {
             logger.error("Exception in Street Vending Registration: {}", e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit(); // Commented out to keep browser open for observation
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

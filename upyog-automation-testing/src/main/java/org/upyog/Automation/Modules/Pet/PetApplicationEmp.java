@@ -67,8 +67,9 @@ public class PetApplicationEmp {
             System.out.println("Exception in Pet Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // Uncomment to close browser after test
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

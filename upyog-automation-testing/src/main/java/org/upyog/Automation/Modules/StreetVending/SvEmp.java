@@ -63,8 +63,9 @@ public class SvEmp {
             logger.error("Exception in SV Employee Workflow: {}", e.getMessage());
             e.printStackTrace();
         } finally {
-            // Uncomment to close browser after test
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

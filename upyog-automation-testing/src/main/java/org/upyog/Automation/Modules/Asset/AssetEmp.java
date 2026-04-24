@@ -22,8 +22,8 @@ public class AssetEmp {
     //@PostConstruct
     public void AssetEmpReg() {
         assetInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("ast.login.username"),
+                ConfigReader.get("ast.login.password"),
                 ConfigReader.get("ast.application.number"));
     }
     public void assetInboxEmp(String baseUrl, String username, String password, String applicationNumber) {
@@ -55,7 +55,9 @@ public class AssetEmp {
             System.out.println("Exception in Asset Management Employee Workflow: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -461,11 +463,11 @@ Thread.sleep(3000);
         ((JavascriptExecutor) driver)
                 .executeScript("arguments[0].scrollIntoView({block:'center'});", input);
 
-        Thread.sleep(1000);  // 🔹 Pause before click (1 sec)
+        Thread.sleep(1000);  // Pause before click (1 sec)
 
         input.click();
 
-        Thread.sleep(2000);  // 🔹 Wait 2 sec after dropdown opens
+        Thread.sleep(2000);  // Wait 2 sec after dropdown opens
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.cssSelector("div.options-card")

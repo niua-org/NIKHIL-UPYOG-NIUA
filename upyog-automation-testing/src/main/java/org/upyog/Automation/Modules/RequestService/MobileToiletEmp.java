@@ -7,20 +7,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class MobileToiletEmp {
 
+    @Autowired
+    private WebDriverFactory webDriverFactory;
+
     //@PostConstruct
     public void MobileToiletInbox() {
         MobileToiletInboxEmp(ConfigReader.get("employee.base.url"),
-                ConfigReader.get("app.login.username"),
-                ConfigReader.get("app.login.password"),
+                ConfigReader.get("mt.login.username"),
+                ConfigReader.get("mt.login.password"),
                 ConfigReader.get("mobileToilet.application.number"));
     }
 
@@ -28,7 +33,7 @@ public class MobileToiletEmp {
         System.out.println("Mobile Toilet Application Employee Workflow");
 
         // Initialize WebDriver using DriverFactory
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -80,7 +85,10 @@ public class MobileToiletEmp {
         } catch (Exception e) {
             System.out.println("Exception in Mobile Toilet Application Employee Workflow: " + e.getMessage());
             e.printStackTrace();
-        }
+        }finally {
+            if (driver != null) {
+                driver.quit();
+            }}
     }
 
     // =====================================================================
@@ -117,7 +125,7 @@ public class MobileToiletEmp {
 
         Thread.sleep(2000);
 
-        // ✅ Direct anchor click (MOST RELIABLE)
+        // Direct anchor click
         WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//a[contains(@href,'/wt/mt/my-bookings')]")
         ));
@@ -125,7 +133,7 @@ public class MobileToiletEmp {
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         Thread.sleep(500);
 
-        js.executeScript("arguments[0].click();", link);  // 🔥 JS click (important)
+        js.executeScript("arguments[0].click();", link);  // JS click (important)
 
         System.out.println("Clicked Search Application via href");
     }
@@ -462,7 +470,7 @@ public class MobileToiletEmp {
 
         Thread.sleep(2000);
 
-        // ✅ Direct anchor click (MOST RELIABLE)
+        // Direct anchor click
         WebElement link = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//a[contains(@href,'/wt/mt/my-bookings')]")
         ));
@@ -470,8 +478,7 @@ public class MobileToiletEmp {
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", link);
         Thread.sleep(500);
 
-        js.executeScript("arguments[0].click();", link);  // 🔥 JS click (important)
-
+        js.executeScript("arguments[0].click();", link);  //  JS click
         System.out.println("Clicked Search Application via href");
     }
 

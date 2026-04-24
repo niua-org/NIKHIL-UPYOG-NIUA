@@ -7,15 +7,20 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 
 public class WaterTankerVendor {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
 
     //@PostConstruct
     public void WaterTankerVCreate() {
@@ -30,7 +35,7 @@ public class WaterTankerVendor {
     public void WaterTankerVCreate(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String applicationNumber) {
         System.out.println("Water Tanker Vendor Application");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -58,7 +63,9 @@ public class WaterTankerVendor {
         } catch (Exception e) {
             System.out.println("Exception in Water Tanker: " + e.getMessage());
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

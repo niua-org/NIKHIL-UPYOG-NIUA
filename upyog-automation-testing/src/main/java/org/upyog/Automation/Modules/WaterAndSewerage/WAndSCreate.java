@@ -7,14 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Utils.ConfigReader;
 import org.upyog.Automation.Utils.DriverFactory;
+import org.upyog.Automation.config.WebDriverFactory;
 
 import java.util.List;
 
 @Component
 public class WAndSCreate {
+
+    @Autowired
+    private WebDriverFactory webDriverFactory;
     //@PostConstruct
 
     public void WandSReg() {
@@ -28,7 +33,7 @@ public class WAndSCreate {
     public void WandSReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Community Hall Booking by Citizen");
 
-        WebDriver driver = DriverFactory.createChromeDriver();
+        WebDriver driver = webDriverFactory.createDriver();
         WebDriverWait wait = DriverFactory.createWebDriverWait(driver);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         Actions actions = new Actions(driver);
@@ -76,7 +81,9 @@ public class WAndSCreate {
             System.out.println("Exception in Water and Sewerage Connection: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 

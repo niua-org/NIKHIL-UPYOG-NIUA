@@ -71,7 +71,9 @@ public class WaterTankerCitizen {
         } catch (Exception e) {
             System.out.println("Exception in Water Tanker: " + e.getMessage());
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -157,7 +159,7 @@ public class WaterTankerCitizen {
 
         WebElement serviceTypeDropdown = dropdownSvgs.get(0);
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", serviceTypeDropdown);
-        Thread.sleep(500);
+        Thread.sleep(2000);
 
         try {
             serviceTypeDropdown.click();

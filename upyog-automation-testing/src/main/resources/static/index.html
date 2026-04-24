@@ -144,6 +144,7 @@
                         <option value="PROPERTY_TAX">Property Tax</option>
                         <option value="PUBLIC_GRIEVANCE_REDRESSAL">Public Grievance Redressal</option>
                         <option value="ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM">Online Building Plan Approval System</option>
+                        <option value="ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM_OC">Online Building Plan Approval System OC</option>
                         <option value="EWASTE_MANAGEMENT_SYSTEM">E-Waste</option>
                         <option value="ASSET_MANAGEMENT_SYSTEM">Asset Management</option>
                         <option value="COMMUNITY_HALL_BOOKING">Community Hall Booking </option>
@@ -264,7 +265,7 @@
             resultDiv.textContent = 'Running test...';
 
             try {
-                window.open('http://13.201.2.162:8000', '_blank');
+                window.open('http://65.0.8.57:8000', '_blank');
                 
                 const response = await fetch('/api/test/citizen', {
                     method: 'POST',
@@ -295,7 +296,7 @@
             resultDiv.textContent = 'Running test...';
 
             try {
-                window.open('http://13.201.2.162:8000', '_blank');
+                window.open('http://65.0.8.57:8080', '_blank');
                 
                 const response = await fetch('/api/test/employee', {
                     method: 'POST',
@@ -327,7 +328,7 @@
 
 
            try {
-           window.open('http://13.201.2.162:8000', '_blank');
+           window.open('http://65.0.8.57:8000', '_blank');
                const response = await fetch('/api/test/vendor', {
                    method: 'POST',
                    headers: { 'Content-Type': 'application/json' },
@@ -359,6 +360,18 @@
                const baseUrl = baseUrlField ? baseUrlField.value : "";
                switch (this.value) {
                    case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM":
+                       //  Base URL based switch
+                       if (baseUrl.includes("niuatt.niua")) {
+                           mobile = "7272727216"; // Architect (NIUATT)
+                       } else if (baseUrl.includes("upyog.niua")) {
+                           mobile = "8888888881"; // Architect (UPYOG)
+                       }
+                       break;
+                   default:
+                       break;
+               }
+               switch (this.value) {
+                   case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM_OC":
                        //  Base URL based switch
                        if (baseUrl.includes("niuatt.niua")) {
                            mobile = "7272727216"; // Architect (NIUATT)

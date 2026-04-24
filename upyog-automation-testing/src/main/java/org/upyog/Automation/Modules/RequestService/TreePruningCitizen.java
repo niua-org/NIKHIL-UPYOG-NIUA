@@ -75,7 +75,9 @@ public class TreePruningCitizen {
             System.out.println("Exception in Tree Pruning: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
@@ -162,7 +164,7 @@ public class TreePruningCitizen {
 
         WebElement serviceTypeDropdown = dropdownSvgs.get(0);
         js.executeScript("arguments[0].scrollIntoView({block:'center'});", serviceTypeDropdown);
-        Thread.sleep(500);
+        Thread.sleep(2000);
 
         try {
             serviceTypeDropdown.click();

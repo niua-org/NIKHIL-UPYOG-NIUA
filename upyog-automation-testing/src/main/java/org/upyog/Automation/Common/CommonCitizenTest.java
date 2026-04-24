@@ -1,5 +1,6 @@
 package org.upyog.Automation.Common;
 
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.upyog.Automation.Modules.RequestService.WaterTankerCitizen;
 import org.upyog.Automation.Modules.RequestService.MobileToiletCitizen;
 import org.upyog.Automation.Modules.WaterAndSewerage.WAndSCreate;
 import org.upyog.Automation.Modules.DesludgingService.DesludgingCreate;
+import org.upyog.Automation.config.WebDriverFactory;
 
 
 /**
@@ -69,101 +71,92 @@ public class CommonCitizenTest {
     @Autowired
     private chbCreate chbCreate;
 
-    public void runCitizenTest(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) {
+    @Autowired
+    private CnDRequest cndRequest;
+
+    @Autowired
+    private OBPASOcCreate obpasOcCreate;
+
+    @Autowired
+    private DesludgingCreate desludgingCreate;
+
+    @Autowired
+    private WAndSCreate wAndSCreate;
+
+    public void runCitizenTest(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) throws InterruptedException {
         logger.info("Starting {} citizen test", moduleName);
 
         try {
             switch (moduleName.toUpperCase()) {
 
                 case "STREET_VENDING":
-                    CreateApplication svApp = new CreateApplication();
-                    svApp.svCreateApplication(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    createApplication.svCreateApplication(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "TRADE_LICENSE":
-                    TradeLicenseCreate tlApp = new TradeLicenseCreate();
-                    tlApp.TradeLicenceCitizenReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    tradeLicenseCreate.TradeLicenceCitizenReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "PET_REGISTRATION":
-                    PetCreateApplication petApp = new PetCreateApplication();
-                    petApp.PetApptest(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    petCreateApplication.PetApptest(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "ADVERTISEMENT":
-                    AdvBookingCreate advApp = new AdvBookingCreate();
-                    advApp.AdvBookingReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    advBookingCreate.AdvBookingReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "TREE_PRUNING":
-                    TreePruningCitizen treePruningApp = new TreePruningCitizen();
-                    treePruningApp.TreePruningCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    treePruningCitizen.TreePruningCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "WATER_TANKER":
-                    WaterTankerCitizen waterTankerApp = new WaterTankerCitizen();
-                    waterTankerApp.WaterTankerCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
-                    break;
-
-                case "WATER_TANKER_VENDOR":
-                    WaterTankerCitizen waterTankerVendorApp = new WaterTankerCitizen();
-                    waterTankerVendorApp.WaterTankerCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    waterTankerCitizen.WaterTankerCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "MOBILE_TOILET":
-                    MobileToiletCitizen mobileToiletApp = new MobileToiletCitizen();
-                    mobileToiletApp.MobileToiletCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    mobileToiletCitizen.MobileToiletCreate(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "PROPERTY_TAX":
-                    PropertyTaxCreate propertyTaxApp = new PropertyTaxCreate();
-                    propertyTaxApp.NewPropertyReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    propertyTaxCreate.NewPropertyReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "PUBLIC_GRIEVANCE_REDRESSAL":
-                    PgrCreate pgrApp = new PgrCreate();
-                    pgrApp.PgrReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    pgrCreate.PgrReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM":
-                    OBPASCreate obpasApp = new OBPASCreate();
-                    obpasApp.OBPASReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
+                    obpasCreate.OBPASReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
                     break;
 
-
                 case "ONLINE_BUILDING_PLAN_APPROVAL_SYSTEM_OC":
-                    OBPASOcCreate obpasOcApp = new OBPASOcCreate();
-                    obpasOcApp.OBPASOCReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
+                    obpasOcCreate.OBPASOCReg(baseUrl, moduleName, mobileNumber, otp, cityName, permitNumber);
                     break;
 
                 case "EWASTE_MANAGEMENT_SYSTEM":
-                    EWasteCreate eWasteApp = new EWasteCreate();
-                    eWasteApp.EWasteReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    eWasteCreate.EWasteReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "COMMUNITY_HALL_BOOKING":
-                    chbCreate chbApp = new chbCreate();
-                    chbApp.chbReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    chbCreate.chbReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "CONSTRUCTION_AND_DEMOLITION":
-                    CnDRequest cndApp = new  CnDRequest();
-                    cndApp.CndReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    cndRequest.CndReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "DESLUDGING_SERVICE":
-                    DesludgingCreate desludgingApp = new  DesludgingCreate();
-                    desludgingApp.desludgingReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    desludgingCreate.desludgingReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 case "WATER_AND_SEWERAGE":
-                    WAndSCreate WAndSApp = new  WAndSCreate();
-                    WAndSApp.WandSReg(baseUrl, moduleName, mobileNumber, otp, cityName);
+                    wAndSCreate.WandSReg(baseUrl, moduleName, mobileNumber, otp, cityName);
                     break;
 
                 default:
                     logger.error("Unknown module: {}", moduleName);
                     throw new RuntimeException("Unknown module: " + moduleName);
+
             }
 
             logger.info("{} test completed", moduleName);
@@ -172,4 +165,5 @@ public class CommonCitizenTest {
             logger.error("Error in {} test: {}", moduleName, e.getMessage());
             throw new RuntimeException(e);
         }
-    }}
+    }
+    }

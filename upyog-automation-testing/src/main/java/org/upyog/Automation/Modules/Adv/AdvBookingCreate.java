@@ -96,7 +96,9 @@ public class AdvBookingCreate {
             System.out.println("Exception in Advertisement Booking: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // driver.quit();
+            if (driver != null) {
+                driver.quit();
+            }
         }
     }
 
