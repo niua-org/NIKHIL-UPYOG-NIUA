@@ -25,8 +25,8 @@ public class OBPASCreate {
 
     //@PostConstruct
 
-    public void OBPASReg() {
-        OBPASReg(ConfigReader.get("citizen.base.url"),
+    public void obpasReg() {
+        obpasReg(ConfigReader.get("citizen.base.url"),
                 "OBPAS",
                 ConfigReader.get("architect.mobile.number"),
                 ConfigReader.get("test.otp"),
@@ -34,7 +34,7 @@ public class OBPASCreate {
                 ConfigReader.get("permit.number"));
     }
 
-    public void OBPASReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) {
+    public void obpasReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName, String permitNumber) {
         System.out.println("OBPAS Registration by Citizen");
 
         WebDriver driver = webDriverFactory.createDriver();

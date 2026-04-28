@@ -23,15 +23,15 @@ public class CnDRequest {
 
     //@PostConstruct
 
-    public void CndReg() {
-        CndReg(ConfigReader.get("citizen.base.url"),
+    public void cndReg() {
+        cndReg(ConfigReader.get("citizen.base.url"),
                 "CnD",
                 ConfigReader.get("citizen.mobile.number"),
                 ConfigReader.get("test.otp"),
                 ConfigReader.get("test.city.name"));
     }
 
-    public void CndReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
+    public void cndReg(String baseUrl, String moduleName, String mobileNumber, String otp, String cityName) {
         System.out.println("Construction and Demolition Booking");
 
         WebDriver driver = webDriverFactory.createDriver();

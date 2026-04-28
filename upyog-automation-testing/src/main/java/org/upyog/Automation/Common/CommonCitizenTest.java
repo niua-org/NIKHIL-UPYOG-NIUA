@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.upyog.Automation.Modules.Adv.AdvBookingCreate;
 import org.upyog.Automation.Modules.CHB.ChbCreate;
-import org.upyog.Automation.Modules.CnD.CndRequest;
+import org.upyog.Automation.Modules.CnD.CnDRequest;
 import org.upyog.Automation.Modules.DesludgingService.DesludgingCreate;
 import org.upyog.Automation.Modules.EWaste.EWasteCreate;
-import org.upyog.Automation.Modules.OBPAS.ObpasCreate;
-import org.upyog.Automation.Modules.OBPAS.ObpasOcCreate;
+import org.upyog.Automation.Modules.OBPAS.OBPASCreate;
+import org.upyog.Automation.Modules.OBPAS.OBPASOcCreate;
 import org.upyog.Automation.Modules.Pet.PetCreateApplication;
 import org.upyog.Automation.Modules.PublicGrievanceRedressal.PgrCreate;
 import org.upyog.Automation.Modules.PropertyTax.PropertyTaxCreate;
@@ -60,7 +60,7 @@ public class CommonCitizenTest {
     private PgrCreate pgrCreate;
     
     @Autowired
-    private ObpasCreate obpasCreate;
+    private OBPASCreate obpasCreate;
     
     @Autowired
     private EWasteCreate eWasteCreate;
@@ -69,10 +69,10 @@ public class CommonCitizenTest {
     private ChbCreate chbCreate;
 
     @Autowired
-    private CndRequest cndRequest;
+    private CnDRequest cndRequest;
 
     @Autowired
-    private ObpasOcCreate obpasOcCreate;
+    private OBPASOcCreate obpasOcCreate;
 
     @Autowired
     private DesludgingCreate desludgingCreate;

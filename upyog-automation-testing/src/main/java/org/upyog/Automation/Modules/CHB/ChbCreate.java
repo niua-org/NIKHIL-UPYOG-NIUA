@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class chbCreate {
+public class ChbCreate {
 
     @Autowired
     private WebDriverFactory webDriverFactory;
