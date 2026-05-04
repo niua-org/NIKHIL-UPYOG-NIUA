@@ -42,6 +42,8 @@ public class BookingDetailRowmapper implements ResultSetExtractor<List<BookingDe
 						.paymentDate(rs.getLong("payment_date"))
 						.receiptNo(rs.getString("receipt_no"))
 						.permissionLetterFilestoreId(rs.getString("permission_letter_filestore_id"))
+						.applicantUuid(rs.getString("applicant_uuid"))
+						.addressDetailId(rs.getString("address_detail_id"))
 						.paymentReceiptFilestoreId(rs.getString("payment_receipt_filestore_id"))
 						.auditDetails(BookingUtil.getAuditDetails(rs))
 						.build();
@@ -55,8 +57,8 @@ public class BookingDetailRowmapper implements ResultSetExtractor<List<BookingDe
 				return bookingDetails;
 			}
 
-			currentBooking.setApplicantDetail(addApplicantDetail(rs));
-			currentBooking.setAddress(addApplicantAddress(rs));
+//			currentBooking.setApplicantDetail(addApplicantDetail(rs));
+//			currentBooking.setAddress(addApplicantAddress(rs));
 
 		}
 		bookingDetails.addAll(bookingDetailMap.values());

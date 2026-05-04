@@ -42,6 +42,8 @@ public class BookingConstants {
 	public static final String EMPLOYEE = "EMPLOYEE";
 	public static final String CITIZEN = "CITIZEN";
 
+	public static final String CITIZEN_NAME = "Citizen";
+
 	public static final String ADVERTISEMENT_BOOKING_UPDATED = "Your advertisement booking updated successfully";
 
 	public static final String ADV_APPLICANT_DETAIL_ENCRYPTION_KEY = "ADVApplicantDetail";

@@ -22,11 +22,7 @@ import org.springframework.util.CollectionUtils;
 import org.upyog.adv.constants.BookingConstants;
 import org.upyog.adv.enums.BookingStatusEnum;
 import org.upyog.adv.repository.BookingRepository;
-import org.upyog.adv.service.ADVEncryptionService;
-import org.upyog.adv.service.BookingService;
-import org.upyog.adv.service.DemandService;
-import org.upyog.adv.service.EnrichmentService;
-import org.upyog.adv.service.PaymentTimerService;
+import org.upyog.adv.service.*;
 import org.upyog.adv.util.BookingUtil;
 import org.upyog.adv.util.MdmsUtil;
 import org.upyog.adv.validator.BookingValidator;
@@ -42,6 +38,7 @@ import org.upyog.adv.web.models.BookingRequest;
 import digit.models.coremodels.PaymentDetail;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.upyog.adv.web.models.user.User;
 
 @Service
 @Slf4j
@@ -67,6 +64,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Autowired
 	private ADVEncryptionService encryptionService;
+
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public BookingDetail createBooking(@Valid BookingRequest bookingRequest) {
@@ -156,7 +156,8 @@ public class BookingServiceImpl implements BookingService {
 		if (CollectionUtils.isEmpty(bookingDetails)) {
 			return bookingDetails;
 		}
-		bookingDetails = encryptionService.decryptObject(bookingDetails, info);
+		userService.enrichBookingWithUserDetails(bookingDetails, advertisementSearchCriteria);
+//		bookingDetails = encryptionService.decryptObject(bookingDetails, info);
 
 		return bookingDetails;
 	}

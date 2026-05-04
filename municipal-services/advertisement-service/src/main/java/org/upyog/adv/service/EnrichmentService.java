@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,17 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.upyog.adv.config.BookingConfiguration;
+import org.upyog.adv.enums.AddressType;
 import org.upyog.adv.enums.BookingStatusEnum;
 import org.upyog.adv.repository.BookingRepository;
 import org.upyog.adv.repository.IdGenRepository;
 import org.upyog.adv.util.BookingUtil;
-import org.upyog.adv.web.models.AdvertisementDraftDetail;
-import org.upyog.adv.web.models.AuditDetails;
-import org.upyog.adv.web.models.BookingDetail;
-import org.upyog.adv.web.models.BookingRequest;
+import org.upyog.adv.web.models.*;
 import org.upyog.adv.web.models.idgen.IdResponse;
 
 import lombok.extern.slf4j.Slf4j;
+import org.upyog.adv.web.models.user.AddressV2;
+import org.upyog.adv.web.models.user.User;
 /**
  * Service class for enriching advertisement booking requests in the Advertisement Booking Service.
  * 
@@ -55,6 +56,9 @@ public class EnrichmentService {
 	@Lazy
 	private BookingRepository bookingRepository;
 
+	@Autowired
+	private UserService userService;
+
 	public void enrichCreateBookingRequest(BookingRequest bookingRequest) {
 		String bookingId = BookingUtil.getRandonUUID();
 		log.info("Enriching booking request for booking id :" + bookingId);
@@ -70,6 +74,7 @@ public class EnrichmentService {
 		bookingDetail.setBookingId(bookingId);
 		bookingDetail.setApplicationDate(auditDetails.getCreatedTime());
 		bookingDetail.setBookingStatus(BookingStatusEnum.valueOf(bookingDetail.getBookingStatus()).toString());
+		enrichUserDetails(bookingRequest);
 		
 		
 		//Updating id and status for cart details
@@ -99,7 +104,6 @@ public class EnrichmentService {
 	
 		
 		bookingDetail.getAddress().setAddressId(BookingUtil.getRandonUUID());
-		bookingDetail.getAddress().setApplicantDetailId(bookingDetail.getApplicantDetail().getApplicantDetailId());
 
 		List<String> customIds = getIdList(requestInfo, bookingDetail.getTenantId(),
 				config.getAdvertisementBookingIdKey(), config.getAdvertisementBookingIdFromat(), 1);
@@ -108,6 +112,110 @@ public class EnrichmentService {
 
 		bookingDetail.setBookingNo(customIds.get(0));
 
+	}
+
+	/**
+	 * Enriches the applicant and address detail IDs in the given application detail.
+	 * <p>
+	 * If the applicantDetailId is present, it attempts to fetch an existing user based on the request.
+	 * - If an existing user is found, sets the applicantDetailId accordingly.
+	 * - If not found, it creates a new user and sets both applicantDetailId and addressDetailId
+	 *   from the newly created user and their associated address.
+	 * </p>
+	 *
+	 * @param bookingRequest The full application request containing applicant and address info.
+	 */
+	private void enrichUserDetails(BookingRequest bookingRequest) {
+		BookingDetail bookingDetail = bookingRequest.getBookingApplication();
+		RequestInfo requestInfo = bookingRequest.getRequestInfo();
+		ApplicantDetail applicantDetail = bookingDetail.getApplicantDetail();
+		String tenantId = bookingDetail.getTenantId();
+		User existingUser = userService.fetchExistingUser(tenantId, applicantDetail, requestInfo);
+
+		if (existingUser != null) {
+			bookingDetail.setApplicantUuid(existingUser.getUuid());
+			log.info("Existing user found with ID: {}", existingUser.getUuid());
+
+			boolean applicantChanged = userService.hasApplicantDataChanged(existingUser, applicantDetail);
+			boolean addressChanged = userService.hasAddressDataChanged(existingUser, bookingDetail.getAddress());
+
+			// Case 1: only applicant details changed -> call CreateUser only
+			// Case 2: both changed -> call updateUser + updateUserAddress
+			// Case 3: only address changed -> call updateUserAddress only
+			if (applicantChanged) {
+				User newUser = userService.createUserHandler(requestInfo, applicantDetail,
+						bookingDetail.getAddress(), tenantId, bookingDetail.getBookingId());
+				log.info("New user created with ID: {}", newUser.getUuid());
+				bookingDetail.setApplicantUuid(newUser.getUuid());
+
+				if (newUser.getAddresses() != null) {
+					newUser.getAddresses().stream()
+							.filter(addr -> addr.getId() != null)
+							.findFirst()
+							.ifPresent(addr -> bookingDetail.setAddressDetailId(String.valueOf(addr.getId())));
+				}
+			}
+
+			if (addressChanged && !applicantChanged) {
+//				log.info("Address data changed for uuid: {}, calling updateUserAddress", existingUser.getUuid());
+//				AddressV2 updatedAddress = UserService.convertApplicantAddressToUserAddress(
+//						bookingDetail.getAddress(), BookingUtil.extractTenantId(tenantId));
+//				if (!CollectionUtils.isEmpty(existingUser.getAddresses()) && existingUser.getAddresses().get(0).getId() != null) {
+//					updatedAddress.setId(existingUser.getAddresses().get(0).getId());
+//				}
+//				userService.updateUserAddress(requestInfo, updatedAddress, existingUser.getUuid());
+//				bookingDetail.setAddressDetailId(updatedAddress.getId().toString());
+				enrichAddressDetails(bookingRequest, bookingDetail);
+
+			}
+
+			if (!applicantChanged && !addressChanged) {
+				log.info("No data change for uuid: {}, skipping update", existingUser.getUuid());
+			}
+			return;
+		}
+
+		// No existing user found — create new user with address
+		User newUser = userService.createUserHandler(requestInfo, applicantDetail,
+				bookingDetail.getAddress(), tenantId, bookingDetail.getBookingId());
+		log.info("New user created with ID: {}", newUser.getUuid());
+		bookingDetail.setApplicantUuid(newUser.getUuid());
+
+		if (newUser.getAddresses() != null) {
+			newUser.getAddresses().stream()
+					.filter(addr -> addr.getId() != null)
+					.findFirst()
+					.ifPresent(addr -> bookingDetail.setAddressDetailId(String.valueOf(addr.getId())));
+		}
+	}
+
+
+	/**
+	 * Enriches the address details in the given WaterTankerBookingDetail object by creating a new address
+	 * based on the user UUID provided in the WaterTankerBookingRequest object. If the new address is created
+	 * successfully, the addressDetailId in the WaterTankerBookingDetail object is updated.
+	 *
+	 * @param bookingRequest The request object containing necessary data for address creation.
+	 * @param bookingDetail The application details object to be enriched with the new address ID.
+	 */
+	private void enrichAddressDetails(BookingRequest bookingRequest, BookingDetail bookingDetail) {
+
+		// If applicant UUID is null or blank, throw custom exception
+		if (StringUtils.isBlank(bookingRequest.getBookingApplication().getApplicantUuid())) {
+			throw new CustomException("APPLICANT_UUID_NULL", "Applicant UUID is blank");
+		}
+
+		// Fetch the new address associated with the user's UUID
+		AddressV2 addressDetails = UserService.convertApplicantAddressToUserAddress(bookingRequest.getBookingApplication().getAddress(), BookingUtil.extractTenantId(bookingRequest.getBookingApplication().getTenantId()), AddressType.OTHER);
+		AddressV2 address = userService.createNewAddressV2ByUserUuid(addressDetails, bookingRequest.getRequestInfo(), bookingRequest.getBookingApplication().getApplicantUuid());
+
+		if (address != null) {
+			// Set the address detail ID in the booking detail
+			bookingDetail.setAddressDetailId(String.valueOf(address.getId()));
+			log.info("Address successfully enriched with ID: {}", address.getId());
+		} else {
+			throw new CustomException("ADDRESS_CREATION_FAILED", "Failed to create address for the given applicant UUID");
+		}
 	}
 
 	/**

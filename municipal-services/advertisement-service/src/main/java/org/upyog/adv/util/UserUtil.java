@@ -154,7 +154,7 @@ public class UserUtil {
         return role;
     }
 
-    public String getStateLevelTenant(String tenantId){
+    public static String getStateLevelTenant(String tenantId){
         return tenantId.split("\\.")[0];
     }
 

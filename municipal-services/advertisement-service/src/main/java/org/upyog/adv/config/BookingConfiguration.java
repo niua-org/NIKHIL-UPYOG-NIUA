@@ -119,6 +119,18 @@ public class BookingConfiguration {
 	@Value("${egov.user.update.path}")
 	private String userUpdateEndpoint;
 
+	@Value("${egov.user.v2.create.path}")
+	private String userCreateEndpointV2;
+
+	@Value("${egov.user.create.address.endpointv2}")
+	private String userCreateAddressEndpointV2;
+
+	@Value("${egov.user.update.address.endpointv2}")
+	private String userUpdateAddressEndpointV2;
+
+	@Value("${egov.user.v2.search.path}")
+	private String userSearchEndpointV2;
+
 	// NOTIFICATION TOPICS
 //	@Value("${kafka.topics.notification.sms}")
 //	private String smsNotifTopic;

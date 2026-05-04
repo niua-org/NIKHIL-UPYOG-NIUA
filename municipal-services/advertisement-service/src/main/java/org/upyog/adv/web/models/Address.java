@@ -3,6 +3,7 @@ package org.upyog.adv.web.models;
 import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.validation.annotation.Validated;
+import org.upyog.adv.enums.AddressType;
 import org.upyog.adv.validator.CreateApplicationGroup;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -61,4 +62,5 @@ public class Address {
 	@NotBlank(groups = CreateApplicationGroup.class)
 	private String pincode;
 
+	private AddressType addressType;
 }

@@ -45,13 +45,8 @@ public class AdvertisementBookingQueryBuilder {
 			"SELECT ecbd.booking_id, booking_no, payment_date, application_date, tenant_id,\n"
 					+ "booking_status,receipt_no, ecbd.createdby, ecbd.createdtime, \n"
 					+ "ecbd.lastmodifiedby, ecbd.lastmodifiedtime,ecbd.permission_letter_filestore_id, ecbd.payment_receipt_filestore_id, \n"
-					+ "appl.applicant_detail_id, applicant_name, applicant_email_id, applicant_mobile_no,\n"
-					+ "applicant_alternate_mobile_no, \n"
-					+ "address_id, door_no, house_no, address_line_1,address_line_2, \n"
-					+ "landmark, city, city_code, pincode, street_name, locality, locality_code \n"
-					+ "FROM public.eg_adv_booking_detail ecbd \n"
-					+ "join public.eg_adv_applicant_detail appl on ecbd.booking_id = appl.booking_id \n"
-					+ "join public.eg_adv_address_detail addr on appl.applicant_detail_id = addr.applicant_detail_id");
+					+ "ecbd.applicant_uuid, ecbd.address_detail_id \n"
+					+ "FROM public.eg_adv_booking_detail ecbd ");
 				  
 
 	private static final String slotDetailsQuery = "select * from public.eg_adv_cart_detail where booking_id in (";
@@ -152,8 +147,7 @@ public class AdvertisementBookingQueryBuilder {
 			+ " result) result_offset " + "WHERE offset_ > ? AND offset_ <= ?";
 
 	private static final String bookingDetailsCountCount = "SELECT count(ecbd.booking_id) \n"
-			+ "FROM public.eg_adv_booking_detail ecbd \n"
-			+ "join public.eg_adv_applicant_detail appl on ecbd.booking_id = appl.booking_id \n";
+			+ "FROM public.eg_adv_booking_detail ecbd \n";
 
 	public String insertBookingIdForTimer(String bookingId) {
 		return PAYMENT_TIMER_QUERY;

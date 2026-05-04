@@ -44,6 +44,10 @@ public class BookingDetail {
 	private String draftId;
 	
 	private Long applicationDate;
+
+	private String applicantUuid;
+
+	private String addressDetailId;
 	
 	@NotBlank(groups = CreateApplicationGroup.class)
 	private String tenantId;

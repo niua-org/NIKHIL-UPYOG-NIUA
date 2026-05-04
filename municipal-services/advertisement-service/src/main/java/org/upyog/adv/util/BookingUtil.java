@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -152,6 +153,30 @@ public class BookingUtil {
 		LocalDate monthsAgo = currentDate.minusMonths(month);
 		
         return monthsAgo;
+	}
+
+	/**
+	 * Converts date string to long using LocalDateTime
+	 *
+	 * @param date   Date string to be parsed
+	 * @param format Format of the date string
+	 * @return Long value of date in milliseconds
+	 */
+	public static Long dateTolong(String date, String format) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+		// If format includes time, use LocalDateTime; otherwise, use LocalDate
+		if (format.contains("H") || format.contains("m") || format.contains("s")) {
+			LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+			return dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+		} else {
+			LocalDate localDate = LocalDate.parse(date, formatter);
+			return localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+		}
+	}
+
+	public static String extractTenantId(String tenantId) {
+		return tenantId.split("\\.")[0];
 	}
 
 }
